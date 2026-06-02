@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS — BA-PTBD-REDESIGN
+   Source: Figma skills /ba-ptbd-redesign + /design-system-ba-ptbd-redesign
+   DO NOT hardcode values — always use these CSS variables
+   ============================================================ */
+
+:root {
+  /* --- Colors --- */
+  --white:               #FFFFFF;
+  --black:               #1A1A1A;
+  --grey-text:           #5C5C5C;
+  --grey-border:         #C3C3C3;
+  --grey-bg:             #E8E8E8;
+
+  --cta:                 #2D5B8D;   /* Primary button background */
+  --cta-hover:           #0B72B2;   /* Primary button hover */
+  --cta-brand:           #CD1719;   /* Red accent, active nav, italic text */
+  --red-dark-primary:    #A81315;   /* Red hover */
+  --red-soft:            #FF6B6B;   /* Decorative lines, error soft */
+  --red-bg:              #FEF5F0;   /* Step cards background */
+  --red-light-system:    #FFEAEA;   /* DSGVO card, error backgrounds */
+
+  --blue-subtle:         #D6EBFF;   /* Tab active background */
+  --blue-ultra-light:    #ECF5FF;   /* Section backgrounds, benefit cards */
+
+  --green:               #33700E;   /* Kassenerstattung border */
+  --green-light:         #EDFAEB;   /* Kassenerstattung background, Sichere Verbindung card */
+  --yellow:              #FFBB27;   /* Warning */
+  --yellow-light:        #FFF7E0;   /* Warning background */
+
+  /* --- Spacing (px values) --- */
+  --badge-padding:          8px;
+  --button-padding-height:  12px;
+  --button-padding-width:   24px;
+  --input-padding:          12px;
+  --card-padding-s:         16px;
+  --card-padding-m:         24px;
+  --card-padding-l:         32px;
+  --section-padding-height: 64px;
+  --section-padding-width:  80px;
+  --page-top-padding:       120px;
+  --between-elements:       8px;
+  --between-components:     16px;
+  --between-cards:          24px;
+  --between-groups:         32px;
+  --between-sections:       80px;
+
+  /* --- Border Radius --- */
+  --radius-s:      4px;
+  --radius-m:      8px;
+  --radius-l:      12px;
+  --radius-xl:     16px;
+  --radius-xxl:    24px;
+  --radius-circle: 9999px;
+
+  /* --- Motion --- */
+  --duration-fast:   120ms;
+  --duration-base:   200ms;
+  --ease-standard:   cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- Layout --- */
+  --max-width:    1280px;
+  --page-side:    var(--section-padding-width);
+}
+
+/* === RESET === */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--black);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* === TYPOGRAPHY UTILITIES === */
+/* Titles */
+.t-h1 { font-size: 64px; font-weight: 600; line-height: 1.3; }
+.t-h2 { font-size: 32px; font-weight: 600; line-height: 1.3; }
+.t-h3 { font-size: 28px; font-weight: 500; line-height: 1.3; }
+.t-h4 { font-size: 24px; font-weight: 500; line-height: 1.3; }
+.t-h5 { font-size: 20px; font-weight: 500; line-height: 1.4; }
+/* Body */
+.t-body-l-reg { font-size: 18px; font-weight: 400; line-height: 1.5; }
+.t-body-l-med { font-size: 18px; font-weight: 500; line-height: 1.5; }
+.t-body-m-reg { font-size: 16px; font-weight: 400; line-height: 1.5; }
+.t-body-m-med { font-size: 16px; font-weight: 500; line-height: 1.5; }
+.t-body-m-bold { font-size: 16px; font-weight: 700; line-height: 1.5; }
+.t-body-s-reg { font-size: 14px; font-weight: 400; line-height: 1.5; }
+.t-body-s-med { font-size: 14px; font-weight: 500; line-height: 1.5; }
+/* Buttons */
+.t-btn-l { font-size: 16px; font-weight: 500; line-height: 1; }
+.t-btn-s { font-size: 14px; font-weight: 500; line-height: 1; }
+/* Label / Caption */
+.t-label { font-size: 12px; font-weight: 600; line-height: 1.4; letter-spacing: 0; }
+.t-caption { font-size: 11px; font-weight: 400; line-height: 1.4; }
+
+/* Mobile typography scale */
+@media (max-width: 900px) {
+  .t-h1 { font-size: 40px; }
+  .t-h2 { font-size: 28px; }
+  .t-h3 { font-size: 24px; }
+  .t-h4 { font-size: 20px; }
+  .t-h5 { font-size: 18px; }
+  .t-body-l-reg, .t-body-l-med { font-size: 16px; }
+  .t-body-m-reg, .t-body-m-med, .t-body-m-bold { font-size: 15px; }
+  .t-body-s-reg, .t-body-s-med { font-size: 13px; }
+}
+
+/* === SCROLLBAR HIDE === */
+* { scrollbar-width: none; }
+*::-webkit-scrollbar { display: none; }
