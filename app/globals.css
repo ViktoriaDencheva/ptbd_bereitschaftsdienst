@@ -11,7 +11,7 @@
   /* --- Colors --- */
   --white:               #FFFFFF;
   --black:               #1A1A1A;
-  --grey-text:           #5C5C5C;
+  --grey-text:           #2A2A2A;
   --grey-border:         #C3C3C3;
   --grey-bg:             #E8E8E8;
 
@@ -66,6 +66,14 @@
   --page-side:    var(--section-padding-width);
 }
 
+/* === RESPONSIVE LAYOUT === */
+.layout-mobile { display: none !important; }
+.layout-desktop { display: grid !important; }
+@media (max-width: 1070px) {
+  .layout-mobile { display: block !important; }
+  .layout-desktop { display: none !important; }
+}
+
 /* === RESET === */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -74,7 +82,6 @@ body {
   color: var(--black);
   background: var(--white);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 /* === TYPOGRAPHY UTILITIES === */
@@ -99,8 +106,83 @@ body {
 .t-label { font-size: 12px; font-weight: 600; line-height: 1.4; letter-spacing: 0; }
 .t-caption { font-size: 11px; font-weight: 400; line-height: 1.4; }
 
+
+
+/* Desktop section spacing — 64px top & bottom за всички секции */
+@media (min-width: 1071px) {
+  .how-desktop,
+  .steps-desktop,
+  .therapist-desktop,
+  .daten-desktop,
+  .warum-desktop,
+  .mein-desktop,
+  .td-desktop,
+  .minifaq-section {
+    padding-top: 64px !important;
+    padding-bottom: 64px !important;
+  }
+}
+
+/* Intermediate breakpoint — 901px to 1280px (tablet-wide / small laptop) */
+@media (min-width: 1071px) and (max-width: 1280px) {
+  .how-desktop,
+  .steps-desktop,
+  .therapist-desktop,
+  .daten-desktop,
+  .warum-desktop,
+  .mein-desktop,
+  .td-desktop {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+  /* Hero text padding */
+  .hero-desktop-inner {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+  /* MiniFAQ */
+  .minifaq-section {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+  /* SocialProof */
+  .sp-desktop {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+}
+
+/* Mobile CSS variables override */
+@media (max-width: 1070px) {
+  :root {
+    --page-side: 16px;
+    --section-padding-width: 16px;
+  }
+}
+
+/* Mobile section spacing — еднакво между секциите */
+@media (max-width: 1070px) {
+  /* Reset всякакво padding/margin на <section> wrapper елементите */
+  main > div > section {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  /* Всяка мобилна секция вътрешно: 24px top + 24px bottom = 48px gap между секции */
+  .warum-mobile,
+  .mein-mobile,
+  .therapist-mob,
+  .td-mobile,
+  .daten-mobile,
+  .steps-mobile,
+  .how-layout-mobile {
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+  }
+  /* MiniFAQ uses section itself, handle via component style */
+}
+
 /* Mobile typography scale */
-@media (max-width: 900px) {
+@media (max-width: 1070px) {
   .t-h1 { font-size: 40px; }
   .t-h2 { font-size: 28px; }
   .t-h3 { font-size: 24px; }
@@ -109,6 +191,48 @@ body {
   .t-body-l-reg, .t-body-l-med { font-size: 16px; }
   .t-body-m-reg, .t-body-m-med, .t-body-m-bold { font-size: 15px; }
   .t-body-s-reg, .t-body-s-med { font-size: 13px; }
+}
+
+/* === PHOTO CONSISTENCY — топъл, естествен тон === */
+.photo-warm {
+  filter: saturate(0.92) brightness(1.02) contrast(0.97);
+}
+
+/* === PREIS RANGE SLIDER === */
+.preis-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 9999px;
+  outline: none;
+}
+.preis-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #0B72B2;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(11,114,178,0.35);
+}
+.preis-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #0B72B2;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(11,114,178,0.35);
+}
+.preis-range::-moz-range-track {
+  height: 6px;
+  border-radius: 9999px;
+}
+
+@media (min-width: 1071px) {
+  .breadcrumb-wrap { padding: 20px 80px !important; }
 }
 
 /* === SCROLLBAR HIDE === */

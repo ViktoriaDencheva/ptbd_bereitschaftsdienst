@@ -18,7 +18,7 @@ export default function MiniFAQ() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section style={{ background: "white", padding: "32px var(--page-side) 48px" }}>
+    <section className="minifaq-section" style={{ background: "white", padding: 0 }}>
       <div style={{ maxWidth: "var(--max-width)", margin: "0 auto" }}>
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: 48, display: "flex", flexDirection: "column", gap: 16 }}>
@@ -35,7 +35,7 @@ export default function MiniFAQ() {
             Hier findest Du Antworten auf die wichtigsten Fragen rund um unsere Plattform und den Ablauf der Unterstützung.{" "}
             <br />
             Bei weiteren Fragen kannst Du uns jederzeit{" "}
-            <a href="#" style={{ color: "var(--blue-primary)", textDecoration: "underline" }}>kontaktieren.</a>
+            <a href="#" style={{ color: "#0B72B2", textDecoration: "underline" }}>kontaktieren.</a>
           </p>
         </div>
 
@@ -54,7 +54,7 @@ export default function MiniFAQ() {
                   justifyContent: "space-between",
                   padding: 16,
                   background: "none", border: "none",
-                  borderBottom: `1px solid var(--grey-border)`,
+                  borderBottom: open === i ? "none" : `1px solid var(--grey-border)`,
                   cursor: "pointer",
                   textAlign: "left", gap: 16,
                 }}
@@ -90,6 +90,14 @@ export default function MiniFAQ() {
           ))}
         </div>
       </div>
+      <style>{`
+        .minifaq-section { padding: 32px var(--page-side) 48px; }
+        @media (max-width: 1070px) {
+          .minifaq-section { padding: 24px 16px !important; }
+          .minifaq-section h2 { font-size: 28px !important; }
+          .minifaq-section p { font-size: 16px !important; }
+        }
+      `}</style>
     </section>
   );
 }
