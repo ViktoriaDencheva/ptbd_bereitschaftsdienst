@@ -209,10 +209,10 @@ export default function VorgespraechPage() {
             alignItems: "center",
             paddingTop: isMobile ? 28 : 48,
           }}>
-            {/* Left: image with border-radius */}
-            <div style={{ borderRadius: 20, overflow: "hidden", aspectRatio: "4/3" }}>
-              <img src="/fachkraefte/specialist-howtostart.jpg" alt="Spezialistin"
-                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+            {/* Left: hero image — light background, show full */}
+            <div style={{ borderRadius: 20, overflow: "hidden", background: "#EEF4FC", display: "flex", alignItems: "flex-end", justifyContent: "center", minHeight: isMobile ? 280 : 460 }}>
+              <img src="/vorgespraech-banner.png" alt="Spezialistin"
+                style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "bottom center", display: "block", maxHeight: isMobile ? 280 : 480 }} />
             </div>
 
             {/* Right: content */}
