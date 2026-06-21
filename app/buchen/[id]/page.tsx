@@ -963,15 +963,15 @@ function Confirmation({
             </div>
           </div>
 
-          {/* CTA buttons — full width on mobile */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+          {/* CTA buttons — full width on mobile, side by side on desktop */}
+          <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 10 }}>
             <a href="/anmelden"
-              style={{ display: "block", textAlign: "center", background: "var(--cta)", color: "white", borderRadius: 9999, padding: "13px 24px", fontFamily: F, fontWeight: 700, fontSize: 14, textDecoration: "none", transition: "all 0.2s", boxShadow: "0 4px 16px rgba(45,91,141,0.3)", boxSizing: "border-box" as const }}
+              style={{ display: "block", textAlign: "center", background: "var(--cta)", color: "white", borderRadius: 9999, padding: "13px 24px", fontFamily: F, fontWeight: 700, fontSize: 14, textDecoration: "none", transition: "all 0.2s", boxShadow: "0 4px 16px rgba(45,91,141,0.3)", boxSizing: "border-box" as const, flex: 1 }}
               onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "var(--cta-hover)"; e.currentTarget.style.boxShadow = "0 6px 20px rgba(45,91,141,0.4)"; }}
               onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "var(--cta)"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(45,91,141,0.3)"; }}
             >Anmelden</a>
             <a href="/registrieren"
-              style={{ display: "block", textAlign: "center", background: "rgba(255,255,255,0.75)", color: "var(--cta)", borderRadius: 9999, padding: "13px 24px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", border: "1.5px solid var(--cta)", transition: "all 0.2s", boxSizing: "border-box" as const }}
+              style={{ display: "block", textAlign: "center", background: "rgba(255,255,255,0.75)", color: "var(--cta)", borderRadius: 9999, padding: "13px 24px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", border: "1.5px solid var(--cta)", transition: "all 0.2s", boxSizing: "border-box" as const, flex: 1 }}
               onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "white"; }}
               onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "rgba(255,255,255,0.75)"; }}
             >Konto erstellen</a>
