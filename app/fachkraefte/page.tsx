@@ -886,7 +886,6 @@ function TherapistCard({ t, isMobile = false }: { t: typeof therapists[0]; isMob
         border: hovered ? "1px solid transparent" : "1px solid #EBEBEB",
         padding: isMobile ? 0 : "0 28px 0 0",
         display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 0 : 28, alignItems: "stretch",
-        maxHeight: isMobile ? "none" : 230,
         transition: "box-shadow 0.2s ease",
         cursor: "pointer",
         position: "relative",
@@ -903,7 +902,7 @@ function TherapistCard({ t, isMobile = false }: { t: typeof therapists[0]; isMob
       </div>
 
       {/* Main content — 2-row layout */}
-      <div className="fk-card-content" style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: isMobile ? 12 : 20, padding: isMobile ? "16px 16px 16px" : "22px 0 20px" }}>
+      <div className="fk-card-content" style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: isMobile ? 12 : 14, padding: isMobile ? "16px 16px 16px" : "18px 0 18px" }}>
 
         {/* Top row: name/role + price */}
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 }}>
@@ -920,8 +919,8 @@ function TherapistCard({ t, isMobile = false }: { t: typeof therapists[0]; isMob
                 </div>
               )}
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 6, flexWrap: "wrap" }}>
-              <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 13, color: "var(--grey-text)" }}>{t.role}</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 6, flexWrap: "nowrap", overflow: "hidden" }}>
+              <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 13, color: "var(--grey-text)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", minWidth: 0 }}>{t.role}</span>
               {(t.angebot === "online" || t.angebot === "beides") && (
                 <span style={{ padding: "2px 8px", borderRadius: 9999, fontSize: 11, fontFamily: "'Poppins',sans-serif", fontWeight: 500, background: "transparent", color: "var(--cta)", border: "1.5px solid var(--cta)", whiteSpace: "nowrap", flexShrink: 0 }}>Online</span>
               )}
