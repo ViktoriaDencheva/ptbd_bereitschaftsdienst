@@ -109,14 +109,24 @@ export default function VorgespraechPage() {
       <Navbar />
 
       {/* ── HERO ─────────────────────────────────────────────── */}
-      <section style={{ background: "white", borderBottom: "1px solid #EEF2F7", paddingTop: isMobile ? 100 : 110 }}>
-        <div style={{ maxWidth: 1180, margin: "0 auto", padding: isMobile ? "32px 20px 40px" : "56px 32px 64px", display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 36 : 64, alignItems: "flex-start" }}>
+      <section style={{ background: "white", borderBottom: "1px solid #EEF2F7", paddingTop: isMobile ? 80 : 88 }}>
+        <div style={{ maxWidth: 1180, margin: "0 auto", padding: isMobile ? "0 20px" : "0 32px" }}>
 
-          {/* LEFT: photo + trust badge */}
-          <div style={{ flexShrink: 0, width: isMobile ? "100%" : 420, display: "flex", flexDirection: "column", gap: 20 }}>
-            <div style={{ borderRadius: 20, overflow: "hidden", position: "relative", height: isMobile ? 220 : 300, background: "#D6EBFF" }}>
+          {/* Breadcrumbs */}
+          <nav style={{ display: "flex", alignItems: "center", gap: 6, padding: isMobile ? "16px 0 0" : "20px 0 0" }}>
+            <a href="/" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}>Home</a>
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="#C3C3C3" strokeWidth="1.8" strokeLinecap="round"/></svg>
+            <span style={{ fontFamily: F, fontSize: 13, color: CTA, fontWeight: 500 }}>Kostenloses Erstgespräch</span>
+          </nav>
+        </div>
+
+        <div style={{ maxWidth: 1180, margin: "0 auto", padding: isMobile ? "24px 20px 40px" : "32px 32px 64px", display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 32 : 56, alignItems: "stretch" }}>
+
+          {/* LEFT: photo full height */}
+          <div style={{ flexShrink: 0, width: isMobile ? "100%" : 460, display: "flex", flexDirection: "column", gap: 20 }}>
+            <div style={{ borderRadius: 20, overflow: "hidden", position: "relative", height: isMobile ? 260 : "100%", minHeight: isMobile ? 260 : 440, background: "#EEF4FC" }}>
               <img
-                src="/fachkraefte/fachkraft-1.jpg"
+                src="/fachkraefte/specialist-howtostart.jpg"
                 alt="Therapeutin"
                 style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
               />
@@ -130,16 +140,6 @@ export default function VorgespraechPage() {
                   <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: "2px 0 0" }}>Kostenlos · Vertraulich · 20 Min.</p>
                 </div>
               </div>
-            </div>
-
-            {/* Benefits */}
-            <div style={{ background: "var(--blue-ultra-light)", borderRadius: 16, padding: "20px 24px", display: "flex", flexDirection: "column", gap: 12 }}>
-              {BENEFITS.map(b => (
-                <div key={b} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <CheckIcon />
-                  <span style={{ fontFamily: F, fontSize: 14, fontWeight: 500, color: "var(--black)" }}>{b}</span>
-                </div>
-              ))}
             </div>
           </div>
 
@@ -158,7 +158,6 @@ export default function VorgespraechPage() {
               <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--grey-text)", margin: "0 0 16px", textTransform: "uppercase", letterSpacing: "0.06em" }}>Wie funktioniert das?</p>
               {STEPS.map((s, i) => (
                 <div key={i} style={{ display: "flex", gap: 16, position: "relative", paddingBottom: i < STEPS.length - 1 ? 20 : 0 }}>
-                  {/* line */}
                   {i < STEPS.length - 1 && (
                     <div style={{ position: "absolute", left: 18, top: 36, bottom: 0, width: 2, background: "#E8EFF8" }} />
                   )}
@@ -169,6 +168,27 @@ export default function VorgespraechPage() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Benefits */}
+            <div style={{ background: "var(--blue-ultra-light)", borderRadius: 16, padding: "18px 22px", display: "flex", flexDirection: "column", gap: 10 }}>
+              {BENEFITS.map(b => (
+                <div key={b} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <CheckIcon />
+                  <span style={{ fontFamily: F, fontSize: 14, fontWeight: 500, color: "var(--black)" }}>{b}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Cross-nav — visible in hero */}
+            <div style={{ background: "white", border: "1px solid #DDE8F5", borderRadius: 14, padding: "16px 20px", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between", gap: 12 }}>
+              <div>
+                <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)", margin: "0 0 2px" }}>Lieber selbst Orientierung erhalten?</p>
+                <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: 0 }}>Beantworte 5 kurze Fragen und erhalte passende Empfehlungen.</p>
+              </div>
+              <a href="/orientierungstest" style={{ flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 6, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "7px 16px", whiteSpace: "nowrap" }}>
+                Orientierungstest →
+              </a>
             </div>
           </div>
         </div>
@@ -367,23 +387,6 @@ export default function VorgespraechPage() {
           </div>
         )}
 
-        {/* ── Cross-nav banner ────────────────────────────────── */}
-        <div style={{ maxWidth: 780, margin: "32px auto 0", background: "white", border: "1px solid #DDE8F5", borderRadius: 16, padding: isMobile ? "18px 20px" : "18px 28px", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between", gap: 14 }}>
-          <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-            <div style={{ width: 36, height: 36, borderRadius: 10, background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-              <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="var(--cta)" strokeWidth="1.6"/><path d="M12 8v4l3 3" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round"/></svg>
-            </div>
-            <div>
-              <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: 0 }}>Lieber selbst Orientierung erhalten?</p>
-              <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: "2px 0 0" }}>Beantworte ein paar kurze Fragen und erhalte passende Empfehlungen.</p>
-            </div>
-          </div>
-          <a href="/orientierungstest" style={{ flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 6, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", border: "1.5px solid var(--cta)", borderRadius: 9999, padding: "8px 18px", whiteSpace: "nowrap", transition: "all 0.2s" }}
-            onMouseEnter={e => { e.currentTarget.style.background = CTA; e.currentTarget.style.color = "white"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = CTA; }}>
-            Orientierungstest starten →
-          </a>
-        </div>
       </section>
 
       <Footer />
