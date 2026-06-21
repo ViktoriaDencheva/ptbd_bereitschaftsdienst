@@ -769,10 +769,11 @@ function FilterSidebar({ suche, setSuche, fachrichtung, setFachrichtung, angebot
 }
 
 // â"€â"€â"€ Therapist Card â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
-function TherapistCard({ t, isMobile = false }: { t: typeof therapists[0]; isMobile?: boolean }) {
+function TherapistCard({ t, isMobile = false, winW = 1440 }: { t: typeof therapists[0]; isMobile?: boolean; winW?: number }) {
   const [hovered, setHovered] = useState(false);
   const avail = availColors[t.availability] ?? availColors.later;
-  const LIMIT = 2;
+  const narrowDesktop = !isMobile && winW < 1400;
+  const LIMIT = narrowDesktop ? 2 : t.tags.length;
   const visibleTags = t.tags.slice(0, LIMIT);
   const extraTags = t.tags.length > LIMIT ? t.tags.length - LIMIT : 0;
 
@@ -967,9 +968,9 @@ function TherapistCard({ t, isMobile = false }: { t: typeof therapists[0]; isMob
         </div>
 
         {/* Bottom row: tags LEFT + buttons RIGHT — perfectly aligned */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+        <div style={{ display: "flex", alignItems: narrowDesktop ? "center" : "flex-start", justifyContent: "space-between", gap: 16 }}>
           {/* Tags */}
-          <div style={{ display: "flex", gap: 8, flexWrap: "nowrap", alignItems: "center", flex: 1, minWidth: 0, overflow: "hidden" }}>
+          <div style={{ display: "flex", gap: 8, flexWrap: narrowDesktop ? "nowrap" : "wrap", alignItems: "center", flex: 1, minWidth: 0, overflow: narrowDesktop ? "hidden" : "visible" }}>
             <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", fontWeight: 500, flexShrink: 0 }}>Hilft bei:</span>
             {visibleTags.map(tag => (
               <span key={tag} style={{ background: "#F5F8FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "5px 14px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--black)" }}>{tag}</span>
@@ -1239,7 +1240,7 @@ export default function FachkraeftePage() {
             )}
             {/* Cards */}
             <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-              {paginated.length > 0 ? paginated.map(t => <TherapistCard key={t.id} t={t} isMobile={isMobile} />) : (
+              {paginated.length > 0 ? paginated.map(t => <TherapistCard key={t.id} t={t} isMobile={isMobile} winW={winW} />) : (
                 <div style={{ padding: "60px 0", textAlign: "center", fontFamily: "'Poppins',sans-serif", fontSize: 15, color: "var(--grey-text)" }}>
                   Keine Fachkräfte gefunden. Bitte passe deine Filter an.
                 </div>
