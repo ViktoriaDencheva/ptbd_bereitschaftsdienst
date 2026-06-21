@@ -75,7 +75,7 @@ export default function VorgespraechPage() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [step, setStep] = useState<"calendar" | "form" | "confirm">("calendar");
-  const [form, setForm] = useState({ name: "", email: "", topic: "" });
+  const [form, setForm] = useState({ name: "", email: "", topic: "", format: "online" });
   const [submitted, setSubmitted] = useState(false);
 
   const daysInMonth = getDaysInMonth(viewYear, viewMonth);
@@ -108,18 +108,19 @@ export default function VorgespraechPage() {
     <main style={{ background: "#F8FAFC", minHeight: "100vh" }}>
       <Navbar />
 
+      {/* ── Breadcrumbs ── */}
+      <div style={{ maxWidth: 1440, margin: "0 auto", padding: "14px 16px" }} className="breadcrumb-wrap">
+        <nav style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+          <a href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none", fontWeight: 400 }}
+            onMouseEnter={e => (e.currentTarget.style.color = CTA)}
+            onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>Home</a>
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
+          <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>Kostenloses Erstgespräch</span>
+        </nav>
+      </div>
+
       {/* ── HERO ─────────────────────────────────────────────── */}
-      <section style={{ background: "white", borderBottom: "1px solid #EEF2F7", paddingTop: isMobile ? 80 : 88 }}>
-        <div style={{ maxWidth: 1180, margin: "0 auto", padding: isMobile ? "0 20px" : "0 32px" }}>
-
-          {/* Breadcrumbs */}
-          <nav style={{ display: "flex", alignItems: "center", gap: 6, padding: isMobile ? "16px 0 0" : "20px 0 0" }}>
-            <a href="/" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}>Home</a>
-            <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="#C3C3C3" strokeWidth="1.8" strokeLinecap="round"/></svg>
-            <span style={{ fontFamily: F, fontSize: 13, color: CTA, fontWeight: 500 }}>Kostenloses Erstgespräch</span>
-          </nav>
-        </div>
-
+      <section style={{ background: "white", borderBottom: "1px solid #EEF2F7" }}>
         <div style={{ maxWidth: 1180, margin: "0 auto", padding: isMobile ? "24px 20px 40px" : "32px 32px 64px", display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 32 : 56, alignItems: "stretch" }}>
 
           {/* LEFT: photo full height */}
@@ -180,16 +181,20 @@ export default function VorgespraechPage() {
               ))}
             </div>
 
-            {/* Cross-nav — visible in hero */}
-            <div style={{ background: "white", border: "1px solid #DDE8F5", borderRadius: 14, padding: "16px 20px", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between", gap: 12 }}>
-              <div>
-                <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)", margin: "0 0 2px" }}>Lieber selbst Orientierung erhalten?</p>
-                <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: 0 }}>Beantworte 5 kurze Fragen und erhalte passende Empfehlungen.</p>
+            {/* Cross-nav — prominent */}
+            <a href="/orientierungstest" style={{ textDecoration: "none", display: "block", background: `linear-gradient(135deg, var(--cta) 0%, #1A4A7A 100%)`, borderRadius: 16, padding: isMobile ? "20px" : "24px 28px", color: "white", transition: "transform 0.2s, box-shadow 0.2s", boxShadow: "0 4px 20px rgba(45,91,141,0.25)" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 28px rgba(45,91,141,0.35)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "none"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 20px rgba(45,91,141,0.25)"; }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                <div style={{ width: 44, height: 44, borderRadius: 12, background: "rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke="white" strokeWidth="1.8" strokeLinecap="round"/><path d="M9 12l2 2 4-4" stroke="white" strokeWidth="1.8" strokeLinecap="round"/></svg>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "white", margin: "0 0 3px" }}>Lieber selbst herausfinden, was zu Dir passt?</p>
+                  <p style={{ fontFamily: F, fontSize: 13, color: "rgba(255,255,255,0.8)", margin: 0 }}>Orientierungstest starten — 5 Fragen, sofortige Empfehlung →</p>
+                </div>
               </div>
-              <a href="/orientierungstest" style={{ flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 6, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "7px 16px", whiteSpace: "nowrap" }}>
-                Orientierungstest →
-              </a>
-            </div>
+            </a>
           </div>
         </div>
       </section>
@@ -313,6 +318,37 @@ export default function VorgespraechPage() {
                         rows={3}
                         style={{ width: "100%", borderRadius: 10, border: "1.5px solid #DDE8F5", padding: "12px 14px", fontFamily: F, fontSize: 14, color: "var(--black)", outline: "none", boxSizing: "border-box", resize: "vertical", background: "white", lineHeight: 1.5 }} />
                     </div>
+                    {/* Format */}
+                    <div>
+                      <label style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: "var(--black)", display: "block", marginBottom: 10 }}>Gesprächsformat</label>
+                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                        {[
+                          { value: "online", label: "Online", sub: "Per Videoanruf", icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg> },
+                          { value: "vor-ort", label: "Vor Ort", sub: "PTBD Büro Wien", icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke="currentColor" strokeWidth="1.6"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.6"/></svg> },
+                        ].map(opt => {
+                          const sel = form.format === opt.value;
+                          return (
+                            <button key={opt.value} type="button" onClick={() => setForm(p => ({ ...p, format: opt.value }))}
+                              style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, padding: "14px 12px", borderRadius: 12, border: sel ? `2px solid ${CTA}` : "1.5px solid #DDE8F5", background: sel ? "var(--blue-ultra-light)" : "white", cursor: "pointer", color: sel ? CTA : "var(--grey-text)", transition: "all 0.15s" }}>
+                              {opt.icon}
+                              <span style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: sel ? CTA : "var(--black)" }}>{opt.label}</span>
+                              <span style={{ fontFamily: F, fontSize: 11, color: "var(--grey-text)" }}>{opt.sub}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                      {form.format === "vor-ort" && (
+                        <div style={{ marginTop: 10, background: "#F8FAFC", borderRadius: 10, padding: "10px 14px", display: "flex", gap: 8, alignItems: "flex-start" }}>
+                          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" style={{ flexShrink: 0, marginTop: 1 }}><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke="var(--cta)" strokeWidth="1.6"/><circle cx="12" cy="10" r="2" stroke="var(--cta)" strokeWidth="1.6"/></svg>
+                          <span style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", lineHeight: 1.5 }}>
+                            <strong style={{ color: "var(--black)" }}>PTBD Beratungsstelle Wien</strong><br />
+                            Mariahilfer Straße 47/3, 1060 Wien<br />
+                            Mo–Fr 09:00–17:00 Uhr
+                          </span>
+                        </div>
+                      )}
+                    </div>
+
                     <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>
                       Deine Daten werden ausschließlich zur Terminvereinbarung verwendet und streng vertraulich behandelt.
                     </p>
@@ -369,21 +405,78 @@ export default function VorgespraechPage() {
             </div>
           </div>
         ) : (
-          /* Success state */
-          <div style={{ background: "white", borderRadius: 20, border: "1px solid #C3EDD0", boxShadow: "0 4px 32px rgba(51,112,14,0.06)", maxWidth: 560, margin: "0 auto", padding: isMobile ? "40px 24px" : "56px 48px", textAlign: "center" }}>
-            <div style={{ width: 80, height: 80, borderRadius: "50%", background: "#EDFAEB", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
-              <svg width="40" height="40" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" stroke="#33700E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          /* ── Confirmation page ── */
+          <div style={{ maxWidth: 780, margin: "0 auto" }}>
+            {/* Header */}
+            <div style={{ background: "white", borderRadius: 20, border: "1px solid #C3EDD0", padding: isMobile ? "32px 20px" : "40px 48px", marginBottom: 16, textAlign: "center" }}>
+              <div style={{ width: 72, height: 72, borderRadius: "50%", background: "#EDFAEB", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+                <svg width="36" height="36" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" stroke="#33700E" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </div>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 28, color: "var(--black)", margin: "0 0 10px" }}>Dein Erstgespräch ist gebucht!</h2>
+              <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>
+                Eine Bestätigung wurde an <strong style={{ color: "var(--black)" }}>{form.email}</strong> gesendet.
+              </p>
             </div>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 26, color: "var(--black)", margin: "0 0 12px" }}>Dein Termin ist gebucht!</h2>
-            <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: "0 0 8px", lineHeight: 1.7 }}>
-              Wir haben eine Bestätigung an <strong style={{ color: "var(--black)" }}>{form.email}</strong> gesendet.
-            </p>
-            <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: "0 0 32px", lineHeight: 1.7 }}>
-              Dein Erstgespräch findet am <strong style={{ color: "var(--black)" }}>{selectedDate?.getDate()}. {MONTHS_DE[selectedDate?.getMonth() ?? 0]} um {selectedTime} Uhr</strong> statt.
-            </p>
-            <a href="/" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: CTA, color: "white", borderRadius: 9999, padding: "12px 28px", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none" }}>
-              Zurück zur Startseite
-            </a>
+
+            {/* Termin details */}
+            <div style={{ background: "white", borderRadius: 20, border: "1px solid #EEF2F7", padding: isMobile ? "24px 20px" : "28px 36px", marginBottom: 16 }}>
+              <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--grey-text)", margin: "0 0 18px", textTransform: "uppercase", letterSpacing: "0.06em" }}>Dein Termin</p>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
+                {[
+                  { icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke="var(--cta)" strokeWidth="1.6"/><path d="M8 2v4M16 2v4M3 10h18" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round"/></svg>, label: "Datum & Uhrzeit", value: `${selectedDate?.getDate()}. ${MONTHS_DE[selectedDate?.getMonth() ?? 0]} ${selectedDate?.getFullYear()}, ${selectedTime} Uhr` },
+                  { icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="var(--cta)" strokeWidth="1.6"/><path d="M12 7v5l3 3" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round"/></svg>, label: "Dauer", value: "20 Minuten" },
+                  { icon: form.format === "online"
+                    ? <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round"/></svg>
+                    : <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke="var(--cta)" strokeWidth="1.6"/><circle cx="12" cy="10" r="2" stroke="var(--cta)" strokeWidth="1.6"/></svg>,
+                    label: "Format",
+                    value: form.format === "online" ? "Online per Videoanruf" : "Vor Ort — Mariahilfer Str. 47/3, 1060 Wien" },
+                  { icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="var(--cta)" strokeWidth="1.6"/></svg>, label: "Name", value: form.name },
+                ].map(item => (
+                  <div key={item.label} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                    <div style={{ width: 32, height: 32, borderRadius: 8, background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{item.icon}</div>
+                    <div>
+                      <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: "0 0 2px", fontWeight: 500 }}>{item.label}</p>
+                      <p style={{ fontFamily: F, fontSize: 14, color: "var(--black)", margin: 0, fontWeight: 600 }}>{item.value}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Info cards */}
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16, marginBottom: 24 }}>
+              <div style={{ background: "var(--blue-ultra-light)", borderRadius: 16, padding: "20px 24px" }}>
+                <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)", margin: "0 0 12px" }}>Was kommt als nächstes?</p>
+                {["Du erhältst eine E-Mail-Bestätigung.", "Kurz vor dem Termin senden wir Dir eine Erinnerung.", "Im Profil kannst Du den Termin jederzeit verwalten.", form.format === "online" ? "Den Videoanruf-Link findest Du in Deinem Profil." : "Die Adresse findest Du auch in Deiner Bestätigungs-E-Mail."].map((t, i) => (
+                  <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start", marginBottom: i < 3 ? 8 : 0 }}>
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="12" cy="12" r="9" fill="var(--cta)" fillOpacity="0.15"/><path d="M8 12l3 3 5-5" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round"/></svg>
+                    <span style={{ fontFamily: F, fontSize: 13, color: "var(--black)", lineHeight: 1.5 }}>{t}</span>
+                  </div>
+                ))}
+              </div>
+              <div style={{ background: "#EDFAEB", border: "1px solid #C3EDD0", borderRadius: 16, padding: "20px 24px" }}>
+                <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)", margin: "0 0 12px" }}>Gut zu wissen</p>
+                {["Kostenlos & unverbindlich", "Kostenfreie Absage bis 24h vorher", "Termin kann im Profil umgebucht werden", "Vertraulich & unter Schweigepflicht"].map((t, i) => (
+                  <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start", marginBottom: i < 3 ? 8 : 0 }}>
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="12" cy="12" r="9" fill="#33700E" fillOpacity="0.15"/><path d="M8 12l3 3 5-5" stroke="#33700E" strokeWidth="1.8" strokeLinecap="round"/></svg>
+                    <span style={{ fontFamily: F, fontSize: 13, color: "var(--black)", lineHeight: 1.5 }}>{t}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* CTAs */}
+            <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 12, justifyContent: "center" }}>
+              <a href="/profil" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, background: CTA, color: "white", borderRadius: 9999, padding: "13px 28px", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.25)", transition: "background 0.2s" }}
+                onMouseEnter={e => e.currentTarget.style.background = "var(--cta-hover)"}
+                onMouseLeave={e => e.currentTarget.style.background = CTA}>
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="white" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="white" strokeWidth="2"/></svg>
+                Zum Profil — Termin ansehen
+              </a>
+              <a href="/" style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, background: "white", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "13px 28px", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
+                Zurück zur Startseite
+              </a>
+            </div>
           </div>
         )}
 
