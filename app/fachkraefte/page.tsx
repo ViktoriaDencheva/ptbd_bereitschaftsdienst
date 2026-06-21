@@ -903,7 +903,7 @@ function TherapistCard({ t, isMobile = false, winW = 1440 }: { t: typeof therapi
       </div>
 
       {/* Main content — 2-row layout */}
-      <div className="fk-card-content" style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: isMobile ? 12 : 14, padding: isMobile ? "16px 16px 16px" : "18px 0 18px" }}>
+      <div className="fk-card-content" style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: isMobile ? 12 : 14, padding: isMobile ? "16px 16px 16px" : "18px 0 18px", justifyContent: isMobile ? "flex-start" : "space-between" }}>
 
         {/* Top row: name/role + price */}
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 }}>
