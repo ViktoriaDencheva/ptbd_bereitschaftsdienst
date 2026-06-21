@@ -968,7 +968,7 @@ function TherapistCard({ t, isMobile = false, winW = 1440 }: { t: typeof therapi
         </div>
 
         {/* Bottom row: tags LEFT + buttons RIGHT — perfectly aligned */}
-        <div style={{ display: "flex", alignItems: narrowDesktop ? "center" : "flex-start", justifyContent: "space-between", gap: 16 }}>
+        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16 }}>
           {/* Tags */}
           <div style={{ display: "flex", gap: 8, flexWrap: narrowDesktop ? "nowrap" : "wrap", alignItems: "center", flex: 1, minWidth: 0, overflow: narrowDesktop ? "hidden" : "visible" }}>
             <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", fontWeight: 500, flexShrink: 0 }}>Hilft bei:</span>
