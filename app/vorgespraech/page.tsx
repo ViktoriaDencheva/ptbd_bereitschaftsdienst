@@ -98,6 +98,18 @@ function LeftPanel({ format, selectedDate, selectedTime }: { format: string; sel
   );
 }
 
+// ── Step icons ────────────────────────────────────────────────
+const StepIcons = [
+  // Calendar
+  <svg key="cal" width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="3" stroke={CTA} strokeWidth="1.5"/><path d="M8 2v4M16 2v4M3 10h18" stroke={CTA} strokeWidth="1.5" strokeLinecap="round"/><circle cx="8" cy="15" r="1" fill={CTA}/><circle cx="12" cy="15" r="1" fill={CTA}/><circle cx="16" cy="15" r="1" fill={CTA}/></svg>,
+  // Chat
+  <svg key="chat" width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4l4 4 4-4h4a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z" stroke={CTA} strokeWidth="1.5" strokeLinejoin="round"/><path d="M8 9h8M8 13h5" stroke={CTA} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+  // Person + check
+  <svg key="person" width="28" height="28" fill="none" viewBox="0 0 24 24"><circle cx="9" cy="7" r="4" stroke={CTA} strokeWidth="1.5"/><path d="M2 21v-1a7 7 0 0 1 7-7h2" stroke={CTA} strokeWidth="1.5" strokeLinecap="round"/><path d="M16 19l2 2 4-4" stroke={CTA} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  // Plant/grow
+  <svg key="plant" width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M12 22V12" stroke={CTA} strokeWidth="1.5" strokeLinecap="round"/><path d="M12 12C12 12 7 10 5 5c0 0 5 0 7 5z" stroke={CTA} strokeWidth="1.5" strokeLinejoin="round"/><path d="M12 12c0 0 5-2 7-7 0 0-5 0-7 7z" stroke={CTA} strokeWidth="1.5" strokeLinejoin="round"/><path d="M5 22h14" stroke={CTA} strokeWidth="1.5" strokeLinecap="round"/></svg>,
+];
+
 // ── Main ──────────────────────────────────────────────────────
 export default function VorgespraechPage() {
   const winW = useWindowWidth();
@@ -123,25 +135,27 @@ export default function VorgespraechPage() {
   function isWeekend(day: number) { const d = new Date(viewYear, viewMonth, day).getDay(); return d === 0 || d === 6; }
   function isSelected(day: number) { return selectedDate?.getFullYear() === viewYear && selectedDate?.getMonth() === viewMonth && selectedDate?.getDate() === day; }
 
-  const Breadcrumbs = ({ current }: { current: string }) => (
-    <div style={{ background: "white", borderBottom: "1px solid #EEF2F7" }}>
-      <div style={{ maxWidth: 1440, margin: "0 auto", padding: "14px 16px" }} className="breadcrumb-wrap">
-        <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          <a href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
-            onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>Home</a>
-          <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
-          <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>{current}</span>
-        </nav>
-      </div>
-    </div>
-  );
-
   // ── Confirmation ──────────────────────────────────────────────
   if (confirmed) {
     return (
       <main style={{ background: "#F8FAFE", minHeight: "100vh" }}>
         <Navbar />
-        <Breadcrumbs current="Buchungsbestätigung" />
+        {/* Breadcrumbs — same as fachkraefte/[id] */}
+        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "14px 16px" }} className="breadcrumb-wrap">
+          <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <a href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
+              onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" style={{ marginRight: 4, verticalAlign: "middle" }}><path d="M3 12L12 4l9 8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              Startseite
+            </a>
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
+            <a href="/vorgespraech" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
+              onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>Kostenloses Erstgespräch</a>
+            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
+            <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>Buchungsbestätigung</span>
+          </nav>
+        </div>
+
         <div style={{ maxWidth: 900, margin: "0 auto", padding: isMobile ? "32px 16px 64px" : "48px 24px 80px" }}>
           <div style={{ textAlign: "center", marginBottom: 36 }}>
             <div style={{ width: 80, height: 80, borderRadius: "50%", background: "#EDFAEB", border: "4px solid #C3EDD0", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
@@ -199,103 +213,140 @@ export default function VorgespraechPage() {
   return (
     <main style={{ background: "white", minHeight: "100vh" }}>
       <Navbar />
-      <Breadcrumbs current="Kostenloses Erstgespräch" />
+
+      {/* ── Breadcrumbs — same pattern as fachkraefte/[id], no border ── */}
+      <div style={{ maxWidth: 1440, margin: "0 auto", padding: "14px 16px" }} className="breadcrumb-wrap">
+        <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <a href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none", display: "flex", alignItems: "center", gap: 4 }}
+            onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M3 12L12 4l9 8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            Startseite
+          </a>
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
+          <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>Kostenloses Orientierungsgespräch</span>
+        </nav>
+      </div>
 
       {/* ── HERO ─────────────────────────────────────────────────── */}
-      <section style={{ background: "white" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", padding: isMobile ? "40px 16px 48px" : "56px 40px 64px", display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 1fr", gap: isMobile ? 32 : 60, alignItems: "center" }}>
-          <div>
-            <span style={{ display: "inline-block", background: "var(--blue-ultra-light)", color: CTA, fontFamily: F, fontSize: 12, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", borderRadius: 9999, padding: "5px 14px", marginBottom: 16 }}>
-              Kostenlos &amp; unverbindlich
-            </span>
-            <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 28 : 40, lineHeight: 1.25, color: "var(--black)", margin: "0 0 18px" }}>
-              Dein persönliches<br />Erstgespräch
+      <section style={{ background: "white", overflow: "hidden" }}>
+        <div style={{
+          maxWidth: 1440, margin: "0 auto",
+          display: isMobile ? "flex" : "grid",
+          flexDirection: isMobile ? "column" : undefined,
+          gridTemplateColumns: isMobile ? undefined : "1fr 1fr",
+          minHeight: isMobile ? undefined : 480,
+        }}>
+          {/* Left: image flush */}
+          <div style={{ position: "relative", minHeight: isMobile ? 260 : undefined, overflow: "hidden" }}>
+            <img
+              src="/fachkraefte/specialist-howtostart.jpg"
+              alt="Spezialistin"
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
+            />
+          </div>
+
+          {/* Right: content */}
+          <div style={{ padding: isMobile ? "32px 16px 40px" : "48px 56px 48px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            {/* Badge */}
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "var(--blue-ultra-light)", borderRadius: 9999, padding: "5px 14px", marginBottom: 20, alignSelf: "flex-start" }}>
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke={CTA} strokeWidth="1.6" strokeLinejoin="round"/></svg>
+              <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>Kostenlos &amp; vertraulich</span>
+            </div>
+
+            <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 28 : 42, lineHeight: 1.2, color: "var(--black)", margin: "0 0 16px" }}>
+              Kostenloses<br />Orientierungsgespräch
             </h1>
-            <p style={{ fontFamily: F, fontSize: isMobile ? 16 : 18, color: "var(--grey-text)", lineHeight: 1.65, margin: "0 0 32px", maxWidth: 480 }}>
-              In einem vertraulichen 20-Minuten-Gespräch helfen wir Dir, Deine Situation einzuordnen und die passende Unterstützung zu finden — kostenlos, ohne Verpflichtung.
+            <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 17, color: "var(--grey-text)", lineHeight: 1.65, margin: "0 0 28px", maxWidth: 420 }}>
+              Gemeinsam finden wir die passende Unterstützung für Deine Situation.
             </p>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, marginBottom: 36 }}>
+
+            {/* 4 facts inline */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: isMobile ? 16 : 24, marginBottom: 32 }}>
               {[
-                { icon: "🕐", title: "20 Minuten", sub: "Fokussiertes Gespräch" },
-                { icon: "🔒", title: "Vertraulich", sub: "Unter Schweigepflicht" },
-                { icon: "💚", title: "Kostenlos", sub: "Ohne versteckte Kosten" },
-                { icon: "📍", title: "Online & Vor Ort", sub: "Du wählst das Format" },
-              ].map(f => (
-                <div key={f.title} style={{ display: "flex", gap: 12, alignItems: "flex-start", background: "#F8FAFE", borderRadius: 14, padding: "14px 16px" }}>
-                  <span style={{ fontSize: 22, lineHeight: 1 }}>{f.icon}</span>
-                  <div>
-                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "var(--black)", margin: "0 0 2px" }}>{f.title}</p>
-                    <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: 0 }}>{f.sub}</p>
-                  </div>
+                { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><circle cx="9" cy="7" r="4" stroke={CTA} strokeWidth="1.5"/><path d="M2 21v-1a7 7 0 0 1 7-7h2" stroke={CTA} strokeWidth="1.5" strokeLinecap="round"/><path d="M16 19l2 2 4-4" stroke={CTA} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "Persönliche\nEmpfehlung" },
+                { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke={CTA} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "Vertraulich &\ndiskret" },
+                { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M12 22c0 0-8-4-8-10a8 8 0 1 1 16 0c0 6-8 10-8 10z" stroke={CTA} strokeWidth="1.5"/><path d="M9 12l2 2 4-4" stroke={CTA} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "Kostenlos &\nunverbindlich" },
+                { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke={CTA} strokeWidth="1.5"/><circle cx="12" cy="10" r="2" stroke={CTA} strokeWidth="1.5"/></svg>, text: "Online oder\nin deiner Nähe" },
+              ].map((f, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
+                  <div style={{ marginTop: 2, flexShrink: 0 }}>{f.icon}</div>
+                  <span style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.4, whiteSpace: "pre-line" }}>{f.text}</span>
                 </div>
               ))}
             </div>
-            <button onClick={() => bookingRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
-              style={{ height: 52, padding: "0 32px", borderRadius: 9999, background: CTA, color: "white", border: "none", fontFamily: F, fontWeight: 700, fontSize: 16, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 8, boxShadow: "0 4px 18px rgba(45,91,141,0.28)" }}
+
+            {/* CTA */}
+            <button
+              onClick={() => bookingRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              style={{ height: 56, padding: "0 36px", borderRadius: 9999, background: CTA, color: "white", border: "none", fontFamily: F, fontWeight: 700, fontSize: 17, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 10, alignSelf: "flex-start", boxShadow: "0 4px 20px rgba(45,91,141,0.28)", transition: "background 0.2s" }}
               onMouseEnter={e => e.currentTarget.style.background = "var(--cta-hover)"}
               onMouseLeave={e => e.currentTarget.style.background = CTA}>
-              Jetzt Termin vereinbaren
+              Kostenloses Erstgespräch buchen
               <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path fillRule="evenodd" clipRule="evenodd" d="M12.634 6.234a.9.9 0 0 1 1.273 0l4.8 4.8a.9.9 0 0 1 0 1.273l-4.8 4.8a.9.9 0 1 1-1.272-1.272L16.068 12.4H6.8a.9.9 0 1 1 0-1.8h9.268l-3.434-3.435a.9.9 0 0 1 0-1.272Z" fill="white"/></svg>
             </button>
           </div>
-          {!isMobile && (
-            <div style={{ borderRadius: 24, overflow: "hidden", aspectRatio: "4/3", boxShadow: "0 20px 60px rgba(45,91,141,0.12)" }}>
-              <img src="/fachkraefte/specialist-howtostart.jpg" alt="Spezialistin" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
-            </div>
-          )}
         </div>
       </section>
 
-      {/* ── HOW IT WORKS ─────────────────────────────────────────── */}
-      <section style={{ background: "#F8FAFE", padding: isMobile ? "40px 16px" : "64px 40px" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: isMobile ? 32 : 48 }}>
-            <span style={{ display: "inline-block", background: "var(--blue-ultra-light)", color: CTA, fontFamily: F, fontSize: 12, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", borderRadius: 9999, padding: "5px 14px", marginBottom: 14 }}>
-              So funktioniert&apos;s
-            </span>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 34, color: "var(--black)", margin: "0 0 12px" }}>Wie läuft das Erstgespräch ab?</h2>
-            <p style={{ fontFamily: F, fontSize: 16, color: "var(--grey-text)", margin: "0 auto", maxWidth: 520, lineHeight: 1.6 }}>
-              In vier einfachen Schritten zum kostenlosen Gespräch mit einer Fachkraft.
-            </p>
+      {/* ── HOW IT WORKS — title left, steps right ────────────────── */}
+      <section style={{ background: "white", borderTop: "1px solid #EEF2F7", padding: isMobile ? "48px 16px" : "72px 40px" }}>
+        <div style={{ maxWidth: 1440, margin: "0 auto", display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "300px 1fr", gap: isMobile ? 36 : 64, alignItems: "flex-start" }}>
+
+          {/* Left: title */}
+          <div style={{ paddingTop: isMobile ? 0 : 32 }}>
+            <p style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 16px" }}>So läuft es ab</p>
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 32, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>
+              In 4 einfachen Schritten zur passenden Unterstützung
+            </h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, 1fr)", gap: isMobile ? 16 : 24 }}>
+
+          {/* Right: 4 steps */}
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: isMobile ? 20 : 0 }}>
             {[
-              { n: 1, icon: "📅", title: "Termin wählen", desc: "Wähle ein passendes Datum und eine Uhrzeit — online oder in unserem Büro in Wien." },
-              { n: 2, icon: "📝", title: "Kurz anmelden", desc: "Hinterlasse Deinen Namen und Deine E-Mail — mehr brauchen wir nicht von Dir." },
-              { n: 3, icon: "💬", title: "Gespräch führen", desc: "Eine erfahrene Fachkraft hört Dir zu und hilft Dir, Deine Situation einzuordnen." },
-              { n: 4, icon: "🎯", title: "Weiter begleitet", desc: "Wir empfehlen Dir die passende Fachkraft oder den nächsten sinnvollen Schritt." },
+              { n: 1, icon: StepIcons[0], title: "Termin wählen", desc: "Wähle online einen passenden Termin für dein Gespräch." },
+              { n: 2, icon: StepIcons[1], title: "Gespräch führen", desc: "In einem persönlichen Gespräch schilderst du deine Situation." },
+              { n: 3, icon: StepIcons[2], title: "Passende Fachkraft finden", desc: "Wir empfehlen dir eine Fachkraft, die zu deinen Bedürfnissen passt." },
+              { n: 4, icon: StepIcons[3], title: "Therapie starten", desc: "Du entscheidest dich in Ruhe für den nächsten Schritt." },
             ].map((s, i) => (
-              <div key={s.n} style={{ position: "relative" }}>
-                {!isMobile && i < 3 && (
-                  <div style={{ position: "absolute", top: 28, left: "calc(50% + 32px)", right: "calc(-50% + 32px)", height: 2, background: "#DDE8F5", zIndex: 0 }} />
-                )}
-                <div style={{ background: "white", borderRadius: 20, padding: "28px 24px", textAlign: "center", border: "1px solid #EEF2F7", position: "relative", zIndex: 1 }}>
-                  <div style={{ width: 56, height: 56, borderRadius: "50%", background: "var(--blue-ultra-light)", border: `2px solid ${CTA}20`, display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px", position: "relative" }}>
-                    <span style={{ fontSize: 24 }}>{s.icon}</span>
-                    <div style={{ position: "absolute", top: -6, right: -6, width: 22, height: 22, borderRadius: "50%", background: CTA, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <span style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: "white" }}>{s.n}</span>
-                    </div>
+              <div key={s.n} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", position: "relative", paddingRight: !isMobile && i < 3 ? 24 : 0 }}>
+                {/* Number + connector line */}
+                <div style={{ display: "flex", alignItems: "center", width: "100%", marginBottom: 20 }}>
+                  <div style={{ width: 32, height: 32, borderRadius: "50%", background: CTA, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <span style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "white" }}>{s.n}</span>
                   </div>
-                  <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 8px" }}>{s.title}</h3>
-                  <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
+                  {!isMobile && i < 3 && (
+                    <div style={{ flex: 1, height: 1, background: "#DDE8F5", marginLeft: 12 }} />
+                  )}
                 </div>
+                {/* Icon */}
+                <div style={{ width: 52, height: 52, borderRadius: 14, background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14 }}>
+                  {s.icon}
+                </div>
+                <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "var(--black)", margin: "0 0 8px", lineHeight: 1.3 }}>{s.title}</h3>
+                <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CROSS-NAV BANNER ─────────────────────────────────────── */}
-      <section style={{ background: "linear-gradient(135deg, #1A3A6A 0%, #2D5B8D 100%)", padding: isMobile ? "32px 16px" : "44px 40px" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between", gap: 20 }}>
-          <div>
-            <p style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.7)", textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 6px" }}>Alternative</p>
-            <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 24, color: "white", margin: "0 0 6px" }}>Lieber selbst herausfinden?</h3>
-            <p style={{ fontFamily: F, fontSize: 14, color: "rgba(255,255,255,0.75)", margin: 0 }}>In 5 Minuten zur passenden Fachkraft — anonym &amp; kostenlos</p>
+      {/* ── CROSS-NAV BANNER — light style ───────────────────────── */}
+      <section style={{ background: "#F0F6FF", padding: isMobile ? "28px 16px" : "36px 40px" }}>
+        <div style={{ maxWidth: 1440, margin: "0 auto", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", gap: 20, justifyContent: "space-between" }}>
+          <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
+            <div style={{ width: 48, height: 48, borderRadius: "50%", background: "var(--blue-ultra-light)", border: `1px solid ${CTA}20`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 3-1.755 4.98-3.5 6.5L15 17H9l-.5-1.5C6.755 13.98 5 12 5 9a7 7 0 0 1 7-7z" stroke={CTA} strokeWidth="1.5" strokeLinejoin="round"/><path d="M9 21h6M10 17v4M14 17v4" stroke={CTA} strokeWidth="1.5" strokeLinecap="round"/></svg>
+            </div>
+            <div>
+              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 16, color: "var(--black)", margin: "0 0 4px" }}>Noch unsicher?</p>
+              <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0 }}>Du möchtest lieber selbst herausfinden, welche Unterstützung zu dir passt?</p>
+            </div>
           </div>
-          <a href="/orientierungstest" style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "white", color: CTA, borderRadius: 9999, padding: "14px 28px", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", flexShrink: 0, boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}>
+          <a href="/orientierungstest" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "white", color: CTA, border: `1.5px solid ${CTA}30`, borderRadius: 9999, padding: "12px 24px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", flexShrink: 0, boxShadow: "0 2px 8px rgba(45,91,141,0.08)", transition: "border-color 0.2s" }}
+            onMouseEnter={e => (e.currentTarget.style.borderColor = CTA)}
+            onMouseLeave={e => (e.currentTarget.style.borderColor = `${CTA}30`)}>
             Orientierungstest starten
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path fillRule="evenodd" clipRule="evenodd" d="M12.634 6.234a.9.9 0 0 1 1.273 0l4.8 4.8a.9.9 0 0 1 0 1.273l-4.8 4.8a.9.9 0 1 1-1.272-1.272L16.068 12.4H6.8a.9.9 0 1 1 0-1.8h9.268l-3.434-3.435a.9.9 0 0 1 0-1.272Z" fill={CTA}/></svg>
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path fillRule="evenodd" clipRule="evenodd" d="M12.634 6.234a.9.9 0 0 1 1.273 0l4.8 4.8a.9.9 0 0 1 0 1.273l-4.8 4.8a.9.9 0 1 1-1.272-1.272L16.068 12.4H6.8a.9.9 0 1 1 0-1.8h9.268l-3.434-3.435a.9.9 0 0 1 0-1.272Z" fill={CTA}/></svg>
           </a>
         </div>
       </section>
