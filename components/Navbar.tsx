@@ -14,7 +14,7 @@ const navLinks = [
 const menuLinks = [
   { label: "Home", href: "/" },
   { label: "Fachkräfte finden", href: "/fachkraefte" },
-  { label: "Orientierungstest", href: "#" },
+  { label: "Orientierungstest", href: "/orientierungstest" },
   { label: "Über uns", href: "#" },
   { label: "FAQ", href: "#" },
   { label: "Kontakt", href: "#" },

@@ -93,14 +93,15 @@ export default function HowToStart() {
         </ul>
 
         {/* Primary CTA — prominent */}
-        <button
-          style={{ alignSelf: "flex-start", background: "var(--cta)", color: "white", border: "none", borderRadius: "var(--radius-circle)", padding: "0 28px", height: 52, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, transition: "background 0.2s" }}
+        <a
+          href={isV ? "/vorgespraech" : "/orientierungstest"}
+          style={{ alignSelf: "flex-start", background: "var(--cta)", color: "white", border: "none", borderRadius: "var(--radius-circle)", padding: "0 28px", height: 52, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, transition: "background 0.2s", textDecoration: "none" }}
           onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
           onMouseLeave={e => (e.currentTarget.style.background = "var(--cta)")}
         >
           {isV ? "Kostenloses Erstgespräch" : "Test beginnen"}
           <IconArrow />
-        </button>
+        </a>
       </div>
     </div>
   );
@@ -221,15 +222,16 @@ export default function HowToStart() {
                     </li>
                   ))}
                 </ul>
-                <button style={{
+                <a href={isV ? "/vorgespraech" : "/orientierungstest"} style={{
                   background: "var(--cta)", color: "white", border: "none",
                   borderRadius: 9999, height: 48, width: "100%",
                   fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 14,
                   cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+                  textDecoration: "none", boxSizing: "border-box",
                 }}>
-                  {isV ? "kostenloses Erstgespräch" : "Test beginnen"}
+                  {isV ? "Kostenloses Erstgespräch" : "Test beginnen"}
                   <IconArrow />
-                </button>
+                </a>
               </div>
             </div>
           </div>
