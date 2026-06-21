@@ -83,7 +83,7 @@ export default function TherapistDetailPage() {
           <a href="/" style={{ fontFamily: "'Poppins',sans-serif", fontSize: isMobile ? 14 : 14, color: "var(--grey-text)", textDecoration: "none", fontWeight: 400 }}
             onMouseEnter={e => (e.currentTarget.style.color = "var(--cta)")}
             onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-          >Home</a>
+          >Startseite</a>
           <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
           <a href="/fachkraefte" style={{ fontFamily: "'Poppins',sans-serif", fontSize: isMobile ? 14 : 14, color: "var(--grey-text)", textDecoration: "none", fontWeight: 400 }}
             onMouseEnter={e => (e.currentTarget.style.color = "var(--cta)")}

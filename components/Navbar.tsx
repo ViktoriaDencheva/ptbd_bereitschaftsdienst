@@ -5,14 +5,14 @@ import { Menu, X, User, Phone } from "lucide-react";
 import { getStoredUser, clearUser, getFirstName, type AuthUser } from "@/lib/auth";
 
 const navLinks = [
-  { label: "Home", href: "/" },
+  { label: "Startseite", href: "/" },
   { label: "Fachkräfte", href: "/fachkraefte" },
   { label: "Über uns", href: "#" },
   { label: "Kontakt", href: "#" },
 ];
 
 const menuLinks = [
-  { label: "Home", href: "/" },
+  { label: "Startseite", href: "/" },
   { label: "Fachkräfte finden", href: "/fachkraefte" },
   { label: "Orientierungstest", href: "/orientierungstest" },
   { label: "Über uns", href: "#" },
@@ -33,7 +33,7 @@ export default function Navbar() {
   const headerRef = useRef<HTMLElement>(null);
 
   const active = pathname === "/fachkraefte" ? "Fachkräfte"
-    : pathname === "/" ? "Home"
+    : pathname === "/" ? "Startseite"
     : null;
   const [headerBottom, setHeaderBottom] = useState(108);
 
