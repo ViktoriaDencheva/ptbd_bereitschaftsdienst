@@ -772,11 +772,9 @@ function FilterSidebar({ suche, setSuche, fachrichtung, setFachrichtung, angebot
 function TherapistCard({ t, isMobile = false }: { t: typeof therapists[0]; isMobile?: boolean }) {
   const [hovered, setHovered] = useState(false);
   const avail = availColors[t.availability] ?? availColors.later;
-  const [tagsExpanded, setTagsExpanded] = useState(false);
   const LIMIT = 3;
-  const hasMore = t.tags.length > LIMIT;
-  const visibleTags = !isMobile ? t.tags : (tagsExpanded || !hasMore ? t.tags : t.tags.slice(0, LIMIT));
-  const extraTags = isMobile && hasMore && !tagsExpanded ? t.tags.length - LIMIT : 0;
+  const visibleTags = t.tags.slice(0, LIMIT);
+  const extraTags = t.tags.length > LIMIT ? t.tags.length - LIMIT : 0;
 
 
   if (isMobile) {
@@ -834,16 +832,13 @@ function TherapistCard({ t, isMobile = false }: { t: typeof therapists[0]; isMob
           </div>
 
           {/* Tags */}
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center", marginTop: 4 }}>
+          <div style={{ display: "flex", gap: 8, flexWrap: "nowrap", alignItems: "center", marginTop: 4, overflow: "hidden" }}>
             <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--grey-text)", fontWeight: 500, flexShrink: 0 }}>Hilft bei:</span>
             {visibleTags.map(tag => (
               <span key={tag} style={{ background: "#F5F8FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "5px 14px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--black)" }}>{tag}</span>
             ))}
             {extraTags > 0 && (
-              <button onClick={e => { e.stopPropagation(); setTagsExpanded(true); }} style={{ background: "#F0F4FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "5px 12px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--cta)", fontWeight: 500, cursor: "pointer", position: "relative", zIndex: 2 }}>+{extraTags}</button>
-            )}
-            {tagsExpanded && hasMore && (
-              <button onClick={e => { e.stopPropagation(); setTagsExpanded(false); }} style={{ background: "none", border: "none", padding: "5px 4px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--grey-text)", cursor: "pointer", textDecoration: "underline", position: "relative", zIndex: 2 }}>weniger</button>
+              <a href={`/fachkraefte/${t.id}`} onClick={e => e.stopPropagation()} style={{ background: "#F0F4FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "5px 12px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--cta)", fontWeight: 500, cursor: "pointer", textDecoration: "none", whiteSpace: "nowrap" }}>+{extraTags} weitere</a>
             )}
           </div>
 
@@ -975,19 +970,13 @@ function TherapistCard({ t, isMobile = false }: { t: typeof therapists[0]; isMob
         {/* Bottom row: tags LEFT + buttons RIGHT — perfectly aligned */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
           {/* Tags */}
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center", flex: 1, minWidth: 0, overflow: "visible" }}>
+          <div style={{ display: "flex", gap: 8, flexWrap: "nowrap", alignItems: "center", flex: 1, minWidth: 0, overflow: "hidden" }}>
             <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", fontWeight: 500, flexShrink: 0 }}>Hilft bei:</span>
             {visibleTags.map(tag => (
               <span key={tag} style={{ background: "#F5F8FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "5px 14px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--black)" }}>{tag}</span>
             ))}
             {extraTags > 0 && (
-              <button onClick={e => { e.stopPropagation(); setTagsExpanded(true); }} style={{ background: "#F0F4FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "5px 12px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--cta)", fontWeight: 500, cursor: "pointer", position: "relative", zIndex: 2 }}
-                onMouseEnter={e => (e.currentTarget.style.background = "var(--blue-ultra-light)")}
-                onMouseLeave={e => (e.currentTarget.style.background = "#F0F4FF")}
-              >+{extraTags}</button>
-            )}
-            {tagsExpanded && hasMore && (
-              <button onClick={e => { e.stopPropagation(); setTagsExpanded(false); }} style={{ background: "none", border: "none", padding: "5px 4px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", cursor: "pointer", textDecoration: "underline", position: "relative", zIndex: 2 }}>weniger</button>
+              <a href={`/fachkraefte/${t.id}`} onClick={e => e.stopPropagation()} style={{ background: "#F0F4FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "5px 12px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--cta)", fontWeight: 500, textDecoration: "none", whiteSpace: "nowrap" }}>+{extraTags}</a>
             )}
           </div>
           {/* Buttons */}
