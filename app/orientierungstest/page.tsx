@@ -24,7 +24,7 @@ const QUESTIONS = [
     question: "Was belastet dich derzeit am meisten?",
     subtitle: "Du kannst auch mehreres auswählen.",
     multi: true,
-    photo: "/fachkraefte/praxis-session.png",
+    photo: "/orientierungstest/frage1.jpg",
     options: [
       { value: "angst",      label: "Angst und Sorgen" },
       { value: "depression", label: "Niedergeschlagenheit oder Depression" },
@@ -37,51 +37,56 @@ const QUESTIONS = [
   },
   {
     id: "duration",
-    question: "Wie lange besteht das schon?",
+    question: "Wie lange besteht diese Belastung bereits?",
     subtitle: "Das hilft uns, die Dringlichkeit besser einzuschätzen.",
     multi: false,
-    photo: "/fachkraefte/specialist-howtostart.jpg",
+    photo: "/orientierungstest/frage2.jpg",
     options: [
-      { value: "kurz",   label: "Weniger als 4 Wochen" },
-      { value: "mittel", label: "1 bis 6 Monate" },
-      { value: "lang",   label: "Länger als 6 Monate" },
-      { value: "immer",  label: "Schon immer / sehr lang" },
+      { value: "kurz",   label: "Weniger als 2 Wochen" },
+      { value: "mittel", label: "2 Wochen bis 3 Monate" },
+      { value: "lang",   label: "3 bis 6 Monate" },
+      { value: "immer",  label: "Länger als 6 Monate" },
     ],
   },
   {
-    id: "experience",
-    question: "Hast du schon Erfahrung mit Therapie?",
-    subtitle: "Das beeinflusst unsere Empfehlung.",
+    id: "alltag",
+    question: "Beeinträchtigt dies deinen Alltag?",
+    subtitle: "Das hilft uns, das Ausmaß besser einzuschätzen.",
     multi: false,
-    photo: "/fachkraefte/fachkraft-1.jpg",
+    photo: "/orientierungstest/frage3.jpg",
     options: [
-      { value: "nein",    label: "Nein, das erste Mal" },
-      { value: "frueher", label: "Ja, früher in Therapie" },
-      { value: "aktuell", label: "Aktuell in Therapie" },
+      { value: "kaum",       label: "Kaum, ich komme gut zurecht" },
+      { value: "teilweise",  label: "Teilweise, manche Dinge fallen schwer" },
+      { value: "stark",      label: "Stark, ich habe Schwierigkeiten im Alltag" },
+      { value: "sehrstark",  label: "Sehr stark, ich kann kaum noch funktionieren" },
     ],
   },
   {
-    id: "format",
-    question: "Welche Form bevorzugst du?",
-    subtitle: "Du kannst dich auch später noch entscheiden.",
+    id: "symptome",
+    question: "Hast du körperliche Symptome?",
+    subtitle: "Körper und Psyche hängen oft zusammen.",
     multi: false,
-    photo: "/fachkraefte/fachkraft-3.jpg",
+    photo: "/orientierungstest/frage4.jpg",
     options: [
-      { value: "online",   label: "Online" },
-      { value: "vor-ort",  label: "Vor Ort" },
-      { value: "beides",   label: "Beides ist ok" },
+      { value: "keine",    label: "Nein, keine körperlichen Symptome" },
+      { value: "leicht",   label: "Leichte Symptome (z.B. Schlafprobleme, Kopfschmerzen)" },
+      { value: "deutlich", label: "Deutliche Symptome (z.B. Appetitlosigkeit, Erschöpfung)" },
+      { value: "stark",    label: "Starke körperliche Beschwerden" },
     ],
   },
   {
-    id: "urgency",
-    question: "Wie dringend brauchst du Unterstützung?",
-    subtitle: "Damit wir passende Termine anzeigen können.",
-    multi: false,
-    photo: "/fachkraefte/fachkraft-2.jpg",
+    id: "ziel",
+    question: "Was ist dein Hauptziel für die Beratung?",
+    subtitle: "Du kannst auch mehreres auswählen.",
+    multi: true,
+    photo: "/orientierungstest/frage5.jpg",
     options: [
-      { value: "sofort",    label: "So bald wie möglich" },
-      { value: "wochen",    label: "In den nächsten Wochen" },
-      { value: "erkunden",  label: "Ich erkunde Optionen" },
+      { value: "verstehen",   label: "Mich selbst besser verstehen" },
+      { value: "bewaeltigen", label: "Bewältigungsstrategien lernen" },
+      { value: "trauma",      label: "Traumata verarbeiten" },
+      { value: "orientierung",label: "Orientierung und Lebensberatung" },
+      { value: "behandlung",  label: "Behandlung einer Erkrankung" },
+      { value: "anderes",     label: "Sonstiges" },
     ],
   },
 ];
@@ -118,12 +123,15 @@ type SpecialistKey = keyof typeof SPECIALIST_TYPES;
 
 function getRecommendation(answers: Record<string, string[]>): SpecialistKey {
   const topics = answers.topic ?? [];
-  const urgency = answers.urgency?.[0] ?? "";
+  const alltag = answers.alltag?.[0] ?? "";
+  const symptome = answers.symptome?.[0] ?? "";
+  const ziel = answers.ziel ?? [];
   const duration = answers.duration?.[0] ?? "";
 
-  if (urgency === "sofort" || topics.includes("trauma")) return "psychiater";
+  if (alltag === "sehrstark" || symptome === "stark") return "psychiater";
+  if (topics.includes("trauma") || ziel.includes("trauma")) return "psychiater";
   if (topics.includes("depression") && (duration === "lang" || duration === "immer")) return "psychiater";
-  if (topics.includes("lebens") || topics.includes("beziehung")) return "psychologe";
+  if (topics.includes("lebens") || topics.includes("beziehung") || ziel.includes("orientierung")) return "psychologe";
   return "psychotherapeut";
 }
 
