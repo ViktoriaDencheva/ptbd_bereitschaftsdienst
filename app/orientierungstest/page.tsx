@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -112,11 +112,15 @@ type Answers = Record<string, string[]>;
 export default function OrientierungstestPage() {
   const winW = useWindowWidth();
   const isMobile = winW > 0 && winW < 1071;
+  const stepsRef = useRef<HTMLDivElement>(null);
 
   const [phase, setPhase] = useState<"landing" | "test" | "results">("landing");
   const [currentQ, setCurrentQ] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [loading, setLoading] = useState(false);
+
+  const wrap = { maxWidth: 1440, margin: "0 auto", padding: isMobile ? "0 16px" : "0 40px" } as const;
+  const iconFilter = "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)";
 
   function toggleAnswer(qId: string, value: string, multi: boolean) {
     setAnswers(prev => {
@@ -152,87 +156,169 @@ export default function OrientierungstestPage() {
       {/* ── LANDING ─────────────────────────────────────────── */}
       {phase === "landing" && (
         <>
-          {/* Hero */}
-          <section style={{ background: "white", borderBottom: "1px solid #EEF2F7", paddingTop: isMobile ? 100 : 110 }}>
-            <div style={{ maxWidth: 1180, margin: "0 auto", padding: isMobile ? "32px 20px 48px" : "56px 32px 72px" }}>
-              <div style={{ maxWidth: 640 }}>
-                <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, textTransform: "uppercase", letterSpacing: "0.08em" }}>Orientierungstest</span>
-                <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 30 : 42, color: "var(--black)", margin: "10px 0 16px", lineHeight: 1.2 }}>
-                  Finde die passende Unterstützung
-                </h1>
-                <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 17, color: "var(--grey-text)", margin: "0 0 36px", lineHeight: 1.7 }}>
-                  Beantworte einige kurze Fragen und erhalte passende Empfehlungen — in weniger als 3 Minuten.
-                </p>
+          {/* Breadcrumbs */}
+          <div style={{ ...wrap, padding: isMobile ? "14px 16px 6px" : "14px 40px 6px" }}>
+            <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <a href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
+                onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>Startseite</a>
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
+              <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>Orientierungstest</span>
+            </nav>
+          </div>
 
-                {/* CTA */}
-                <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 12, alignItems: isMobile ? "stretch" : "center" }}>
-                  <button onClick={() => setPhase("test")}
-                    style={{ height: 52, padding: "0 32px", borderRadius: 9999, background: CTA, color: "white", border: "none", fontFamily: F, fontSize: 16, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, boxShadow: "0 4px 20px rgba(45,91,141,0.25)", transition: "background 0.2s" }}
-                    onMouseEnter={e => e.currentTarget.style.background = "var(--cta-hover)"}
-                    onMouseLeave={e => e.currentTarget.style.background = CTA}>
-                    Test starten
-                    <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path fillRule="evenodd" clipRule="evenodd" d="M12.634 6.234a.9.9 0 0 1 1.273 0l4.8 4.8a.9.9 0 0 1 0 1.273l-4.8 4.8a.9.9 0 1 1-1.272-1.272L16.068 12.4H6.8a.9.9 0 1 1 0-1.8h9.268l-3.434-3.435a.9.9 0 0 1 0-1.272Z" fill="currentColor"/></svg>
-                  </button>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#33700E" strokeWidth="1.6"/><path d="M9 12l2 2 4-4" stroke="#33700E" strokeWidth="1.6" strokeLinecap="round"/></svg>
-                    <span style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)" }}>Kostenlos · Anonym · 5 Fragen</span>
+          {/* Hero */}
+          <section style={{ background: "white", padding: isMobile ? "0 0 40px" : "0 0 64px" }}>
+            <div style={{ ...wrap }}>
+              <div style={{
+                display: isMobile ? "flex" : "grid",
+                flexDirection: isMobile ? "column" : undefined,
+                gridTemplateColumns: isMobile ? undefined : "1fr 1fr",
+                gap: isMobile ? 20 : 64,
+                alignItems: "stretch",
+                paddingTop: 8,
+              }}>
+                {/* Left: image */}
+                <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", overflow: "hidden" }}>
+                  <img src="/orientierungstest-small-banner.jpg" alt="Orientierungstest"
+                    style={{ width: "100%", maxHeight: isMobile ? 260 : 440, objectFit: "cover", objectPosition: "center", borderRadius: 20, display: "block" }} />
+                </div>
+
+                {/* Right: content */}
+                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: isMobile ? 0 : 32, paddingBottom: isMobile ? 0 : 32 }}>
+                  <div style={{ display: "inline-block", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "5px 16px", marginBottom: 18, alignSelf: "flex-start" }}>
+                    <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>Kostenlos &amp; anonym</span>
                   </div>
+
+                  <h1 style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 28 : 40, lineHeight: 1.2, color: "var(--black)", margin: "0 0 14px" }}>
+                    Finde die passende<br />Unterstützung
+                  </h1>
+                  <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 17, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 28px" }}>
+                    Beantworte 5 kurze Fragen zu deiner Situation und erhalte in weniger als 3 Minuten passende Fachkräfte-Empfehlungen — kostenlos und ohne Registrierung.
+                  </p>
+
+                  {/* Benefits */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
+                    {[
+                      "Nur 5 Fragen, dauert unter 3 Minuten",
+                      "Komplett anonym & ohne Anmeldung",
+                      "Passende Fachkräfte direkt buchen",
+                      "Basierend auf deinen individuellen Bedürfnissen",
+                    ].map((text, i) => (
+                      <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <img src="/icons/icon-check.svg" width={18} height={18} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
+                        <span style={{ fontFamily: F, fontSize: 15, color: "var(--black)", fontWeight: 500 }}>{text}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Scroll link */}
+                  <button
+                    onClick={() => stepsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                    style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "inline-flex", alignItems: "center", gap: 6, alignSelf: "flex-start" }}>
+                    <span style={{ fontFamily: F, fontSize: 14, color: CTA, fontWeight: 500, textDecoration: "underline", textUnderlineOffset: 3 }}>Wie funktioniert der Test?</span>
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke={CTA} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </button>
                 </div>
               </div>
+            </div>
+          </section>
 
-              {/* Category chips */}
-              <div style={{ marginTop: 48 }}>
-                <p style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: "var(--grey-text)", margin: "0 0 16px", textTransform: "uppercase", letterSpacing: "0.06em" }}>Häufige Themen</p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-                  {CATEGORIES.map(c => (
-                    <button key={c.label} onClick={() => setPhase("test")}
-                      style={{ background: c.color, border: `1.5px solid ${c.border}`, borderRadius: 9999, padding: "8px 18px", fontFamily: F, fontSize: 14, fontWeight: 500, color: c.text, cursor: "pointer", transition: "transform 0.15s, box-shadow 0.15s" }}
-                      onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.08)"; }}
-                      onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; }}>
-                      {c.label}
-                    </button>
+          {/* Steps — Wie funktioniert das? */}
+          <section ref={stepsRef} style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
+            <div style={{ ...wrap }}>
+              <div style={{ marginBottom: isMobile ? 36 : 52, textAlign: "center" }}>
+                <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, lineHeight: 1.3, color: "var(--black)", margin: "0 0 8px" }}>
+                  Wie funktioniert der Test?
+                </h2>
+                <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>
+                  In vier einfachen Schritten zu deiner persönlichen Empfehlung.
+                </p>
+              </div>
+
+              {isMobile ? (
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  {[
+                    { n: 1, icon: "/icons/icon-test.svg", title: "Fragen beantworten", desc: "5 kurze Fragen zu deiner Situation, deinen Bedürfnissen und Präferenzen." },
+                    { n: 2, icon: "/icons/icon-orientierung.svg", title: "Analyse läuft", desc: "Wir werten deine Antworten aus und suchen nach passenden Fachkräften." },
+                    { n: 3, icon: "/icons/icon-unterstuetzung.svg", title: "Empfehlungen erhalten", desc: "Du erhältst eine persönliche Liste von Fachkräften, die zu dir passen." },
+                    { n: 4, icon: "/icons/icon-vorgespraech.svg", title: "Termin buchen", desc: "Buche direkt online einen Termin bei deiner Wunsch-Fachkraft." },
+                  ].map((s, i) => (
+                    <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start", background: "#F8FAFE", borderRadius: 16, padding: "20px 18px" }}>
+                      <div style={{ width: 52, height: 52, borderRadius: "50%", background: "white", border: `1.5px solid ${CTA}30`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                        <img src={s.icon} width={26} height={26} alt="" style={{ objectFit: "contain", filter: iconFilter }} />
+                      </div>
+                      <div>
+                        <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, margin: "0 0 2px", letterSpacing: "0.06em" }}>{s.n}.</p>
+                        <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 4px" }}>{s.title}</h3>
+                        <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
+                      </div>
+                    </div>
                   ))}
                 </div>
+              ) : (
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+                  {[
+                    { n: 1, icon: "/icons/icon-test.svg", title: "Fragen beantworten", desc: "5 kurze Fragen zu deiner Situation, deinen Bedürfnissen und Präferenzen." },
+                    { n: 2, icon: "/icons/icon-orientierung.svg", title: "Analyse läuft", desc: "Wir werten deine Antworten aus und suchen nach passenden Fachkräften." },
+                    { n: 3, icon: "/icons/icon-unterstuetzung.svg", title: "Empfehlungen erhalten", desc: "Du erhältst eine persönliche Liste von Fachkräften, die zu dir passen." },
+                    { n: 4, icon: "/icons/icon-vorgespraech.svg", title: "Termin buchen", desc: "Buche direkt online einen Termin bei deiner Wunsch-Fachkraft." },
+                  ].map((s, i) => (
+                    <div key={i}
+                      style={{ background: "white", borderRadius: 20, padding: "32px 20px 28px", border: "1px solid #EAF0FA", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden", transition: "background 0.2s, border-color 0.2s, box-shadow 0.2s", cursor: "default" }}
+                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#F4F9FF"; el.style.borderColor = CTA; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.10)"; }}
+                      onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.borderColor = "#EAF0FA"; el.style.boxShadow = "none"; }}>
+                      <span style={{ position: "absolute", top: -8, right: 10, fontFamily: F, fontWeight: 800, fontSize: 96, color: CTA, opacity: 0.12, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{s.n}</span>
+                      <div style={{ position: "relative", marginBottom: 20 }}>
+                        <img src={s.icon} width={56} height={56} alt="" style={{ objectFit: "contain", filter: iconFilter, display: "block" }} />
+                      </div>
+                      <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 10px", lineHeight: 1.35 }}>{s.title}</h3>
+                      <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{s.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Pre-CTA + button */}
+              <div style={{ marginTop: isMobile ? 40 : 56, textAlign: "center" }}>
+                <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 17, color: "var(--grey-text)", margin: "0 0 20px", lineHeight: 1.6 }}>
+                  Bereit loszulegen?<br />
+                  <span style={{ color: "var(--black)", fontWeight: 500 }}>Der Test dauert nur 3 Minuten – kostenlos und anonym.</span>
+                </p>
+                <button onClick={() => setPhase("test")}
+                  style={{ height: 54, padding: "0 36px", borderRadius: 9999, background: CTA, color: "white", border: "none", fontFamily: F, fontWeight: 600, fontSize: 16, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 10, boxShadow: "0 4px 20px rgba(45,91,141,0.28)", transition: "background 0.2s" }}
+                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
+                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
+                  Test jetzt starten
+                  <img src="/icons/arrow-right.svg" width={18} height={18} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
+                </button>
               </div>
             </div>
           </section>
 
-          {/* How it works */}
-          <section style={{ maxWidth: 1180, margin: "0 auto", padding: isMobile ? "48px 20px" : "72px 32px" }}>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 28, color: "var(--black)", margin: "0 0 40px", textAlign: "center" }}>Wie funktioniert das?</h2>
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, 1fr)", gap: 24 }}>
-              {STEPS_HOW.map((s, i) => (
-                <div key={i} style={{ background: "white", borderRadius: 16, padding: "28px 24px", border: "1px solid #EEF2F7", position: "relative", overflow: "hidden" }}>
-                  <div style={{ position: "absolute", top: -8, right: -8, fontFamily: F, fontWeight: 800, fontSize: 64, color: "var(--blue-ultra-light)", lineHeight: 1, userSelect: "none" }}>{s.n}</div>
-                  <div style={{ width: 44, height: 44, borderRadius: 12, background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16 }}>
-                    <span style={{ fontFamily: F, fontWeight: 700, fontSize: 16, color: CTA }}>{s.n}</span>
+          {/* Vorgesprach cross-nav banner */}
+          <section style={{ background: "white", padding: isMobile ? "0 0 48px" : "0 0 80px" }}>
+            <div style={{ ...wrap }}>
+              <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 220 : 200, display: "flex", alignItems: "center", justifyContent: "flex-end", background: "var(--blue-ultra-light)", border: "1px solid #C8DFFF" }}>
+                <div style={{ position: "relative", zIndex: 1, padding: isMobile ? "32px 24px" : "40px 52px", maxWidth: isMobile ? "100%" : 600, width: "100%", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between", gap: 20 }}>
+                  <div>
+                    <p style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 8px" }}>Lieber persönlich?</p>
+                    <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, lineHeight: 1.3, color: "var(--black)", margin: "0 0 8px" }}>
+                      Sprich direkt mit uns
+                    </h2>
+                    <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>
+                      In einem kostenlosen 30-minütigen Erstgespräch helfen wir dir persönlich weiter.
+                    </p>
                   </div>
-                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: 16, color: "var(--black)", margin: "0 0 8px" }}>{s.title}</p>
-                  <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Cross-nav banner */}
-          <div style={{ maxWidth: 1180, margin: "0 auto 64px", padding: isMobile ? "0 20px" : "0 32px" }}>
-            <div style={{ background: "white", border: "1px solid #DDE8F5", borderRadius: 16, padding: isMobile ? "18px 20px" : "18px 28px", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between", gap: 14 }}>
-              <div style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-                <div style={{ width: 36, height: 36, borderRadius: 10, background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke={CTA} strokeWidth="1.6"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>
-                </div>
-                <div>
-                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: 0 }}>Möchtest Du lieber persönlich beraten werden?</p>
-                  <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: "2px 0 0" }}>Ein kostenloses Erstgespräch hilft Dir, die richtige Unterstützung zu finden.</p>
+                  <a href="/vorgespraech" style={{ flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 8, height: 46, padding: "0 24px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap" }}
+                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
+                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
+                    Kostenloses Erstgespräch
+                    <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
+                  </a>
                 </div>
               </div>
-              <a href="/vorgespraech" style={{ flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 6, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", border: "1.5px solid var(--cta)", borderRadius: 9999, padding: "8px 18px", whiteSpace: "nowrap", transition: "all 0.2s" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = CTA; (e.currentTarget as HTMLElement).style.color = "white"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = CTA; }}>
-                Kostenloses Vorgespräch →
-              </a>
             </div>
-          </div>
+          </section>
         </>
       )}
 
