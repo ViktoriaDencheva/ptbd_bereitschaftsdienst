@@ -243,69 +243,94 @@ export default function VorgespraechPage() {
                 ))}
               </div>
 
-              {/* CTA */}
-              <button
-                onClick={() => bookingRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
-                style={{ height: 54, padding: "0 34px", borderRadius: 9999, background: CTA, color: "white", border: "none", fontFamily: F, fontWeight: 600, fontSize: 16, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 10, alignSelf: "flex-start", boxShadow: "0 4px 20px rgba(45,91,141,0.25)", transition: "background 0.2s" }}
-                onMouseEnter={e => e.currentTarget.style.background = "var(--cta-hover)"}
-                onMouseLeave={e => e.currentTarget.style.background = CTA}>
-                Kostenloses Erstgespräch buchen
-                <img src="/icons/arrow-right.svg" width={18} height={18} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
-              </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── HOW IT WORKS — modern numbered cards ─────────────────── */}
-      <section style={{ background: "#F8FAFE", padding: isMobile ? "48px 0" : "72px 0" }}>
+      {/* ── HOW IT WORKS — horizontal timeline ─────────────────── */}
+      <section style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
-          {/* Section header */}
           <div style={{ marginBottom: isMobile ? 36 : 52 }}>
-            <p style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 10px" }}>So läuft es ab</p>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 32, lineHeight: 1.3, color: "var(--black)", margin: "0 0 10px" }}>
-              In 4 einfachen Schritten zur<br />passenden Unterstützung
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, lineHeight: 1.3, color: "var(--black)", margin: "0 0 8px" }}>
+              Wie läuft das Gespräch ab?
             </h2>
-            <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, maxWidth: 480, lineHeight: 1.6 }}>
-              Von der Terminbuchung bis zur Therapieempfehlung — unkompliziert und vertraulich.
+            <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>
+              Dein Weg zu mehr Klarheit und Orientierung.
             </p>
           </div>
 
-          {/* Steps grid */}
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, 1fr)", gap: isMobile ? 16 : 20 }}>
-            {[
-              { n: 1, icon: "/icons/icon-clock.svg",         title: "Termin wählen",           desc: "Wähle online einen passenden Termin für dein Gespräch.", color: "#EBF2FF" },
-              { n: 2, icon: "/icons/icon-vorgespraech.svg",  title: "Gespräch führen",          desc: "In einem persönlichen Gespräch schilderst du deine Situation.", color: "#EDF9F0" },
-              { n: 3, icon: "/icons/icon-unterstuetzung.svg",title: "Passende Fachkraft finden",desc: "Wir empfehlen dir eine Fachkraft, die zu deinen Bedürfnissen passt.", color: "#FFF4E8" },
-              { n: 4, icon: "/icons/icon-test.svg",          title: "Therapie starten",         desc: "Du entscheidest dich in Ruhe für den nächsten Schritt.", color: "#F3EEFF" },
-            ].map((s, i) => (
-              <div key={s.n} style={{ position: "relative", background: "white", borderRadius: 20, padding: "28px 24px 26px", border: "1px solid #EEF2F7", overflow: "hidden", display: "flex", flexDirection: "column", gap: 14 }}>
-                {/* Large background number */}
-                <span style={{ position: "absolute", top: -10, right: 14, fontFamily: F, fontWeight: 800, fontSize: 80, color: "#F0F4FA", lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{s.n}</span>
-
-                {/* Step number badge */}
-                <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 28, height: 28, borderRadius: "50%", background: CTA, flexShrink: 0 }}>
-                  <span style={{ fontFamily: F, fontWeight: 700, fontSize: 13, color: "white" }}>{s.n}</span>
-                </div>
-
-                {/* Icon */}
-                <div style={{ width: 52, height: 52, borderRadius: 14, background: s.color, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <img src={s.icon} width={26} height={26} alt="" style={{ objectFit: "contain" }} />
-                </div>
-
-                <div>
-                  <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 6px", lineHeight: 1.3 }}>{s.title}</h3>
-                  <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
-                </div>
-
-                {/* Connector arrow — not on last */}
-                {!isMobile && i < 3 && (
-                  <div style={{ position: "absolute", top: "50%", right: -14, transform: "translateY(-50%)", zIndex: 2, background: "white", borderRadius: "50%", width: 28, height: 28, display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid #EEF2F7", boxShadow: "0 2px 6px rgba(0,0,0,0.06)" }}>
-                    <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke={CTA} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          {isMobile ? (
+            /* Mobile: vertical list */
+            <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+              {[
+                { icon: "/icons/icon-vorgespraech.svg", bg: "#EBF2FF", title: "Erstgespräch", desc: "Wir klären dein Anliegen und Ziele in einem kostenlosen 30-Minuten-Gespräch." },
+                { icon: "/icons/icon-unterstuetzung.svg", bg: "#EDF9F0", title: "Situation einordnen", desc: "Du schilderst, was dich beschäftigt — offen und ohne Druck." },
+                { icon: "/icons/icon-orientierung.svg", bg: "#FFF4E8", title: "Empfehlung erhalten", desc: "Gemeinsam schauen wir, welche Unterstützung für dich sinnvoll sein könnte." },
+                { icon: "/icons/icon-test.svg", bg: "#F3EEFF", title: "Nächster Schritt", desc: "Du entscheidest dich in Ruhe — wir begleiten dich dabei." },
+              ].map((s, i) => (
+                <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0 }}>
+                    <div style={{ width: 52, height: 52, borderRadius: "50%", background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <img src={s.icon} width={24} height={24} alt="" style={{ objectFit: "contain" }} />
+                    </div>
+                    {i < 3 && <div style={{ width: 2, height: 32, background: "#E8EFF8", marginTop: 4 }} />}
                   </div>
-                )}
+                  <div style={{ paddingTop: 8 }}>
+                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 4px" }}>{s.title}</h3>
+                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            /* Desktop: horizontal timeline */
+            <div>
+              {/* Icons row with dashed connectors */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", position: "relative", marginBottom: 24 }}>
+                {[
+                  { icon: "/icons/icon-vorgespraech.svg", bg: "#EBF2FF" },
+                  { icon: "/icons/icon-unterstuetzung.svg", bg: "#EDF9F0" },
+                  { icon: "/icons/icon-orientierung.svg", bg: "#FFF4E8" },
+                  { icon: "/icons/icon-test.svg", bg: "#F3EEFF" },
+                ].map((s, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", position: "relative" }}>
+                    <div style={{ width: 64, height: 64, borderRadius: "50%", background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, zIndex: 1 }}>
+                      <img src={s.icon} width={28} height={28} alt="" style={{ objectFit: "contain" }} />
+                    </div>
+                    {i < 3 && (
+                      <div style={{ flex: 1, borderTop: "2px dashed #D0DCF0", margin: "0 8px" }} />
+                    )}
+                  </div>
+                ))}
               </div>
-            ))}
+              {/* Titles + descriptions row */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+                {[
+                  { title: "Erstgespräch", desc: "Wir klären dein Anliegen und Ziele in einem kostenlosen 30-Minuten-Gespräch." },
+                  { title: "Situation einordnen", desc: "Du schilderst, was dich beschäftigt — offen und ohne Druck." },
+                  { title: "Empfehlung erhalten", desc: "Gemeinsam schauen wir, welche Unterstützung für dich sinnvoll sein könnte." },
+                  { title: "Nächster Schritt", desc: "Du entscheidest dich in Ruhe — wir begleiten dich dabei." },
+                ].map((s, i) => (
+                  <div key={i}>
+                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 6px" }}>{s.title}</h3>
+                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* CTA after steps */}
+          <div style={{ marginTop: isMobile ? 36 : 48, display: "flex", justifyContent: "center" }}>
+            <button
+              onClick={() => bookingRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
+              style={{ height: 54, padding: "0 34px", borderRadius: 9999, background: CTA, color: "white", border: "none", fontFamily: F, fontWeight: 600, fontSize: 16, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 10, boxShadow: "0 4px 20px rgba(45,91,141,0.25)", transition: "background 0.2s" }}
+              onMouseEnter={e => e.currentTarget.style.background = "var(--cta-hover)"}
+              onMouseLeave={e => e.currentTarget.style.background = CTA}>
+              Kostenloses Erstgespräch buchen
+              <img src="/icons/arrow-right.svg" width={18} height={18} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
+            </button>
           </div>
         </div>
       </section>
