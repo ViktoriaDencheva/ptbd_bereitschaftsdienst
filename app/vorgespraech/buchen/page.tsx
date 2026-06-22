@@ -8,6 +8,16 @@ import { saveBooking } from "@/lib/bookings";
 const F = "'Poppins', sans-serif";
 const CTA = "var(--cta)";
 
+const LOCATIONS = [
+  { id: "wien",       city: "Wien",      address: "Nibelungengasse 11, 3. OG, Tür 15", zip: "1010 Wien",      transit: "U2/U4 Karlsplatz, U2 Museumsquartier" },
+  { id: "linz",       city: "Linz",      address: "Bockgasse 3, EG",                  zip: "4020 Linz",      transit: "10 Min. vom Hauptbahnhof" },
+  { id: "salzburg",   city: "Salzburg",  address: "Bergstraße 22",                    zip: "5020 Salzburg",  transit: "Mirabellplatz / Makartplatz" },
+  { id: "graz",       city: "Graz",      address: "Kaiserfeldgasse 17, 3. OG",        zip: "8010 Graz",      transit: "Nahe Jakominiplatz" },
+  { id: "innsbruck",  city: "Innsbruck", address: "Maximilianstraße 2, 3. OG, Zi. 358", zip: "6020 Innsbruck", transit: "8 Min. vom Hauptbahnhof" },
+  { id: "klagenfurt", city: "Klagenfurt",address: "Mozartstraße 90, Stiege 3, 2. OG", zip: "9020 Klagenfurt", transit: "10 Min. zu Fuß erreichbar" },
+  { id: "dornbirn",   city: "Dornbirn",  address: "FH Vorarlberg, Hochschulstr. 1, Geb. V, 7. OG, Zi. V708", zip: "6850 Dornbirn", transit: "FH Vorarlberg Campus" },
+];
+
 function useWindowWidth() {
   const [w, setW] = useState(0);
   useEffect(() => {
@@ -70,8 +80,8 @@ function ProgressBar({ step }: { step: number }) {
 }
 
 // ── Left panel ────────────────────────────────────────────────────────
-function LeftPanel({ format, selectedDate, selectedTime, isMobile }: {
-  format: "online" | "vor-ort"; selectedDate: string; selectedTime: string; isMobile: boolean;
+function LeftPanel({ format, locationId, selectedDate, selectedTime, isMobile }: {
+  format: "online" | "vor-ort"; locationId: string; selectedDate: string; selectedTime: string; isMobile: boolean;
 }) {
   return (
     <div style={{ background: "white", border: "1px solid #EBEBEB", borderRadius: 20, padding: "28px 24px", display: "flex", flexDirection: "column", gap: 20, ...(isMobile ? {} : { position: "sticky", top: 88, alignSelf: "flex-start" }) }}>
@@ -93,7 +103,7 @@ function LeftPanel({ format, selectedDate, selectedTime, isMobile }: {
           { icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Kostenlos & vertraulich" },
           ...(format === "online"
             ? [{ icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" stroke={CTA} strokeWidth="1.6"/><path d="M8 21h8M12 17v4" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>, label: "Online per Video" }]
-            : [{ icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke={CTA} strokeWidth="1.6"/><circle cx="12" cy="10" r="2" stroke={CTA} strokeWidth="1.6"/></svg>, label: "Vor Ort in Wien" }]),
+            : [{ icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke={CTA} strokeWidth="1.6"/><circle cx="12" cy="10" r="2" stroke={CTA} strokeWidth="1.6"/></svg>, label: `Vor Ort – ${LOCATIONS.find(l => l.id === locationId)?.city ?? ""}` }]),
           ...(selectedDate ? [{ icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>, label: selectedDate }] : []),
           ...(selectedTime ? [{ icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 7v5l3 3" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>, label: `${selectedTime} Uhr · 30 Min.` }] : []),
         ].map((r, i) => (
@@ -118,8 +128,8 @@ function LeftPanel({ format, selectedDate, selectedTime, isMobile }: {
 }
 
 // ── Confirmation ──────────────────────────────────────────────────────
-function Confirmation({ format, selectedDate, selectedTime, isMobile, user }: {
-  format: "online" | "vor-ort"; selectedDate: string; selectedTime: string; isMobile: boolean; user: AuthUser | null;
+function Confirmation({ format, location, selectedDate, selectedTime, isMobile, user }: {
+  format: "online" | "vor-ort"; location: typeof LOCATIONS[0]; selectedDate: string; selectedTime: string; isMobile: boolean; user: AuthUser | null;
 }) {
   const KONTO_FEATURES = [
     { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>, title: "Termine verwalten", desc: "Alle Buchungen auf einen Blick" },
@@ -140,7 +150,7 @@ function Confirmation({ format, selectedDate, selectedTime, isMobile, user }: {
           Wir freuen uns auf das Gespräch mit dir. Eine Bestätigung wurde an deine E-Mail-Adresse gesendet.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>
-          {[selectedDate, `${selectedTime} Uhr · 30 Min.`, format === "online" ? "Online per Video" : "Vor Ort in Wien", "Kostenlos"].map((chip, i) => (
+          {[selectedDate, `${selectedTime} Uhr · 30 Min.`, format === "online" ? "Online per Video" : `Vor Ort – ${location.city}`, "Kostenlos"].map((chip, i) => (
             <div key={i} style={{ background: "white", border: "1px solid #E8E8E8", borderRadius: 9999, padding: "7px 16px", fontFamily: F, fontSize: 13, color: "var(--black)", fontWeight: 500 }}>{chip}</div>
           ))}
         </div>
@@ -152,7 +162,7 @@ function Confirmation({ format, selectedDate, selectedTime, isMobile, user }: {
           <p style={{ fontFamily: F, fontWeight: 700, fontSize: 13, color: "var(--black)", margin: "0 0 14px" }}>Was passiert als Nächstes?</p>
           {[
             "Du erhältst eine Bestätigungs-E-Mail mit allen Details.",
-            format === "online" ? "Den Videoanruf-Link bekommst du kurz vor dem Termin." : "Die Adresse findest du in der Bestätigungs-E-Mail.",
+            format === "online" ? "Den Videoanruf-Link bekommst du kurz vor dem Termin." : `Adresse: ${location.address}, ${location.zip}`,
             "Wir senden dir eine Erinnerung kurz vor dem Gespräch.",
             "Nach dem Gespräch empfehlen wir dir passende Fachkräfte.",
           ].map((t, i) => (
@@ -290,6 +300,7 @@ export default function VorgespraechBuchenPage() {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [step, setStep] = useState(1);
   const [format, setFormat] = useState<"online" | "vor-ort">("online");
+  const [locationId, setLocationId] = useState("wien");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [vorname, setVorname] = useState("");
@@ -328,6 +339,8 @@ export default function VorgespraechBuchenPage() {
     setSelectedDate(`${dayNames[date.getDay()]}, ${day}. ${MONTHS_DE[calMonth]} ${calYear}`);
     setSelectedTime("");
   }
+
+  const selectedLocation = LOCATIONS.find(l => l.id === locationId) ?? LOCATIONS[0];
 
   function handleConfirm() {
     saveBooking({
@@ -373,7 +386,7 @@ export default function VorgespraechBuchenPage() {
       <Breadcrumbs />
 
       {confirmed ? (
-        <Confirmation format={format} selectedDate={selectedDate} selectedTime={selectedTime} isMobile={isMobile} user={user} />
+        <Confirmation format={format} location={selectedLocation} selectedDate={selectedDate} selectedTime={selectedTime} isMobile={isMobile} user={user} />
       ) : (
         <div style={{ maxWidth: 1150, margin: "0 auto", padding: isMobile ? "24px 16px 64px" : "40px 24px 64px", boxSizing: "border-box" as const }}>
           <div style={{ marginBottom: 16 }}>
@@ -387,7 +400,7 @@ export default function VorgespraechBuchenPage() {
           </div>
 
           <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "300px 1fr", gap: isMobile ? 20 : 28, alignItems: "flex-start" }}>
-            <LeftPanel format={format} selectedDate={selectedDate} selectedTime={selectedTime} isMobile={isMobile} />
+            <LeftPanel format={format} locationId={locationId} selectedDate={selectedDate} selectedTime={selectedTime} isMobile={isMobile} />
 
             <div style={{ background: "white", border: "1px solid #EBEBEB", borderRadius: 20, padding: isMobile ? "24px 18px" : "36px 40px" }}>
               <ProgressBar step={step} />
@@ -418,6 +431,32 @@ export default function VorgespraechBuchenPage() {
                       );
                     })}
                   </div>
+
+                  {/* Location picker — only for vor-ort */}
+                  {format === "vor-ort" && (
+                    <div style={{ marginBottom: 28 }}>
+                      <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 10px" }}>Standort</p>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                        {LOCATIONS.map(loc => {
+                          const sel = locationId === loc.id;
+                          return (
+                            <button key={loc.id} onClick={() => setLocationId(loc.id)}
+                              style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", border: sel ? `2px solid ${CTA}` : "1.5px solid #E8E8E8", borderRadius: 12, background: sel ? "var(--blue-ultra-light)" : "white", cursor: "pointer", textAlign: "left", transition: "all 0.15s" }}>
+                              <div style={{ width: 36, height: 36, borderRadius: 9999, background: sel ? CTA : "#F0F4FA", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "background 0.15s" }}>
+                                <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke={sel ? "white" : CTA} strokeWidth="1.8"/><circle cx="12" cy="10" r="2" stroke={sel ? "white" : CTA} strokeWidth="1.8"/></svg>
+                              </div>
+                              <div style={{ flex: 1 }}>
+                                <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: sel ? CTA : "var(--black)", margin: 0 }}>{loc.city}</p>
+                                <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: "2px 0 0" }}>{loc.address}, {loc.zip}</p>
+                                <p style={{ fontFamily: F, fontSize: 11, color: "#9CA3AF", margin: "2px 0 0" }}>{loc.transit}</p>
+                              </div>
+                              {sel && <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill={CTA}/><path d="M8 12l3 3 5-5" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
 
                   {/* Calendar */}
                   <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 10px" }}>Datum</p>
