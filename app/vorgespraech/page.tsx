@@ -113,7 +113,7 @@ export default function VorgespraechPage() {
 
   // Breadcrumbs — same as fachkraefte/[id], no border
   const Breadcrumbs = ({ extra }: { extra?: string }) => (
-    <div style={{ ...wrap, padding: isMobile ? "14px 16px" : "14px 40px" }} className="breadcrumb-wrap">
+    <div style={{ ...wrap, padding: isMobile ? "14px 16px 6px" : "14px 40px 6px" }} className="breadcrumb-wrap">
       <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
         <a href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
           onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>
@@ -206,7 +206,7 @@ export default function VorgespraechPage() {
             gridTemplateColumns: isMobile ? undefined : "1fr 1fr",
             gap: isMobile ? 20 : 64,
             alignItems: "stretch",
-            paddingTop: isMobile ? 16 : 20,
+            paddingTop: isMobile ? 8 : 8,
           }}>
             {/* Left: hero image — fills same height as right column */}
             <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", overflow: "hidden" }}>
