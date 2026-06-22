@@ -88,6 +88,7 @@ export default function VorgespraechPage() {
   const winW = useWindowWidth();
   const isMobile = winW > 0 && winW < 1071;
   const bookingRef = useRef<HTMLDivElement>(null);
+  const stepsRef = useRef<HTMLDivElement>(null);
 
   const today = new Date();
   const [viewYear, setViewYear] = useState(today.getFullYear());
@@ -243,15 +244,23 @@ export default function VorgespraechPage() {
                 ))}
               </div>
 
+              {/* "Mehr erfahren" scroll link */}
+              <button
+                onClick={() => stepsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "inline-flex", alignItems: "center", gap: 6, alignSelf: "flex-start" }}>
+                <span style={{ fontFamily: F, fontSize: 14, color: CTA, fontWeight: 500, textDecoration: "underline", textUnderlineOffset: 3 }}>Wie läuft das Gespräch ab?</span>
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="var(--cta)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </button>
+
             </div>
           </div>
         </div>
       </section>
 
       {/* ── HOW IT WORKS — horizontal timeline ─────────────────── */}
-      <section style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
+      <section ref={stepsRef} style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
-          <div style={{ marginBottom: isMobile ? 36 : 52 }}>
+          <div style={{ marginBottom: isMobile ? 36 : 52, textAlign: "center" }}>
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, lineHeight: 1.3, color: "var(--black)", margin: "0 0 8px" }}>
               Wie läuft das Gespräch ab?
             </h2>
@@ -260,66 +269,59 @@ export default function VorgespraechPage() {
             </p>
           </div>
 
-          {isMobile ? (
-            /* Mobile: vertical list */
-            <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-              {[
-                { icon: "/icons/icon-vorgespraech.svg", bg: "#EBF2FF", title: "Erstgespräch", desc: "Wir klären dein Anliegen und Ziele in einem kostenlosen 30-Minuten-Gespräch." },
-                { icon: "/icons/icon-unterstuetzung.svg", bg: "#EDF9F0", title: "Situation einordnen", desc: "Du schilderst, was dich beschäftigt — offen und ohne Druck." },
-                { icon: "/icons/icon-orientierung.svg", bg: "#FFF4E8", title: "Empfehlung erhalten", desc: "Gemeinsam schauen wir, welche Unterstützung für dich sinnvoll sein könnte." },
-                { icon: "/icons/icon-test.svg", bg: "#F3EEFF", title: "Nächster Schritt", desc: "Du entscheidest dich in Ruhe — wir begleiten dich dabei." },
-              ].map((s, i) => (
-                <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 0 }}>
-                    <div style={{ width: 52, height: 52, borderRadius: "50%", background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                      <img src={s.icon} width={24} height={24} alt="" style={{ objectFit: "contain" }} />
+          {(() => {
+            const steps = [
+              { n: 1, icon: "/icons/icon-vorgespraech.svg", bg: "#EBF2FF", title: "Gespräch vereinbaren", desc: "Wähle online einen Termin – kostenlos, ohne Wartezeit." },
+              { n: 2, icon: "/icons/icon-unterstuetzung.svg", bg: "#EDF9F0", title: "Offen erzählen", desc: "Du schilderst deine Situation – wir hören zu, ohne zu urteilen." },
+              { n: 3, icon: "/icons/icon-orientierung.svg", bg: "#FFF4E8", title: "Orientierung erhalten", desc: "Wir helfen dir einzuordnen, welche Unterstützung für dich passt." },
+              { n: 4, icon: "/icons/icon-test.svg", bg: "#F3EEFF", title: "Deinen Weg gehen", desc: "Du entscheidest in Ruhe – wir begleiten dich beim nächsten Schritt." },
+            ];
+            return isMobile ? (
+              /* Mobile: vertical list */
+              <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+                {steps.map((s, i) => (
+                  <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                      <div style={{ position: "relative", width: 64, height: 64, borderRadius: "50%", background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                        <img src={s.icon} width={30} height={30} alt="" style={{ objectFit: "contain" }} />
+                        <span style={{ position: "absolute", top: -4, right: -4, width: 20, height: 20, borderRadius: "50%", background: CTA, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F, fontWeight: 700, fontSize: 11, color: "white" }}>{s.n}</span>
+                      </div>
+                      {i < 3 && <div style={{ width: 2, height: 28, background: "#E8EFF8", marginTop: 6 }} />}
                     </div>
-                    {i < 3 && <div style={{ width: 2, height: 32, background: "#E8EFF8", marginTop: 4 }} />}
+                    <div style={{ paddingTop: 10 }}>
+                      <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 4px" }}>{s.title}</h3>
+                      <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
+                    </div>
                   </div>
-                  <div style={{ paddingTop: 8 }}>
-                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 4px" }}>{s.title}</h3>
-                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
-                  </div>
+                ))}
+              </div>
+            ) : (
+              /* Desktop: horizontal timeline — centered columns */
+              <div style={{ maxWidth: 860, margin: "0 auto" }}>
+                {/* Icons row */}
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", marginBottom: 20 }}>
+                  {steps.map((s, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: i === 0 ? "flex-start" : "center" }}>
+                      <div style={{ position: "relative", width: 80, height: 80, borderRadius: "50%", background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                        <img src={s.icon} width={36} height={36} alt="" style={{ objectFit: "contain" }} />
+                        <span style={{ position: "absolute", top: -4, right: -4, width: 24, height: 24, borderRadius: "50%", background: CTA, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F, fontWeight: 700, fontSize: 12, color: "white" }}>{s.n}</span>
+                      </div>
+                      {i < 3 && <div style={{ flex: 1, borderTop: "2px dashed #D0DCF0", margin: "0 10px" }} />}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          ) : (
-            /* Desktop: horizontal timeline */
-            <div>
-              {/* Icons row with dashed connectors */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", position: "relative", marginBottom: 24 }}>
-                {[
-                  { icon: "/icons/icon-vorgespraech.svg", bg: "#EBF2FF" },
-                  { icon: "/icons/icon-unterstuetzung.svg", bg: "#EDF9F0" },
-                  { icon: "/icons/icon-orientierung.svg", bg: "#FFF4E8" },
-                  { icon: "/icons/icon-test.svg", bg: "#F3EEFF" },
-                ].map((s, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", position: "relative" }}>
-                    <div style={{ width: 64, height: 64, borderRadius: "50%", background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, zIndex: 1 }}>
-                      <img src={s.icon} width={28} height={28} alt="" style={{ objectFit: "contain" }} />
+                {/* Text row */}
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+                  {steps.map((s, i) => (
+                    <div key={i} style={{ textAlign: "center", paddingRight: i < 3 ? 8 : 0 }}>
+                      <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "var(--black)", margin: "0 0 6px" }}>{s.title}</h3>
+                      <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
                     </div>
-                    {i < 3 && (
-                      <div style={{ flex: 1, borderTop: "2px dashed #D0DCF0", margin: "0 8px" }} />
-                    )}
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-              {/* Titles + descriptions row */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
-                {[
-                  { title: "Erstgespräch", desc: "Wir klären dein Anliegen und Ziele in einem kostenlosen 30-Minuten-Gespräch." },
-                  { title: "Situation einordnen", desc: "Du schilderst, was dich beschäftigt — offen und ohne Druck." },
-                  { title: "Empfehlung erhalten", desc: "Gemeinsam schauen wir, welche Unterstützung für dich sinnvoll sein könnte." },
-                  { title: "Nächster Schritt", desc: "Du entscheidest dich in Ruhe — wir begleiten dich dabei." },
-                ].map((s, i) => (
-                  <div key={i}>
-                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 6px" }}>{s.title}</h3>
-                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* CTA after steps */}
           <div style={{ marginTop: isMobile ? 36 : 48, display: "flex", justifyContent: "center" }}>
