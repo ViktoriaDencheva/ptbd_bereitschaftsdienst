@@ -225,26 +225,21 @@ export default function VorgespraechPage() {
               <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 28 : 40, lineHeight: 1.2, color: "var(--black)", margin: "0 0 14px" }}>
                 Kostenloses<br />Orientierungsgespräch
               </h1>
-              <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 17, color: "var(--grey-text)", lineHeight: 1.65, margin: "0 0 28px" }}>
-                Gemeinsam finden wir die passende Unterstützung für Deine Situation.
+              <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 17, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 28px" }}>
+                Du bist unsicher, welche Unterstützung zu dir passt — oder ob du überhaupt Hilfe brauchst? In einem kostenlosen, vertraulichen Gespräch hören wir dir einfach zu, helfen dir deine Situation einzuordnen und zeigen dir, welche nächsten Schritte sinnvoll sein könnten.
               </p>
 
-              {/* 4 benefit cards */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 32 }}>
+              {/* 4 benefits — clean text list */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 32 }}>
                 {[
-                  { icon: "/icons/icon-vorgespraech.svg", title: "Persönliche Empfehlung", sub: "Wir hören dir zu und empfehlen die passende Fachkraft für deine Situation." },
-                  { icon: "/icons/shield-check.svg",       title: "100 % vertraulich", sub: "Alles bleibt unter uns — das Gespräch unterliegt der Schweigepflicht." },
-                  { icon: "/icons/icon-check.svg",         title: "Völlig kostenlos", sub: "Das Erstgespräch ist gratis — ohne Anmeldung, ohne versteckte Kosten." },
-                  { icon: "/icons/icon-pin.svg",           title: "Online oder Vor Ort", sub: "Du wählst: bequem per Video oder persönlich in unserem Büro in Wien." },
+                  { icon: "/icons/icon-vorgespraech.svg", text: "Persönliche Empfehlung" },
+                  { icon: "/icons/shield-check.svg",       text: "Vertraulich & diskret" },
+                  { icon: "/icons/icon-check.svg",         text: "Kostenlos & unverbindlich" },
+                  { icon: "/icons/icon-pin.svg",           text: "Online oder Vor Ort" },
                 ].map((f, i) => (
-                  <div key={i} style={{ background: "var(--blue-ultra-light)", borderRadius: 16, padding: "16px 18px", display: "flex", gap: 12, alignItems: "flex-start" }}>
-                    <div style={{ width: 40, height: 40, borderRadius: 12, background: "white", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: "0 2px 8px rgba(45,91,141,0.1)" }}>
-                      <img src={f.icon} width={20} height={20} alt="" style={{ objectFit: "contain" }} />
-                    </div>
-                    <div>
-                      <p style={{ fontFamily: F, fontWeight: 700, fontSize: 13, color: "var(--black)", margin: "0 0 4px" }}>{f.title}</p>
-                      <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: 0, lineHeight: 1.5 }}>{f.sub}</p>
-                    </div>
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <img src={f.icon} width={18} height={18} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
+                    <span style={{ fontFamily: F, fontSize: 15, color: "var(--black)", fontWeight: 500 }}>{f.text}</span>
                   </div>
                 ))}
               </div>
