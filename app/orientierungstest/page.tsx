@@ -355,10 +355,19 @@ export default function OrientierungstestPage() {
               <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 1fr" }}>
                 {/* Left: question + options */}
                 <div style={{ padding: isMobile ? "28px 20px 24px" : "40px 40px 36px", display: "flex", flexDirection: "column" }}>
-                  {/* Frage label */}
-                  <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 12 }}>
-                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke={CTA} strokeWidth="1.8"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/><circle cx="12" cy="17" r=".5" fill={CTA} stroke={CTA} strokeWidth="1"/></svg>
-                    <span style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: CTA }}>Frage {currentQ + 1}</span>
+                  {/* Frage label + Zurück */}
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                      <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke={CTA} strokeWidth="1.8"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/><circle cx="12" cy="17" r=".5" fill={CTA} stroke={CTA} strokeWidth="1"/></svg>
+                      <span style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: CTA }}>Frage {currentQ + 1}</span>
+                    </div>
+                    {currentQ > 0 && (
+                      <button onClick={() => { setCurrentQ(q => q - 1); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                        style={{ background: "none", border: "none", fontFamily: F, fontSize: 14, color: "var(--grey-text)", cursor: "pointer", padding: "4px 0", display: "flex", alignItems: "center", gap: 4 }}>
+                        <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M15 6l-6 6 6 6"/></svg>
+                        Zurück
+                      </button>
+                    )}
                   </div>
 
                   <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 24, color: "var(--black)", margin: "0 0 8px", lineHeight: 1.3 }}>
@@ -368,13 +377,13 @@ export default function OrientierungstestPage() {
                     {q.subtitle}
                   </p>
 
-                  {/* Options — clean checkbox list */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
+                  {/* Options — scrollable if many */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: 10, overflowY: "auto", maxHeight: 320, paddingRight: 4 }}>
                     {q.options.map(opt => {
                       const sel = answers[q.id]?.includes(opt.value);
                       return (
                         <button key={opt.value} onClick={() => toggleAnswer(q.id, opt.value, q.multi)}
-                          style={{ display: "flex", alignItems: "center", gap: 14, padding: "13px 16px", borderRadius: 12, border: sel ? `2px solid ${CTA}` : "1.5px solid #DDE8F5", background: sel ? "var(--blue-ultra-light)" : "white", cursor: "pointer", transition: "all 0.15s", textAlign: "left", width: "100%" }}>
+                          style={{ display: "flex", alignItems: "center", gap: 14, padding: "13px 16px", borderRadius: 12, border: sel ? `2px solid ${CTA}` : "1.5px solid #DDE8F5", background: sel ? "var(--blue-ultra-light)" : "white", cursor: "pointer", transition: "all 0.15s", textAlign: "left", width: "100%", flexShrink: 0 }}>
                           {/* Checkbox */}
                           <div style={{ width: 20, height: 20, borderRadius: q.multi ? 5 : "50%", border: sel ? `2px solid ${CTA}` : "2px solid #C5D5EA", background: sel ? CTA : "white", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all 0.15s" }}>
                             {sel && <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path d="M5 12l5 5L20 7" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>}
@@ -393,20 +402,12 @@ export default function OrientierungstestPage() {
                     {currentQ < QUESTIONS.length - 1 ? "Weiter zur nächsten Frage" : "Ergebnis anzeigen"}
                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path fillRule="evenodd" clipRule="evenodd" d="M12.634 6.234a.9.9 0 0 1 1.273 0l4.8 4.8a.9.9 0 0 1 0 1.273l-4.8 4.8a.9.9 0 1 1-1.272-1.272L16.068 12.4H6.8a.9.9 0 1 1 0-1.8h9.268l-3.434-3.435a.9.9 0 0 1 0-1.272Z" fill="white"/></svg>
                   </button>
-
-                  {currentQ > 0 && (
-                    <button onClick={() => { setCurrentQ(q => q - 1); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                      style={{ background: "none", border: "none", fontFamily: F, fontSize: 14, color: "var(--grey-text)", cursor: "pointer", marginTop: 12, padding: "4px 0", display: "flex", alignItems: "center", gap: 4, alignSelf: "flex-start" }}>
-                      <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M15 6l-6 6 6 6"/></svg>
-                      Zurück
-                    </button>
-                  )}
                 </div>
 
-                {/* Right: photo */}
+                {/* Right: photo — fixed height */}
                 {!isMobile && (
-                  <div style={{ overflow: "hidden" }}>
-                    <img src={q.photo} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", minHeight: 400 }} />
+                  <div style={{ overflow: "hidden", maxHeight: 420 }}>
+                    <img src={q.photo} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
                   </div>
                 )}
               </div>
