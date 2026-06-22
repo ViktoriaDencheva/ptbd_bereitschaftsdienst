@@ -62,7 +62,7 @@ function LeftPanel({ format, selectedDate, selectedTime }: { format: string; sel
         </div>
         <div style={{ padding: "16px 18px", display: "flex", flexDirection: "column", gap: 9 }}>
           {[
-            { icon: "/icons/icon-clock.svg", text: "20 Minuten" },
+            { icon: "/icons/icon-clock.svg", text: "30 Minuten" },
             { icon: "/icons/shield-check.svg", text: "Kostenlos & vertraulich" },
             { icon: format === "vor-ort" ? "/icons/icon-pin.svg" : "/icons/icon-orientierung.svg", text: format === "vor-ort" ? "Vor Ort in Wien" : "Online per Video" },
           ].map((r, i) => (
@@ -77,7 +77,7 @@ function LeftPanel({ format, selectedDate, selectedTime }: { format: string; sel
         <div style={{ background: "var(--blue-ultra-light)", border: `1px solid ${CTA}20`, borderRadius: 16, padding: "14px 18px" }}>
           <p style={{ fontFamily: F, fontSize: 11, fontWeight: 600, color: CTA, textTransform: "uppercase", letterSpacing: "0.07em", margin: "0 0 6px" }}>Gewählter Termin</p>
           <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 2px" }}>{selectedDate.getDate()}. {MONTHS_SHORT[selectedDate.getMonth()]} {selectedDate.getFullYear()}</p>
-          <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0 }}>{selectedTime} Uhr · 20 Min.</p>
+          <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0 }}>{selectedTime} Uhr · 30 Min.</p>
         </div>
       )}
     </div>
@@ -157,7 +157,7 @@ export default function VorgespraechPage() {
               <p style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: "var(--grey-text)", textTransform: "uppercase", letterSpacing: "0.07em", margin: "0 0 16px" }}>Dein Termin</p>
               {[
                 ["📅", "Datum", `${selectedDate?.getDate()}. ${MONTHS_DE[selectedDate?.getMonth() ?? 0]} ${selectedDate?.getFullYear()}`],
-                ["⏰", "Uhrzeit", `${selectedTime} Uhr · 20 Minuten`],
+                ["⏰", "Uhrzeit", `${selectedTime} Uhr · 30 Minuten`],
                 [format === "online" ? "💻" : "📍", "Format", format === "online" ? "Online per Videoanruf" : "Vor Ort — Mariahilfer Str. 47/3, 1060 Wien"],
                 ["👤", "Name", `${form.vorname} ${form.nachname}`],
               ].map(([icon, label, value]) => (
@@ -210,7 +210,7 @@ export default function VorgespraechPage() {
           }}>
             {/* Left: hero image — transparent bg, show full */}
             <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
-              <img src="/vorgespraech-banner.png" alt="Spezialistin"
+              <img src="/vorgespraech-banner.jpg" alt="Spezialistin"
                 style={{ width: "100%", objectFit: "contain", objectPosition: "bottom center", display: "block" }} />
             </div>
 
@@ -225,7 +225,7 @@ export default function VorgespraechPage() {
                 Kostenloses<br />Orientierungsgespräch
               </h1>
               <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 17, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 28px" }}>
-                Unsicher, wo du anfangen sollst? Wir hören dir zu, helfen dir deine Situation einzuordnen und zeigen dir, welche Unterstützung für dich sinnvoll sein könnte.
+                Unsicher, wo du anfangen sollst? In einem 30-minütigen Gespräch hören wir dir zu, helfen dir deine Situation einzuordnen und zeigen dir, welche Unterstützung für dich sinnvoll sein könnte.
               </p>
 
               {/* 4 benefits — blue checkmarks */}
