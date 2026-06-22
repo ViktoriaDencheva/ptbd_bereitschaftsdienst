@@ -440,81 +440,99 @@ export default function OrientierungstestPage() {
       {phase === "results" && (() => {
         const specKey = getRecommendation(answers);
         const spec = SPECIALIST_TYPES[specKey];
-        const specPhoto: Record<string, string> = {
-          psychotherapeut: "/fachkraefte/fachkraft-1.jpg",
-          psychologe: "/fachkraefte/fachkraft-2.jpg",
-          psychiater: "/fachkraefte/fachkraft-3.jpg",
-        };
         return (
           <div style={{ ...wrap, paddingTop: isMobile ? 24 : 56, paddingBottom: 80 }}>
 
-            {/* ── Main recommendation card ── */}
-            <div style={{ background: "white", border: "1px solid #E4EDF8", borderRadius: 24, overflow: "hidden", boxShadow: "0 4px 40px rgba(45,91,141,0.08)", marginBottom: 28 }}>
-              <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 1fr" }}>
-
-                {/* Left — photo + specialist label */}
-                <div style={{ position: "relative", minHeight: isMobile ? 260 : 440, overflow: "hidden", background: "#F0F5FC" }}>
-                  <img src={specPhoto[specKey]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block", position: "absolute", inset: 0 }} />
-                  {/* Gradient overlay at bottom */}
-                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(20,40,80,0.72) 0%, rgba(20,40,80,0.15) 50%, transparent 100%)" }} />
-                  <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: isMobile ? "24px 20px" : "32px 36px" }}>
-                    <p style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.75)", margin: "0 0 6px", letterSpacing: "0.06em", textTransform: "uppercase" }}>Unsere Empfehlung für dich</p>
-                    <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 26 : 34, color: "white", margin: 0, lineHeight: 1.15 }}>{spec.title}</h2>
+            {/* ── Recommendation header ── */}
+            <div style={{ marginBottom: 28 }}>
+              <p style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: CTA, letterSpacing: "0.08em", textTransform: "uppercase", margin: "0 0 10px" }}>Deine Empfehlung</p>
+              <div style={{ display: "flex", alignItems: isMobile ? "flex-start" : "center", gap: isMobile ? 14 : 20, flexDirection: isMobile ? "column" : "row", justifyContent: "space-between" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                  <div style={{ width: 56, height: 56, borderRadius: 16, background: "var(--blue-ultra-light)", border: `1.5px solid #C8DFFF`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <img src={spec.icon} width={30} height={30} alt="" style={{ objectFit: "contain", filter: iconFilter }} />
+                  </div>
+                  <div>
+                    <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 28, color: "var(--black)", margin: 0, lineHeight: 1.2 }}>{spec.title}</h1>
+                    <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "4px 0 0" }}>{spec.desc}</p>
                   </div>
                 </div>
+                <a href="/fachkraefte" style={{ flexShrink: 0, fontFamily: F, fontSize: 13, color: CTA, textDecoration: "none", fontWeight: 600, whiteSpace: "nowrap" }}
+                  onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
+                  onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}>
+                  Was ist der Unterschied? →
+                </a>
+              </div>
 
-                {/* Right — explanation + CTAs */}
-                <div style={{ padding: isMobile ? "28px 20px" : "40px 40px", display: "flex", flexDirection: "column", justifyContent: "center", gap: 20 }}>
-                  <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>
-                    {spec.desc}{" "}
-                    <a href="/fachkraefte" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
-                      onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
-                      onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}>
-                      Psychologe, Psychiater oder Therapeut? →
-                    </a>
-                  </p>
+              {/* Why box */}
+              <div style={{ background: "var(--blue-ultra-light)", border: "1px solid #C8DFFF", borderRadius: 14, padding: "18px 22px", marginTop: 18, display: "flex", gap: 14, alignItems: "flex-start" }}>
+                <svg style={{ flexShrink: 0, marginTop: 2 }} width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 8v4M12 16h.01" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>
+                <p style={{ fontFamily: F, fontSize: 14, color: "var(--black)", margin: 0, lineHeight: 1.65 }}>{spec.why}</p>
+              </div>
 
-                  {/* Why box */}
-                  <div style={{ background: "var(--blue-ultra-light)", borderRadius: 14, padding: "18px 20px" }}>
-                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, margin: "0 0 8px" }}>Warum diese Empfehlung?</p>
-                    <p style={{ fontFamily: F, fontSize: 14, color: "var(--black)", margin: 0, lineHeight: 1.65 }}>{spec.why}</p>
-                  </div>
-
-                  {/* Tags */}
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-                    {spec.tags.map(tag => (
-                      <span key={tag} style={{ background: "#F5F8FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "4px 13px", fontFamily: F, fontSize: 12, color: "var(--black)", fontWeight: 500 }}>{tag}</span>
-                    ))}
-                  </div>
-
-                  {/* CTAs */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 4 }}>
-                    <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: 0 }}>Termine oft kurzfristig verfügbar</p>
-                    <a href="/fachkraefte"
-                      style={{ display: "flex", alignItems: "center", justifyContent: "center", height: 50, borderRadius: 12, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", gap: 8, transition: "background 0.2s" }}
-                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
-                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                      Jetzt passende Fachkraft finden
-                      <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path fillRule="evenodd" clipRule="evenodd" d="M12.634 6.234a.9.9 0 0 1 1.273 0l4.8 4.8a.9.9 0 0 1 0 1.273l-4.8 4.8a.9.9 0 1 1-1.272-1.272L16.068 12.4H6.8a.9.9 0 1 1 0-1.8h9.268l-3.434-3.435a.9.9 0 0 1 0-1.272Z" fill="white"/></svg>
-                    </a>
-                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, textAlign: "center" }}>Noch unsicher? Ein unverbindliches Vorgespräch kann helfen.</p>
-                    <a href="/vorgespraech"
-                      style={{ display: "flex", alignItems: "center", justifyContent: "center", height: 46, borderRadius: 12, background: "white", color: CTA, border: `1.5px solid ${CTA}`, fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", transition: "all 0.2s" }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "white"; }}>
-                      Vorgespräch buchen
-                    </a>
-                  </div>
-                </div>
+              {/* Tags */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 7, marginTop: 14 }}>
+                {spec.tags.map(tag => (
+                  <span key={tag} style={{ background: "white", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "5px 14px", fontFamily: F, fontSize: 12, color: "var(--black)", fontWeight: 500 }}>{tag}</span>
+                ))}
               </div>
             </div>
 
-            {/* Test wiederholen */}
-            <div style={{ textAlign: "center" }}>
+            {/* Matching therapists */}
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 16px" }}>Passende Fachkräfte in deiner Nähe</h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: 14, marginBottom: 32 }}>
+              {RESULT_THERAPISTS.map((t, i) => (
+                <div key={t.id} style={{ background: "white", borderRadius: 18, border: "1px solid #EEF2F7", boxShadow: i === 0 ? `0 0 0 2px ${CTA}, 0 8px 32px rgba(45,91,141,0.10)` : "none", padding: isMobile ? 16 : "22px 28px", display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 14 : 24, alignItems: isMobile ? "flex-start" : "center", position: "relative" }}>
+                  {i === 0 && (
+                    <div style={{ position: "absolute", top: -12, left: 20, background: CTA, color: "white", borderRadius: 9999, padding: "3px 12px", fontFamily: F, fontSize: 11, fontWeight: 700 }}>★ Beste Übereinstimmung</div>
+                  )}
+                  <div style={{ width: isMobile ? 60 : 76, height: isMobile ? 60 : 76, borderRadius: "50%", overflow: "hidden", flexShrink: 0 }}>
+                    <img src={t.photo} alt={t.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
+                  </div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+                      <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 16 : 18, color: "var(--black)", margin: 0 }}>{t.name}</h3>
+                      <span style={{ fontFamily: F, fontSize: 12, color: "#33700E", fontWeight: 600, background: "#EDFAEB", borderRadius: 9999, padding: "2px 10px" }}>{t.match}% Match</span>
+                    </div>
+                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: "4px 0 10px" }}>{t.role}</p>
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      {t.tags.map(tag => <span key={tag} style={{ background: "#F5F8FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "4px 12px", fontFamily: F, fontSize: 12, color: "var(--black)" }}>{tag}</span>)}
+                    </div>
+                  </div>
+                  <div style={{ flexShrink: 0 }}>
+                    <a href={`/fachkraefte/${t.id}`} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: i === 0 ? CTA : "white", color: i === 0 ? "white" : CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "9px 20px", fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", whiteSpace: "nowrap" }}>
+                      Profil ansehen →
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Actions */}
+            <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 12, justifyContent: "center", alignItems: "center", marginBottom: 40 }}>
+              <a href="/fachkraefte"
+                style={{ display: "inline-flex", alignItems: "center", gap: 8, background: CTA, color: "white", borderRadius: 9999, padding: "12px 28px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.25)", transition: "background 0.2s" }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
+                Alle Fachkräfte ansehen
+              </a>
               <button onClick={() => { setPhase("test"); setCurrentQ(0); setAnswers({}); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                style={{ background: "none", border: "none", fontFamily: F, fontSize: 14, color: "var(--grey-text)", cursor: "pointer", textDecoration: "underline", textUnderlineOffset: 3 }}>
+                style={{ display: "inline-flex", alignItems: "center", gap: 8, border: `1.5px solid ${CTA}`, background: "white", color: CTA, borderRadius: 9999, padding: "12px 24px", fontFamily: F, fontWeight: 500, fontSize: 14, cursor: "pointer" }}>
                 Test wiederholen
               </button>
+            </div>
+
+            {/* Vorgesprach banner */}
+            <div style={{ background: "var(--blue-ultra-light)", border: "1px solid #C8DFFF", borderRadius: isMobile ? 16 : 20, padding: isMobile ? "24px 20px" : "28px 36px", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between", gap: 16 }}>
+              <div>
+                <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 4px" }}>Möchtest du lieber persönlich beraten werden?</p>
+                <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0 }}>In einem kostenlosen Erstgespräch beraten wir dich persönlich.</p>
+              </div>
+              <a href="/vorgespraech"
+                style={{ flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 6, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 20px", whiteSpace: "nowrap", background: "white", transition: "all 0.2s" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = CTA; (e.currentTarget as HTMLElement).style.color = "white"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "white"; (e.currentTarget as HTMLElement).style.color = CTA; }}>
+                Kostenloses Erstgespräch →
+              </a>
             </div>
           </div>
         );
