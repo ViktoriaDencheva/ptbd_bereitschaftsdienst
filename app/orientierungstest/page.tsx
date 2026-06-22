@@ -352,7 +352,7 @@ export default function OrientierungstestPage() {
 
           {!loading ? (
             <div style={{ background: "white", borderRadius: 20, border: "1px solid #EEF2F7", boxShadow: "0 4px 32px rgba(45,91,141,0.06)", overflow: "hidden" }}>
-              <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 1fr" }}>
+              <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 1fr", height: isMobile ? undefined : 520 }}>
                 {/* Left: question + options */}
                 <div style={{ padding: isMobile ? "28px 20px 24px" : "40px 40px 36px", display: "flex", flexDirection: "column" }}>
                   {/* Frage label + Zurück */}
@@ -404,9 +404,9 @@ export default function OrientierungstestPage() {
                   </button>
                 </div>
 
-                {/* Right: photo — fixed height */}
+                {/* Right: photo — fills full card height */}
                 {!isMobile && (
-                  <div style={{ overflow: "hidden", maxHeight: 420 }}>
+                  <div style={{ overflow: "hidden" }}>
                     <img src={q.photo} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
                   </div>
                 )}
