@@ -192,43 +192,32 @@ export default function VorgespraechPage() {
       </section>
 
       {/* ── ORIENTIERUNGSTEST BANNER ─────────────────────────────── */}
-      <section style={{ background: "#F0F6FF", padding: isMobile ? "0" : "0 0" }}>
-        <div style={{ ...wrap, padding: isMobile ? "0" : "0 40px" }}>
-          <div style={{
-            borderRadius: isMobile ? 0 : 24,
-            overflow: "hidden",
-            display: isMobile ? "flex" : "grid",
-            flexDirection: isMobile ? "column" : undefined,
-            gridTemplateColumns: isMobile ? undefined : "1fr 420px",
-            alignItems: "stretch",
-            minHeight: isMobile ? undefined : 260,
-            background: "var(--blue-ultra-light)",
-          }}>
-            {/* Text side */}
-            <div style={{ padding: isMobile ? "36px 24px 32px" : "48px 52px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+      <section style={{ background: "white", padding: isMobile ? "0 0 48px" : "0 0 80px" }}>
+        <div style={{ ...wrap }}>
+          <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 260 : 240, display: "flex", alignItems: "center" }}>
+            {/* Background image */}
+            <img src="/orientierungstest-small-banner.jpg" alt=""
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
+            {/* Gradient overlay — left readable, right shows image */}
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.93) 40%, rgba(236,245,255,0.4) 70%, transparent 100%)" }} />
+            {/* Text content */}
+            <div style={{ position: "relative", zIndex: 1, padding: isMobile ? "36px 24px" : "48px 52px", maxWidth: isMobile ? "100%" : 500 }}>
               <p style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 10px" }}>
                 Noch unsicher?
               </p>
-              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 28, lineHeight: 1.3, color: "var(--black)", margin: "0 0 12px" }}>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, lineHeight: 1.3, color: "var(--black)", margin: "0 0 10px" }}>
                 Lieber selbst herausfinden,<br />was zu dir passt?
               </h2>
-              <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: "0 0 28px", lineHeight: 1.6, maxWidth: 400 }}>
+              <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 24px", lineHeight: 1.6 }}>
                 Beantworte einige kurze Fragen und erhalte passende Empfehlungen für deine Situation.
               </p>
-              <a href="/orientierungstest" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", alignSelf: "flex-start", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s" }}
+              <a href="/orientierungstest" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 46, padding: "0 24px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
                 Orientierungstest starten
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
               </a>
             </div>
-            {/* Image side */}
-            {!isMobile && (
-              <div style={{ overflow: "hidden", position: "relative" }}>
-                <img src="/orientierungstest-small-banner.jpg" alt="Orientierungstest"
-                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
-              </div>
-            )}
           </div>
         </div>
       </section>
