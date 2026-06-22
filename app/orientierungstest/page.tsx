@@ -218,7 +218,7 @@ export default function OrientierungstestPage() {
             <div style={{ ...wrap }}>
               <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 1fr", gap: isMobile ? 20 : 64, alignItems: "stretch", paddingTop: 8 }}>
                 <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", overflow: "hidden" }}>
-                  <img src="/orientierungstest-small-banner.jpg" alt="Orientierungstest"
+                  <img src="/Orientierungstest-banner.jpg" alt="Orientierungstest"
                     style={{ width: "100%", maxHeight: isMobile ? 260 : 440, objectFit: "cover", objectPosition: "center", borderRadius: 20, display: "block" }} />
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: isMobile ? 0 : 32, paddingBottom: isMobile ? 0 : 32 }}>
