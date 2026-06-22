@@ -232,18 +232,18 @@ export default function VorgespraechPage() {
               {/* 4 benefit cards */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 32 }}>
                 {[
-                  { icon: "/icons/icon-vorgespraech.svg", title: "Persönlich", sub: "Individuelle Empfehlung", bg: "var(--blue-ultra-light)" },
-                  { icon: "/icons/shield-check.svg",       title: "Vertraulich", sub: "Unter Schweigepflicht", bg: "#EDF9F0" },
-                  { icon: "/icons/icon-check.svg",         title: "Kostenlos", sub: "Ohne versteckte Kosten", bg: "#FFF4E8" },
-                  { icon: "/icons/icon-pin.svg",           title: "Flexibel", sub: "Online oder Vor Ort", bg: "#F3EEFF" },
+                  { icon: "/icons/icon-vorgespraech.svg", title: "Persönliche Empfehlung", sub: "Wir hören dir zu und empfehlen die passende Fachkraft für deine Situation." },
+                  { icon: "/icons/shield-check.svg",       title: "100 % vertraulich", sub: "Alles bleibt unter uns — das Gespräch unterliegt der Schweigepflicht." },
+                  { icon: "/icons/icon-check.svg",         title: "Völlig kostenlos", sub: "Das Erstgespräch ist gratis — ohne Anmeldung, ohne versteckte Kosten." },
+                  { icon: "/icons/icon-pin.svg",           title: "Online oder Vor Ort", sub: "Du wählst: bequem per Video oder persönlich in unserem Büro in Wien." },
                 ].map((f, i) => (
-                  <div key={i} style={{ background: f.bg, borderRadius: 16, padding: "16px 18px", display: "flex", gap: 12, alignItems: "flex-start" }}>
-                    <div style={{ width: 40, height: 40, borderRadius: 12, background: "white", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: "0 2px 8px rgba(0,0,0,0.07)" }}>
+                  <div key={i} style={{ background: "var(--blue-ultra-light)", borderRadius: 16, padding: "16px 18px", display: "flex", gap: 12, alignItems: "flex-start" }}>
+                    <div style={{ width: 40, height: 40, borderRadius: 12, background: "white", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: "0 2px 8px rgba(45,91,141,0.1)" }}>
                       <img src={f.icon} width={20} height={20} alt="" style={{ objectFit: "contain" }} />
                     </div>
                     <div>
-                      <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "var(--black)", margin: "0 0 2px" }}>{f.title}</p>
-                      <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: 0, lineHeight: 1.4 }}>{f.sub}</p>
+                      <p style={{ fontFamily: F, fontWeight: 700, fontSize: 13, color: "var(--black)", margin: "0 0 4px" }}>{f.title}</p>
+                      <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: 0, lineHeight: 1.5 }}>{f.sub}</p>
                     </div>
                   </div>
                 ))}
