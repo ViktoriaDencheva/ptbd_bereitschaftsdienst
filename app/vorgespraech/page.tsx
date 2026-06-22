@@ -194,13 +194,13 @@ export default function VorgespraechPage() {
       {/* ── ORIENTIERUNGSTEST BANNER ─────────────────────────────── */}
       <section style={{ background: "white", padding: isMobile ? "0 0 48px" : "0 0 80px" }}>
         <div style={{ ...wrap }}>
-          <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 260 : 240, display: "flex", alignItems: "center" }}>
+          <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 260 : 240, display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
             {/* Background image */}
             <img src="/orientierungstest-small-banner.jpg" alt=""
               style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
-            {/* Gradient overlay — left readable, right shows image */}
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.93) 40%, rgba(236,245,255,0.4) 70%, transparent 100%)" }} />
-            {/* Text content */}
+            {/* Gradient overlay — right readable, left shows image */}
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.93) 40%, rgba(236,245,255,0.4) 70%, transparent 100%)" }} />
+            {/* Text content — right side */}
             <div style={{ position: "relative", zIndex: 1, padding: isMobile ? "36px 24px" : "48px 52px", maxWidth: isMobile ? "100%" : 500 }}>
               <p style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 10px" }}>
                 Noch unsicher?
