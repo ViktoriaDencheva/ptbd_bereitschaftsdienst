@@ -204,20 +204,20 @@ export default function VorgespraechPage() {
             display: isMobile ? "flex" : "grid",
             flexDirection: isMobile ? "column" : undefined,
             gridTemplateColumns: isMobile ? undefined : "1fr 1fr",
-            gap: isMobile ? 28 : 64,
-            alignItems: "center",
-            paddingTop: isMobile ? 28 : 48,
+            gap: isMobile ? 20 : 64,
+            alignItems: "stretch",
+            paddingTop: isMobile ? 16 : 20,
           }}>
-            {/* Left: hero image — transparent bg, show full */}
-            <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
+            {/* Left: hero image — fills same height as right column */}
+            <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", overflow: "hidden" }}>
               <img src="/vorgespraech-banner.jpg" alt="Spezialistin"
-                style={{ width: "100%", objectFit: "contain", objectPosition: "bottom center", display: "block" }} />
+                style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "bottom center", display: "block" }} />
             </div>
 
             {/* Right: content */}
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              {/* Badge */}
-              <div style={{ display: "inline-block", background: "var(--blue-ultra-light)", borderRadius: 9999, padding: "5px 16px", marginBottom: 18, alignSelf: "flex-start" }}>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: isMobile ? 0 : 32, paddingBottom: isMobile ? 0 : 32 }}>
+              {/* Badge — border only, centered text */}
+              <div style={{ display: "inline-block", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "5px 16px", marginBottom: 18, alignSelf: "flex-start", textAlign: "center" }}>
                 <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>Kostenlos &amp; vertraulich</span>
               </div>
 
