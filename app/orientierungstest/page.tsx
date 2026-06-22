@@ -354,7 +354,7 @@ export default function OrientierungstestPage() {
             <div style={{ background: "white", borderRadius: 20, border: "1px solid #EEF2F7", boxShadow: "0 4px 32px rgba(45,91,141,0.06)", overflow: "hidden" }}>
               <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 1fr", height: isMobile ? undefined : 520 }}>
                 {/* Left: question + options */}
-                <div style={{ padding: isMobile ? "28px 20px 24px" : "40px 40px 36px", display: "flex", flexDirection: "column" }}>
+                <div style={{ padding: isMobile ? "28px 20px 24px" : "40px 40px 36px", display: "flex", flexDirection: "column", overflow: "hidden" }}>
                   {/* Frage label + Zurück */}
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
@@ -377,8 +377,8 @@ export default function OrientierungstestPage() {
                     {q.subtitle}
                   </p>
 
-                  {/* Options — scrollable if many */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: 10, overflowY: "auto", maxHeight: 320, paddingRight: 4 }}>
+                  {/* Options — scrollable, takes remaining space */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: 10, overflowY: "auto", flex: 1, paddingRight: 4, minHeight: 0 }}>
                     {q.options.map(opt => {
                       const sel = answers[q.id]?.includes(opt.value);
                       return (
