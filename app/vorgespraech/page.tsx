@@ -221,11 +221,11 @@ export default function VorgespraechPage() {
                 <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>Kostenlos &amp; vertraulich</span>
               </div>
 
-              <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 28 : 40, lineHeight: 1.2, color: "var(--black)", margin: "0 0 14px" }}>
+              <h1 style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 28 : 40, lineHeight: 1.2, color: "var(--black)", margin: "0 0 14px" }}>
                 Kostenloses<br />Orientierungsgespräch
               </h1>
               <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 17, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 28px" }}>
-                Du bist unsicher, welche Unterstützung zu dir passt — oder ob du überhaupt Hilfe brauchst? In einem kostenlosen, vertraulichen Gespräch hören wir dir einfach zu, helfen dir deine Situation einzuordnen und zeigen dir, welche nächsten Schritte sinnvoll sein könnten.
+                Unsicher, wo du anfangen sollst? Wir hören dir zu, helfen dir deine Situation einzuordnen und zeigen dir, welche Unterstützung für dich sinnvoll sein könnte.
               </p>
 
               {/* 4 benefits — blue checkmarks */}
