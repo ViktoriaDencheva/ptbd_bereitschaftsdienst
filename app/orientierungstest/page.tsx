@@ -363,19 +363,19 @@ export default function OrientierungstestPage() {
               <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 1fr", height: isMobile ? undefined : 520 }}>
                 {/* Left: question + options */}
                 <div style={{ padding: isMobile ? "28px 20px 24px" : "40px 40px 36px", display: "flex", flexDirection: "column", overflow: "hidden" }}>
-                  {/* Frage label + Zurück */}
+                  {/* Zurück + Frage label */}
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                      <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke={CTA} strokeWidth="1.8"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/><circle cx="12" cy="17" r=".5" fill={CTA} stroke={CTA} strokeWidth="1"/></svg>
-                      <span style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: CTA }}>Frage {currentQ + 1}</span>
-                    </div>
-                    {currentQ > 0 && (
+                    {currentQ > 0 ? (
                       <button onClick={() => { setCurrentQ(q => q - 1); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                         style={{ background: "none", border: "none", fontFamily: F, fontSize: 14, color: "var(--grey-text)", cursor: "pointer", padding: "4px 0", display: "flex", alignItems: "center", gap: 4 }}>
                         <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M15 6l-6 6 6 6"/></svg>
                         Zurück
                       </button>
-                    )}
+                    ) : <div />}
+                    <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                      <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke={CTA} strokeWidth="1.8"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/><circle cx="12" cy="17" r=".5" fill={CTA} stroke={CTA} strokeWidth="1"/></svg>
+                      <span style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: CTA }}>Frage {currentQ + 1}</span>
+                    </div>
                   </div>
 
                   <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 24, color: "var(--black)", margin: "0 0 8px", lineHeight: 1.3 }}>
@@ -415,7 +415,7 @@ export default function OrientierungstestPage() {
                 {/* Right: photo — fills full card height */}
                 {!isMobile && (
                   <div style={{ overflow: "hidden" }}>
-                    <img src={q.photo} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+                    <img src={q.photo} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center", display: "block" }} />
                   </div>
                 )}
               </div>
