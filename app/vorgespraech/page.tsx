@@ -271,24 +271,24 @@ export default function VorgespraechPage() {
 
           {(() => {
             const steps = [
-              { n: 1, icon: "/icons/icon-vorgespraech.svg", bg: "#EBF2FF", title: "Gespräch vereinbaren", desc: "Wähle online einen Termin – kostenlos, ohne Wartezeit." },
-              { n: 2, icon: "/icons/icon-unterstuetzung.svg", bg: "#EDF9F0", title: "Offen erzählen", desc: "Du schilderst deine Situation – wir hören zu, ohne zu urteilen." },
-              { n: 3, icon: "/icons/icon-orientierung.svg", bg: "#FFF4E8", title: "Orientierung erhalten", desc: "Wir helfen dir einzuordnen, welche Unterstützung für dich passt." },
-              { n: 4, icon: "/icons/icon-test.svg", bg: "#F3EEFF", title: "Deinen Weg gehen", desc: "Du entscheidest in Ruhe – wir begleiten dich beim nächsten Schritt." },
+              { n: 1, icon: "/icons/icon-vorgespraech.svg", title: "Gespräch vereinbaren", desc: "Wähle online einen Termin – kostenlos, ohne Wartezeit." },
+              { n: 2, icon: "/icons/icon-unterstuetzung.svg", title: "Offen erzählen", desc: "Du schilderst deine Situation – wir hören zu, ohne zu urteilen." },
+              { n: 3, icon: "/icons/icon-orientierung.svg", title: "Orientierung erhalten", desc: "Wir helfen dir einzuordnen, welche Unterstützung für dich passt." },
+              { n: 4, icon: "/icons/icon-test.svg", title: "Deinen Weg gehen", desc: "Du entscheidest in Ruhe – wir begleiten dich beim nächsten Schritt." },
             ];
             return isMobile ? (
               /* Mobile: vertical list */
-              <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
                 {steps.map((s, i) => (
-                  <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
+                  <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start", paddingBottom: i < 3 ? 28 : 0 }}>
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                      <div style={{ position: "relative", width: 64, height: 64, borderRadius: "50%", background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                        <img src={s.icon} width={30} height={30} alt="" style={{ objectFit: "contain" }} />
-                        <span style={{ position: "absolute", top: -4, right: -4, width: 20, height: 20, borderRadius: "50%", background: CTA, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F, fontWeight: 700, fontSize: 11, color: "white" }}>{s.n}</span>
+                      <div style={{ width: 60, height: 60, borderRadius: "50%", background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, border: `1.5px solid ${CTA}22` }}>
+                        <img src={s.icon} width={28} height={28} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
                       </div>
-                      {i < 3 && <div style={{ width: 2, height: 28, background: "#E8EFF8", marginTop: 6 }} />}
+                      {i < 3 && <div style={{ width: 2, height: "100%", minHeight: 20, background: "#D0DCF0", marginTop: 6 }} />}
                     </div>
-                    <div style={{ paddingTop: 10 }}>
+                    <div style={{ paddingTop: 12 }}>
+                      <p style={{ fontFamily: F, fontWeight: 700, fontSize: 12, color: CTA, margin: "0 0 2px", letterSpacing: "0.05em" }}>{s.n}.</p>
                       <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 4px" }}>{s.title}</h3>
                       <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
                     </div>
@@ -296,26 +296,23 @@ export default function VorgespraechPage() {
                 ))}
               </div>
             ) : (
-              /* Desktop: horizontal timeline — centered columns */
-              <div style={{ maxWidth: 860, margin: "0 auto" }}>
-                {/* Icons row */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", marginBottom: 20 }}>
+              /* Desktop: horizontal timeline */
+              <div style={{ maxWidth: 900, margin: "0 auto" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 0, alignItems: "flex-start" }}>
                   {steps.map((s, i) => (
-                    <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: i === 0 ? "flex-start" : "center" }}>
-                      <div style={{ position: "relative", width: 80, height: 80, borderRadius: "50%", background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                        <img src={s.icon} width={36} height={36} alt="" style={{ objectFit: "contain" }} />
-                        <span style={{ position: "absolute", top: -4, right: -4, width: 24, height: 24, borderRadius: "50%", background: CTA, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F, fontWeight: 700, fontSize: 12, color: "white" }}>{s.n}</span>
+                    <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", position: "relative" }}>
+                      {/* Connector line — right half to next step */}
+                      {i < 3 && (
+                        <div style={{ position: "absolute", top: 40, left: "50%", right: "-50%", borderTop: "2px dashed #C8D8EE", zIndex: 0 }} />
+                      )}
+                      {/* Icon circle */}
+                      <div style={{ width: 80, height: 80, borderRadius: "50%", background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, border: `2px solid ${CTA}28`, position: "relative", zIndex: 1, marginBottom: 20 }}>
+                        <img src={s.icon} width={36} height={36} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
                       </div>
-                      {i < 3 && <div style={{ flex: 1, borderTop: "2px dashed #D0DCF0", margin: "0 10px" }} />}
-                    </div>
-                  ))}
-                </div>
-                {/* Text row */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
-                  {steps.map((s, i) => (
-                    <div key={i} style={{ textAlign: "center", paddingRight: i < 3 ? 8 : 0 }}>
-                      <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "var(--black)", margin: "0 0 6px" }}>{s.title}</h3>
-                      <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
+                      {/* Number + title + desc */}
+                      <p style={{ fontFamily: F, fontWeight: 700, fontSize: 12, color: CTA, margin: "0 0 4px", letterSpacing: "0.06em", textAlign: "center" }}>{s.n}.</p>
+                      <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "var(--black)", margin: "0 0 8px", textAlign: "center", lineHeight: 1.35 }}>{s.title}</h3>
+                      <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6, textAlign: "center", maxWidth: 170 }}>{s.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -324,7 +321,7 @@ export default function VorgespraechPage() {
           })()}
 
           {/* CTA after steps */}
-          <div style={{ marginTop: isMobile ? 36 : 48, display: "flex", justifyContent: "center" }}>
+          <div style={{ marginTop: isMobile ? 36 : 52, display: "flex", justifyContent: "center" }}>
             <button
               onClick={() => bookingRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
               style={{ height: 54, padding: "0 34px", borderRadius: 9999, background: CTA, color: "white", border: "none", fontFamily: F, fontWeight: 600, fontSize: 16, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 10, boxShadow: "0 4px 20px rgba(45,91,141,0.25)", transition: "background 0.2s" }}
@@ -333,6 +330,48 @@ export default function VorgespraechPage() {
               Kostenloses Erstgespräch buchen
               <img src="/icons/arrow-right.svg" width={18} height={18} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ── ORIENTIERUNGSTEST BANNER ─────────────────────────────── */}
+      <section style={{ background: "#F0F6FF", padding: isMobile ? "0" : "0 0" }}>
+        <div style={{ ...wrap, padding: isMobile ? "0" : "0 40px" }}>
+          <div style={{
+            borderRadius: isMobile ? 0 : 24,
+            overflow: "hidden",
+            display: isMobile ? "flex" : "grid",
+            flexDirection: isMobile ? "column" : undefined,
+            gridTemplateColumns: isMobile ? undefined : "1fr 420px",
+            alignItems: "stretch",
+            minHeight: isMobile ? undefined : 260,
+            background: "var(--blue-ultra-light)",
+          }}>
+            {/* Text side */}
+            <div style={{ padding: isMobile ? "36px 24px 32px" : "48px 52px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+              <p style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 10px" }}>
+                Noch unsicher?
+              </p>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 28, lineHeight: 1.3, color: "var(--black)", margin: "0 0 12px" }}>
+                Lieber selbst herausfinden,<br />was zu dir passt?
+              </h2>
+              <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: "0 0 28px", lineHeight: 1.6, maxWidth: 400 }}>
+                Beantworte einige kurze Fragen und erhalte passende Empfehlungen für deine Situation.
+              </p>
+              <a href="/orientierungstest" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", alignSelf: "flex-start", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s" }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
+                Orientierungstest starten
+                <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
+              </a>
+            </div>
+            {/* Image side */}
+            {!isMobile && (
+              <div style={{ overflow: "hidden", position: "relative" }}>
+                <img src="/orientierungstest-small-banner.jpg" alt="Orientierungstest"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
+              </div>
+            )}
           </div>
         </div>
       </section>
