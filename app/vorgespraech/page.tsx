@@ -157,10 +157,10 @@ export default function VorgespraechPage() {
                 {steps.map((s, i) => (
                   <div key={i}
                     style={{ background: "white", borderRadius: 20, padding: "32px 20px 28px", border: "1px solid #EAF0FA", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden", transition: "background 0.2s, border-color 0.2s, box-shadow 0.2s", cursor: "default" }}
-                    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--blue-ultra-light)"; el.style.borderColor = `${CTA}30`; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.08)"; }}
+                    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#F4F9FF"; el.style.borderColor = CTA; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.10)"; }}
                     onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.borderColor = "#EAF0FA"; el.style.boxShadow = "none"; }}>
                     {/* Large background number */}
-                    <span style={{ position: "absolute", top: -8, right: 10, fontFamily: F, fontWeight: 800, fontSize: 96, color: CTA, opacity: 0.06, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{s.n}</span>
+                    <span style={{ position: "absolute", top: -8, right: 10, fontFamily: F, fontWeight: 800, fontSize: 96, color: CTA, opacity: 0.12, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{s.n}</span>
                     {/* Icon — bigger, no circle border */}
                     <div style={{ position: "relative", marginBottom: 20 }}>
                       <img src={s.icon} width={56} height={56} alt="" style={{ objectFit: "contain", filter: iconFilter, display: "block" }} />
