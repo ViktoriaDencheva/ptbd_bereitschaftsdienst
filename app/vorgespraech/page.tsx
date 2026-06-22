@@ -154,15 +154,17 @@ export default function VorgespraechPage() {
             ) : (
               /* Desktop: 4 cards with connector */
               <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, position: "relative" }}>
-                {/* Connector line behind cards */}
-                <div style={{ position: "absolute", top: 52, left: "12.5%", right: "12.5%", borderTop: "2px dashed #C8D8EE", zIndex: 0 }} />
                 {steps.map((s, i) => (
-                  <div key={i} style={{ background: "#F8FAFE", borderRadius: 20, padding: "32px 24px 28px", border: "1px solid #EAF0FA", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", zIndex: 1 }}>
-                    {/* Icon circle */}
-                    <div style={{ width: 80, height: 80, borderRadius: "50%", background: "white", border: `2px solid ${CTA}25`, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20, flexShrink: 0 }}>
-                      <img src={s.icon} width={38} height={38} alt="" style={{ objectFit: "contain", filter: iconFilter }} />
+                  <div key={i}
+                    style={{ background: "white", borderRadius: 20, padding: "32px 20px 28px", border: "1px solid #EAF0FA", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden", transition: "background 0.2s, border-color 0.2s, box-shadow 0.2s", cursor: "default" }}
+                    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--blue-ultra-light)"; el.style.borderColor = `${CTA}30`; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.08)"; }}
+                    onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.borderColor = "#EAF0FA"; el.style.boxShadow = "none"; }}>
+                    {/* Large background number */}
+                    <span style={{ position: "absolute", top: -8, right: 10, fontFamily: F, fontWeight: 800, fontSize: 96, color: CTA, opacity: 0.06, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{s.n}</span>
+                    {/* Icon — bigger, no circle border */}
+                    <div style={{ position: "relative", marginBottom: 20 }}>
+                      <img src={s.icon} width={56} height={56} alt="" style={{ objectFit: "contain", filter: iconFilter, display: "block" }} />
                     </div>
-                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 12, color: CTA, margin: "0 0 6px", letterSpacing: "0.07em" }}>{s.n}.</p>
                     <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 10px", lineHeight: 1.35 }}>{s.title}</h3>
                     <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{s.desc}</p>
                   </div>
