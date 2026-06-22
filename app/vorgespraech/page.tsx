@@ -115,9 +115,8 @@ export default function VorgespraechPage() {
   const Breadcrumbs = ({ extra }: { extra?: string }) => (
     <div style={{ ...wrap, padding: isMobile ? "14px 16px" : "14px 40px" }} className="breadcrumb-wrap">
       <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
-        <a href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none", display: "flex", alignItems: "center", gap: 5 }}
+        <a href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
           onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>
-          <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M3 12L12 4l9 8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
           Startseite
         </a>
         <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
@@ -209,10 +208,10 @@ export default function VorgespraechPage() {
             alignItems: "center",
             paddingTop: isMobile ? 28 : 48,
           }}>
-            {/* Left: hero image — light background, show full */}
-            <div style={{ borderRadius: 20, overflow: "hidden", background: "#EEF4FC", display: "flex", alignItems: "flex-end", justifyContent: "center", minHeight: isMobile ? 280 : 460 }}>
+            {/* Left: hero image — transparent bg, show full */}
+            <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", minHeight: isMobile ? 260 : 460 }}>
               <img src="/vorgespraech-banner.png" alt="Spezialistin"
-                style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "bottom center", display: "block", maxHeight: isMobile ? 280 : 480 }} />
+                style={{ width: "100%", objectFit: "contain", objectPosition: "bottom center", display: "block", maxHeight: isMobile ? 280 : 500 }} />
             </div>
 
             {/* Right: content */}
@@ -230,17 +229,22 @@ export default function VorgespraechPage() {
                 Gemeinsam finden wir die passende Unterstützung für Deine Situation.
               </p>
 
-              {/* 4 facts — inline with project icons */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px 20px", marginBottom: 32 }}>
+              {/* 4 benefit cards */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 32 }}>
                 {[
-                  { icon: "/icons/icon-vorgespraech.svg", text: "Persönliche Empfehlung" },
-                  { icon: "/icons/shield-check.svg",       text: "Vertraulich & diskret" },
-                  { icon: "/icons/icon-check.svg",         text: "Kostenlos & unverbindlich" },
-                  { icon: "/icons/icon-pin.svg",           text: "Online oder in deiner Nähe" },
+                  { icon: "/icons/icon-vorgespraech.svg", title: "Persönlich", sub: "Individuelle Empfehlung", bg: "var(--blue-ultra-light)" },
+                  { icon: "/icons/shield-check.svg",       title: "Vertraulich", sub: "Unter Schweigepflicht", bg: "#EDF9F0" },
+                  { icon: "/icons/icon-check.svg",         title: "Kostenlos", sub: "Ohne versteckte Kosten", bg: "#FFF4E8" },
+                  { icon: "/icons/icon-pin.svg",           title: "Flexibel", sub: "Online oder Vor Ort", bg: "#F3EEFF" },
                 ].map((f, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 9 }}>
-                    <img src={f.icon} width={18} height={18} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
-                    <span style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.35 }}>{f.text}</span>
+                  <div key={i} style={{ background: f.bg, borderRadius: 16, padding: "16px 18px", display: "flex", gap: 12, alignItems: "flex-start" }}>
+                    <div style={{ width: 40, height: 40, borderRadius: 12, background: "white", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, boxShadow: "0 2px 8px rgba(0,0,0,0.07)" }}>
+                      <img src={f.icon} width={20} height={20} alt="" style={{ objectFit: "contain" }} />
+                    </div>
+                    <div>
+                      <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "var(--black)", margin: "0 0 2px" }}>{f.title}</p>
+                      <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: 0, lineHeight: 1.4 }}>{f.sub}</p>
+                    </div>
                   </div>
                 ))}
               </div>
