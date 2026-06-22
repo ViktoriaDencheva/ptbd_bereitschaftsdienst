@@ -301,7 +301,7 @@ export default function OrientierungstestPage() {
                   Bereit loszulegen?<br />
                   <span style={{ color: "var(--black)", fontWeight: 500 }}>Der Test dauert nur 3 Minuten – kostenlos und anonym.</span>
                 </p>
-                <button onClick={() => setPhase("test")}
+                <button onClick={() => { setPhase("test"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                   style={{ height: 54, padding: "0 36px", borderRadius: 9999, background: CTA, color: "white", border: "none", fontFamily: F, fontWeight: 600, fontSize: 16, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 10, boxShadow: "0 4px 20px rgba(45,91,141,0.28)", transition: "background 0.2s" }}
                   onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                   onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
