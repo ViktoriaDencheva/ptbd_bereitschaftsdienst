@@ -152,10 +152,9 @@ function BookingCard({ b, past, onCancel, onOpenChat }: { b: Booking; past?: boo
                 <span style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)" }}>{vorortAddress}</span>
                 {mapsUrl && (
                   <a href={mapsUrl} target="_blank" rel="noopener noreferrer"
-                    style={{ fontFamily: F, fontSize: 12, color: CTA, textDecoration: "none", fontWeight: 500, whiteSpace: "nowrap" }}
-                    onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
-                    onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}>
-                    → Maps
+                    style={{ color: CTA, textDecoration: "none", display: "inline-flex", alignItems: "center", flexShrink: 0 }}
+                    title="In Google Maps öffnen">
+                    <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M15 3h6v6M10 14L21 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </a>
                 )}
               </span>
@@ -855,7 +854,7 @@ ${isRechnung ? `
                                       {nextIsVorOrt && nextAddr && (
                                         <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
                                           <span style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)" }}>{nextAddr}</span>
-                                          {nextMapsUrl && <a href={nextMapsUrl} target="_blank" rel="noopener noreferrer" style={{ fontFamily: F, fontSize: 12, color: CTA, textDecoration: "none", fontWeight: 500 }} onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")} onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}>→ Maps</a>}
+                                          {nextMapsUrl && <a href={nextMapsUrl} target="_blank" rel="noopener noreferrer" style={{ color: CTA, textDecoration: "none", display: "inline-flex", alignItems: "center", flexShrink: 0 }} title="In Google Maps öffnen"><svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M15 3h6v6M10 14L21 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></a>}
                                         </span>
                                       )}
                                     </span>
