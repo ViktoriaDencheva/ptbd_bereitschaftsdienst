@@ -139,9 +139,9 @@ function Confirmation({ format, location, selectedDate, selectedTime, isMobile, 
   ];
 
   return (
-    <div style={{ maxWidth: 780, margin: "0 auto", padding: isMobile ? "32px 16px 64px" : "48px 24px 80px" }}>
+    <div style={{ maxWidth: 1440, margin: "0 auto", padding: isMobile ? "32px 16px 64px" : "48px 40px 80px" }}>
       {/* Success header */}
-      <div style={{ textAlign: "center", marginBottom: 32 }}>
+      <div style={{ textAlign: "center", marginBottom: 32, maxWidth: 680, margin: "0 auto 32px" }}>
         <div style={{ width: 64, height: 64, borderRadius: "50%", background: "#EDFAEB", border: "2px solid #C3EDD0", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
           <svg width="30" height="30" fill="none" viewBox="0 0 24 24"><path stroke="var(--green)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
         </div>
