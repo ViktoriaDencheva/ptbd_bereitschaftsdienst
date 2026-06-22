@@ -209,16 +209,15 @@ export default function VorgespraechPage() {
             paddingTop: isMobile ? 28 : 48,
           }}>
             {/* Left: hero image — transparent bg, show full */}
-            <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", minHeight: isMobile ? 260 : 460 }}>
+            <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
               <img src="/vorgespraech-banner.png" alt="Spezialistin"
-                style={{ width: "100%", objectFit: "contain", objectPosition: "bottom center", display: "block", maxHeight: isMobile ? 280 : 500 }} />
+                style={{ width: "100%", objectFit: "contain", objectPosition: "bottom center", display: "block" }} />
             </div>
 
             {/* Right: content */}
             <div style={{ display: "flex", flexDirection: "column" }}>
               {/* Badge */}
-              <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "var(--blue-ultra-light)", borderRadius: 9999, padding: "5px 14px", marginBottom: 18, alignSelf: "flex-start" }}>
-                <img src="/icons/shield-check.svg" width={14} height={14} alt="" style={{ objectFit: "contain" }} />
+              <div style={{ display: "inline-block", background: "var(--blue-ultra-light)", borderRadius: 9999, padding: "5px 16px", marginBottom: 18, alignSelf: "flex-start" }}>
                 <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>Kostenlos &amp; vertraulich</span>
               </div>
 
@@ -229,17 +228,17 @@ export default function VorgespraechPage() {
                 Du bist unsicher, welche Unterstützung zu dir passt — oder ob du überhaupt Hilfe brauchst? In einem kostenlosen, vertraulichen Gespräch hören wir dir einfach zu, helfen dir deine Situation einzuordnen und zeigen dir, welche nächsten Schritte sinnvoll sein könnten.
               </p>
 
-              {/* 4 benefits — clean text list */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 32 }}>
+              {/* 4 benefits — blue checkmarks */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
                 {[
-                  { icon: "/icons/icon-vorgespraech.svg", text: "Persönliche Empfehlung" },
-                  { icon: "/icons/shield-check.svg",       text: "Vertraulich & diskret" },
-                  { icon: "/icons/icon-check.svg",         text: "Kostenlos & unverbindlich" },
-                  { icon: "/icons/icon-pin.svg",           text: "Online oder Vor Ort" },
-                ].map((f, i) => (
+                  "Persönliche Empfehlung",
+                  "Vertraulich & diskret",
+                  "Kostenlos & unverbindlich",
+                  "Online oder Vor Ort",
+                ].map((text, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <img src={f.icon} width={18} height={18} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
-                    <span style={{ fontFamily: F, fontSize: 15, color: "var(--black)", fontWeight: 500 }}>{f.text}</span>
+                    <img src="/icons/icon-check.svg" width={18} height={18} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
+                    <span style={{ fontFamily: F, fontSize: 15, color: "var(--black)", fontWeight: 500 }}>{text}</span>
                   </div>
                 ))}
               </div>
