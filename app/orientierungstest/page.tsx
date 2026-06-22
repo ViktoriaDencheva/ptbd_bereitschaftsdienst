@@ -203,8 +203,10 @@ export default function OrientierungstestPage() {
       {/* ── LANDING ─────────────────────────────────────────── */}
       {phase === "landing" && (
         <>
+          {/* Hero */}
+          <section style={{ background: "white", padding: isMobile ? "0 0 40px" : "0 0 64px" }}>
           {/* Breadcrumbs */}
-          <div style={{ ...wrap, padding: isMobile ? "14px 16px 6px" : "14px 40px 6px" }}>
+          <div style={{ ...wrap, padding: isMobile ? "14px 16px 20px" : "14px 40px 20px" }}>
             <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
               <a href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
                 onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>Startseite</a>
@@ -212,11 +214,8 @@ export default function OrientierungstestPage() {
               <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>Orientierungstest</span>
             </nav>
           </div>
-
-          {/* Hero */}
-          <section style={{ background: "white", padding: isMobile ? "0 0 40px" : "0 0 64px" }}>
             <div style={{ ...wrap }}>
-              <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 1fr", gap: isMobile ? 20 : 64, alignItems: "stretch", paddingTop: 8 }}>
+              <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 1fr", gap: isMobile ? 20 : 64, alignItems: "stretch" }}>
                 <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", overflow: "hidden" }}>
                   <img src="/Orientierungstest-banner.jpg" alt="Orientierungstest"
                     style={{ width: "100%", maxHeight: isMobile ? 260 : 440, objectFit: "cover", objectPosition: "center", borderRadius: 20, display: "block" }} />
@@ -308,18 +307,24 @@ export default function OrientierungstestPage() {
           {/* Cross-nav — Vorgesprach */}
           <section style={{ background: "white", padding: isMobile ? "0 0 48px" : "0 0 80px" }}>
             <div style={{ ...wrap }}>
-              <div style={{ borderRadius: isMobile ? 20 : 24, background: "var(--blue-ultra-light)", border: "1px solid #C8DFFF", padding: isMobile ? "32px 24px" : "40px 52px", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between", gap: 20 }}>
-                <div>
-                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 8px" }}>Lieber persönlich?</p>
-                  <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, lineHeight: 1.3, color: "var(--black)", margin: "0 0 8px" }}>Sprich direkt mit uns</h2>
+              <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 200 : 220, display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+                {/* Background image */}
+                <img src="/vorgespraech-small-banner.jpg" alt=""
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
+                {/* Gradient overlay */}
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.93) 40%, rgba(236,245,255,0.4) 70%, transparent 100%)" }} />
+                {/* Text content — right side */}
+                <div style={{ position: "relative", zIndex: 1, maxWidth: isMobile ? "100%" : 480, padding: isMobile ? "32px 24px" : "40px 52px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12 }}>
+                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: 0 }}>Lieber persönlich?</p>
+                  <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>Sprich direkt mit uns</h2>
                   <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>In einem kostenlosen 30-minütigen Erstgespräch helfen wir dir persönlich weiter.</p>
+                  <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 46, padding: "0 24px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 4 }}
+                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
+                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
+                    Kostenloses Erstgespräch
+                    <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
+                  </a>
                 </div>
-                <a href="/vorgespraech" style={{ flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 8, height: 46, padding: "0 24px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap" }}
-                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
-                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                  Kostenloses Erstgespräch
-                  <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
-                </a>
               </div>
             </div>
           </section>
