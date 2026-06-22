@@ -522,17 +522,20 @@ export default function OrientierungstestPage() {
             </div>
 
             {/* Vorgesprach banner */}
-            <div style={{ background: "var(--blue-ultra-light)", border: "1px solid #C8DFFF", borderRadius: isMobile ? 16 : 20, padding: isMobile ? "24px 20px" : "28px 36px", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", justifyContent: "space-between", gap: 16 }}>
-              <div>
-                <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 4px" }}>Möchtest du lieber persönlich beraten werden?</p>
-                <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0 }}>In einem kostenlosen Erstgespräch beraten wir dich persönlich.</p>
+            <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 200 : 220, display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+              <img src="/vorgespraech-small-banner.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.93) 40%, rgba(236,245,255,0.4) 70%, transparent 100%)" }} />
+              <div style={{ position: "relative", zIndex: 1, maxWidth: isMobile ? "100%" : 480, padding: isMobile ? "32px 24px" : "40px 52px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12 }}>
+                <p style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: 0 }}>Lieber persönlich?</p>
+                <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>Sprich direkt mit uns</h2>
+                <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>In einem kostenlosen 30-minütigen Erstgespräch helfen wir dir persönlich weiter.</p>
+                <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 46, padding: "0 24px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 4 }}
+                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
+                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
+                  Kostenloses Erstgespräch
+                  <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
+                </a>
               </div>
-              <a href="/vorgespraech"
-                style={{ flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 6, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 20px", whiteSpace: "nowrap", background: "white", transition: "all 0.2s" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = CTA; (e.currentTarget as HTMLElement).style.color = "white"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "white"; (e.currentTarget as HTMLElement).style.color = CTA; }}>
-                Kostenloses Erstgespräch →
-              </a>
             </div>
           </div>
         );
