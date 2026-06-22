@@ -443,38 +443,49 @@ export default function OrientierungstestPage() {
         return (
           <div style={{ ...wrap, paddingTop: isMobile ? 24 : 56, paddingBottom: 80 }}>
 
-            {/* ── Recommendation header ── */}
-            <div style={{ marginBottom: 28 }}>
-              <p style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: CTA, letterSpacing: "0.08em", textTransform: "uppercase", margin: "0 0 10px" }}>Deine Empfehlung</p>
-              <div style={{ display: "flex", alignItems: isMobile ? "flex-start" : "center", gap: isMobile ? 14 : 20, flexDirection: isMobile ? "column" : "row", justifyContent: "space-between" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                  <div style={{ width: 56, height: 56, borderRadius: 16, background: "var(--blue-ultra-light)", border: `1.5px solid #C8DFFF`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <img src={spec.icon} width={30} height={30} alt="" style={{ objectFit: "contain", filter: iconFilter }} />
-                  </div>
-                  <div>
-                    <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 28, color: "var(--black)", margin: 0, lineHeight: 1.2 }}>{spec.title}</h1>
-                    <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "4px 0 0" }}>{spec.desc}</p>
-                  </div>
+            {/* ── Recommendation card ── */}
+            <div style={{ borderRadius: 24, overflow: "hidden", background: "linear-gradient(135deg, #E8F1FD 0%, #F3F8FF 60%, #EEF5FF 100%)", marginBottom: 32, display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 320px" }}>
+
+              {/* Left — content */}
+              <div style={{ padding: isMobile ? "28px 24px" : "40px 44px", display: "flex", flexDirection: "column", gap: 18 }}>
+                <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>Deine Empfehlung</p>
+
+                <div>
+                  <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 26 : 36, color: "var(--black)", margin: "0 0 10px", lineHeight: 1.1 }}>{spec.title}</h1>
+                  <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{spec.desc}</p>
                 </div>
-                <a href="/fachkraefte" style={{ flexShrink: 0, fontFamily: F, fontSize: 13, color: CTA, textDecoration: "none", fontWeight: 600, whiteSpace: "nowrap" }}
+
+                {/* Tags */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  {spec.tags.map(tag => (
+                    <span key={tag} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "white", borderRadius: 9999, padding: "6px 14px", fontFamily: F, fontSize: 13, color: CTA, fontWeight: 500, boxShadow: "0 1px 4px rgba(45,91,141,0.08)" }}>
+                      <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" stroke={CTA} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.5"/></svg>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Why box */}
+                <div style={{ background: "rgba(255,255,255,0.7)", border: "1px solid #C8DFFF", borderRadius: 14, padding: "16px 18px", display: "flex", gap: 12, alignItems: "flex-start" }}>
+                  <svg style={{ flexShrink: 0, marginTop: 1 }} width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 8v4M12 16h.01" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>
+                  <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.7 }}>{spec.why}</p>
+                </div>
+
+                <a href="/fachkraefte" style={{ fontFamily: F, fontSize: 13, color: CTA, textDecoration: "none", fontWeight: 600, alignSelf: "flex-start" }}
                   onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
                   onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}>
-                  Was ist der Unterschied? →
+                  Was ist der Unterschied zwischen den Fachkräften? →
                 </a>
               </div>
 
-              {/* Why box */}
-              <div style={{ background: "var(--blue-ultra-light)", border: "1px solid #C8DFFF", borderRadius: 14, padding: "18px 22px", marginTop: 18, display: "flex", gap: 14, alignItems: "flex-start" }}>
-                <svg style={{ flexShrink: 0, marginTop: 2 }} width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 8v4M12 16h.01" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>
-                <p style={{ fontFamily: F, fontSize: 14, color: "var(--black)", margin: 0, lineHeight: 1.65 }}>{spec.why}</p>
-              </div>
-
-              {/* Tags */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 7, marginTop: 14 }}>
-                {spec.tags.map(tag => (
-                  <span key={tag} style={{ background: "white", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "5px 14px", fontFamily: F, fontSize: 12, color: "var(--black)", fontWeight: 500 }}>{tag}</span>
-                ))}
-              </div>
+              {/* Right — decorative image */}
+              {!isMobile && (
+                <div style={{ overflow: "hidden", position: "relative" }}>
+                  <img src="/fachkraefte/fachkraft-1.jpg" alt=""
+                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(232,241,253,0.5) 0%, transparent 40%)" }} />
+                </div>
+              )}
             </div>
 
             {/* Matching therapists */}
