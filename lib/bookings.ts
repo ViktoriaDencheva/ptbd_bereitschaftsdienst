@@ -7,6 +7,7 @@ export interface Booking {
   date: string;
   time: string;
   format: "online" | "vor-ort";
+  locationAddress?: string;
   status: "confirmed" | "cancelled";
   bookedAt: string;
 }

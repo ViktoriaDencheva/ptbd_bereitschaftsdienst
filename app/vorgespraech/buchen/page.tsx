@@ -351,6 +351,7 @@ export default function VorgespraechBuchenPage() {
       date: selectedDate,
       time: selectedTime,
       format,
+      ...(format === "vor-ort" ? { locationAddress: `${selectedLocation.address}, ${selectedLocation.zip}` } : {}),
       status: "confirmed",
     });
     setConfirmed(true);

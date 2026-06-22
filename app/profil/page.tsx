@@ -120,7 +120,9 @@ function BookingCard({ b, past, onCancel, onOpenChat }: { b: Booking; past?: boo
 
   const therapist = therapists.find(t => String(t.id) === String(b.therapistId));
   const addr = therapist?.address as { street: string; city: string } | null ?? null;
-  const mapsUrl = addr ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${addr.street}, ${addr.city}`)}` : null;
+  const isVorgesprach = b.therapistId === "vorgespraech";
+  const vorortAddress = isVorgesprach ? (b.locationAddress ?? null) : (addr ? `${addr.street}, ${addr.city}` : null);
+  const mapsUrl = vorortAddress ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(vorortAddress)}` : null;
   const isVorOrt = b.format === "vor-ort";
 
   return (
@@ -139,12 +141,25 @@ function BookingCard({ b, past, onCancel, onOpenChat }: { b: Booking; past?: boo
       <div className="bc-body" style={{ display: "flex", flexDirection: "column", gap: 8, paddingLeft: 58 }}>
         <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", display: "flex", alignItems: "center", gap: 8 }}><span style={{ color: CTA }}><CalIcon /></span>{b.date}</span>
         <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", display: "flex", alignItems: "center", gap: 8 }}><span style={{ color: CTA }}><ClockIcon /></span>{b.time} Uhr</span>
-        <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ color: CTA }}>{isVorOrt ? <MapPinIcon /> : <MonitorIcon />}</span>
-          <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, background: "var(--blue-ultra-light)", borderRadius: 9999, padding: "3px 10px" }}>
-            {isVorOrt
-              ? addr ? `Vor-Ort · ${addr.street}, ${addr.city}` : "Vor-Ort"
-              : "Online-Sitzung"}
+        <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", display: "flex", alignItems: "flex-start", gap: 8 }}>
+          <span style={{ color: CTA, marginTop: 1, flexShrink: 0 }}>{isVorOrt ? <MapPinIcon /> : <MonitorIcon />}</span>
+          <span style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+            <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, background: "var(--blue-ultra-light)", borderRadius: 9999, padding: "3px 10px", alignSelf: "flex-start" }}>
+              {isVorOrt ? "Vor-Ort-Termin" : "Online-Sitzung"}
+            </span>
+            {isVorOrt && vorortAddress && (
+              <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <span style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)" }}>{vorortAddress}</span>
+                {mapsUrl && (
+                  <a href={mapsUrl} target="_blank" rel="noopener noreferrer"
+                    style={{ fontFamily: F, fontSize: 12, color: CTA, textDecoration: "none", fontWeight: 500, whiteSpace: "nowrap" }}
+                    onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
+                    onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}>
+                    → Maps
+                  </a>
+                )}
+              </span>
+            )}
           </span>
         </span>
       </div>
@@ -166,20 +181,22 @@ function BookingCard({ b, past, onCancel, onOpenChat }: { b: Booking; past?: boo
       {/* Policy + buttons for upcoming */}
       {!past && (
         <div className="bc-body" style={{ paddingLeft: 58 }}>
-          {/* Policy row */}
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-            <span style={{ flexShrink: 0 }}>
-              {canCancel
-                ? <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.5"/><path d="M12 8v4M12 16h.01" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>
-                : <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="#9CA3AF" strokeWidth="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round"/></svg>}
-            </span>
-            <span style={{ fontFamily: F, fontSize: 12, color: canCancel ? "var(--grey-text)" : "#9CA3AF" }}>
-              {canCancel ? "Kostenlose Umbuchung & Absage bis 24 Std. vor Beginn möglich" : "Kostenlose Absage nicht mehr möglich – weniger als 24 Std. bis zum Termin"}
-            </span>
-          </div>
+          {/* Policy row — not shown for Vorgesprach (always free to cancel) */}
+          {!isVorgesprach && (
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+              <span style={{ flexShrink: 0 }}>
+                {canCancel
+                  ? <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.5"/><path d="M12 8v4M12 16h.01" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>
+                  : <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="#9CA3AF" strokeWidth="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round"/></svg>}
+              </span>
+              <span style={{ fontFamily: F, fontSize: 12, color: canCancel ? "var(--grey-text)" : "#9CA3AF" }}>
+                {canCancel ? "Kostenlose Umbuchung & Absage bis 24 Std. vor Beginn möglich" : "Kostenlose Absage nicht mehr möglich – weniger als 24 Std. bis zum Termin"}
+              </span>
+            </div>
+          )}
 
-          {/* Info box < 24h */}
-          {!canCancel && (
+          {/* Info box < 24h — not for Vorgesprach */}
+          {!canCancel && !isVorgesprach && (
             <div style={{ marginBottom: 12, padding: "9px 12px", borderRadius: 10, background: "#F9FAFB", border: "1px solid #E5E7EB", display: "flex", gap: 7 }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="12" cy="12" r="9" stroke="#6B7280" strokeWidth="1.5"/><path d="M12 8v4M12 16h.01" stroke="#6B7280" strokeWidth="1.8" strokeLinecap="round"/></svg>
               <p style={{ fontFamily: F, fontSize: 12, color: "#374151", margin: 0, lineHeight: 1.6 }}>
@@ -820,16 +837,39 @@ ${isRechnung ? `
                         </div>
                       </div>
                       <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
-                        {[
-                          { icon: <CalIcon />, text: next.date },
-                          { icon: <ClockIcon />, text: `${next.time} Uhr` },
-                          { icon: <MonitorIcon />, text: next.format === "online" ? "Online-Sitzung" : "Vor-Ort-Termin" },
-                        ].map((row, i) => (
-                          <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                            <span style={{ color: CTA }}>{row.icon}</span>
-                            <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>{row.text}</span>
-                          </div>
-                        ))}
+                        {(() => {
+                          const nextIsVorgesprach = next.therapistId === "vorgespraech";
+                          const nextIsVorOrt = next.format === "vor-ort";
+                          const nextAddr = nextIsVorgesprach ? (next.locationAddress ?? null) : null;
+                          const nextMapsUrl = nextAddr ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(nextAddr)}` : null;
+                          return (
+                            <>
+                              {[
+                                { icon: <CalIcon />, content: <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>{next.date}</span> },
+                                { icon: <ClockIcon />, content: <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>{next.time} Uhr</span> },
+                                {
+                                  icon: nextIsVorOrt ? <MapPinIcon /> : <MonitorIcon />,
+                                  content: (
+                                    <span style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                                      <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>{nextIsVorOrt ? "Vor-Ort-Termin" : "Online-Sitzung"}</span>
+                                      {nextIsVorOrt && nextAddr && (
+                                        <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                                          <span style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)" }}>{nextAddr}</span>
+                                          {nextMapsUrl && <a href={nextMapsUrl} target="_blank" rel="noopener noreferrer" style={{ fontFamily: F, fontSize: 12, color: CTA, textDecoration: "none", fontWeight: 500 }} onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")} onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}>→ Maps</a>}
+                                        </span>
+                                      )}
+                                    </span>
+                                  )
+                                },
+                              ].map((row, i) => (
+                                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
+                                  <span style={{ color: CTA, marginTop: 2, flexShrink: 0 }}>{row.icon}</span>
+                                  {row.content}
+                                </div>
+                              ))}
+                            </>
+                          );
+                        })()}
                       </div>
                       {(() => {
                         const apptDate = getBookingDate(next);
@@ -839,23 +879,25 @@ ${isRechnung ? `
                         const canCancel = msUntil > msUntil24h;
                         return (
                           <>
-                            {/* Policy row */}
-                            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
-                              <span style={{ flexShrink: 0 }}>
-                                {canCancel
-                                  ? <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.5"/><path d="M12 8v4M12 16h.01" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>
-                                  : <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="#9CA3AF" strokeWidth="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                                }
-                              </span>
-                              <span style={{ fontFamily: F, fontSize: 13, color: canCancel ? "#6B7280" : "#9CA3AF" }}>
-                                {canCancel
-                                  ? "Kostenlose Umbuchung & Absage bis 24 Std. vor Beginn möglich"
-                                  : "Kostenlose Absage nicht mehr möglich – weniger als 24 Std. bis zum Termin"}
-                              </span>
-                            </div>
+                            {/* Policy row — hidden for Vorgesprach (always free) */}
+                            {next.therapistId !== "vorgespraech" && (
+                              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
+                                <span style={{ flexShrink: 0 }}>
+                                  {canCancel
+                                    ? <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.5"/><path d="M12 8v4M12 16h.01" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>
+                                    : <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="#9CA3AF" strokeWidth="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                                  }
+                                </span>
+                                <span style={{ fontFamily: F, fontSize: 13, color: canCancel ? "#6B7280" : "#9CA3AF" }}>
+                                  {canCancel
+                                    ? "Kostenlose Umbuchung & Absage bis 24 Std. vor Beginn möglich"
+                                    : "Kostenlose Absage nicht mehr möglich – weniger als 24 Std. bis zum Termin"}
+                                </span>
+                              </div>
+                            )}
 
-                            {/* Info wenn < 24h: kein Termin verschieben, stattdessen Hinweis */}
-                            {!canCancel && (
+                            {/* Info wenn < 24h — hidden for Vorgesprach */}
+                            {!canCancel && next.therapistId !== "vorgespraech" && (
                               <div style={{ marginBottom: 16, padding: "10px 14px", borderRadius: 10, background: "#F9FAFB", border: "1px solid #E5E7EB", display: "flex", gap: 8 }}>
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="12" cy="12" r="9" stroke="#6B7280" strokeWidth="1.5"/><path d="M12 8v4M12 16h.01" stroke="#6B7280" strokeWidth="1.8" strokeLinecap="round"/></svg>
                                 <p style={{ fontFamily: F, fontSize: 13, color: "#374151", margin: 0, lineHeight: 1.6 }}>
