@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -91,6 +91,28 @@ const QUESTIONS = [
   },
 ];
 
+// ── Why-cards per specialist type ────────────────────────────
+const WHY_CARDS: Record<string, { icon: React.ReactNode; title: string; desc: string }[]> = {
+  psychotherapeut: [
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Langfristige Therapie", desc: "Strukturierte Behandlung über mehrere Monate mit klaren Therapiezielen." },
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.7"/><path d="M12 8v4l3 3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Regelmäßige Sitzungen", desc: "Wöchentliche Gesprächstermine für nachhaltige Veränderung." },
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707M6 17l.707-.707M6 7l.707.707M17.657 6.343l.707.707M18 17l-.707-.707" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/><path d="M12 14a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" strokeWidth="1.7"/></svg>, title: "Verhaltensänderung", desc: "Erkennen und verändern von belastenden Denkmustern und Verhaltensweisen." },
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.7"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Kassenerstattung möglich", desc: "Viele Krankenkassen übernehmen die Kosten bei anerkannten Verfahren." },
+  ],
+  psychologe: [
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 01-1 1H9a1 1 0 01-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7zM9 21h6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Psychologische Diagnostik", desc: "Fundierte Einschätzung deiner Situation durch wissenschaftliche Testverfahren." },
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Offene Beratung", desc: "Flexible Gespräche ohne feste Diagnose — ideal bei Lebensfragen und Krisen." },
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><polyline points="9 22 9 12 15 12 15 22" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Orientierung & Coaching", desc: "Unterstützung bei wichtigen Lebensentscheidungen und persönlicher Entwicklung." },
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Präventive Begleitung", desc: "Stärke deine Resilienz bevor Belastungen zu Erkrankungen werden." },
+  ],
+  psychiater: [
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 01-1 1H9a1 1 0 01-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7zM9 21h6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Schwere Depressionen", desc: "Unterstützung bei starken niedergeschlagenen Stimmungen und Antriebslosigkeit." },
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Akute Krisen", desc: "Spezialisierte Hilfe in belastenden oder akuten Ausnahmesituationen." },
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M10.5 20H4a2 2 0 01-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H20a2 2 0 012 2v2.5M20 21l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><circle cx="17" cy="17" r="4" stroke="currentColor" strokeWidth="1.7"/></svg>, title: "Medikamentöse Behandlung", desc: "Fachärztliche Einschätzung und medikamentöse Unterstützung bei Bedarf." },
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Langfristige Begleitung", desc: "Ärztliche und therapeutische Begleitung auf deinem Genesungsweg." },
+  ],
+};
+
 // ── Specialist types ─────────────────────────────────────────
 const SPECIALIST_TYPES: Record<string, { title: string; role: string; icon: string; why: string; desc: string; tags: string[] }> = {
   psychotherapeut: {
@@ -128,10 +150,22 @@ function getRecommendation(answers: Record<string, string[]>): SpecialistKey {
   const ziel = answers.ziel ?? [];
   const duration = answers.duration?.[0] ?? "";
 
-  if (alltag === "sehrstark" || symptome === "stark") return "psychiater";
-  if (topics.includes("trauma") || ziel.includes("trauma")) return "psychiater";
+  // Psychiater: severe impairment, strong physical symptoms, or acute/heavy psychiatric need
+  if (alltag === "sehrstark") return "psychiater";
+  if (symptome === "stark" || symptome === "deutlich") return "psychiater";
   if (topics.includes("depression") && (duration === "lang" || duration === "immer")) return "psychiater";
-  if (topics.includes("lebens") || topics.includes("beziehung") || ziel.includes("orientierung")) return "psychologe";
+  if (ziel.includes("behandlung")) return "psychiater";
+
+  // Psychologe: life orientation, relationships, low impairment, or diagnostic/coaching goals
+  if (topics.includes("lebens") || topics.includes("beziehung")) return "psychologe";
+  if (ziel.includes("orientierung") || ziel.includes("verstehen")) return "psychologe";
+  if (alltag === "kaum" && duration === "kurz") return "psychologe";
+
+  // Psychotherapeut: trauma, anxiety, burnout, stress with medium-long duration
+  if (topics.includes("trauma") || topics.includes("angst") || topics.includes("stress")) return "psychotherapeut";
+  if (ziel.includes("bewaeltigen") || ziel.includes("trauma")) return "psychotherapeut";
+  if (duration === "mittel" || duration === "lang") return "psychotherapeut";
+
   return "psychotherapeut";
 }
 
@@ -521,6 +555,26 @@ export default function OrientierungstestPage() {
                   onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}>
                   Was ist der Unterschied zwischen den Fachkräften? →
                 </a>
+              </div>
+            </div>
+
+            {/* Why cards */}
+            <div style={{ marginBottom: 40 }}>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 16 : 18, color: "var(--black)", margin: "0 0 16px" }}>
+                Warum empfehlen wir {specKey === "psychologe" ? "eine:n" : "eine:n"} {spec.title}?
+              </h2>
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: isMobile ? 10 : 14 }}>
+                {WHY_CARDS[specKey].map((card, i) => (
+                  <div key={i} style={{ background: "white", border: "1px solid #EAF0FA", borderRadius: 16, padding: isMobile ? "16px 14px" : "20px 18px", display: "flex", flexDirection: "column", gap: 10 }}>
+                    <div style={{ width: 42, height: 42, borderRadius: 12, background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", color: CTA, flexShrink: 0 }}>
+                      {card.icon}
+                    </div>
+                    <div>
+                      <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 12 : 13, color: "var(--black)", margin: "0 0 4px", lineHeight: 1.35 }}>{card.title}</p>
+                      <p style={{ fontFamily: F, fontSize: isMobile ? 11 : 12, color: "var(--grey-text)", margin: 0, lineHeight: 1.55 }}>{card.desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
