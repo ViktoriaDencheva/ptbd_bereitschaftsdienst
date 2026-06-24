@@ -470,22 +470,28 @@ export default function OrientierungstestPage() {
         return (
           <div style={{ ...wrap, paddingTop: isMobile ? 24 : 56, paddingBottom: 80 }}>
 
-            {/* ── Recommendation card ── */}
-            <div style={{ borderRadius: 24, overflow: "hidden", background: "linear-gradient(135deg, #E8F1FD 0%, #F3F8FF 60%, #EEF5FF 100%)", marginBottom: 32, display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 320px" }}>
-
-              {/* Left — content */}
-              <div style={{ padding: isMobile ? "28px 24px" : "40px 44px", display: "flex", flexDirection: "column", gap: 18 }}>
+            {/* ── Recommendation card — banner style like vorgesprach ── */}
+            <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 320 : 300, marginBottom: 32, display: "flex", alignItems: "center" }}>
+              {/* Background image */}
+              <img src="/vorgespraech-small-banner.jpg" alt=""
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "25% center" }} />
+              {/* Gradient overlay — left opaque for text, right shows image */}
+              <div style={{ position: "absolute", inset: 0, background: isMobile
+                ? "linear-gradient(to bottom, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.92) 70%, rgba(236,245,255,0.5) 100%)"
+                : "linear-gradient(to right, rgba(236,245,255,0.98) 0%, rgba(236,245,255,0.95) 45%, rgba(236,245,255,0.5) 72%, transparent 100%)" }} />
+              {/* Content */}
+              <div style={{ position: "relative", zIndex: 1, padding: isMobile ? "36px 24px" : "48px 52px", maxWidth: isMobile ? "100%" : 620, display: "flex", flexDirection: "column", gap: 16 }}>
                 <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>Deine Empfehlung</p>
 
                 <div>
-                  <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 26 : 36, color: "var(--black)", margin: "0 0 10px", lineHeight: 1.1 }}>{spec.title}</h1>
+                  <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 28 : 38, color: "var(--black)", margin: "0 0 10px", lineHeight: 1.1 }}>{spec.title}</h1>
                   <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{spec.desc}</p>
                 </div>
 
                 {/* Tags */}
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                   {spec.tags.map(tag => (
-                    <span key={tag} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "white", borderRadius: 9999, padding: "6px 14px", fontFamily: F, fontSize: 13, color: CTA, fontWeight: 500, boxShadow: "0 1px 4px rgba(45,91,141,0.08)" }}>
+                    <span key={tag} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(255,255,255,0.85)", borderRadius: 9999, padding: "6px 14px", fontFamily: F, fontSize: 13, color: CTA, fontWeight: 500, boxShadow: "0 1px 6px rgba(45,91,141,0.10)", backdropFilter: "blur(4px)" }}>
                       <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" stroke={CTA} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.5"/></svg>
                       {tag}
                     </span>
@@ -493,7 +499,7 @@ export default function OrientierungstestPage() {
                 </div>
 
                 {/* Why box */}
-                <div style={{ background: "rgba(255,255,255,0.7)", border: "1px solid #C8DFFF", borderRadius: 14, padding: "16px 18px", display: "flex", gap: 12, alignItems: "flex-start" }}>
+                <div style={{ background: "rgba(255,255,255,0.75)", border: "1px solid #C8DFFF", borderRadius: 14, padding: "14px 18px", display: "flex", gap: 12, alignItems: "flex-start", backdropFilter: "blur(6px)", maxWidth: 520 }}>
                   <svg style={{ flexShrink: 0, marginTop: 1 }} width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 8v4M12 16h.01" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>
                   <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.7 }}>{spec.why}</p>
                 </div>
@@ -504,15 +510,6 @@ export default function OrientierungstestPage() {
                   Was ist der Unterschied zwischen den Fachkräften? →
                 </a>
               </div>
-
-              {/* Right — decorative image */}
-              {!isMobile && (
-                <div style={{ overflow: "hidden", position: "relative" }}>
-                  <img src="/fachkraefte/fachkraft-1.jpg" alt=""
-                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
-                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(232,241,253,0.5) 0%, transparent 40%)" }} />
-                </div>
-              )}
             </div>
 
             {/* Matching therapists */}
