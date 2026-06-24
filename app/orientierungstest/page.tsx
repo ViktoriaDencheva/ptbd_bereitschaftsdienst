@@ -640,21 +640,21 @@ export default function OrientierungstestPage() {
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
               {RESULT_THERAPISTS[specKey].map((t, i) => (
-                <div key={t.id} style={{ background: "white", borderRadius: 18, border: "1px solid #EEF2F7", boxShadow: "0 1px 8px rgba(0,0,0,0.05)", padding: isMobile ? 16 : "20px 24px", display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 14 : 20, alignItems: isMobile ? "flex-start" : "center" }}>
-                  {/* Photo */}
-                  <div style={{ width: isMobile ? 72 : 96, height: isMobile ? 72 : 96, borderRadius: 16, overflow: "hidden", flexShrink: 0 }}>
-                    <img src={t.photo} alt={t.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
+                <div key={t.id} style={{ background: "white", borderRadius: 18, border: "1px solid #EEF2F7", boxShadow: "0 1px 8px rgba(0,0,0,0.05)", overflow: "hidden", display: "flex", flexDirection: "row", alignItems: "stretch" }}>
+                  {/* Photo — tall left column */}
+                  <div style={{ width: isMobile ? 100 : 140, flexShrink: 0, position: "relative" }}>
+                    <img src={t.photo} alt={t.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
                   </div>
                   {/* Info */}
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 3 }}>
-                      <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 17, color: "var(--black)", margin: 0 }}>{t.name}</h3>
+                  <div style={{ flex: 1, minWidth: 0, padding: isMobile ? "16px 14px" : "20px 24px", display: "flex", flexDirection: "column", justifyContent: "center", gap: 8 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+                      <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 18, color: "var(--black)", margin: 0 }}>{t.name}</h3>
                       <span style={{ fontFamily: F, fontSize: 12, color: "#1E6B34", fontWeight: 700, background: "#E2F7E9", borderRadius: 8, padding: "2px 9px", display: "inline-flex", alignItems: "center", gap: 4 }}>
                         <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" stroke="#1E6B34" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="9" stroke="#1E6B34" strokeWidth="1.5"/></svg>
                         {t.match}% Match
                       </span>
                     </div>
-                    <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 10px" }}>{t.role}</p>
+                    <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0 }}>{t.role}</p>
                     <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                       {t.tags.map(tag => (
                         <span key={tag} style={{ background: "#F5F8FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "3px 11px", fontFamily: F, fontSize: 12, color: "var(--black)" }}>{tag}</span>
@@ -662,15 +662,17 @@ export default function OrientierungstestPage() {
                     </div>
                   </div>
                   {/* CTA */}
-                  <div style={{ flexShrink: 0 }}>
-                    <a href={`/fachkraefte/${t.id}`}
-                      style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "white", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap", transition: "all 0.2s" }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "white"; }}>
-                      Profil ansehen
-                      <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </a>
-                  </div>
+                  {!isMobile && (
+                    <div style={{ flexShrink: 0, display: "flex", alignItems: "center", padding: "20px 24px" }}>
+                      <a href={`/fachkraefte/${t.id}`}
+                        style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "white", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap", transition: "background 0.2s" }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"; }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "white"; }}>
+                        Profil ansehen
+                        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      </a>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
