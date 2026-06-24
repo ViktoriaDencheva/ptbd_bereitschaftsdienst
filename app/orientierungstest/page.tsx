@@ -229,7 +229,10 @@ export default function OrientierungstestPage() {
                     style={{ width: "100%", maxHeight: isMobile ? 260 : 440, objectFit: "cover", objectPosition: "center", borderRadius: 20, display: "block" }} />
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: isMobile ? 0 : 32, paddingBottom: isMobile ? 0 : 32 }}>
-                  <div style={{ display: "inline-block", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "5px 16px", marginBottom: 18, alignSelf: "flex-start" }}>
+                  <div
+                    style={{ display: "inline-block", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "5px 16px", marginBottom: 18, alignSelf: "flex-start", cursor: "default", transition: "background 0.2s, box-shadow 0.2s" }}
+                    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--blue-ultra-light)"; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.18)"; }}
+                    onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "transparent"; el.style.boxShadow = "none"; }}>
                     <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>Kostenlos &amp; anonym</span>
                   </div>
                   <h1 style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 28 : 40, lineHeight: 1.2, color: "var(--black)", margin: "0 0 14px" }}>
@@ -282,10 +285,10 @@ export default function OrientierungstestPage() {
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
                   {STEPS_HOW.map((s, i) => (
                     <div key={i}
-                      style={{ background: "white", borderRadius: 20, padding: "32px 20px 28px", border: "1px solid #EAF0FA", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden", transition: "background 0.2s, border-color 0.2s, box-shadow 0.2s", cursor: "default" }}
+                      style={{ background: "white", borderRadius: 20, padding: "48px 20px 32px", border: "1px solid #EAF0FA", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden", transition: "background 0.2s, border-color 0.2s, box-shadow 0.2s", cursor: "default" }}
                       onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#F4F9FF"; el.style.borderColor = CTA; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.10)"; }}
                       onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.borderColor = "#EAF0FA"; el.style.boxShadow = "none"; }}>
-                      <span style={{ position: "absolute", top: -8, right: 10, fontFamily: F, fontWeight: 800, fontSize: 96, color: CTA, opacity: 0.12, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{s.n}</span>
+                      <span style={{ position: "absolute", top: 10, right: 14, fontFamily: F, fontWeight: 800, fontSize: 80, color: CTA, opacity: 0.1, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{s.n}</span>
                       <div style={{ marginBottom: 20 }}>
                         <img src={s.icon} width={56} height={56} alt="" style={{ objectFit: "contain", filter: iconFilter, display: "block" }} />
                       </div>
@@ -318,7 +321,7 @@ export default function OrientierungstestPage() {
               <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 200 : 220, display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
                 {/* Background image */}
                 <img src="/vorgespraech-small-banner.jpg" alt=""
-                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "25% center" }} />
                 {/* Gradient overlay */}
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.93) 40%, rgba(236,245,255,0.4) 70%, transparent 100%)" }} />
                 {/* Text content — right side */}
@@ -490,28 +493,46 @@ export default function OrientierungstestPage() {
 
             {/* Matching therapists */}
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 16px" }}>Passende Fachkräfte in deiner Nähe</h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: 14, marginBottom: 32 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
               {RESULT_THERAPISTS.map((t, i) => (
-                <div key={t.id} style={{ background: "white", borderRadius: 18, border: "1px solid #EEF2F7", boxShadow: i === 0 ? `0 0 0 2px ${CTA}, 0 8px 32px rgba(45,91,141,0.10)` : "none", padding: isMobile ? 16 : "22px 28px", display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 14 : 24, alignItems: isMobile ? "flex-start" : "center", position: "relative" }}>
+                <div key={t.id}
+                  style={{ background: "white", borderRadius: 20, border: i === 0 ? `2px solid ${CTA}` : "1px solid #EEF2F7", boxShadow: i === 0 ? "0 8px 32px rgba(45,91,141,0.12)" : "0 2px 8px rgba(0,0,0,0.04)", padding: isMobile ? "16px" : "20px 24px", display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 14 : 20, alignItems: isMobile ? "flex-start" : "center", position: "relative", transition: "box-shadow 0.2s, border-color 0.2s" }}
+                  onMouseEnter={e => { const el = e.currentTarget as HTMLElement; if (i !== 0) { el.style.borderColor = "#C0D4F0"; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.10)"; } }}
+                  onMouseLeave={e => { const el = e.currentTarget as HTMLElement; if (i !== 0) { el.style.borderColor = "#EEF2F7"; el.style.boxShadow = "0 2px 8px rgba(0,0,0,0.04)"; } }}>
                   {i === 0 && (
-                    <div style={{ position: "absolute", top: -12, left: 20, background: CTA, color: "white", borderRadius: 9999, padding: "3px 12px", fontFamily: F, fontSize: 11, fontWeight: 700 }}>★ Beste Übereinstimmung</div>
+                    <div style={{ position: "absolute", top: -12, left: 20, background: CTA, color: "white", borderRadius: 9999, padding: "3px 12px", fontFamily: F, fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", gap: 5 }}>
+                      <svg width="10" height="10" fill="white" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      Beste Übereinstimmung
+                    </div>
                   )}
-                  <div style={{ width: isMobile ? 60 : 76, height: isMobile ? 60 : 76, borderRadius: "50%", overflow: "hidden", flexShrink: 0 }}>
+                  {/* Photo */}
+                  <div style={{ width: isMobile ? 64 : 72, height: isMobile ? 64 : 72, borderRadius: 16, overflow: "hidden", flexShrink: 0, border: "2px solid #F0F4FA" }}>
                     <img src={t.photo} alt={t.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
                   </div>
+                  {/* Info */}
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-                      <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 16 : 18, color: "var(--black)", margin: 0 }}>{t.name}</h3>
-                      <span style={{ fontFamily: F, fontSize: 12, color: "#33700E", fontWeight: 600, background: "#EDFAEB", borderRadius: 9999, padding: "2px 10px" }}>{t.match}% Match</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 2 }}>
+                      <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 17, color: "var(--black)", margin: 0 }}>{t.name}</h3>
+                      <span style={{ fontFamily: F, fontSize: 12, color: "#27783B", fontWeight: 700, background: "#EDFAEB", borderRadius: 9999, padding: "2px 10px", display: "flex", alignItems: "center", gap: 4 }}>
+                        <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#EDFAEB" stroke="#33700E" strokeWidth="1.5"/><path d="M8 12l3 3 5-5" stroke="#33700E" strokeWidth="2" strokeLinecap="round"/></svg>
+                        {t.match}% Match
+                      </span>
                     </div>
-                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: "4px 0 10px" }}>{t.role}</p>
-                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                      {t.tags.map(tag => <span key={tag} style={{ background: "#F5F8FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "4px 12px", fontFamily: F, fontSize: 12, color: "var(--black)" }}>{tag}</span>)}
+                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: "0 0 10px" }}>{t.role}</p>
+                    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                      {t.tags.map(tag => (
+                        <span key={tag} style={{ background: i === 0 ? "var(--blue-ultra-light)" : "#F5F8FF", border: `1px solid ${i === 0 ? "#C0D8F5" : "#DDE8F5"}`, borderRadius: 9999, padding: "3px 11px", fontFamily: F, fontSize: 12, color: i === 0 ? CTA : "var(--black)", fontWeight: i === 0 ? 500 : 400 }}>{tag}</span>
+                      ))}
                     </div>
                   </div>
+                  {/* CTA */}
                   <div style={{ flexShrink: 0 }}>
-                    <a href={`/fachkraefte/${t.id}`} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: i === 0 ? CTA : "white", color: i === 0 ? "white" : CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "9px 20px", fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", whiteSpace: "nowrap" }}>
-                      Profil ansehen →
+                    <a href={`/fachkraefte/${t.id}`}
+                      style={{ display: "inline-flex", alignItems: "center", gap: 8, background: i === 0 ? CTA : "white", color: i === 0 ? "white" : CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", whiteSpace: "nowrap", boxShadow: i === 0 ? "0 4px 14px rgba(45,91,141,0.22)" : "none", transition: "all 0.2s" }}
+                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = i === 0 ? "var(--cta-hover)" : "var(--blue-ultra-light)"; }}
+                      onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = i === 0 ? CTA : "white"; }}>
+                      Profil ansehen
+                      <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </a>
                   </div>
                 </div>
