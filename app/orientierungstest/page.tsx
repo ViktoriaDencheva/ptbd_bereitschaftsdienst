@@ -473,8 +473,8 @@ export default function OrientierungstestPage() {
             {/* ── Recommendation card — banner style like vorgesprach ── */}
             <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 320 : 300, marginBottom: 32, display: "flex", alignItems: "center" }}>
               {/* Background image */}
-              <img src="/vorgespraech-small-banner.jpg" alt=""
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "25% center" }} />
+              <img src="/empfehlungs-page-banner.jpg" alt=""
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center" }} />
               {/* Gradient overlay — left opaque for text, right shows image */}
               <div style={{ position: "absolute", inset: 0, background: isMobile
                 ? "linear-gradient(to bottom, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.92) 70%, rgba(236,245,255,0.5) 100%)"
