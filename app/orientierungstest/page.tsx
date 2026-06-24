@@ -379,7 +379,7 @@ export default function OrientierungstestPage() {
                       <div>
                         <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, margin: "0 0 2px", letterSpacing: "0.06em" }}>{s.n}.</p>
                         <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 4px" }}>{s.title}</h3>
-                        <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
+                        <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -396,7 +396,7 @@ export default function OrientierungstestPage() {
                         <img src={s.icon} width={56} height={56} alt="" style={{ objectFit: "contain", filter: iconFilter, display: "block" }} />
                       </div>
                       <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 10px", lineHeight: 1.35 }}>{s.title}</h3>
-                      <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{s.desc}</p>
+                      <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{s.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -456,8 +456,8 @@ export default function OrientierungstestPage() {
           {/* Progress */}
           <div style={{ marginBottom: 28 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-              <span style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)" }}>Frage {currentQ + 1} von {QUESTIONS.length}</span>
-              <span style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: CTA }}>{Math.round(progress)}%</span>
+              <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>Frage {currentQ + 1} von {QUESTIONS.length}</span>
+              <span style={{ fontFamily: F, fontSize: 14, fontWeight: 600, color: CTA }}>{Math.round(progress)}%</span>
             </div>
             <div style={{ height: 5, background: "#E0EAF5", borderRadius: 9999, overflow: "hidden" }}>
               <div style={{ height: "100%", width: `${progress}%`, background: CTA, borderRadius: 9999, transition: "width 0.4s ease" }} />
@@ -480,7 +480,7 @@ export default function OrientierungstestPage() {
                     ) : <div />}
                     <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
                       <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke={CTA} strokeWidth="1.8"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/><circle cx="12" cy="17" r=".5" fill={CTA} stroke={CTA} strokeWidth="1"/></svg>
-                      <span style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: CTA }}>Frage {currentQ + 1}</span>
+                      <span style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: CTA }}>Frage {currentQ + 1}</span>
                     </div>
                   </div>
 
@@ -595,10 +595,10 @@ export default function OrientierungstestPage() {
                 {/* Why box */}
                 <div style={{ background: "rgba(255,255,255,0.70)", border: "1px solid rgba(45,91,141,0.12)", borderRadius: 14, padding: "14px 18px", display: "flex", gap: 12, alignItems: "flex-start", maxWidth: 500 }}>
                   <svg style={{ flexShrink: 0, marginTop: 2 }} width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 8v4M12 16h.01" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>
-                  <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.7 }}>{spec.why}</p>
+                  <p style={{ fontFamily: F, fontSize: 14, color: "var(--black)", margin: 0, lineHeight: 1.7 }}>{spec.why}</p>
                 </div>
 
-                <a href="/fachkraefte" style={{ fontFamily: F, fontSize: 13, color: CTA, textDecoration: "none", fontWeight: 600, alignSelf: "flex-start" }}
+                <a href="/fachkraefte" style={{ fontFamily: F, fontSize: 14, color: CTA, textDecoration: "none", fontWeight: 600, alignSelf: "flex-start" }}
                   onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
                   onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}>
                   Was ist der Unterschied zwischen den Fachkräften? →
@@ -621,7 +621,7 @@ export default function OrientierungstestPage() {
                       </div>
                       <div>
                         <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 15, color: "var(--black)", margin: "0 0 8px", lineHeight: 1.3 }}>{card.title}</p>
-                        <p style={{ fontFamily: F, fontSize: isMobile ? 12 : 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{card.desc}</p>
+                        <p style={{ fontFamily: F, fontSize: isMobile ? 12 : 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{card.desc}</p>
                       </div>
                     </div>
                   );
@@ -658,7 +658,7 @@ export default function OrientierungstestPage() {
                           {t.match}% Match
                         </span>
                       </div>
-                      <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: "0 0 10px" }}>{t.role}</p>
+                      <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 10px" }}>{t.role}</p>
                       <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                         {t.tags.map(tag => (
                           <span key={tag} style={{ background: isTop ? "var(--blue-ultra-light)" : "#F5F8FF", border: `1px solid ${isTop ? "#C0D8F5" : "#DDE8F5"}`, borderRadius: 9999, padding: "3px 11px", fontFamily: F, fontSize: 12, color: isTop ? CTA : "var(--black)", fontWeight: isTop ? 500 : 400 }}>{tag}</span>
@@ -668,7 +668,7 @@ export default function OrientierungstestPage() {
                     {/* CTA */}
                     <div style={{ flexShrink: 0 }}>
                       <a href={`/fachkraefte/${t.id}`}
-                        style={{ display: "inline-flex", alignItems: "center", gap: 8, background: isTop ? CTA : "white", color: isTop ? "white" : CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", whiteSpace: "nowrap", boxShadow: isTop ? "0 4px 14px rgba(45,91,141,0.22)" : "none", transition: "all 0.2s" }}
+                        style={{ display: "inline-flex", alignItems: "center", gap: 8, background: isTop ? CTA : "white", color: isTop ? "white" : CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap", boxShadow: isTop ? "0 4px 14px rgba(45,91,141,0.22)" : "none", transition: "all 0.2s" }}
                         onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = isTop ? "var(--cta-hover)" : "var(--blue-ultra-light)"; }}
                         onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = isTop ? CTA : "white"; }}>
                         Profil ansehen
