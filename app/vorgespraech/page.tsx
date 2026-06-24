@@ -78,7 +78,7 @@ export default function VorgespraechPage() {
               {/* Badge — interactive hover */}
               <div
                 style={{ display: "inline-block", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "5px 16px", marginBottom: 18, alignSelf: "flex-start", textAlign: "center", cursor: "default", transition: "background 0.2s, box-shadow 0.2s" }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--blue-ultra-light)"; el.style.boxShadow = "0 0 0 4px rgba(45,91,141,0.12)"; }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--blue-ultra-light)"; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.18)"; }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "transparent"; el.style.boxShadow = "none"; }}>
                 <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>Kostenlos &amp; vertraulich</span>
               </div>
@@ -163,7 +163,7 @@ export default function VorgespraechPage() {
                     onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#F4F9FF"; el.style.borderColor = CTA; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.10)"; }}
                     onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.borderColor = "#EAF0FA"; el.style.boxShadow = "none"; }}>
                     {/* Large background number */}
-                    <span style={{ position: "absolute", top: -8, right: 10, fontFamily: F, fontWeight: 800, fontSize: 96, color: CTA, opacity: 0.12, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{s.n}</span>
+                    <span style={{ position: "absolute", top: 10, right: 14, fontFamily: F, fontWeight: 800, fontSize: 80, color: CTA, opacity: 0.1, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{s.n}</span>
                     {/* Icon — bigger, no circle border */}
                     <div style={{ position: "relative", marginBottom: 20 }}>
                       <img src={s.icon} width={56} height={56} alt="" style={{ objectFit: "contain", filter: iconFilter, display: "block" }} />
