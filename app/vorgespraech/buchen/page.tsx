@@ -128,8 +128,8 @@ function LeftPanel({ format, locationId, selectedDate, selectedTime, isMobile }:
 }
 
 // ── Confirmation ──────────────────────────────────────────────────────
-function Confirmation({ format, location, selectedDate, selectedTime, isMobile, user }: {
-  format: "online" | "vor-ort"; location: typeof LOCATIONS[0]; selectedDate: string; selectedTime: string; isMobile: boolean; user: AuthUser | null;
+function Confirmation({ format, location, selectedDate, selectedTime, selectedDayObj, isMobile, user }: {
+  format: "online" | "vor-ort"; location: typeof LOCATIONS[0]; selectedDate: string; selectedTime: string; selectedDayObj: Date | null; isMobile: boolean; user: AuthUser | null;
 }) {
   const KONTO_FEATURES = [
     { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>, title: "Termine verwalten", desc: "Alle Buchungen auf einen Blick" },
@@ -214,58 +214,52 @@ function Confirmation({ format, location, selectedDate, selectedTime, isMobile, 
         </div>
       </div>
 
-      {/* If logged in: profile button. If not: Konto banner */}
-      {user ? (
-        <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 12, justifyContent: "center", marginBottom: 32 }}>
-          <a href="/profil"
-            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, background: CTA, borderRadius: 9999, padding: "12px 28px", fontFamily: F, fontWeight: 700, fontSize: 15, color: "white", textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.25)", transition: "background 0.2s" }}
-            onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
-            onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="white" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="white" strokeWidth="2"/></svg>
-            Zum Profil — Termin ansehen
-          </a>
-          <a href="/"
-            style={{ display: "flex", alignItems: "center", justifyContent: "center", background: "white", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "12px 28px", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", transition: "all 0.2s" }}
-            onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"}
-            onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "white"}>
-            Zurück zur Startseite
-          </a>
-        </div>
-      ) : (
-        <div style={{ borderRadius: isMobile ? 16 : 24, backgroundImage: "url('/KontoBanner.png')", backgroundSize: "cover", backgroundPosition: "center", padding: isMobile ? "28px 20px" : "48px 56px", marginBottom: 32, position: "relative", overflow: "hidden" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 24, position: "relative", zIndex: 1 }}>
-            <div>
-              <p style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 8px" }}>Dein kostenloser Account</p>
-              <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 20px", lineHeight: 1.3 }}>Sieh deinen Termin in deinem Profil</h3>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "12px 20px" }}>
-                {KONTO_FEATURES.map((f, i) => (
-                  <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
-                    <div style={{ width: 30, height: 30, borderRadius: 8, background: "rgba(255,255,255,0.7)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, backdropFilter: "blur(4px)" }}>{f.icon}</div>
-                    <div>
-                      <p style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: "var(--black)", margin: "4px 0 2px" }}>{f.title}</p>
-                      <p style={{ fontFamily: F, fontSize: 11, color: "#444", margin: 0, lineHeight: 1.5 }}>{f.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 10 }}>
-              <a href="/anmelden"
-                style={{ display: "block", textAlign: "center", background: CTA, color: "white", borderRadius: 9999, padding: "13px 24px", fontFamily: F, fontWeight: 700, fontSize: 14, textDecoration: "none", transition: "all 0.2s", boxShadow: "0 4px 16px rgba(45,91,141,0.3)", boxSizing: "border-box" as const, flex: 1 }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                Anmelden
-              </a>
-              <a href="/registrieren"
-                style={{ display: "block", textAlign: "center", background: "rgba(255,255,255,0.75)", color: CTA, borderRadius: 9999, padding: "13px 24px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", border: `1.5px solid ${CTA}`, transition: "all 0.2s", boxSizing: "border-box" as const, flex: 1 }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "white"}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.75)"}>
-                Konto erstellen
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* CTA buttons */}
+      <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 12, justifyContent: "center", marginBottom: 32 }}>
+        {/* Add to calendar — generates .ics download */}
+        <button
+          onClick={() => {
+            const pad = (n: number) => String(n).padStart(2, "0");
+            const dateObj = new Date(selectedDayObj ?? new Date());
+            const [hh, mm] = selectedTime.split(":").map(Number);
+            const y = dateObj.getFullYear();
+            const mo = pad(dateObj.getMonth() + 1);
+            const d = pad(dateObj.getDate());
+            const endMin = mm + 30; const endHh = hh + Math.floor(endMin / 60);
+            const dtStart = `${y}${mo}${d}T${pad(hh)}${pad(mm)}00`;
+            const dtEnd   = `${y}${mo}${d}T${pad(endHh)}${pad(endMin % 60)}00`;
+            const loc = format === "vor-ort" ? `${location.address}\\, ${location.zip}` : "Online per Video";
+            const ics = [
+              "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//PTBD//DE",
+              "BEGIN:VEVENT",
+              `DTSTART:${dtStart}`,
+              `DTEND:${dtEnd}`,
+              `SUMMARY:Kostenloses Erstgespräch – PTBD`,
+              `LOCATION:${loc}`,
+              `DESCRIPTION:Psychotherapeutischer Bereitschaftsdienst – Kostenloses Erstgespräch`,
+              "END:VEVENT", "END:VCALENDAR"
+            ].join("\r\n");
+            const blob = new Blob([ics], { type: "text/calendar" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a"); a.href = url; a.download = "erstgespraech-ptbd.ics"; a.click();
+            URL.revokeObjectURL(url);
+          }}
+          style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, background: "white", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "13px 28px", fontFamily: F, fontWeight: 600, fontSize: 15, cursor: "pointer", transition: "all 0.2s" }}
+          onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"}
+          onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "white"}>
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke={CTA} strokeWidth="2" strokeLinecap="round"/></svg>
+          In Kalender eintragen
+        </button>
+
+        {/* Profile / Register */}
+        <a href={user ? "/profil" : "/registrieren"}
+          style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, background: CTA, color: "white", borderRadius: 9999, padding: "13px 28px", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.25)", transition: "background 0.2s" }}
+          onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
+          onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="white" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="white" strokeWidth="2"/></svg>
+          {user ? "Zum Profil — Termin ansehen" : "Konto erstellen & Termin speichern"}
+        </a>
+      </div>
     </div>
   );
 }
@@ -410,7 +404,7 @@ export default function VorgespraechBuchenPage() {
       <Breadcrumbs />
 
       {confirmed ? (
-        <Confirmation format={format} location={selectedLocation} selectedDate={selectedDate} selectedTime={selectedTime} isMobile={isMobile} user={user} />
+        <Confirmation format={format} location={selectedLocation} selectedDate={selectedDate} selectedTime={selectedTime} selectedDayObj={selectedDayObj} isMobile={isMobile} user={user} />
       ) : (
         <div style={{ maxWidth: 1150, margin: "0 auto", padding: isMobile ? "24px 16px 64px" : "40px 24px 64px", boxSizing: "border-box" as const }}>
           <div style={{ marginBottom: 16 }}>
