@@ -390,7 +390,7 @@ export default function OrientierungstestPage() {
                   </p>
 
                   {/* Options — scrollable */}
-                  <div className="options-scroll" style={{ display: "flex", flexDirection: "column", gap: 10, overflowY: "auto", flex: 1, paddingRight: 6, minHeight: 0 }}>
+                  <div className="options-scroll" style={{ display: "flex", flexDirection: "column", gap: 10, overflowY: "scroll", flex: 1, paddingRight: 6, minHeight: 0 }}>
                     {q.options.map(opt => {
                       const sel = answers[q.id]?.includes(opt.value);
                       return (
@@ -407,7 +407,7 @@ export default function OrientierungstestPage() {
 
                   {/* Sonstiges field — outside scroll, always visible */}
                   {answers[q.id]?.includes("anderes") && (
-                    <div style={{ marginTop: 12, borderRadius: 12, border: `1.5px solid ${CTA}`, background: "var(--blue-ultra-light)", overflow: "hidden" }}>
+                    <div style={{ marginTop: 12, borderRadius: 12, border: `1.5px solid ${CTA}`, background: "white", overflow: "hidden" }}>
                       <div style={{ padding: "8px 14px 6px", display: "flex", alignItems: "center", gap: 6, borderBottom: "1px solid #C8DFFF" }}>
                         <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke={CTA} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA }}>Bitte beschreibe kurz</span>
@@ -454,6 +454,7 @@ export default function OrientierungstestPage() {
           )}
           <style>{`
             @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+            .options-scroll { scrollbar-width: thin; scrollbar-color: #B0C8E8 #EEF3FB; }
             .options-scroll::-webkit-scrollbar { width: 4px; }
             .options-scroll::-webkit-scrollbar-track { background: #EEF3FB; border-radius: 9999px; }
             .options-scroll::-webkit-scrollbar-thumb { background: #B0C8E8; border-radius: 9999px; }
