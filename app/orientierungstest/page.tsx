@@ -533,22 +533,29 @@ export default function OrientierungstestPage() {
           <div style={{ ...wrap, paddingTop: isMobile ? 24 : 56, paddingBottom: 80 }}>
 
             {/* ── Recommendation card ── */}
-            <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", background: "#EEF5FF", marginBottom: 40, display: "flex", flexDirection: isMobile ? "column" : "row", minHeight: isMobile ? undefined : 320, position: "relative" }}>
-              {/* Left: content */}
-              <div style={{ flex: "0 0 auto", width: isMobile ? "100%" : "55%", padding: isMobile ? "36px 24px 28px" : "48px 48px 48px 52px", display: "flex", flexDirection: "column", gap: 18, justifyContent: "center" }}>
+            <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 340 : 320, marginBottom: 40, display: "flex", alignItems: "center" }}>
+              {/* Background image — full width */}
+              <img src="/empfehlungs-page-banner.jpg" alt=""
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center" }} />
+              {/* Gradient: left side opaque for text, fades to transparent on right so image shows */}
+              <div style={{ position: "absolute", inset: 0, background: isMobile
+                ? "linear-gradient(to bottom, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.90) 65%, rgba(236,245,255,0.3) 100%)"
+                : "linear-gradient(to right, rgba(236,245,255,1) 0%, rgba(236,245,255,0.97) 30%, rgba(236,245,255,0.7) 52%, rgba(236,245,255,0.0) 72%)" }} />
+              {/* Content */}
+              <div style={{ position: "relative", zIndex: 1, padding: isMobile ? "36px 24px" : "48px 52px", maxWidth: isMobile ? "100%" : 600, display: "flex", flexDirection: "column", gap: 18 }}>
                 <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>Deine Empfehlung</p>
 
                 <div>
                   <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 30 : 42, color: "var(--black)", margin: "0 0 12px", lineHeight: 1.1 }}>{spec.title}</h1>
                   <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 16, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>
-                    Basierend auf Deinen Antworten empfehlen wir {specKey === "psychologe" ? "eine:n" : "eine:n"} {spec.title.toLowerCase()}, {specKey === "psychiater" ? "die auf schwere psychische Erkrankungen spezialisiert ist — auch für medikamentöse Behandlung und akute Krisen." : specKey === "psychologe" ? "die dir bei Lebensfragen, Orientierung und persönlicher Entwicklung hilft." : "die auf langfristige Behandlung von Depressionen, Angststörungen und Traumata spezialisiert ist."}
+                    Basierend auf Deinen Antworten empfehlen wir eine:n {spec.title.toLowerCase()}, {specKey === "psychiater" ? "die auf schwere psychische Erkrankungen spezialisiert ist — auch für medikamentöse Behandlung und akute Krisen." : specKey === "psychologe" ? "die dir bei Lebensfragen, Orientierung und persönlicher Entwicklung hilft." : "die auf langfristige Behandlung von Depressionen, Angststörungen und Traumata spezialisiert ist."}
                   </p>
                 </div>
 
                 {/* Tags */}
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                   {spec.tags.map(tag => (
-                    <span key={tag} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(255,255,255,0.7)", border: "1px solid rgba(45,91,141,0.15)", borderRadius: 9999, padding: "6px 14px", fontFamily: F, fontSize: 13, color: CTA, fontWeight: 500 }}>
+                    <span key={tag} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(255,255,255,0.75)", border: "1px solid rgba(45,91,141,0.15)", borderRadius: 9999, padding: "6px 14px", fontFamily: F, fontSize: 13, color: CTA, fontWeight: 500 }}>
                       <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" stroke={CTA} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.5"/></svg>
                       {tag}
                     </span>
@@ -556,7 +563,7 @@ export default function OrientierungstestPage() {
                 </div>
 
                 {/* Why box */}
-                <div style={{ background: "rgba(255,255,255,0.65)", border: "1px solid rgba(45,91,141,0.12)", borderRadius: 14, padding: "14px 18px", display: "flex", gap: 12, alignItems: "flex-start" }}>
+                <div style={{ background: "rgba(255,255,255,0.70)", border: "1px solid rgba(45,91,141,0.12)", borderRadius: 14, padding: "14px 18px", display: "flex", gap: 12, alignItems: "flex-start", maxWidth: 500 }}>
                   <svg style={{ flexShrink: 0, marginTop: 2 }} width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 8v4M12 16h.01" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>
                   <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.7 }}>{spec.why}</p>
                 </div>
@@ -567,14 +574,6 @@ export default function OrientierungstestPage() {
                   Was ist der Unterschied zwischen den Fachkräften? →
                 </a>
               </div>
-              {/* Right: image */}
-              {!isMobile && (
-                <div style={{ flex: 1, position: "relative", overflow: "hidden", minHeight: 320 }}>
-                  <img src="/empfehlungs-page-banner.jpg" alt=""
-                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "left center" }} />
-                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, #EEF5FF 0%, transparent 25%)" }} />
-                </div>
-              )}
             </div>
 
             {/* Why cards */}
