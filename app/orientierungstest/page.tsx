@@ -572,28 +572,24 @@ export default function OrientierungstestPage() {
         return (
           <div style={{ ...wrap, paddingTop: isMobile ? 24 : 56, paddingBottom: 80 }}>
 
-            {/* ── Recommendation card ── */}
-            <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 340 : 320, marginBottom: 40, display: "flex", alignItems: "center" }}>
-              {/* Background image — full width */}
-              <img src="/empfehlungs-page-banner.jpg" alt=""
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center" }} />
-              {/* Gradient: left side opaque for text, fades to transparent on right so image shows */}
-              <div style={{ position: "absolute", inset: 0, background: isMobile
-                ? "linear-gradient(to bottom, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.90) 65%, rgba(236,245,255,0.3) 100%)"
-                : "linear-gradient(to right, rgba(236,245,255,1) 0%, rgba(236,245,255,0.97) 30%, rgba(236,245,255,0.7) 52%, rgba(236,245,255,0.0) 72%)" }} />
-              {/* Content */}
-              <div style={{ position: "relative", zIndex: 1, padding: isMobile ? "36px 24px" : "48px 52px", maxWidth: isMobile ? "100%" : 600, display: "flex", flexDirection: "column", gap: 18 }}>
-                <p style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>Deine Empfehlung</p>
+            {/* ── Recommendation banner: two-column ── */}
+            <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", background: "var(--blue-ultra-light)", marginBottom: 40, display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: "stretch", minHeight: isMobile ? "auto" : 360 }}>
+              {/* Left: text */}
+              <div style={{ flex: "1 1 55%", padding: isMobile ? "32px 24px" : "48px 52px", display: "flex", flexDirection: "column", gap: 18, justifyContent: "center" }}>
+                <p style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>Dein Ergebnis</p>
 
                 <div>
-                  <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 30 : 42, color: "var(--black)", margin: "0 0 12px", lineHeight: 1.1 }}>{spec.title}</h1>
-                  <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 16, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>
+                  <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 28 : 40, color: "var(--black)", margin: "0 0 8px", lineHeight: 1.15 }}>
+                    {spec.title}
+                    <span style={{ display: "block", fontWeight: 500, fontSize: isMobile ? 18 : 26, color: CTA, lineHeight: 1.3 }}>– die beste Fachrichtung für dich.</span>
+                  </h1>
+                  <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>
                     Basierend auf Deinen Antworten empfehlen wir eine:n {spec.title.toLowerCase()}, {specKey === "psychiater" ? "die auf schwere psychische Erkrankungen spezialisiert ist — auch für medikamentöse Behandlung und akute Krisen." : specKey === "psychologe" ? "die dir bei Lebensfragen, Orientierung und persönlicher Entwicklung hilft." : "die auf langfristige Behandlung von Depressionen, Angststörungen und Traumata spezialisiert ist."}
                   </p>
                 </div>
 
                 {/* Why box */}
-                <div style={{ background: "rgba(255,255,255,0.70)", border: "1px solid rgba(45,91,141,0.12)", borderRadius: 14, padding: "14px 18px", display: "flex", gap: 12, alignItems: "flex-start", maxWidth: 500 }}>
+                <div style={{ background: "rgba(255,255,255,0.75)", border: "1px solid rgba(45,91,141,0.12)", borderRadius: 14, padding: "14px 18px", display: "flex", gap: 12, alignItems: "flex-start", maxWidth: 480 }}>
                   <svg style={{ flexShrink: 0, marginTop: 2 }} width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 8v4M12 16h.01" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>
                   <p style={{ fontFamily: F, fontSize: 14, color: "var(--black)", margin: 0, lineHeight: 1.7 }}>{spec.why}</p>
                 </div>
@@ -604,6 +600,14 @@ export default function OrientierungstestPage() {
                   Was ist der Unterschied zwischen den Fachkräften? →
                 </a>
               </div>
+
+              {/* Right: image */}
+              {!isMobile && (
+                <div style={{ flex: "0 0 42%", position: "relative", overflow: "hidden" }}>
+                  <img src="/empfehlungs-page-banner.jpg" alt=""
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center" }} />
+                </div>
+              )}
             </div>
 
             {/* Why cards */}
@@ -635,49 +639,40 @@ export default function OrientierungstestPage() {
               <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: 0 }}>Für dich empfohlene Fachkräfte</h2>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
-              {RESULT_THERAPISTS[specKey].map((t, i) => {
-                const isTop = i === 0;
-                return (
-                  <div key={t.id} style={{ background: "white", borderRadius: 18, border: isTop ? `2px solid ${CTA}` : "1px solid #EEF2F7", boxShadow: isTop ? "0 4px 24px rgba(45,91,141,0.10)" : "0 1px 6px rgba(0,0,0,0.04)", padding: isMobile ? 16 : "20px 24px", display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 14 : 20, alignItems: isMobile ? "flex-start" : "center", position: "relative" }}>
-                    {isTop && (
-                      <div style={{ position: "absolute", top: -11, left: 18, background: CTA, color: "white", borderRadius: 9999, padding: "3px 11px", fontFamily: F, fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", gap: 4 }}>
-                        <svg width="9" height="9" fill="white" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        Beste Übereinstimmung
-                      </div>
-                    )}
-                    {/* Photo */}
-                    <div style={{ width: isMobile ? 64 : 72, height: isMobile ? 64 : 80, borderRadius: 14, overflow: "hidden", flexShrink: 0 }}>
-                      <img src={t.photo} alt={t.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
+              {RESULT_THERAPISTS[specKey].map((t, i) => (
+                <div key={t.id} style={{ background: "white", borderRadius: 18, border: "1px solid #EEF2F7", boxShadow: "0 1px 8px rgba(0,0,0,0.05)", padding: isMobile ? 16 : "20px 24px", display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 14 : 20, alignItems: isMobile ? "flex-start" : "center" }}>
+                  {/* Photo */}
+                  <div style={{ width: isMobile ? 64 : 72, height: isMobile ? 64 : 72, borderRadius: 14, overflow: "hidden", flexShrink: 0 }}>
+                    <img src={t.photo} alt={t.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
+                  </div>
+                  {/* Info */}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 3 }}>
+                      <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 17, color: "var(--black)", margin: 0 }}>{t.name}</h3>
+                      <span style={{ fontFamily: F, fontSize: 12, color: "#1E6B34", fontWeight: 700, background: "#E2F7E9", borderRadius: 8, padding: "2px 9px", display: "inline-flex", alignItems: "center", gap: 4 }}>
+                        <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" stroke="#1E6B34" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="9" stroke="#1E6B34" strokeWidth="1.5"/></svg>
+                        {t.match}% Match
+                      </span>
                     </div>
-                    {/* Info */}
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 3 }}>
-                        <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 17, color: "var(--black)", margin: 0 }}>{t.name}</h3>
-                        <span style={{ fontFamily: F, fontSize: 12, color: "#1E6B34", fontWeight: 700, background: "#E2F7E9", borderRadius: 8, padding: "2px 9px", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                          <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" stroke="#1E6B34" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="9" stroke="#1E6B34" strokeWidth="1.5"/></svg>
-                          {t.match}% Match
-                        </span>
-                      </div>
-                      <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 10px" }}>{t.role}</p>
-                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                        {t.tags.map(tag => (
-                          <span key={tag} style={{ background: isTop ? "var(--blue-ultra-light)" : "#F5F8FF", border: `1px solid ${isTop ? "#C0D8F5" : "#DDE8F5"}`, borderRadius: 9999, padding: "3px 11px", fontFamily: F, fontSize: 12, color: isTop ? CTA : "var(--black)", fontWeight: isTop ? 500 : 400 }}>{tag}</span>
-                        ))}
-                      </div>
-                    </div>
-                    {/* CTA */}
-                    <div style={{ flexShrink: 0 }}>
-                      <a href={`/fachkraefte/${t.id}`}
-                        style={{ display: "inline-flex", alignItems: "center", gap: 8, background: isTop ? CTA : "white", color: isTop ? "white" : CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap", boxShadow: isTop ? "0 4px 14px rgba(45,91,141,0.22)" : "none", transition: "all 0.2s" }}
-                        onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = isTop ? "var(--cta-hover)" : "var(--blue-ultra-light)"; }}
-                        onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = isTop ? CTA : "white"; }}>
-                        Profil ansehen
-                        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      </a>
+                    <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 10px" }}>{t.role}</p>
+                    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                      {t.tags.map(tag => (
+                        <span key={tag} style={{ background: "#F5F8FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "3px 11px", fontFamily: F, fontSize: 12, color: "var(--black)" }}>{tag}</span>
+                      ))}
                     </div>
                   </div>
-                );
-              })}
+                  {/* CTA */}
+                  <div style={{ flexShrink: 0 }}>
+                    <a href={`/fachkraefte/${t.id}`}
+                      style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "white", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap", transition: "all 0.2s" }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "white"; }}>
+                      Profil ansehen
+                      <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </a>
+                  </div>
+                </div>
+              ))}
             </div>
 
             {/* Actions */}
