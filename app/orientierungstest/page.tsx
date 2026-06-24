@@ -610,6 +610,30 @@ export default function OrientierungstestPage() {
               )}
             </div>
 
+            {/* ── Emotional reassurance ── */}
+            <div style={{ marginBottom: 56, textAlign: "center", padding: isMobile ? "0 8px" : "0 40px" }}>
+              <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 12px", lineHeight: 1.3 }}>
+                Wir haben eine passende Richtung für dich gefunden.
+              </p>
+              <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 16, color: "var(--grey-text)", margin: "0 auto 24px", maxWidth: 560, lineHeight: 1.7 }}>
+                Du bist mit diesen Themen nicht allein. Viele Menschen mit ähnlichen Antworten profitieren von {specKey === "psychiater" ? "psychiatrischer Begleitung und fachärztlicher Behandlung" : specKey === "psychologe" ? "psychologischer Beratung und gezielter Begleitung" : "psychotherapeutischer Begleitung und strukturierter Therapie"} — und machen damit echte Fortschritte.
+              </p>
+              <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 12 : 0, justifyContent: "center", alignItems: "stretch", borderRadius: 20, overflow: "hidden", border: "1px solid #EAF0FA" }}>
+                {[
+                  { n: "2.000+", label: "Menschen begleitet", icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.7"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg> },
+                  { n: "35+", label: "Fachkräfte in Wien", icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg> },
+                  { n: "Seit 2018", label: "im Einsatz für dich", icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.7"/><path d="M12 7v5l3 3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg> },
+                  { n: "3–5 Tage", label: "bis zum ersten Termin", icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg> },
+                ].map((s, i) => (
+                  <div key={i} style={{ flex: 1, background: i % 2 === 0 ? "white" : "var(--blue-ultra-light)", padding: isMobile ? "20px 16px" : "28px 20px", display: "flex", flexDirection: "column", alignItems: "center", gap: 8, borderRight: !isMobile && i < 3 ? "1px solid #EAF0FA" : "none" }}>
+                    <div style={{ color: CTA }}>{s.icon}</div>
+                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 26, color: "var(--black)", margin: 0 }}>{s.n}</p>
+                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0 }}>{s.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Why cards */}
             <div style={{ marginBottom: 56 }}>
               <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 28px" }}>
@@ -633,6 +657,40 @@ export default function OrientierungstestPage() {
               </div>
             </div>
 
+            {/* ── Was erwartet dich? ── */}
+            {(() => {
+              const erwarten = specKey === "psychiater" ? [
+                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Erstgespräch & Diagnose", desc: "Im ersten Termin hörst du eine genaue Einschätzung deiner Situation von einem:r Facharzt:ärztin." },
+                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Behandlungsplan", desc: "Gemeinsam entscheidet ihr, welche Behandlung — Therapie, Medikamente oder beides — am sinnvollsten ist." },
+                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Langfristige Begleitung", desc: "Psychiater:innen bleiben an deiner Seite — Schritt für Schritt hin zu mehr Stabilität." },
+              ] : specKey === "psychologe" ? [
+                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Offenes Erstgespräch", desc: "Du erzählst, was dich beschäftigt — ohne Vorbereitung, ohne festes Programm. Einfach ehrlich." },
+                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.7"/><path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Orientierung gewinnen", desc: "Gemeinsam findet ihr heraus, was dich wirklich beschäftigt — und welche nächsten Schritte sinnvoll sind." },
+                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Konkrete Unterstützung", desc: "Du gehst nicht mit leeren Händen — sondern mit Klarheit, ersten Impulsen und einem Plan." },
+              ] : [
+                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Das erste Gespräch", desc: "Du erzählst, was dich belastet. Der:die Therapeut:in hört zu — ohne Wertung, ohne Druck." },
+                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Strukturierter Prozess", desc: "Über Wochen und Monate arbeitest du gezielt an deinen Themen — mit erprobten Methoden." },
+                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Dauerhafte Veränderung", desc: "Psychotherapie verändert nicht nur das Gefühl im Moment — sie verändert, wie du mit dir selbst umgehst." },
+              ];
+              return (
+                <div style={{ marginBottom: 56 }}>
+                  <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 8px" }}>Was bedeutet {spec.title}?</p>
+                  <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 28px" }}>Was erwartet dich?</h2>
+                  <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: isMobile ? 12 : 20 }}>
+                    {erwarten.map((item, i) => (
+                      <div key={i} style={{ background: "white", border: "1px solid #EAF0FA", borderRadius: 18, padding: isMobile ? "20px 18px" : "28px 24px", display: "flex", flexDirection: "column", gap: 14 }}>
+                        <div style={{ width: 44, height: 44, borderRadius: 12, background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", color: CTA, flexShrink: 0 }}>{item.icon}</div>
+                        <div>
+                          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 6px" }}>{item.title}</p>
+                          <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{item.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+
             {/* Matching therapists */}
             <div style={{ marginBottom: 24 }}>
               <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 8px" }}>Basierend auf deinen Antworten</p>
@@ -647,14 +705,17 @@ export default function OrientierungstestPage() {
                   </div>
                   {/* Info */}
                   <div style={{ flex: 1, minWidth: 0, padding: isMobile ? "16px 14px" : "20px 24px", display: "flex", flexDirection: "column", justifyContent: "center", gap: 8 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-                      <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 18, color: "var(--black)", margin: 0 }}>{t.name}</h3>
-                      <span style={{ fontFamily: F, fontSize: 12, color: "#1E6B34", fontWeight: 700, background: "#E2F7E9", borderRadius: 8, padding: "2px 9px", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                        <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" stroke="#1E6B34" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="9" stroke="#1E6B34" strokeWidth="1.5"/></svg>
-                        {t.match}% Match
-                      </span>
-                    </div>
+                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 18, color: "var(--black)", margin: 0 }}>{t.name}</h3>
                     <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0 }}>{t.role}</p>
+                    <div>
+                      <span style={{ fontFamily: F, fontSize: 13, color: "#1E6B34", fontWeight: 700, background: "#E2F7E9", borderRadius: 8, padding: "3px 10px", display: "inline-flex", alignItems: "center", gap: 5 }}>
+                        <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" stroke="#1E6B34" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="9" stroke="#1E6B34" strokeWidth="1.5"/></svg>
+                        {t.match >= 90 ? "Sehr hohe Übereinstimmung" : t.match >= 80 ? "Hohe Übereinstimmung" : "Gute Übereinstimmung"}
+                      </span>
+                      <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: "5px 0 0", fontStyle: "italic" }}>
+                        {specKey === "psychiater" ? "Basierend auf deinen Antworten zu Belastungsgrad, Symptomen und Behandlungsbedarf." : specKey === "psychologe" ? "Basierend auf deinen Antworten zu Lebensthemen, Orientierung und persönlichem Wachstum." : "Basierend auf deinen Antworten zu Angst, Depression und gewünschter Behandlungsform."}
+                      </p>
+                    </div>
                     <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                       {t.tags.map(tag => (
                         <span key={tag} style={{ background: "#F5F8FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "3px 11px", fontFamily: F, fontSize: 12, color: "var(--black)" }}>{tag}</span>
