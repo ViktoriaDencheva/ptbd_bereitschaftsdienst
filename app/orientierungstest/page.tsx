@@ -489,8 +489,8 @@ export default function OrientierungstestPage() {
                 style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center" }} />
               {/* Gradient overlay — left opaque for text, right shows image */}
               <div style={{ position: "absolute", inset: 0, background: isMobile
-                ? "linear-gradient(to bottom, rgba(236,245,255,0.95) 0%, rgba(236,245,255,0.80) 60%, rgba(236,245,255,0.2) 100%)"
-                : "linear-gradient(to right, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.88) 40%, rgba(236,245,255,0.3) 65%, transparent 100%)" }} />
+                ? "linear-gradient(to bottom, rgba(236,245,255,0.92) 0%, rgba(236,245,255,0.60) 55%, rgba(236,245,255,0.0) 100%)"
+                : "linear-gradient(to right, rgba(236,245,255,0.94) 0%, rgba(236,245,255,0.75) 38%, rgba(236,245,255,0.15) 60%, transparent 100%)" }} />
               {/* Content */}
               <div style={{ position: "relative", zIndex: 1, padding: isMobile ? "36px 24px" : "48px 52px", maxWidth: isMobile ? "100%" : 620, display: "flex", flexDirection: "column", gap: 16 }}>
                 <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>Deine Empfehlung</p>
@@ -529,42 +529,45 @@ export default function OrientierungstestPage() {
               <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 6px" }}>Basierend auf deinen Antworten</p>
               <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: 0 }}>Für dich empfohlene Fachkräfte</h2>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 32 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
               {RESULT_THERAPISTS[specKey].map((t, i) => {
                 const isTop = i === 0;
                 return (
-                  <div key={t.id}
-                    style={{ background: "white", borderRadius: 16, border: isTop ? `1.5px solid ${CTA}` : "1px solid #E8EEF7", boxShadow: isTop ? "0 2px 16px rgba(45,91,141,0.09)" : "none", padding: isMobile ? "14px 16px" : "16px 20px", display: "flex", alignItems: "center", gap: 16, position: "relative", transition: "border-color 0.15s" }}
-                    onMouseEnter={e => { if (!isTop) (e.currentTarget as HTMLElement).style.borderColor = "#BDD0EF"; }}
-                    onMouseLeave={e => { if (!isTop) (e.currentTarget as HTMLElement).style.borderColor = "#E8EEF7"; }}>
+                  <div key={t.id} style={{ background: "white", borderRadius: 18, border: isTop ? `2px solid ${CTA}` : "1px solid #EEF2F7", boxShadow: isTop ? "0 4px 24px rgba(45,91,141,0.10)" : "0 1px 6px rgba(0,0,0,0.04)", padding: isMobile ? 16 : "20px 24px", display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 14 : 20, alignItems: isMobile ? "flex-start" : "center", position: "relative" }}>
                     {isTop && (
-                      <div style={{ position: "absolute", top: -10, left: 16, background: CTA, color: "white", borderRadius: 9999, padding: "2px 10px", fontFamily: F, fontSize: 10, fontWeight: 700, display: "flex", alignItems: "center", gap: 4 }}>
-                        <svg width="8" height="8" fill="white" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <div style={{ position: "absolute", top: -11, left: 18, background: CTA, color: "white", borderRadius: 9999, padding: "3px 11px", fontFamily: F, fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", gap: 4 }}>
+                        <svg width="9" height="9" fill="white" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                         Beste Übereinstimmung
                       </div>
                     )}
                     {/* Photo */}
-                    <div style={{ width: 56, height: 64, borderRadius: 12, overflow: "hidden", flexShrink: 0 }}>
+                    <div style={{ width: isMobile ? 64 : 72, height: isMobile ? 64 : 80, borderRadius: 14, overflow: "hidden", flexShrink: 0 }}>
                       <img src={t.photo} alt={t.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
                     </div>
                     {/* Info */}
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 14 : 16, color: "var(--black)", margin: "0 0 2px" }}>{t.name}</h3>
-                      <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: "0 0 8px" }}>{t.role}</p>
-                      <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
-                        {t.tags.slice(0, 2).map(tag => (
-                          <span key={tag} style={{ background: "#F0F5FF", border: "1px solid #D0E0F5", borderRadius: 9999, padding: "2px 10px", fontFamily: F, fontSize: 11, color: CTA }}>{tag}</span>
+                      <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap", marginBottom: 3 }}>
+                        <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 17, color: "var(--black)", margin: 0 }}>{t.name}</h3>
+                        <span style={{ fontFamily: F, fontSize: 12, color: "#1E6B34", fontWeight: 700, background: "#E2F7E9", borderRadius: 8, padding: "2px 9px", display: "inline-flex", alignItems: "center", gap: 4 }}>
+                          <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" stroke="#1E6B34" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="9" stroke="#1E6B34" strokeWidth="1.5"/></svg>
+                          {t.match}% Match
+                        </span>
+                      </div>
+                      <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: "0 0 10px" }}>{t.role}</p>
+                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                        {t.tags.map(tag => (
+                          <span key={tag} style={{ background: isTop ? "var(--blue-ultra-light)" : "#F5F8FF", border: `1px solid ${isTop ? "#C0D8F5" : "#DDE8F5"}`, borderRadius: 9999, padding: "3px 11px", fontFamily: F, fontSize: 12, color: isTop ? CTA : "var(--black)", fontWeight: isTop ? 500 : 400 }}>{tag}</span>
                         ))}
                       </div>
                     </div>
-                    {/* Match + CTA */}
-                    <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 8 }}>
-                      <span style={{ fontFamily: F, fontSize: 12, fontWeight: 700, color: "#1E6B34", background: "#E2F7E9", borderRadius: 8, padding: "2px 8px" }}>{t.match}%</span>
+                    {/* CTA */}
+                    <div style={{ flexShrink: 0 }}>
                       <a href={`/fachkraefte/${t.id}`}
-                        style={{ display: "inline-flex", alignItems: "center", gap: 6, background: isTop ? CTA : "white", color: isTop ? "white" : CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "7px 16px", fontFamily: F, fontWeight: 600, fontSize: 12, textDecoration: "none", whiteSpace: "nowrap", transition: "all 0.15s" }}
+                        style={{ display: "inline-flex", alignItems: "center", gap: 8, background: isTop ? CTA : "white", color: isTop ? "white" : CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", whiteSpace: "nowrap", boxShadow: isTop ? "0 4px 14px rgba(45,91,141,0.22)" : "none", transition: "all 0.2s" }}
                         onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = isTop ? "var(--cta-hover)" : "var(--blue-ultra-light)"; }}
                         onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = isTop ? CTA : "white"; }}>
-                        Ansehen →
+                        Profil ansehen
+                        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       </a>
                     </div>
                   </div>
