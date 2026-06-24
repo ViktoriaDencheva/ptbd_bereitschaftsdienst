@@ -1,170 +1,156 @@
 "use client";
 const imgHeroDesktop = "/heroImage.png";
 const imgHeroMobile = "/heroImage-mob.png";
+const F = "'Poppins', sans-serif";
+const CTA = "var(--cta)";
+const RED = "var(--cta-brand)";
 
-
-const IconVerifiziert = () => (
-  <svg width="48" height="48" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M14.1703 16.1353C15.0678 15.0053 15.8828 13.7807 16.7741 12.6427C16.8609 12.533 16.9613 12.4649 17.1057 12.4649C17.5168 12.4661 17.9855 12.5526 18.383 12.6369C20.5967 13.1136 22.5686 14.3382 23.9506 16.0984C24.1849 16.3939 24.3994 16.7044 24.5939 17.0264C24.9758 17.66 24.9099 17.7778 25.503 18.2822C26.3023 18.393 27.1413 18.0617 27.8087 18.7208C28.2669 19.1732 28.2711 19.5483 28.2701 20.1439C28.2669 20.4302 28.2669 20.7176 28.2722 21.0038C28.4594 21.2012 28.6969 21.4286 28.8925 21.6155C29.2618 21.9583 29.5265 22.2492 29.5882 22.7617C29.7127 23.7982 28.8266 24.1733 28.2763 24.8612C28.2094 25.7395 28.5054 26.6745 27.6434 27.2723C27.4509 27.4062 27.2867 27.4732 27.0639 27.5447C27.1151 27.644 27.1967 27.861 27.2438 27.9741L27.6058 28.8513L27.9761 29.7458C28.0713 29.9744 28.2481 30.3079 28.2251 30.5515C28.2115 30.7004 28.0002 30.8862 27.8411 30.8608C27.385 30.7869 26.9268 30.6473 26.4749 30.5353C26.3368 30.7777 25.82 31.6803 25.6171 31.7738C25.525 31.8165 25.4193 31.8165 25.3252 31.7807C25.2363 31.7472 25.1704 31.6895 25.1201 31.6122C24.9988 31.4229 24.9256 31.1724 24.8398 30.9647C24.6128 30.4107 24.4025 29.8405 24.1504 29.2957C24.096 29.1468 24.0186 28.9667 23.9579 28.8178C23.6556 28.8686 23.4296 28.8721 23.1304 28.8155L22.3678 30.6657C22.2401 30.9762 22.1177 31.2959 21.9692 31.5972C21.8562 31.8269 21.4974 31.8869 21.3321 31.6722C21.0685 31.3259 20.8498 30.9116 20.6092 30.5457C20.2734 30.5907 19.3821 30.9266 19.1289 30.8469C19.0222 30.8123 18.927 30.7338 18.881 30.6323C18.8475 30.5595 18.8402 30.488 18.858 30.4107C18.9228 30.1198 19.0808 29.8185 19.1959 29.5427C19.471 28.8756 19.7702 28.2096 20.0192 27.5332C19.3277 27.3324 18.9751 26.9538 18.8276 26.267L14.8283 26.2624H7.61517L4.50187 26.2636C3.9809 26.2636 3.45469 26.2659 2.93371 26.2613C2.84479 26.2613 2.62092 26.2347 2.55397 26.1805C2.46505 26.1089 2.41588 26.0073 2.41065 25.8942C2.39809 25.6045 2.40332 25.3056 2.40437 25.0159L2.40646 23.4138C2.40542 22.6543 2.37822 21.7044 2.44412 20.9576C2.62406 19.0497 3.39506 17.2411 4.65565 15.7764C6.27925 13.8765 8.60586 12.6854 11.125 12.4649C11.1741 12.4603 11.2547 12.4615 11.3028 12.4707C11.3792 12.4834 11.4493 12.5192 11.5037 12.5734C11.6104 12.6796 11.7589 12.892 11.852 13.0178L12.3458 13.6826L14.1703 16.1353ZM14.165 17.2168C14.0907 17.1949 13.96 17.1626 13.9119 17.1072C13.6681 16.829 13.416 16.4654 13.1953 16.1665L11.5779 13.9896C11.4189 13.7761 11.2348 13.5176 11.0643 13.3098C11.0402 13.2798 11.0109 13.2833 10.9795 13.2844C8.73558 13.5002 6.62552 14.6775 5.20278 16.38C4.09806 17.6958 3.41807 19.3025 3.2486 20.998C3.19316 21.5567 3.21512 22.1084 3.20989 22.667C3.20152 23.595 3.22245 24.5345 3.20989 25.4602C3.90871 25.466 4.60858 25.4672 5.30844 25.4648C5.62333 25.4648 5.98843 25.4568 6.29808 25.4672L6.30018 22.3104V21.4286C6.29913 21.2046 6.25729 20.7753 6.41525 20.6114C6.48743 20.5387 6.58577 20.4971 6.68829 20.4959C7.19776 20.4879 7.10675 21.0765 7.1057 21.4078L7.10361 22.3081L7.10465 25.4602L16.1265 25.4648C17.0105 25.4648 17.9342 25.451 18.8151 25.4672C18.8182 25.2178 18.8789 24.9166 18.6958 24.7273C18.1477 24.1594 17.4834 23.7774 17.4907 22.9117C17.498 21.9433 18.314 21.6409 18.8078 20.9946C18.8528 20.1555 18.6289 19.2817 19.3246 18.6711C19.969 18.1056 20.7912 18.3549 21.58 18.2868C21.7924 18.0836 22.0016 17.8793 22.2098 17.6716C22.6827 17.2064 22.9327 17.0079 23.6273 16.9941C23.4631 16.7863 23.3103 16.5716 23.1398 16.3673C21.7777 14.7353 19.7325 13.5741 17.589 13.3052C17.4949 13.2936 17.3997 13.2833 17.3045 13.274C16.3221 14.5136 15.4246 15.8675 14.4318 17.1026C14.3795 17.1672 14.2456 17.1984 14.165 17.2168ZM23.6869 28.0537C24.2383 27.9049 24.7111 27.0161 25.2394 26.7933C25.3158 26.761 25.5595 26.768 25.6537 26.7691L26.3044 26.7737C26.7218 26.7783 27.1622 26.806 27.3892 26.3836C27.6162 25.9635 27.3202 24.8496 27.5451 24.4699C27.6152 24.351 27.725 24.2541 27.8244 24.1583C28.0619 23.9286 28.5975 23.4773 28.7251 23.2164C28.8015 23.056 28.8109 22.8736 28.7534 22.7063C28.6027 22.285 27.6832 21.7079 27.4917 21.2797C27.4603 21.2116 27.4645 20.9611 27.4645 20.8757L27.4708 20.2074C27.4729 19.8288 27.4959 19.3256 27.0618 19.1628C26.6956 19.0266 26.0983 19.1051 25.6997 19.0936C25.2122 19.0809 25.2143 19.1178 24.8534 18.7842C24.5228 18.4784 24.2079 18.0479 23.8062 17.8447C23.6869 17.7905 23.5039 17.8009 23.3794 17.8112C22.8281 17.9578 22.2977 18.917 21.8447 19.0647C21.4806 19.1825 20.5339 18.992 20.0945 19.1374C19.9407 19.1882 19.81 19.2909 19.7263 19.4283C19.4752 19.8427 19.7451 20.9092 19.5516 21.3685C19.5181 21.4459 19.3444 21.6086 19.2743 21.6767L18.8203 22.1118C18.5536 22.3681 18.1811 22.6855 18.3182 23.101C18.4929 23.6331 19.3633 24.0844 19.5955 24.5911C19.629 24.6627 19.6238 24.9074 19.6227 24.9974L19.6175 25.6518C19.6154 25.8677 19.5986 26.1458 19.6876 26.3547C20.0244 27.1396 21.398 26.5521 21.9556 26.843C22.4598 27.1061 22.9766 28.198 23.6869 28.0537ZM21.5936 27.5794C21.4158 27.569 21.0318 27.5817 20.8979 27.5586C20.7881 27.7583 20.6354 28.1588 20.5433 28.3839L19.9219 29.8947C20.7933 29.657 20.9701 29.4515 21.4388 30.3529C21.4754 30.4118 21.512 30.4707 21.5476 30.5295C21.6763 30.2768 21.8572 29.8105 21.966 29.5369C22.1062 29.186 22.3102 28.7451 22.4295 28.3966C22.2715 28.228 22.0916 28.0584 21.9263 27.8956C21.8426 27.8137 21.6825 27.6475 21.5936 27.5794ZM25.502 27.5771C25.3064 27.7421 24.822 28.2096 24.6525 28.4058C24.9611 29.1052 25.2363 29.8393 25.5407 30.5422C25.6453 30.3553 25.8064 30.0921 25.9267 29.9097C25.9926 29.8105 26.0564 29.7262 26.183 29.7043C26.4268 29.6604 26.9195 29.8255 27.1685 29.8924C27.0597 29.6489 26.9446 29.3788 26.8494 29.1295C26.6538 28.6147 26.3954 28.093 26.2175 27.5747C26.0251 27.569 25.6913 27.5597 25.502 27.5771Z" fill="#CD1719"/>
-    <path d="M23.3273 19.4548C25.2856 19.3382 26.9699 20.7995 27.0892 22.7189C27.2084 24.6372 25.7156 26.2878 23.7572 26.4043C21.7989 26.5209 20.1146 25.0585 19.9953 23.1402C19.8771 21.2208 21.3679 19.5702 23.3273 19.4548ZM23.6579 25.6183C25.1748 25.5548 26.3527 24.2979 26.2858 22.8113C26.2198 21.3246 24.9341 20.1727 23.4172 20.2408C21.9035 20.3089 20.7318 21.5647 20.7988 23.0467C20.8647 24.5299 22.1441 25.6795 23.6579 25.6183Z" fill="#CD1719"/>
-    <path d="M24.8741 21.6087C25.1388 21.5787 25.3564 21.6918 25.3773 21.9757C25.3888 22.1316 25.279 22.2551 25.1733 22.3589C24.7727 22.7525 24.3689 23.1461 23.9682 23.5397C23.8374 23.6678 23.4085 24.1053 23.2756 24.1953C23.2108 24.2391 23.1344 24.2622 23.057 24.2611C22.8133 24.2588 22.3603 23.7371 22.1741 23.5535C21.946 23.3366 21.5213 23.0341 21.787 22.6937C21.856 22.6059 21.9596 22.5505 22.0726 22.5413C22.1531 22.5355 22.2326 22.554 22.3027 22.5944C22.4659 22.6867 22.8823 23.1403 23.0748 23.3042C23.2903 23.0757 23.6031 22.7606 23.8301 22.5517C24.0446 22.3543 24.6388 21.6929 24.8741 21.6087Z" fill="#CD1719"/>
-    <path d="M13.8661 0.201453C17.0098 0.0364001 19.6952 2.39677 19.8668 5.47737C20.0383 8.55682 17.6301 11.1907 14.4865 11.3604C11.3408 11.5301 8.64905 9.16855 8.47748 6.08564C8.30591 3.00273 10.7193 0.36766 13.8661 0.201453ZM14.2867 10.5778C16.9857 10.5155 19.125 8.32482 19.0675 5.68051C19.01 3.03505 16.7786 0.934379 14.0795 0.985165C11.3711 1.03595 9.21919 3.23011 9.27673 5.8825C9.33427 8.53604 11.5782 10.639 14.2867 10.5778Z" fill="#CD1719"/>
-  </svg>
-);
-
-const IconKrankenkasse = () => (
-  <svg width="48" height="48" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M5.01918 2.3029C5.44338 2.28643 5.95201 2.29981 6.38445 2.30084H8.98628H16.9452H23.5111L25.6259 2.29981C26.0099 2.29981 26.3971 2.29569 26.7811 2.30496C27.0859 2.3132 27.3258 2.42646 27.5297 2.65812C27.6532 2.80124 27.7284 2.97936 27.7459 3.16675C27.7665 3.39429 27.7572 3.70627 27.7572 3.93896V5.23936L27.7562 9.35679V14.0549L27.7572 15.5118C27.7572 15.6426 27.7551 15.7867 27.7582 15.9175C27.7696 16.4261 27.7644 16.733 27.3567 17.082C27.4226 17.1438 27.5677 17.2426 27.645 17.3003C27.785 17.4022 27.9209 17.5103 28.0506 17.6246C28.8239 18.299 29.4365 19.1361 29.8473 20.0751C30.5732 21.7523 30.6041 23.6489 29.9317 25.3488C29.245 27.0703 27.8983 28.4448 26.1901 29.1666C26.0419 29.2315 25.8596 29.2994 25.7062 29.3509C23.9662 29.9337 22.0645 29.7936 20.4284 28.9607C18.8006 28.139 17.564 26.7058 16.9905 24.975C16.4654 23.3874 16.5375 21.4064 17.2922 19.9042H7.11959H4.03589L3.07115 19.9052C2.63253 19.9062 2.22377 19.9557 1.88503 19.6221C1.64822 19.3894 1.58747 19.1526 1.58747 18.8282C1.58541 17.8635 1.58747 16.8987 1.58747 15.934V10.1733V7.21725L1.58644 6.36473C1.58541 6.17631 1.58129 5.98789 1.59982 5.8005C1.63792 5.39895 1.93857 5.04888 2.33497 4.96137C2.5862 4.9068 2.86522 4.9243 3.12366 4.9243L4.08017 4.92636V3.81438C4.08017 3.60433 4.06678 3.26971 4.10797 3.07511C4.14092 2.91655 4.21196 2.76932 4.31389 2.64473C4.49819 2.42028 4.73809 2.32864 5.01918 2.3029ZM26.9387 9.52977C26.3044 9.54521 25.628 9.5308 24.9896 9.53183L21.3983 9.5308L20.2915 9.53183C19.8837 9.53183 19.4534 9.54624 19.0559 9.45152C18.6348 9.34856 18.2497 9.13337 17.9419 8.8286C17.493 8.38072 17.2438 7.77016 17.252 7.13694C17.2582 6.5027 17.5187 5.89832 17.9748 5.45764C18.6904 4.76265 19.3864 4.79972 20.3007 4.79972H21.8194H25.1152C25.6846 4.79972 26.2756 4.79148 26.8429 4.80178L26.9438 4.80384L26.9428 4.78736C26.9263 4.4898 26.9932 3.30986 26.8831 3.16366C26.6823 3.11012 25.4591 3.13071 25.1935 3.13071H21.457L5.23334 3.13277C5.12111 3.1338 5.03256 3.11939 4.94402 3.18322C4.89974 3.24809 4.89665 3.37473 4.89665 3.45504C4.89768 4.427 4.89871 5.40101 4.89871 6.37297L4.89768 12.4292V15.0815C4.89768 15.2483 4.874 16.3304 4.94299 16.4045C5.07169 16.4786 5.72343 16.4519 5.90362 16.4519H7.53967H17.7473H19.9455C20.0824 16.4519 20.8372 16.4642 20.9164 16.4333C22.502 15.8084 24.2802 15.7486 25.8833 16.3479C25.9605 16.3767 26.0522 16.4127 26.1345 16.4303C26.2951 16.455 26.7935 16.4961 26.9016 16.3901C26.9603 16.179 26.9417 15.6786 26.9417 15.4336V14.2114C26.9417 12.6608 26.9582 11.0783 26.9387 9.52977ZM23.7386 26.9776C26.0388 26.8623 27.8097 24.9009 27.6913 22.6007C27.5719 20.3006 25.6094 18.5317 23.3093 18.6532C21.0122 18.7747 19.2485 20.733 19.3669 23.0301C19.4853 25.3272 21.4415 27.094 23.7386 26.9776ZM23.0622 16.7772C21.4632 16.8905 19.9754 17.639 18.9313 18.856C18.2003 19.7044 17.7195 20.7402 17.5424 21.846C17.5239 21.9624 17.4621 22.3351 17.4868 22.4288C17.5218 22.4504 17.5033 22.4432 17.5455 22.4453L18.5833 22.4504C18.7048 21.0851 19.3102 19.83 20.3687 18.9456C21.146 18.2897 22.1087 17.8933 23.1219 17.8099C23.1198 17.6751 23.1353 16.8359 23.1023 16.7783C23.092 16.7772 23.0714 16.7762 23.0622 16.7772ZM23.1239 28.8721C23.1116 28.5396 23.1178 28.1637 23.1198 27.8291C22.8223 27.7879 22.5515 27.7488 22.2601 27.6706C21.1913 27.3812 20.2503 26.7418 19.5872 25.8553C18.99 25.0667 18.7089 24.2543 18.6008 23.2803C18.2621 23.271 17.807 23.2937 17.4971 23.2731C17.4744 23.3215 17.493 23.4347 17.5002 23.4944C17.5558 23.9825 17.6701 24.4623 17.841 24.9235C18.4042 26.4371 19.547 27.6654 21.0163 28.3367C21.7597 28.6765 22.326 28.7836 23.1239 28.8721ZM28.4635 23.2762C28.343 24.6178 27.6892 25.8553 26.6493 26.712C25.9152 27.3143 24.8959 27.7684 23.9425 27.8271C23.9384 28.1442 23.9517 28.5571 23.9363 28.8639C24.1659 28.8495 24.3955 28.8217 24.623 28.7825C27.3773 28.2183 29.3315 26.085 29.5796 23.272C29.3243 23.272 29.0566 23.269 28.8012 23.2741C28.69 23.2772 28.5737 23.2823 28.4635 23.2762ZM26.9428 8.70196C26.9294 8.38072 26.9356 7.90298 26.9448 7.57762C25.3211 7.55394 23.6532 7.5735 22.0253 7.5735L20.4964 7.57453C20.2482 7.57453 20.0114 7.57968 19.7561 7.56629C19.3576 7.54673 19.2135 7.14312 19.4729 6.85792C19.545 6.77967 19.6727 6.76113 19.7736 6.7529C20.1391 6.74157 20.518 6.74672 20.8845 6.74775H22.9407H25.5693C25.9801 6.74775 26.5381 6.73128 26.9417 6.75393C26.9232 6.44813 26.9417 5.95495 26.9397 5.63062C26.394 5.644 25.7958 5.63062 25.2449 5.63062H21.5847C20.9504 5.63062 20.2822 5.61929 19.651 5.63165C19.1548 5.65739 18.814 5.74285 18.4608 6.13204C18.189 6.43681 18.049 6.8363 18.0726 7.24402C18.0943 7.65484 18.2806 8.04095 18.5895 8.31276C19.0806 8.74726 19.5666 8.69887 20.1751 8.69887L21.3427 8.69784H25.0555H26.257C26.4691 8.69784 26.7348 8.69063 26.9428 8.70196ZM28.4676 22.4391C28.8445 22.4545 29.21 22.4422 29.5817 22.4525C29.5559 22.1353 29.5333 21.8934 29.4684 21.5794C29.1945 20.2707 28.4975 19.0887 27.4833 18.2177C26.7101 17.5494 25.7793 17.0892 24.7785 16.8812C24.6313 16.8514 24.4923 16.8277 24.344 16.8102C24.2194 16.7947 24.0557 16.7906 23.9384 16.7628C23.9414 17.0748 23.9507 17.4938 23.9353 17.8007C24.2411 17.8449 24.5036 17.882 24.8012 17.9623C25.872 18.2537 26.8141 18.8941 27.4771 19.7837C28.0784 20.5889 28.376 21.4465 28.4676 22.4391ZM18.3403 18.2939C18.6626 17.9088 19.0333 17.5669 19.4431 17.2776H9.45991H6.4246L5.52987 17.2787C5.09022 17.2797 4.70103 17.3198 4.3664 16.9842C4.23049 16.8472 4.12959 16.6712 4.09767 16.4745C4.0709 16.178 4.08017 15.8259 4.08017 15.5252L4.0812 13.7182V8.40852V6.65405C4.0812 6.38224 4.09252 6.02702 4.07914 5.76035C3.63949 5.7655 3.17925 5.74696 2.74167 5.76241C2.62944 5.76344 2.52442 5.74696 2.44308 5.81801C2.3813 5.92921 2.40292 6.8085 2.40292 7.00001L2.40395 8.90376L2.40292 16.4436V18.0189C2.40292 18.3299 2.38748 18.6851 2.42764 18.993C2.43999 19.0836 2.67783 19.0856 2.74373 19.0836C3.79496 19.0867 4.84723 19.0846 5.8995 19.0846H11.9125H15.7797C16.3892 19.0846 17.1501 19.1073 17.7432 19.0825C17.9295 18.8004 18.1128 18.543 18.3403 18.2939Z" fill="#CD1719"/>
-    <path d="M9.34233 5.80242C9.4072 5.79624 9.50501 5.79418 9.57194 5.79418C10.1279 5.79418 10.6819 5.79315 11.2389 5.79624C11.521 5.80139 11.8083 5.77668 12.0893 5.80551C12.2438 5.82095 12.4075 5.95068 12.4312 6.10822C12.4662 6.35018 12.4528 6.60964 12.4528 6.85469L12.4507 8.05934C13.0675 8.07787 13.6873 8.05007 14.304 8.07066C14.4255 8.07066 14.6098 8.152 14.6644 8.27144C14.7478 8.45574 14.7221 8.83979 14.7221 9.04159L14.7231 9.96618L14.7221 10.7003C14.7221 10.9659 14.7663 11.2769 14.5316 11.4437C14.4842 11.4777 14.3277 11.5085 14.2639 11.5106C13.9262 11.5209 13.5885 11.5116 13.2508 11.5147C13.0901 11.5137 12.5877 11.5312 12.4559 11.5044C12.4394 11.9379 12.4621 12.3745 12.4528 12.81C12.4487 13.0272 12.4847 13.3536 12.3951 13.5565C12.3437 13.6718 12.2325 13.7366 12.113 13.7737C11.5251 13.8108 10.9053 13.7644 10.3143 13.7809C10.1712 13.7809 10.0085 13.7799 9.86744 13.783C9.38969 13.783 9.01903 13.8705 9.00874 13.2537C8.99844 12.6844 9.03036 12.082 9.00462 11.5188C8.6113 11.5147 8.21799 11.5137 7.82468 11.5147C7.59816 11.5168 7.34488 11.5271 7.12042 11.5055C7.01746 11.4962 6.95054 11.4694 6.87229 11.4056C6.75182 11.3047 6.73741 11.1544 6.73638 10.9968C6.73329 10.5139 6.73226 10.0321 6.73432 9.54816C6.74358 9.16 6.71064 8.76153 6.75594 8.37646C6.77241 8.2354 6.92171 8.09949 7.05865 8.08199C7.29134 8.05213 7.53433 8.06346 7.76908 8.06346L9.00874 8.06551C9.00359 7.54453 9.01285 7.02251 9.00771 6.5005C9.00359 6.17823 8.97476 5.9095 9.34233 5.80242ZM7.56007 8.8923C7.54256 9.47094 7.57963 10.1237 7.55183 10.6828C7.93691 10.6879 8.32095 10.689 8.70603 10.6869C8.79561 10.6869 8.90063 10.6818 8.98917 10.6859C9.22084 10.6972 9.54208 10.6375 9.71711 10.8249C9.87979 10.9989 9.81595 11.3016 9.82522 11.5219C9.81081 11.9904 9.84478 12.4754 9.82316 12.9407L9.82213 12.9552L11.2214 12.9603C11.3099 12.9603 11.5704 12.9747 11.6312 12.9346C11.6343 12.5176 11.6343 12.0995 11.6322 11.6826C11.6291 10.6437 11.6281 10.6838 12.6598 10.6859H13.886L13.9025 10.6869C13.9035 10.1443 13.9262 9.42461 13.9025 8.8995C13.3033 8.90465 12.6824 8.8995 12.0832 8.89744C11.5395 8.89538 11.6353 8.3291 11.6322 7.96667C11.6219 7.53114 11.6487 7.07091 11.6312 6.63023L10.4934 6.6292C10.339 6.6292 9.9704 6.64156 9.83552 6.61685C9.80051 7.07091 9.83964 7.54659 9.82625 8.01197C9.81801 8.32704 9.91377 8.82846 9.44529 8.88715C9.15185 8.92421 8.83473 8.88097 8.53923 8.89641C8.30345 8.89024 7.80409 8.9201 7.59713 8.89641C7.58478 8.89538 7.57242 8.89333 7.56007 8.8923Z" fill="#CD1719"/>
-    <path d="M22.3114 11.8072C22.6533 11.7959 23.0352 11.8041 23.3822 11.8041C23.7673 11.8195 24.1966 11.767 24.5725 11.8556C25.2067 12.0038 25.7061 12.5578 25.7586 13.2095C25.8008 13.7326 25.7637 14.2237 25.4116 14.6345C25.0759 15.0258 24.7145 15.1658 24.2162 15.2101C23.7035 15.2317 23.1763 15.2029 22.6636 15.2152C22.1323 15.2265 21.6978 15.172 21.2808 14.8147C20.9781 14.5563 20.7907 14.1856 20.7629 13.7882C20.7227 13.2507 20.7649 12.7555 21.1366 12.3374C21.463 11.9719 21.8368 11.8381 22.3114 11.8072ZM24.2162 14.3823C24.4376 14.3637 24.6445 14.2855 24.7794 14.1084C25.1017 13.6862 25.0142 12.7678 24.3912 12.6618C24.0659 12.6062 23.756 12.6371 23.4286 12.6288C23.061 12.6309 22.6605 12.6206 22.297 12.635C21.6628 12.7102 21.5114 13.1519 21.5763 13.713C21.6484 14.3452 22.1879 14.408 22.6934 14.3895C23.199 14.3699 23.7168 14.4101 24.2162 14.3823Z" fill="#CD1719"/>
-    <path d="M23.4524 19.7827C23.9198 19.757 23.926 20.1101 23.9342 20.4581C24.2452 20.5621 24.7723 20.7969 24.8979 21.1243C24.9391 21.2293 24.935 21.3467 24.8876 21.4486C24.8444 21.5423 24.7455 21.6422 24.6426 21.669C24.275 21.7647 24.2421 21.4744 23.9558 21.3426C23.7293 21.2303 23.4925 21.1912 23.2454 21.2705C22.9365 21.3704 22.7254 21.7307 22.8706 22.0427C23.0487 22.4278 23.4359 22.3948 23.7849 22.4494C23.9208 22.47 24.0536 22.5091 24.1803 22.5637C24.5427 22.7202 24.8238 22.9982 24.9659 23.3688C25.0946 23.7035 25.0833 24.0752 24.9329 24.4016C24.7353 24.834 24.3955 25.0574 23.9651 25.218C23.9177 25.5156 24.0032 25.6608 23.683 25.8327C23.545 25.876 23.4122 25.8718 23.2959 25.773C23.1332 25.6361 23.1342 25.4281 23.1177 25.2335C22.7769 25.1171 21.9954 24.6971 22.2343 24.2378C22.2848 24.138 22.3743 24.0638 22.4825 24.034C22.9437 23.9063 23.0333 24.6116 23.7561 24.416C23.9311 24.3686 24.0784 24.2533 24.1669 24.0958C24.2287 23.9835 24.2606 23.8311 24.2174 23.7097C24.0351 23.1948 23.6119 23.2844 23.2207 23.2144C23.058 23.1845 22.9015 23.1279 22.7574 23.0466C21.596 22.4031 21.841 20.7855 23.1023 20.4602C23.1064 20.141 23.0807 19.8754 23.4524 19.7827Z" fill="#CD1719"/>
-  </svg>
-);
-
-const IconPin = () => (
-  <svg width="36" height="36" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M16 3.05035C22.2684 3.05035 27.3496 8.13153 27.3496 14.4C27.3496 15.8805 26.6713 17.6359 25.5664 19.4879C24.4705 21.3247 23.0002 23.1835 21.5146 24.8531C20.0312 26.5203 18.5453 27.9853 17.4297 29.0338C16.8725 29.5574 16.408 29.9758 16.084 30.2632C16.0551 30.2889 16.0266 30.313 16 30.3365C15.9734 30.313 15.9449 30.2889 15.916 30.2632C15.592 29.9758 15.1275 29.5574 14.5703 29.0338C13.4547 27.9853 11.9688 26.5203 10.4854 24.8531C8.99977 23.1835 7.52947 21.3247 6.43359 19.4879C5.32872 17.6359 4.65039 15.8805 4.65039 14.4C4.65039 8.13153 9.73157 3.05035 16 3.05035Z" stroke="#CD1719" strokeWidth="1.3"/>
-    <circle cx="16.0006" cy="13.7683" r="5.66566" stroke="#CD1719" strokeWidth="1.3"/>
-  </svg>
-);
-
-const IconLock = () => (
-  <svg width="36" height="36" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M9.33333 13.3334V9.33335C9.33333 7.56524 10.0357 5.86955 11.286 4.61931C12.5362 3.36907 14.2319 2.66669 16 2.66669C17.7681 2.66669 19.4638 3.36907 20.714 4.61931C21.9643 5.86955 22.6667 7.56524 22.6667 9.33335V13.3334M6.66667 13.3334H25.3333C26.8061 13.3334 28 14.5273 28 16V26.6667C28 28.1394 26.8061 29.3334 25.3333 29.3334H6.66667C5.19391 29.3334 4 28.1394 4 26.6667V16C4 14.5273 5.19391 13.3334 6.66667 13.3334Z" stroke="#CD1719" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const IconShield = () => (
-  <svg width="36" height="36" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 15.9984L14.6667 18.665L20 13.3317M26.6667 17.3317C26.6667 23.9984 22 27.3317 16.4534 29.265C16.1629 29.3635 15.8474 29.3587 15.56 29.2517C10 27.3317 5.33337 23.9984 5.33337 17.3317V7.99836C5.33337 7.64474 5.47385 7.3056 5.7239 7.05555C5.97395 6.8055 6.31309 6.66503 6.66671 6.66503C9.33337 6.66503 12.6667 5.06503 14.9867 3.03836C15.2692 2.79703 15.6285 2.66443 16 2.66443C16.3716 2.66443 16.7309 2.79703 17.0134 3.03836C19.3467 5.07836 22.6667 6.66503 25.3334 6.66503C25.687 6.66503 26.0261 6.8055 26.2762 7.05555C26.5262 7.3056 26.6667 7.64474 26.6667 7.99836V17.3317Z" stroke="#CD1719" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-  </svg>
-);
-
-const trustItems = [
-  { Icon: IconVerifiziert, title: "Verifizierte Fachkräfte", sub: "Qualifiziert & geprüft" },
-  { Icon: IconKrankenkasse, title: "Krankenkassen anerkannt", sub: "Teilrefundierung möglich" },
-  { Icon: IconPin, title: "Österreichweit", sub: "In ganz Österreich" },
-  { Icon: IconLock, title: "Vertraulich", sub: "Schutz deiner Angaben" },
-  { Icon: IconShield, title: "DSGVO-Konform", sub: "Datenschutz garantiert" },
+const sellingPoints = [
+  { icon: "⏱", text: "Termin innerhalb einer Woche" },
+  { icon: "💶", text: "Erstgespräch 85€" },
+  { icon: "💶", text: "Therapie ab 50€" },
+  { icon: "📍", text: "Österreichweit" },
 ];
+
+const Stars = () => (
+  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+    <span style={{ color: "#F5A623", fontSize: 18, letterSpacing: 2 }}>★★★★★</span>
+    <span style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)" }}>4,9</span>
+    <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>· über 200 Bewertungen</span>
+  </div>
+);
 
 export default function Hero() {
   return (
     <section>
       {/* ===== DESKTOP HERO ===== */}
-      <div className="hero-desktop" style={{ position: "relative", height: 580, overflow: "hidden" }}>
+      <div className="hero-desktop" style={{ position: "relative", height: 600, overflow: "hidden" }}>
         <img src={imgHeroDesktop} alt="" className="photo-warm" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "60% center" }} />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90.76deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0) 65%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90.76deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.75) 42%, rgba(255,255,255,0) 68%)" }} />
         <div className="hero-desktop-inner" style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", padding: "80px 80px 60px", maxWidth: 1440, margin: "0 auto", left: "50%", transform: "translateX(-50%)", width: "100%" }}>
-          <div style={{ width: "50%", display: "flex", flexDirection: "column", gap: 32 }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <h1 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 64, lineHeight: 1.3, color: "var(--black)" }}>
-                <span style={{ display: "block" }}>Du musst da</span><span style={{ display: "block" }}><span style={{ color: "var(--cta-brand)" }}>nicht alleine</span> durch</span>
+          <div style={{ width: "52%", display: "flex", flexDirection: "column", gap: 24 }}>
+
+            {/* Headline */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: 56, lineHeight: 1.15, color: "var(--black)", margin: 0 }}>
+                Psychotherapie<br />
+                <span style={{ color: RED }}>ohne lange</span> Wartezeiten.
               </h1>
-              <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.5, color: "var(--black)" }}>
-                Professionelle Hilfe ist nur einen Klick entfernt. Unser<br />engagiertes Team begleitet dich dabei
+              <p style={{ fontFamily: F, fontWeight: 400, fontSize: 18, lineHeight: 1.6, color: "var(--grey-text)", margin: 0 }}>
+                Professionelle Begleitung — diskret, schnell und in ganz Österreich.
               </p>
             </div>
-            <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-              {/* Primary button */}
-              <button
-                style={{ background: "var(--cta)", color: "white", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", padding: "0 24px", height: 48, fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", whiteSpace: "nowrap", transition: "all var(--duration-base) var(--ease-standard)" }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--cta-hover)"; el.style.borderColor = "var(--cta-hover)"; }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--cta)"; el.style.borderColor = "var(--cta)"; }}
-              >Termin vereinbaren</button>
-              {/* Secondary button */}
-              <button
-                style={{ background: "transparent", color: "var(--cta)", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", padding: "0 24px", height: 48, fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", whiteSpace: "nowrap", transition: "all var(--duration-base) var(--ease-standard)" }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--blue-ultra-light)"; el.style.borderColor = "var(--cta)"; }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "transparent"; el.style.borderColor = "var(--cta)"; }}
-              >Passende Hilfe finden</button>
+
+            {/* Selling points */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+              {sellingPoints.map((p, i) => (
+                <div key={i} style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "white", border: "1.5px solid #E0EAF5", borderRadius: 9999, padding: "7px 16px", fontFamily: F, fontWeight: 500, fontSize: 14, color: "var(--black)", boxShadow: "0 1px 4px rgba(45,91,141,0.07)" }}>
+                  <span style={{ fontSize: 16 }}>{p.icon}</span>
+                  {p.text}
+                </div>
+              ))}
             </div>
+
+            {/* Stars */}
+            <Stars />
+
+            {/* CTAs */}
+            <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
+              <a href="/vorgespraech"
+                style={{ background: CTA, color: "white", border: `1.5px solid ${CTA}`, borderRadius: "var(--radius-circle)", padding: "0 28px", height: 52, fontFamily: F, fontWeight: 600, fontSize: 16, cursor: "pointer", whiteSpace: "nowrap", textDecoration: "none", display: "inline-flex", alignItems: "center", boxShadow: "0 4px 20px rgba(45,91,141,0.28)", transition: "all 0.2s" }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = "var(--cta-hover)"; el.style.borderColor = "var(--cta-hover)"; }}
+                onMouseLeave={e => { const el = e.currentTarget as HTMLAnchorElement; el.style.background = CTA; el.style.borderColor = CTA; }}>
+                Jetzt Termin vereinbaren
+              </a>
+              <a href="/orientierungstest"
+                style={{ background: "rgba(255,255,255,0.85)", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: "var(--radius-circle)", padding: "0 24px", height: 52, fontFamily: F, fontWeight: 500, fontSize: 16, cursor: "pointer", whiteSpace: "nowrap", textDecoration: "none", display: "inline-flex", alignItems: "center", transition: "all 0.2s" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--blue-ultra-light)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "rgba(255,255,255,0.85)"; }}>
+                Kostenlos orientieren
+              </a>
+            </div>
+
           </div>
         </div>
       </div>
 
       {/* ===== MOBILE HERO ===== */}
-      <div className="hero-mobile" style={{
-        display: "none", position: "relative",
-        flexDirection: "column", justifyContent: "flex-end",
-        minHeight: "calc(100svh - 64px)",
-      }}>
-        {/* Снимка — абсолютна, пълни контейнера */}
-        <img
-          src={imgHeroMobile}
-          alt=""
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", zIndex: 0 }}
-        />
-        {/* Gradient overlay */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 25%, rgba(255,255,255,0.45) 55%, rgba(255,255,255,0.88) 75%, rgba(255,255,255,0.94) 90%)", pointerEvents: "none", zIndex: 1 }} />
+      <div className="hero-mobile" style={{ display: "none", position: "relative", flexDirection: "column", justifyContent: "flex-end", minHeight: "calc(100svh - 64px)" }}>
+        <img src={imgHeroMobile} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", zIndex: 0 }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 20%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.9) 72%, rgba(255,255,255,0.97) 88%)", pointerEvents: "none", zIndex: 1 }} />
 
-        {/* Текст + бутони — вдигнати нагоре с paddingBottom */}
-        <div style={{ position: "relative", zIndex: 2, padding: "0 20px 120px", display: "flex", flexDirection: "column", gap: 16 }}>
+        <div style={{ position: "relative", zIndex: 2, padding: "0 20px 32px", display: "flex", flexDirection: "column", gap: 16 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <h1 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 700, fontSize: 32, lineHeight: 1.2, color: "var(--black)", margin: 0 }}>
-              Du musst da<br />
-              <span style={{ color: "var(--cta-brand)" }}>nicht alleine</span> durch
+            <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: 30, lineHeight: 1.2, color: "var(--black)", margin: 0 }}>
+              Psychotherapie<br />
+              <span style={{ color: RED }}>ohne lange</span> Wartezeiten.
             </h1>
-            <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 15, lineHeight: 1.5, color: "var(--black)", margin: 0 }}>
-              Professionelle Hilfe ist nur einen Klick entfernt. Unser engagiertes Team begleitet dich dabei.
+            <p style={{ fontFamily: F, fontWeight: 400, fontSize: 14, lineHeight: 1.6, color: "var(--grey-text)", margin: 0 }}>
+              Professionelle Begleitung — diskret und schnell.
             </p>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <button style={{ background: "var(--cta)", color: "white", border: "none", borderRadius: "var(--radius-circle)", minHeight: 52, padding: "12px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 16, cursor: "pointer" }}>
-              Termin vereinbaren
-            </button>
-            <button style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(8px)", color: "var(--cta)", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", minHeight: 52, padding: "12px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer" }}>
-              Passende Hilfe finden
-            </button>
-          </div>
-        </div>
-      </div>
 
-      {/* Mobile trust strip — floating карта с анимация */}
-      <div className="trust-strip-mobile trust-strip-animate" style={{ display: "none", padding: "0 16px 24px", marginTop: -48, position: "relative", zIndex: 10 }} id="trust-strip-mob">
-        <div style={{ background: "white", borderRadius: 20, boxShadow: "0 12px 48px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06)", padding: "20px 16px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-            {trustItems.slice(0, 4).map((item, i) => (
-              <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, textAlign: "center", padding: "8px 4px" }}>
-                <item.Icon />
-                <div style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 13, color: "var(--black)", lineHeight: 1.3 }}>{item.title}</div>
-                <div style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 11, color: "var(--grey-text)", lineHeight: 1.3 }}>{item.sub}</div>
+          {/* Mobile selling points — horizontal scroll */}
+          <div style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "none" }}>
+            {sellingPoints.map((p, i) => (
+              <div key={i} style={{ display: "inline-flex", alignItems: "center", gap: 5, background: "white", border: "1.5px solid #E0EAF5", borderRadius: 9999, padding: "6px 12px", fontFamily: F, fontWeight: 500, fontSize: 13, color: "var(--black)", whiteSpace: "nowrap", flexShrink: 0, boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+                <span>{p.icon}</span>{p.text}
               </div>
             ))}
           </div>
-          {/* 5-ти елемент центриран */}
-          <div style={{ display: "flex", justifyContent: "center", marginTop: 12 }}>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, textAlign: "center", padding: "8px 4px", width: "50%" }}>
-              {(() => { const item = trustItems[4]; return <><item.Icon /><div style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 13, color: "var(--black)", lineHeight: 1.3 }}>{item.title}</div><div style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 11, color: "var(--grey-text)", lineHeight: 1.3 }}>{item.sub}</div></>; })()}
-            </div>
+
+          <Stars />
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <a href="/vorgespraech" style={{ background: CTA, color: "white", border: "none", borderRadius: "var(--radius-circle)", minHeight: 52, padding: "12px 24px", fontFamily: F, fontWeight: 600, fontSize: 16, cursor: "pointer", textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              Jetzt Termin vereinbaren
+            </a>
+            <a href="/orientierungstest" style={{ background: "rgba(255,255,255,0.85)", backdropFilter: "blur(8px)", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: "var(--radius-circle)", minHeight: 52, padding: "12px 24px", fontFamily: F, fontWeight: 500, fontSize: 16, cursor: "pointer", textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              Kostenlos orientieren
+            </a>
           </div>
         </div>
       </div>
 
-      {/* ===== TRUST STRIP DESKTOP — floating ===== */}
-      <div className="trust-strip-desktop" style={{ position: "relative", zIndex: 10, margin: "-50px auto 0", maxWidth: "var(--max-width)", width: "calc(100% - 160px)", background: "white", borderRadius: 16, boxShadow: "0 8px 40px rgba(0,0,0,0.08)", padding: "24px 32px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
-        {trustItems.map((item, i) => (
-          <div key={i} className="trust-item" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, flex: "1 1 0", minWidth: 0 }}>
-            <item.Icon />
-            <div className="trust-title" style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, color: "var(--black)", textAlign: "center" }}>{item.title}</div>
-            <div className="trust-sub" style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 14, color: "var(--grey-text)", textAlign: "center" }}>{item.sub}</div>
+      {/* ===== TRUST STRIP DESKTOP ===== */}
+      <div className="trust-strip-desktop" style={{ position: "relative", zIndex: 10, margin: "-48px auto 0", maxWidth: "var(--max-width)", width: "calc(100% - 160px)", background: "white", borderRadius: 16, boxShadow: "0 8px 40px rgba(0,0,0,0.08)", padding: "20px 40px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 0 }}>
+        {[
+          { val: "2.000+", label: "Menschen begleitet" },
+          { val: "4,9 ★", label: "Kundenbewertung" },
+          { val: "1 Woche", label: "bis zum ersten Termin" },
+          { val: "100%", label: "Geprüfte Fachkräfte" },
+          { val: "35+", label: "Fachkräfte in Wien" },
+        ].map((item, i, arr) => (
+          <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2, flex: "1 1 0", minWidth: 0, borderRight: i < arr.length - 1 ? "1px solid #EAF0FA" : "none", padding: "0 16px" }}>
+            <div style={{ fontFamily: F, fontWeight: 700, fontSize: 20, color: "var(--black)" }}>{item.val}</div>
+            <div style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textAlign: "center" }}>{item.label}</div>
           </div>
         ))}
+      </div>
+
+      {/* ===== MOBILE TRUST STRIP ===== */}
+      <div className="trust-strip-mobile trust-strip-animate" style={{ display: "none", padding: "0 16px 24px", marginTop: -32, position: "relative", zIndex: 10 }}>
+        <div style={{ background: "white", borderRadius: 20, boxShadow: "0 8px 32px rgba(0,0,0,0.10)", padding: "16px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            {[
+              { val: "2.000+", label: "Menschen begleitet" },
+              { val: "4,9 ★", label: "Kundenbewertung" },
+              { val: "1 Woche", label: "bis zum Termin" },
+              { val: "100%", label: "Geprüfte Fachkräfte" },
+            ].map((item, i) => (
+              <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2, padding: "8px 0", textAlign: "center" }}>
+                <div style={{ fontFamily: F, fontWeight: 700, fontSize: 18, color: "var(--black)" }}>{item.val}</div>
+                <div style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)" }}>{item.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <style>{`
         @keyframes slideUp {
           from { opacity: 0; transform: translateY(40px); }
           to   { opacity: 1; transform: translateY(0); }
-        }
-        @media (min-width: 1071px) and (max-width: 1280px) {
-          .trust-strip-desktop {
-            width: calc(100% - 64px) !important;
-            padding: 20px 24px !important;
-            gap: 4px !important;
-          }
-          .trust-title { font-size: 13px !important; }
-          .trust-sub { font-size: 12px !important; }
         }
         @media (max-width: 1070px) {
           .hero-desktop { display: none !important; }
