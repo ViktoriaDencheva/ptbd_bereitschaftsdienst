@@ -642,7 +642,7 @@ export default function OrientierungstestPage() {
               {RESULT_THERAPISTS[specKey].map((t, i) => (
                 <div key={t.id} style={{ background: "white", borderRadius: 18, border: "1px solid #EEF2F7", boxShadow: "0 1px 8px rgba(0,0,0,0.05)", padding: isMobile ? 16 : "20px 24px", display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 14 : 20, alignItems: isMobile ? "flex-start" : "center" }}>
                   {/* Photo */}
-                  <div style={{ width: isMobile ? 64 : 72, height: isMobile ? 64 : 72, borderRadius: 14, overflow: "hidden", flexShrink: 0 }}>
+                  <div style={{ width: isMobile ? 72 : 96, height: isMobile ? 72 : 96, borderRadius: 16, overflow: "hidden", flexShrink: 0 }}>
                     <img src={t.photo} alt={t.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
                   </div>
                   {/* Info */}
