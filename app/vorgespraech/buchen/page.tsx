@@ -158,36 +158,59 @@ function Confirmation({ format, location, selectedDate, selectedTime, isMobile, 
 
       {/* Info cards */}
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16, marginBottom: 28 }}>
-        <div style={{ background: "var(--blue-ultra-light)", border: "1px solid #C8DFFF", borderRadius: 20, padding: "24px 22px" }}>
-          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 13, color: "var(--black)", margin: "0 0 14px" }}>Was passiert als Nächstes?</p>
-          {[
-            "Du erhältst eine Bestätigungs-E-Mail mit allen Details.",
-            format === "online" ? "Den Videoanruf-Link bekommst du kurz vor dem Termin." : `Adresse: ${location.address}, ${location.zip}`,
-            "Wir senden dir eine Erinnerung kurz vor dem Gespräch.",
-            "Nach dem Gespräch empfehlen wir dir passende Fachkräfte.",
-          ].map((t, i) => (
-            <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: i < 3 ? 10 : 0 }}>
-              <div style={{ width: 22, height: 22, borderRadius: "50%", background: CTA, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
-                <span style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: "white" }}>{i+1}</span>
+        {/* Was passiert als Nächstes — timeline style */}
+        <div style={{ background: "white", border: "1px solid #EBEBEB", borderRadius: 20, padding: "28px 26px" }}>
+          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 24px" }}>Was passiert als Nächstes?</p>
+          {([
+            { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Bestätigung erhalten", desc: "Du erhältst eine Bestätigungs-E-Mail mit allen Details." },
+            { icon: format === "online"
+              ? <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" stroke={CTA} strokeWidth="1.6"/><path d="M8 21h8M12 17v4" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>
+              : <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke={CTA} strokeWidth="1.6"/><circle cx="12" cy="10" r="2" stroke={CTA} strokeWidth="1.6"/></svg>,
+              title: format === "online" ? "Video-Link erhalten" : "Adresse notieren",
+              desc: format === "online" ? "Den Videoanruf-Link bekommst du kurz vor dem Termin." : `${location.address}, ${location.zip}` },
+            { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Erinnerung erhalten", desc: "Wir senden dir eine Erinnerung kurz vor dem Gespräch." },
+            { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke={CTA} strokeWidth="1.6"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>, title: "Fachkraft finden", desc: "Nach dem Gespräch empfehlen wir dir passende Fachkräfte." },
+          ] as { icon: React.ReactNode; title: string; desc: string }[]).map((s, i, arr) => (
+            <div key={i} style={{ display: "flex", gap: 14, position: "relative" }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, width: 36 }}>
+                <div style={{ width: 36, height: 36, borderRadius: "50%", background: "var(--blue-ultra-light)", border: `2px solid ${CTA}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, zIndex: 1 }}>
+                  {s.icon}
+                </div>
+                {i < arr.length - 1 && (
+                  <div style={{ width: 2, flex: 1, minHeight: 20, background: "linear-gradient(to bottom, var(--cta), #C8DFFF)", opacity: 0.35, margin: "3px 0" }} />
+                )}
               </div>
-              <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.55 }}>{t}</p>
+              <div style={{ paddingBottom: i < arr.length - 1 ? 20 : 0 }}>
+                <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)", margin: "7px 0 3px" }}>{s.title}</p>
+                <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: 0, lineHeight: 1.5 }}>{s.desc}</p>
+              </div>
             </div>
           ))}
         </div>
 
-        <div style={{ background: "#EDFAEB", border: "1px solid #C3EDD0", borderRadius: 20, padding: "24px 22px" }}>
-          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 13, color: "var(--black)", margin: "0 0 14px" }}>Wichtige Informationen</p>
-          {[
-            "Das Gespräch dauert ca. 30 Minuten.",
-            "Sorge für einen ruhigen, ungestörten Ort.",
-            "Du kannst dein Anliegen offen schildern – wir hören zu.",
-            "Kostenfreie Absage bis 24h vorher möglich.",
-          ].map((t, i) => (
-            <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start", marginBottom: i < 3 ? 10 : 0 }}>
-              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" style={{ flexShrink: 0, marginTop: 2 }}><circle cx="12" cy="12" r="9" fill="var(--green)" fillOpacity="0.2" stroke="var(--green)" strokeWidth="1.5"/><path d="M8 12l3 3 5-5" stroke="var(--green)" strokeWidth="1.8" strokeLinecap="round"/></svg>
-              <span style={{ fontFamily: F, fontSize: 13, color: "var(--black)", lineHeight: 1.5 }}>{t}</span>
+        {/* Wichtige Informationen */}
+        <div style={{ background: "var(--blue-ultra-light)", border: "1px solid #C8DFFF", borderRadius: 20, padding: "28px 26px", display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
+            <div style={{ width: 36, height: 36, borderRadius: "50%", background: "white", border: `1.5px solid ${CTA}30`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 8v4M12 16h.01" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>
             </div>
-          ))}
+            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: 0 }}>Wichtige Informationen</p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+            {[
+              { icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 7v5l3 3" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>, text: "Das Gespräch dauert ca. 30 Minuten." },
+              { icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "Sorge für einen ruhigen, ungestörten Ort." },
+              { icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "Du kannst dein Anliegen offen schildern – wir hören zu." },
+              { icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "Kostenfreie Absage bis 24h vorher möglich." },
+            ].map((item, i) => (
+              <div key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                <div style={{ width: 30, height: 30, borderRadius: 9, background: "white", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  {item.icon}
+                </div>
+                <span style={{ fontFamily: F, fontSize: 13, color: "var(--black)", lineHeight: 1.55, marginTop: 6 }}>{item.text}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -436,22 +459,31 @@ export default function VorgespraechBuchenPage() {
                   {/* Location picker — only for vor-ort */}
                   {format === "vor-ort" && (
                     <div style={{ marginBottom: 28 }}>
-                      <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 10px" }}>Standort</p>
-                      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                      <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 12px" }}>Standort wählen</p>
+                      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10 }}>
                         {LOCATIONS.map(loc => {
                           const sel = locationId === loc.id;
                           return (
                             <button key={loc.id} onClick={() => setLocationId(loc.id)}
-                              style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", border: sel ? `2px solid ${CTA}` : "1.5px solid #E8E8E8", borderRadius: 12, background: sel ? "var(--blue-ultra-light)" : "white", cursor: "pointer", textAlign: "left", transition: "all 0.15s" }}>
-                              <div style={{ width: 36, height: 36, borderRadius: 9999, background: sel ? CTA : "#F0F4FA", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "background 0.15s" }}>
-                                <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke={sel ? "white" : CTA} strokeWidth="1.8"/><circle cx="12" cy="10" r="2" stroke={sel ? "white" : CTA} strokeWidth="1.8"/></svg>
+                              style={{ display: "flex", flexDirection: "column", padding: "16px 18px", border: sel ? `2px solid ${CTA}` : "1.5px solid #E8E8E8", borderRadius: 16, background: sel ? "var(--blue-ultra-light)" : "white", cursor: "pointer", textAlign: "left", transition: "all 0.18s", boxShadow: sel ? "0 2px 12px rgba(45,91,141,0.13)" : "none" }}
+                              onMouseEnter={e => { if (!sel) { (e.currentTarget as HTMLElement).style.borderColor = "#C0D8F5"; (e.currentTarget as HTMLElement).style.background = "#FAFCFF"; } }}
+                              onMouseLeave={e => { if (!sel) { (e.currentTarget as HTMLElement).style.borderColor = "#E8E8E8"; (e.currentTarget as HTMLElement).style.background = "white"; } }}>
+                              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                                  <div style={{ width: 28, height: 28, borderRadius: 8, background: sel ? CTA : "#EEF3FB", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "background 0.15s" }}>
+                                    <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke={sel ? "white" : CTA} strokeWidth="2"/><circle cx="12" cy="10" r="2" stroke={sel ? "white" : CTA} strokeWidth="2"/></svg>
+                                  </div>
+                                  <span style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: sel ? CTA : "var(--black)" }}>{loc.city}</span>
+                                </div>
+                                {sel && (
+                                  <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill={CTA}/><path d="M8 12l3 3 5-5" stroke="white" strokeWidth="2.2" strokeLinecap="round"/></svg>
+                                )}
                               </div>
-                              <div style={{ flex: 1 }}>
-                                <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: sel ? CTA : "var(--black)", margin: 0 }}>{loc.city}</p>
-                                <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: "2px 0 0" }}>{loc.address}, {loc.zip}</p>
-                                <p style={{ fontFamily: F, fontSize: 11, color: "#9CA3AF", margin: "2px 0 0" }}>{loc.transit}</p>
-                              </div>
-                              {sel && <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill={CTA}/><path d="M8 12l3 3 5-5" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>}
+                              <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: "0 0 3px", lineHeight: 1.4 }}>{loc.address}</p>
+                              <p style={{ fontFamily: F, fontSize: 11, color: "#9CA3AF", margin: 0, display: "flex", alignItems: "center", gap: 4 }}>
+                                <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="#B0B0B0" strokeWidth="2"/><path d="M12 7v5l3 3" stroke="#B0B0B0" strokeWidth="2" strokeLinecap="round"/></svg>
+                                {loc.transit}
+                              </p>
                             </button>
                           );
                         })}
@@ -464,13 +496,17 @@ export default function VorgespraechBuchenPage() {
                   <div style={{ border: "1px solid #EBEBEB", borderRadius: 12, padding: 10, marginBottom: 24 }}>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
                       <button onClick={() => { if (!isPrevDisabled) { if (calMonth === 0) { setCalYear(y => y-1); setCalMonth(11); } else setCalMonth(m => m-1); } }}
-                        disabled={isPrevDisabled} style={{ background: "none", border: "none", width: 24, height: 24, cursor: isPrevDisabled ? "not-allowed" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", opacity: isPrevDisabled ? 0.3 : 1 }}>
-                        <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path stroke="var(--black)" strokeWidth="2.5" strokeLinecap="round" d="M15 6l-6 6 6 6"/></svg>
+                        disabled={isPrevDisabled} style={{ background: isPrevDisabled ? "transparent" : "#F0F4FA", border: "none", width: 34, height: 34, borderRadius: 9, cursor: isPrevDisabled ? "not-allowed" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", opacity: isPrevDisabled ? 0.3 : 1, transition: "background 0.15s" }}
+                        onMouseEnter={e => { if (!isPrevDisabled) (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"; }}
+                        onMouseLeave={e => { if (!isPrevDisabled) (e.currentTarget as HTMLElement).style.background = "#F0F4FA"; }}>
+                        <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke={CTA} strokeWidth="2.5" strokeLinecap="round" d="M15 6l-6 6 6 6"/></svg>
                       </button>
                       <span style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)" }}>{MONTHS_DE[calMonth]} {calYear}</span>
                       <button onClick={() => { if (calMonth === 11) { setCalYear(y => y+1); setCalMonth(0); } else setCalMonth(m => m+1); }}
-                        style={{ background: "none", border: "none", width: 24, height: 24, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path stroke="var(--black)" strokeWidth="2.5" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
+                        style={{ background: "#F0F4FA", border: "none", width: 34, height: 34, borderRadius: 9, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s" }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"; }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#F0F4FA"; }}>
+                        <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke={CTA} strokeWidth="2.5" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
                       </button>
                     </div>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", marginBottom: 2 }}>

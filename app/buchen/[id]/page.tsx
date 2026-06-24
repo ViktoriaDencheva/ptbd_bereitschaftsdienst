@@ -297,12 +297,16 @@ function Step1({
       <div style={{ border: "1px solid #EBEBEB", borderRadius: 12, padding: "10px", marginBottom: 24 }}>
         {/* Month nav */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-          <button onClick={prevMonth} disabled={isPrevDisabled} style={{ background: "none", border: "none", borderRadius: 6, width: 24, height: 24, cursor: isPrevDisabled ? "not-allowed" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", opacity: isPrevDisabled ? 0.3 : 1 }}>
-            <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path stroke="var(--black)" strokeWidth="2.5" strokeLinecap="round" d="M15 6l-6 6 6 6"/></svg>
+          <button onClick={prevMonth} disabled={isPrevDisabled} style={{ background: isPrevDisabled ? "transparent" : "#F0F4FA", border: "none", borderRadius: 9, width: 34, height: 34, cursor: isPrevDisabled ? "not-allowed" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", opacity: isPrevDisabled ? 0.3 : 1, transition: "background 0.15s" }}
+            onMouseEnter={e => { if (!isPrevDisabled) (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"; }}
+            onMouseLeave={e => { if (!isPrevDisabled) (e.currentTarget as HTMLElement).style.background = "#F0F4FA"; }}>
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="var(--cta)" strokeWidth="2.5" strokeLinecap="round" d="M15 6l-6 6 6 6"/></svg>
           </button>
           <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 13, color: "var(--black)" }}>{MONTHS_DE[calMonth]} {calYear}</span>
-          <button onClick={nextMonth} style={{ background: "none", border: "none", borderRadius: 6, width: 24, height: 24, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path stroke="var(--black)" strokeWidth="2.5" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
+          <button onClick={nextMonth} style={{ background: "#F0F4FA", border: "none", borderRadius: 9, width: 34, height: 34, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s" }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#F0F4FA"; }}>
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="var(--cta)" strokeWidth="2.5" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
           </button>
         </div>
         {/* Weekday headers */}
