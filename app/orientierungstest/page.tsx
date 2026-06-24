@@ -99,25 +99,73 @@ const CARD_COLORS = [
   { bg: "#EDFAEB", stroke: "#33700E" },  // green-light / green
 ];
 
-// ── Why-cards: actual reasons why THIS type is recommended ────
+// ── Why-cards: reasons specific to each specialist type ──────
 const WHY_CARDS: Record<string, { icon: React.ReactNode; title: string; desc: string }[]> = {
   psychotherapeut: [
-    { icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.7"/><path d="M12 8v4l3 3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Deine Belastung hält an", desc: "Du leidest seit Wochen oder Monaten — das braucht mehr als ein Gespräch, sondern gezielte Therapie." },
-    { icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor" strokeWidth="1.7"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Muster erkennen & ändern", desc: "Psychotherapeut:innen helfen dir, belastende Denk- und Verhaltensmuster dauerhaft zu verändern." },
-    { icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Bewährte Methoden", desc: "KVT, tiefenpsychologische und andere anerkannte Verfahren wirken nachweislich bei Angst, Depression & Trauma." },
-    { icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.7"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Kassenerstattung möglich", desc: "Zugelassene Psychotherapeut:innen können Kassenleistungen abrechnen — für dich oft kostenlos." },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+      title: "Zugelassene Fachkraft",
+      desc: "Psychotherapeut:innen sind staatlich anerkannte Spezialist:innen — du bist in professionellen Händen.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+      title: "Wirksame Therapiemethoden",
+      desc: "KVT, tiefenpsychologische und andere evidenzbasierte Verfahren helfen nachweislich bei genau deinen Themen.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.7"/><path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>,
+      title: "Regelmäßige Begleitung",
+      desc: "Nicht ein Gespräch, sondern ein strukturierter Prozess über Monate — für echte, dauerhafte Veränderung.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.7"/><path d="M2 10h20" stroke="currentColor" strokeWidth="1.7"/><path d="M6 15h4M14 15h4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>,
+      title: "Kassenerstattung möglich",
+      desc: "Als zugelassene Fachkraft kann dein:e Therapeut:in die Behandlung mit der Krankenkasse abrechnen.",
+    },
   ],
   psychologe: [
-    { icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.7"/><path d="M12 8l4 4-4 4M8 12h8" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Du suchst Orientierung", desc: "Du stehst vor wichtigen Lebensentscheidungen und brauchst jemanden, der dir hilft, Klarheit zu gewinnen." },
-    { icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 01-1 1H9a1 1 0 01-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7zM9 21h6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Keine klinische Diagnose nötig", desc: "Psycholog:innen helfen auch ohne Erkrankung — bei Krisen, Beziehungsfragen und persönlichem Wachstum." },
-    { icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Offene, flexible Beratung", desc: "Du entscheidest Tempo und Themen — kein starres Therapieprogramm, sondern echtes Gespräch auf Augenhöhe." },
-    { icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Früh eingreifen lohnt sich", desc: "Psychologische Beratung jetzt verhindert, dass sich Belastungen zu ernsthaften Erkrankungen entwickeln." },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.7"/><path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>,
+      title: "Fundierte Diagnostik",
+      desc: "Psycholog:innen können deine Situation gezielt einschätzen — ohne sofort eine Diagnose zu stellen.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+      title: "Kein Krankheitsbild nötig",
+      desc: "Du musst keine Erkrankung haben — psychologische Beratung hilft auch bei Lebenskrisen und Orientierungsfragen.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.7"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>,
+      title: "Flexibel & auf dich zugeschnitten",
+      desc: "Du bestimmst Tempo und Schwerpunkte — kein starres Programm, sondern echte Begleitung auf Augenhöhe.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+      title: "Früh eingreifen lohnt sich",
+      desc: "Psychologische Begleitung jetzt verhindert, dass Belastungen sich zu ernsthaften Erkrankungen entwickeln.",
+    },
   ],
   psychiater: [
-    { icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Deine Situation ist ernst", desc: "Deine Antworten zeigen eine starke Belastung, die ärztliche Fachkompetenz und schnelle Hilfe erfordert." },
-    { icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zM9 17v-5m4 5v-3m4 3v-7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Medikamente als Option", desc: "Psychiater:innen können Medikamente verschreiben, die schnell Linderung bringen — wenn nötig." },
-    { icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Therapie & Medizin kombiniert", desc: "Als Ärzt:innen können sie Psychotherapie und medizinische Behandlung gleichzeitig anbieten." },
-    { icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Langfristige Stabilisierung", desc: "Psychiater:innen begleiten dich dauerhaft — von der Akutphase bis zur nachhaltigen Genesung." },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+      title: "Ärztliche Fachkompetenz",
+      desc: "Psychiater:innen sind approbierte Ärzt:innen — sie können deine Symptome medizinisch einordnen und behandeln.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M10.5 20H4a2 2 0 01-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H20a2 2 0 012 2v3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><circle cx="17" cy="17" r="4" stroke="currentColor" strokeWidth="1.7"/><path d="M17 15v2l1 1" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>,
+      title: "Schnelle Linderung möglich",
+      desc: "Wenn nötig können Medikamente eingesetzt werden, die rasch Erleichterung verschaffen — kein langes Warten.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>,
+      title: "Therapie & Medizin in einem",
+      desc: "Psychiater:innen verbinden psychotherapeutische und medizinische Behandlung — du brauchst keine zwei Fachkräfte.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+      title: "Langfristige Stabilisierung",
+      desc: "Psychiater:innen begleiten dich vom Akutmoment bis zur nachhaltigen Stabilisierung — Schritt für Schritt.",
+    },
   ],
 };
 
@@ -535,23 +583,13 @@ export default function OrientierungstestPage() {
                 : "linear-gradient(to right, rgba(236,245,255,1) 0%, rgba(236,245,255,0.97) 30%, rgba(236,245,255,0.7) 52%, rgba(236,245,255,0.0) 72%)" }} />
               {/* Content */}
               <div style={{ position: "relative", zIndex: 1, padding: isMobile ? "36px 24px" : "48px 52px", maxWidth: isMobile ? "100%" : 600, display: "flex", flexDirection: "column", gap: 18 }}>
-                <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>Deine Empfehlung</p>
+                <p style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>Deine Empfehlung</p>
 
                 <div>
                   <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 30 : 42, color: "var(--black)", margin: "0 0 12px", lineHeight: 1.1 }}>{spec.title}</h1>
                   <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 16, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>
                     Basierend auf Deinen Antworten empfehlen wir eine:n {spec.title.toLowerCase()}, {specKey === "psychiater" ? "die auf schwere psychische Erkrankungen spezialisiert ist — auch für medikamentöse Behandlung und akute Krisen." : specKey === "psychologe" ? "die dir bei Lebensfragen, Orientierung und persönlicher Entwicklung hilft." : "die auf langfristige Behandlung von Depressionen, Angststörungen und Traumata spezialisiert ist."}
                   </p>
-                </div>
-
-                {/* Tags */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                  {spec.tags.map(tag => (
-                    <span key={tag} style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "rgba(255,255,255,0.75)", border: "1px solid rgba(45,91,141,0.15)", borderRadius: 9999, padding: "6px 14px", fontFamily: F, fontSize: 13, color: CTA, fontWeight: 500 }}>
-                      <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" stroke={CTA} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.5"/></svg>
-                      {tag}
-                    </span>
-                  ))}
                 </div>
 
                 {/* Why box */}
