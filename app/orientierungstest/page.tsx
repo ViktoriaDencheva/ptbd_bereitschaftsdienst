@@ -99,14 +99,6 @@ const CARD_COLORS = [
   { bg: "#EDFAEB", stroke: "#33700E" },  // green-light / green
 ];
 
-// icon bg colors cycling through design tokens per card position
-const CARD_COLORS = [
-  { bg: "#ECF5FF", stroke: "#2D5B8D" },
-  { bg: "#FFF7E0", stroke: "#8A6200" },
-  { bg: "#FEF5F0", stroke: "#C05A28" },
-  { bg: "#EDFAEB", stroke: "#33700E" },
-];
-
 // ── Why-cards: actual reasons why THIS type is recommended ────
 const WHY_CARDS: Record<string, { icon: React.ReactNode; title: string; desc: string }[]> = {
   psychotherapeut: [
