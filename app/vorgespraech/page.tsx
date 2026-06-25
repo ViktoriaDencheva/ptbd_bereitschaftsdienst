@@ -197,24 +197,32 @@ export default function VorgespraechPage() {
       {/* ── ORIENTIERUNGSTEST BANNER ─────────────────────────────── */}
       <section style={{ background: "white", padding: isMobile ? "0 0 48px" : "0 0 80px" }}>
         <div style={{ ...wrap }}>
-          <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 260 : 240, display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-            {/* Background image */}
-            <img src="/orientierungstest-small-banner.jpg" alt=""
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
-            {/* Gradient overlay — right readable, left shows image */}
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.93) 40%, rgba(236,245,255,0.4) 70%, transparent 100%)" }} />
-            {/* Text content — right side */}
-            <div style={{ position: "relative", zIndex: 1, padding: isMobile ? "36px 24px" : "48px 52px", maxWidth: isMobile ? "100%" : 500 }}>
-              <p style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 10px" }}>
-                Noch unsicher?
-              </p>
-              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, lineHeight: 1.3, color: "var(--black)", margin: "0 0 10px" }}>
+          <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 260 : 300, display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+            <img src="/orientierungstest-small-banner.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
+            <div style={{ position: "absolute", inset: 0, background: isMobile ? "linear-gradient(to top, rgba(236,245,255,0.98) 0%, rgba(236,245,255,0.92) 60%, rgba(236,245,255,0.3) 100%)" : "linear-gradient(to left, rgba(236,245,255,1) 0%, rgba(236,245,255,0.98) 38%, rgba(236,245,255,0.7) 58%, transparent 80%)" }} />
+            <div style={{ position: "relative", zIndex: 1, width: isMobile ? "100%" : "58%", padding: isMobile ? "32px 24px" : "40px 48px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 14 }}>
+              <span style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase" }}>Noch unsicher?</span>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 24, lineHeight: 1.25, color: "var(--black)", margin: 0 }}>
                 Lieber selbst herausfinden,<br />was zu dir passt?
               </h2>
-              <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 24px", lineHeight: 1.6 }}>
+              <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>
                 Beantworte einige kurze Fragen und erhalte passende Empfehlungen für deine Situation.
               </p>
-              <a href="/orientierungstest" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 46, padding: "0 24px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s" }}
+              <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 2 }}>
+                {[
+                  { icon: "/icons/icon-test.svg", label: "Nur 3 Minuten" },
+                  { icon: "/icons/icon-orientierung.svg", label: "Individuelle Empfehlung" },
+                  { icon: "/icons/icon-unterstuetzung.svg", label: "Kostenlos & anonym" },
+                ].map((f, idx) => (
+                  <div key={idx} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <div style={{ width: 38, height: 38, borderRadius: "50%", background: `${CTA}12`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <img src={f.icon} width={20} height={20} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
+                    </div>
+                    <span style={{ fontFamily: F, fontSize: 13, color: "var(--black)", fontWeight: 500, lineHeight: 1.3 }}>{f.label}</span>
+                  </div>
+                ))}
+              </div>
+              <a href="/orientierungstest" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 26px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 4 }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
                 Orientierungstest starten
