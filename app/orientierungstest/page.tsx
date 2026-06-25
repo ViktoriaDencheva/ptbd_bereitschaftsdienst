@@ -826,22 +826,18 @@ export default function OrientierungstestPage() {
                 <span style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase" }}>Lieber persönlich?</span>
                 <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 24, lineHeight: 1.25, color: "var(--black)", margin: 0 }}>Sprich direkt mit uns</h2>
                 <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>In einem kostenlosen 30-minütigen Erstgespräch nehmen wir uns Zeit für dich und finden gemeinsam den besten nächsten Schritt.</p>
-                <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 2 }}>
-                  {[
-                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.7"/><path d="M12 7v5l3 3" stroke={CTA} strokeWidth="1.7" strokeLinecap="round"/></svg>, label: "30 Minuten für dich" },
-                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke={CTA} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Vertraulich & unverbindlich" },
-                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke={CTA} strokeWidth="1.7" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke={CTA} strokeWidth="1.7"/></svg>, label: "Individuelle Empfehlung" },
-                  ].map((f, idx) => (
-                    <div key={idx} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      <div style={{ width: 38, height: 38, borderRadius: "50%", background: `${CTA}12`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{f.icon}</div>
-                      <span style={{ fontFamily: F, fontSize: 13, color: "var(--black)", fontWeight: 500, lineHeight: 1.3 }}>{f.label}</span>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 2 }}>
+                  {["Persönliche Empfehlung", "Vertraulich & diskret", "Kostenlos & unverbindlich"].map((text, idx) => (
+                    <div key={idx} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <img src="/icons/icon-check.svg" width={18} height={18} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
+                      <span style={{ fontFamily: F, fontSize: 15, color: "var(--black)", fontWeight: 500 }}>{text}</span>
                     </div>
                   ))}
                 </div>
-                <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 26px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 2 }}
+                <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 26px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 4 }}
                   onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                   onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                  <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke="white" strokeWidth="1.7"/><path d="M16 2v4M8 2v4M3 10h18" stroke="white" strokeWidth="1.7" strokeLinecap="round"/></svg>
+                  <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
                   Kostenloses Erstgespräch vereinbaren
                 </a>
               </div>
