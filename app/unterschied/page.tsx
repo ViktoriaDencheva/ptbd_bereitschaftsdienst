@@ -411,66 +411,38 @@ export default function UnterschiedPage() {
         <style>{`@keyframes tdFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       </section>
 
-      {/* ── DECISION HELPER ──────────────────────────────────── */}
-      <section style={{ background: "#F8FAFE", padding: isMobile ? "48px 0" : "72px 0" }}>
-        <div style={{ ...wrap }}>
-          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Entscheidungshilfe</p>
-          <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 8px" }}>Welcher passt zu dir?</h2>
-          <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 32px", lineHeight: 1.6 }}>Wähle die Aussage, die am besten auf dich zutrifft.</p>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 12, maxWidth: 640 }}>
-            {DECISION_TREE.map((item, i) => {
-              const selected = selectedDecision === i;
-              const s = item.answer !== "gespräch" ? SPECS[item.answer as SpecKey] : null;
-              const color = s ? s.color : CTA_HEX;
-              const bg = s ? s.lightBg : "#ECF5FF";
-              return (
-                <div key={i}>
-                  <button onClick={() => setSelectedDecision(selected ? null : i)}
-                    style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "18px 20px", borderRadius: 14, border: selected ? `2px solid ${color}` : "2px solid #E8EEF6", background: selected ? bg : "white", cursor: "pointer", transition: "all 0.18s", textAlign: "left" }}>
-                    <span style={{ fontFamily: F, fontSize: 15, color: "var(--black)", fontWeight: selected ? 600 : 400, lineHeight: 1.4 }}>{item.q}</span>
-                    <svg width="18" height="18" fill="none" viewBox="0 0 24 24" style={{ flexShrink: 0, transform: selected ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>
-                      <path d="M6 9l6 6 6-6" stroke={selected ? color : "var(--grey-border)"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
-                  {selected && (
-                    <div style={{ background: bg, border: `1.5px solid ${color}30`, borderRadius: "0 0 14px 14px", padding: "16px 20px", display: "flex", alignItems: "center", gap: 12, marginTop: -2 }}>
-                      <div style={{ width: 8, height: 8, borderRadius: "50%", background: color, flexShrink: 0 }} />
-                      <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 500 }}>Empfehlung: </span>
-                      <span style={{ fontFamily: F, fontSize: 14, fontWeight: 700, color }}>→ {item.answerLabel}</span>
-                      {item.answer !== "gespräch" ? (
-                        <a href="/fachkraefte" style={{ marginLeft: "auto", fontFamily: F, fontSize: 12, color: CTA, fontWeight: 600, textDecoration: "underline", textUnderlineOffset: 2 }}>Jetzt suchen →</a>
-                      ) : (
-                        <a href="/vorgespraech" style={{ marginLeft: "auto", fontFamily: F, fontSize: 12, color: CTA, fontWeight: 600, textDecoration: "underline", textUnderlineOffset: 2 }}>Gespräch buchen →</a>
-                      )}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
       {/* ── REAL EXAMPLES ────────────────────────────────────── */}
-      <section style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
+      <section style={{ background: "#F8FAFE", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
           <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Erkennst du dich?</p>
           <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 8px" }}>Beispiele aus dem Alltag</h2>
           <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 32px", lineHeight: 1.6 }}>Reale Situationen — und welche Fachkraft dort am sinnvollsten ist.</p>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: 16 }}>
             {EXAMPLES.map((ex, i) => (
-              <div key={i} style={{ background: ex.bg, borderRadius: 20, padding: "24px 24px 20px", border: `1px solid ${ex.color}25`, display: "flex", flexDirection: "column", gap: 14 }}>
+              <div key={i} style={{ background: ex.bg, borderRadius: 20, padding: "24px 24px 22px", border: `1px solid ${ex.color}25`, display: "flex", flexDirection: "column", gap: 14 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                   <div style={{ width: 40, height: 40, borderRadius: "50%", background: ex.color, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <span style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "white" }}>{ex.name.charAt(0)}</span>
                   </div>
                   <span style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)" }}>{ex.name}</span>
                 </div>
-                <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65, fontStyle: "italic" }}>„{ex.situation}"</p>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, paddingTop: 4, borderTop: `1px solid ${ex.color}20` }}>
-                  <span style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)" }}>Empfehlung:</span>
-                  <span style={{ fontFamily: F, fontWeight: 700, fontSize: 13, color: ex.color, background: "white", borderRadius: 9999, padding: "2px 12px", border: `1px solid ${ex.color}30` }}>→ {ex.resultLabel}</span>
+                <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65, fontStyle: "italic", flex: 1 }}>„{ex.situation}"</p>
+                <div style={{ paddingTop: 12, borderTop: `1px solid ${ex.color}20`, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8, flexWrap: "wrap" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)" }}>Empfehlung:</span>
+                    <span style={{ fontFamily: F, fontWeight: 700, fontSize: 13, color: ex.color, background: "white", borderRadius: 9999, padding: "2px 12px", border: `1px solid ${ex.color}30` }}>{ex.resultLabel}</span>
+                  </div>
+                  {ex.result !== "gespräch" ? (
+                    <a href={`/fachkraefte?typ=${ex.result}`} style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 36, padding: "0 16px", borderRadius: 9999, background: ex.color, color: "white", fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", flexShrink: 0 }}>
+                      Jetzt suchen
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </a>
+                  ) : (
+                    <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 36, padding: "0 16px", borderRadius: 9999, background: ex.color, color: "white", fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", flexShrink: 0 }}>
+                      Gespräch buchen
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
