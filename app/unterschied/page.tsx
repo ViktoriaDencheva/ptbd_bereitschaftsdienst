@@ -172,7 +172,7 @@ export default function UnterschiedPage() {
             <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
               <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 14px" }}>Die Unterschiede im Überblick</p>
               <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 26 : 38, lineHeight: 1.2, color: "var(--black)", margin: "0 0 16px" }}>
-                Psycholog*in,<br />Psychotherapeut*in,<br />Psychiater*in<br />oder Sozialberater*in?
+                Wer kann dir helfen?
               </h1>
               <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 16, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 24px" }}>
                 Wir erklären dir einfach, wer dir wann helfen kann — damit du die richtige Entscheidung triffst.
