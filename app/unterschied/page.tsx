@@ -354,15 +354,20 @@ export default function UnterschiedPage() {
                   const sA = SPECS[active[0]];
                   const sB = SPECS[active[1]];
                   return (
-                    <div style={{ background: "linear-gradient(135deg, #FFF6F2 0%, #F5FBFF 100%)", borderRadius: 20, padding: isMobile ? 16 : 28 }}>
-                      {/* Header row */}
-                      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "36px 1fr 1fr" : "200px 1fr 1fr", gap: isMobile ? 8 : 16, marginBottom: 16, paddingBottom: 16, borderBottom: "1px solid rgba(0,0,0,0.07)" }}>
-                        <div />
-                        {[sA, sB].map(s => (
-                          <div key={s.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, textAlign: "center" }}>
-                            <img src={s.icon} alt={s.label} width={32} height={32} style={{ filter: `brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)` }} />
-                            <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 16, color: s.color, lineHeight: 1.2 }}>{s.label}</span>
-                            <span style={{ fontFamily: F, fontSize: 11, color: "var(--grey-text)" }}>{s.tagline}</span>
+                    <div style={{ background: "white", borderRadius: 20, overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
+                      {/* Profession headers */}
+                      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr", gap: 0 }}>
+                        {[sA, sB].map((s, idx) => (
+                          <div key={s.label} style={{
+                            background: s.lightBg,
+                            borderBottom: `3px solid ${s.color}`,
+                            padding: isMobile ? "20px 16px" : "24px 28px",
+                            borderRight: idx === 0 ? "1px solid rgba(0,0,0,0.06)" : "none",
+                            display: "flex", flexDirection: "column", alignItems: "center", gap: 8, textAlign: "center"
+                          }}>
+                            <img src={s.image} alt={s.label} style={{ width: isMobile ? 64 : 88, height: isMobile ? 64 : 88, objectFit: "contain" }} />
+                            <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 18, color: s.color }}>{s.label}</span>
+                            <span style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", lineHeight: 1.3 }}>{s.tagline}</span>
                           </div>
                         ))}
                       </div>
@@ -370,23 +375,22 @@ export default function UnterschiedPage() {
                       {sA.details.map((dA, i) => {
                         const dB = sB.details[i];
                         return (
-                          <div key={i} style={{ display: "grid", gridTemplateColumns: isMobile ? "36px 1fr 1fr" : "200px 1fr 1fr", gap: isMobile ? 8 : 16, padding: "14px 0", borderBottom: i < sA.details.length - 1 ? "1px solid rgba(0,0,0,0.05)" : "none", alignItems: "flex-start" }}>
-                            {/* Icon + label */}
-                            <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", gap: isMobile ? 4 : 10 }}>
-                              <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#D6EBFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                          <div key={i} style={{ borderBottom: i < sA.details.length - 1 ? "1px solid #F0F0F0" : "none" }}>
+                            {/* Row label */}
+                            <div style={{ display: "flex", alignItems: "center", gap: 10, padding: isMobile ? "12px 16px 6px" : "16px 28px 8px", background: "#FAFAFA" }}>
+                              <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#D6EBFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                                 {DETAIL_ICONS[i]}
                               </div>
-                              {!isMobile && <span style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--grey-text)", textTransform: "uppercase", letterSpacing: "0.05em" }}>{dA.label}</span>}
+                              <span style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: "var(--grey-text)", textTransform: "uppercase", letterSpacing: "0.07em" }}>{dA.label}</span>
                             </div>
-                            {/* Value A */}
-                            <div style={{ background: `${sA.color}08`, borderRadius: 10, padding: "10px 14px", borderLeft: `3px solid ${sA.color}40` }}>
-                              {isMobile && <p style={{ fontFamily: F, fontWeight: 700, fontSize: 10, color: "var(--grey-text)", margin: "0 0 4px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{dA.label}</p>}
-                              <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.4 }}>{dA.value}</p>
-                            </div>
-                            {/* Value B */}
-                            <div style={{ background: `${sB.color}08`, borderRadius: 10, padding: "10px 14px", borderLeft: `3px solid ${sB.color}40` }}>
-                              {isMobile && <p style={{ fontFamily: F, fontWeight: 700, fontSize: 10, color: "var(--grey-text)", margin: "0 0 4px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{dB.label}</p>}
-                              <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.4 }}>{dB.value}</p>
+                            {/* Values */}
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
+                              <div style={{ padding: isMobile ? "10px 16px 14px" : "12px 28px 18px", borderRight: "1px solid #F0F0F0" }}>
+                                <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.5 }}>{dA.value}</p>
+                              </div>
+                              <div style={{ padding: isMobile ? "10px 16px 14px" : "12px 28px 18px" }}>
+                                <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.5 }}>{dB.value}</p>
+                              </div>
                             </div>
                           </div>
                         );
