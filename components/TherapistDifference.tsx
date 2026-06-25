@@ -2,9 +2,10 @@
 import { useState } from "react";
 
 /* ── Tab икони ── */
-const TabIconBrain = () => <img src="/icons/role-brain.svg" width={24} height={24} alt="" style={{ flexShrink: 0 }} />;
-const TabIconHerz  = () => <img src="/icons/role-herz.svg"  width={24} height={24} alt="" style={{ flexShrink: 0 }} />;
-const TabIconPlant = () => <img src="/icons/role-psychotherapie.svg" width={24} height={24} alt="" style={{ flexShrink: 0 }} />;
+const TabIconBrain   = () => <img src="/icon_psychologist.svg"   width={24} height={24} alt="" style={{ flexShrink: 0 }} />;
+const TabIconHerz    = () => <img src="/icon_psychotherapeut.svg" width={24} height={24} alt="" style={{ flexShrink: 0 }} />;
+const TabIconPlant   = () => <img src="/icon_psychiater.svg"     width={24} height={24} alt="" style={{ flexShrink: 0 }} />;
+const TabIconSozial  = () => <img src="/icon_sozialberater.svg"  width={24} height={24} alt="" style={{ flexShrink: 0 }} />;
 
 /* ── Инфо икони ── */
 const IconGraduation = () => (
@@ -64,6 +65,19 @@ const tabs = [
     wann: "Bei schweren psychischen Erkrankungen, die medikamentöse Behandlung erfordern",
     image: "/icons/image-psychiater.svg",
   },
+  {
+    label: "Sozialberater*in",
+    Icon: TabIconSozial,
+    bg: "#FFF8EE",
+    tagBg: "#FFE8C0",
+    tag: "Fokus auf Lebensberatung & Orientierung",
+    title: "Sozialberater*in",
+    desc: "Soziale Lebensberater*innen begleiten Menschen in schwierigen Lebenssituationen — ohne Diagnose, ohne lange Wartezeiten. Ideal bei Krisen, Orientierungsbedarf und alltäglichen Belastungen.",
+    ausbildung: "Ausbildung in sozialer Beratung, Coaching oder Lebensberatung (je nach Spezialisierung)",
+    hilft: "Lebenskrisen, Orientierungslosigkeit, Stress, Beziehungsfragen, berufliche Veränderungen",
+    wann: "Wenn du Unterstützung und Orientierung suchst, ohne eine klinische Diagnose zu benötigen",
+    image: "/sozialberater.jpg",
+  },
 ];
 
 export default function TherapistDifference() {
@@ -77,7 +91,7 @@ export default function TherapistDifference() {
   ];
 
   return (
-    <section style={{ background: "var(--blue-ultra-light)" }}>
+    <section style={{ background: "white" }}>
       <div className="td-desktop" style={{ padding: "48px 80px", maxWidth: "var(--max-width)", margin: "0 auto" }}>
 
         {/* ── Header ── */}
@@ -86,7 +100,7 @@ export default function TherapistDifference() {
             Wer hilft wobei?
           </h2>
           <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.5, color: "var(--grey-text)", flex: 1, minWidth: 220 }}>
-            Psychologe, Psychotherapeute, Psychiater*in – drei Berufsgruppen, unterschiedliche Schwerpunkte. Wir erklären Dir die Unterschiede – einfach und verständlich.
+            Psycholog*in, Psychotherapeut*in, Psychiater*in oder Sozialberater*in – vier Berufsgruppen, unterschiedliche Schwerpunkte. Wir erklären Dir die Unterschiede – einfach und verständlich.
           </p>
           <a
             href="/unterschied"
@@ -184,7 +198,7 @@ export default function TherapistDifference() {
               <img
                 src={t.image}
                 alt={t.title}
-                style={{ width: "100%", maxWidth: 240, height: "auto", objectFit: "contain" }}
+                style={{ width: "100%", maxWidth: 240, height: "auto", objectFit: active === 3 ? "cover" : "contain", borderRadius: active === 3 ? 16 : 0 }}
               />
             </div>
 
@@ -253,7 +267,7 @@ export default function TherapistDifference() {
         <div key={active} style={{ background: "linear-gradient(135deg, var(--red-bg) 0%, var(--blue-ultra-light) 100%)", borderRadius: 20, padding: 20, display: "flex", flexDirection: "column", gap: 16, animation: "tdFadeIn 0.3s ease" }}>
           {/* Илюстрация + tag + заглавие */}
           <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            <img className="td-card-img" src={t.image} alt={t.title} style={{ width: 120, height: 120, objectFit: "contain", flexShrink: 0 }} />
+            <img className="td-card-img" src={t.image} alt={t.title} style={{ width: 120, height: 120, objectFit: active === 3 ? "cover" : "contain", borderRadius: active === 3 ? 12 : 0, flexShrink: 0 }} />
             <div style={{ display: "flex", flexDirection: "column", gap: 8, minWidth: 0 }}>
               <span style={{ display: "inline-flex", alignSelf: "flex-start", background: "var(--blue-subtle)", borderRadius: 9999, padding: "3px 10px", fontFamily: "'Poppins', sans-serif", fontSize: 11, color: "var(--black)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "100%" }}>
                 {t.tag}
