@@ -588,8 +588,8 @@ export default function OrientierungstestPage() {
                 <div>
                   <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 28 : 40, color: "var(--black)", margin: "0 0 8px", lineHeight: 1.15 }}>
                     {spec.title}
-                    <span style={{ display: "block", fontWeight: 500, fontSize: isMobile ? 18 : 26, color: CTA, lineHeight: 1.3 }}>– die beste Fachrichtung für dich.</span>
                   </h1>
+                  <p style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 18 : 26, color: CTA, lineHeight: 1.3, margin: "10px 0 0" }}>– die beste Fachrichtung für dich.</p>
                   <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>
                     Basierend auf Deinen Antworten empfehlen wir eine:n {spec.title.toLowerCase()}, {specKey === "psychiater" ? "die auf schwere psychische Erkrankungen spezialisiert ist — auch für medikamentöse Behandlung und akute Krisen." : specKey === "psychologe" ? "die dir bei Lebensfragen, Orientierung und persönlicher Entwicklung hilft." : "die auf langfristige Behandlung von Depressionen, Angststörungen und Traumata spezialisiert ist."}
                   </p>
