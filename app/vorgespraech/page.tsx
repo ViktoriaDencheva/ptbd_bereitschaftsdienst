@@ -67,14 +67,14 @@ export default function VorgespraechPage() {
             alignItems: "stretch",
             paddingTop: isMobile ? 8 : 8,
           }}>
-            {/* Left: hero image — fills same height as right column */}
-            <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", overflow: "hidden" }}>
+            {/* Left: hero image */}
+            <div style={{ display: "flex", alignItems: "stretch", justifyContent: "center", overflow: "hidden" }}>
               <img src="/vorgespraech-banner.jpg" alt="Spezialistin"
-                style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "bottom center", display: "block" }} />
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
             </div>
 
             {/* Right: content */}
-            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: isMobile ? 0 : 32, paddingBottom: isMobile ? 0 : 32 }}>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: isMobile ? 0 : 24, paddingBottom: isMobile ? 0 : 24 }}>
               {/* Badge — interactive hover */}
               <div
                 style={{ display: "inline-block", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "5px 16px", marginBottom: 18, alignSelf: "flex-start", textAlign: "center", cursor: "default", transition: "background 0.2s, box-shadow 0.2s" }}
@@ -83,12 +83,12 @@ export default function VorgespraechPage() {
                 <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>Kostenlos &amp; vertraulich</span>
               </div>
 
-              <div style={{ display: "flex", alignItems: "flex-start", gap: 12, flexWrap: "wrap", marginBottom: 14 }}>
+              <div style={{ position: "relative", marginBottom: 14, display: "inline-block" }}>
                 <h1 style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 28 : 40, lineHeight: 1.2, color: "var(--black)", margin: 0 }}>
                   Kostenloses<br />Orientierungsgespräch
                 </h1>
                 {!isMobile && (
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "var(--blue-ultra-light)", border: `1px solid ${CTA}30`, borderRadius: 9999, padding: "5px 12px", marginTop: 6, flexShrink: 0 }}>
+                  <div style={{ position: "absolute", top: 4, left: "calc(100% + 12px)", display: "inline-flex", alignItems: "center", gap: 6, background: "var(--blue-ultra-light)", border: `1px solid ${CTA}30`, borderRadius: 9999, padding: "5px 12px", whiteSpace: "nowrap" }}>
                     <span style={{ fontSize: 13 }}>⭐</span>
                     <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA }}>Über 500 Gespräche</span>
                   </div>
