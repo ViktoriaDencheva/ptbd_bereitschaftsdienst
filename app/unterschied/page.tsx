@@ -277,8 +277,10 @@ export default function UnterschiedPage() {
           <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 22 : 32, lineHeight: 1.3, color: "var(--black)", margin: "0 0 6px" }}>Vergleiche Berufsgruppen</h2>
           <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px", lineHeight: 1.6 }}>Wähle eine oder zwei Berufsgruppen aus.</p>
 
-          {/* Checkboxes */}
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: 12, marginBottom: 32 }}>
+          <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "280px 1fr", gap: isMobile ? 20 : 24, alignItems: "start" }}>
+
+          {/* Checkboxes — horizontal tab style like TherapistDifference */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {specKeys.map(k => {
               const s = SPECS[k];
               const checked1 = compareA === k;
@@ -290,29 +292,31 @@ export default function UnterschiedPage() {
                   if (checked2) { setCompareB(null); return; }
                   if (!compareA) { setCompareA(k); return; }
                   if (!compareB) { setCompareB(k); return; }
-                  // already 2 selected: replace oldest (A)
                   setCompareA(compareB); setCompareB(k);
                 }} style={{
-                  display: "flex", flexDirection: "column", alignItems: "center", gap: 10,
-                  padding: isMobile ? "16px 10px" : "20px 14px",
-                  borderRadius: 16,
+                  display: "flex", alignItems: "center", gap: 12,
+                  padding: "0 16px",
+                  height: checked ? 64 : 58,
+                  borderRadius: "0 10px 10px 0",
                   background: checked ? s.lightBg : "white",
-                  border: checked ? `2px solid ${s.color}` : "2px solid #EAF0FA",
+                  border: "none",
+                  borderLeft: `3px solid ${checked ? s.color : "#E0E0E0"}`,
                   cursor: "pointer", transition: "all 0.18s",
-                  position: "relative",
+                  boxShadow: checked ? "0 2px 12px rgba(0,0,0,0.07)" : "none",
                 }}>
-                  {/* Checkbox indicator */}
-                  <span style={{ position: "absolute", top: 10, right: 10, width: 18, height: 18, borderRadius: 5, border: checked ? `2px solid ${s.color}` : "2px solid #C3C3C3", background: checked ? s.color : "white", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.15s" }}>
+                  <img src={k === "psychologe" ? "/icon_psychologist.svg" : k === "psychotherapeut" ? "/icon_psychotherapeut.svg" : k === "psychiater" ? "/icon_psychiater.svg" : "/icon_sozialberater.svg"} width={24} height={24} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
+                  <span style={{ fontFamily: F, fontWeight: checked ? 700 : 400, fontSize: 16, color: s.color, flex: 1, textAlign: "left" }}>{s.label}</span>
+                  {/* Checkbox */}
+                  <span style={{ width: 20, height: 20, borderRadius: 5, border: checked ? `2px solid ${s.color}` : "2px solid #C3C3C3", background: checked ? s.color : "white", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all 0.15s" }}>
                     {checked && <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                   </span>
-                  <img src={k === "psychologe" ? "/icon_psychologist.svg" : k === "psychotherapeut" ? "/icon_psychotherapeut.svg" : k === "psychiater" ? "/icon_psychiater.svg" : "/icon_sozialberater.svg"} width={36} height={36} alt="" style={{ objectFit: "contain" }} />
-                  <span style={{ fontFamily: F, fontWeight: checked ? 700 : 500, fontSize: isMobile ? 12 : 14, color: checked ? s.color : "var(--grey-text)", textAlign: "center", lineHeight: 1.3 }}>{s.label}</span>
                 </button>
               );
             })}
           </div>
 
-          {/* Result cards */}
+          {/* Right: Result cards */}
+          <div>
           {(compareA || compareB) ? (() => {
             const active = [compareA, compareB].filter(Boolean) as SpecKey[];
             return (
@@ -354,9 +358,11 @@ export default function UnterschiedPage() {
             );
           })() : (
             <div style={{ textAlign: "center", padding: "48px 0", color: "var(--grey-text)", fontFamily: F, fontSize: 15 }}>
-              Wähle eine Berufsgruppe oben aus.
+              Wähle eine Berufsgruppe aus.
             </div>
           )}
+          </div>{/* end right col */}
+          </div>{/* end sidebar grid */}
         </div>
         <style>{`@keyframes tdFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       </section>
