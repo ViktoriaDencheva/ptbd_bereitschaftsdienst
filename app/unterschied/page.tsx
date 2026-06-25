@@ -71,6 +71,23 @@ const SPECS = {
       { icon: "⏱", label: "Dauer", value: "Langfristige Behandlung, oft ambulant oder stationär" },
     ],
   },
+  sozialberater: {
+    label: "Sozialberater*in",
+    color: "#B07D3A",
+    lightBg: "#FFF8EE",
+    icon: "/icon_sozialberater.svg",
+    image: "/sozialberater.jpg",
+    tagline: "Lebensberatung & Orientierung",
+    desc: "Soziale Lebensberater*innen begleiten Menschen in schwierigen Lebenssituationen — ohne Diagnose, ohne lange Wartezeiten. Ideal bei Krisen, Orientierungsbedarf und alltäglichen Belastungen.",
+    details: [
+      { icon: "🎓", label: "Ausbildung", value: "Ausbildung in sozialer Beratung, Coaching oder Lebensberatung" },
+      { icon: "🤝", label: "Hilft bei", value: "Lebenskrisen, Orientierungslosigkeit, Stress, Beziehungsfragen, berufliche Veränderungen" },
+      { icon: "💬", label: "Methoden", value: "Gesprächsbegleitung, Coaching, lösungsorientierte Beratung" },
+      { icon: "💊", label: "Medikamente?", value: "Nein — kein medizinisches Verschreibungsrecht" },
+      { icon: "📅", label: "Wann sinnvoll?", value: "Wenn du Orientierung suchst, ohne eine klinische Diagnose zu benötigen" },
+      { icon: "⏱", label: "Dauer", value: "Flexible Einzelgespräche, kurzfristig verfügbar" },
+    ],
+  },
 };
 
 type CellVal = boolean | "partial";
@@ -90,14 +107,6 @@ const DECISION_TREE = [
   { q: "Ich weiß noch nicht, was ich brauche.", answer: "gespräch", answerLabel: "Orientierungsgespräch" },
 ];
 
-// Sozialberater data (shown separately, not in main SPECS tab comparison)
-const SOZIAL = {
-  label: "Sozialberater*in",
-  color: "#B07D3A",
-  lightBg: "#FFF8EE",
-  tagline: "Lebensberatung & soziale Unterstützung",
-  desc: "Soziale Lebensberater*innen bieten Orientierung und Unterstützung bei persönlichen Lebensfragen — ohne Diagnose, ohne langen Wartezeiten. Ideal bei Lebenskrisen, Entscheidungsprozessen und alltäglichen Belastungen.",
-};
 
 const EXAMPLES = [
   { name: "Anna, 27", situation: "Ich habe seit Monaten Panikattacken und traue mich kaum noch aus dem Haus.", result: "psychotherapeut", resultLabel: "Psychotherapeut*in", color: "#E07878", bg: "#FFF0F0" },
@@ -185,11 +194,11 @@ export default function UnterschiedPage() {
                 );
               })}
               {/* Sozialberater*in */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, background: SOZIAL.lightBg, borderRadius: 20, padding: isMobile ? "22px 16px" : "32px 20px" }}>
-                <div style={{ width: isMobile ? 64 : 88, height: isMobile ? 64 : 88, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${SOZIAL.color}30`, overflow: "hidden" }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, background: SPECS.sozialberater.lightBg, borderRadius: 20, padding: isMobile ? "22px 16px" : "32px 20px" }}>
+                <div style={{ width: isMobile ? 64 : 88, height: isMobile ? 64 : 88, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${SPECS.sozialberater.color}30`, overflow: "hidden" }}>
                   <img src="/sozialberater.jpg" width={isMobile ? 64 : 88} height={isMobile ? 64 : 88} alt="" style={{ objectFit: "cover", borderRadius: "50%" }} />
                 </div>
-                <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 15, color: SOZIAL.color, textAlign: "center", lineHeight: 1.3 }}>{SOZIAL.label}</span>
+                <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 15, color: SPECS.sozialberater.color, textAlign: "center", lineHeight: 1.3 }}>{SPECS.sozialberater.label}</span>
               </div>
             </div>
           </div>
@@ -221,10 +230,10 @@ export default function UnterschiedPage() {
                   <th
                     onMouseEnter={() => setHoveredCol("sozialberater")}
                     onMouseLeave={() => setHoveredCol(null)}
-                    style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: SOZIAL.color, textAlign: "center", padding: "18px 16px", borderBottom: "1px solid #E8F0FA", cursor: "default", background: hoveredCol === "sozialberater" ? "rgba(45,91,141,0.06)" : "white", transition: "background 0.18s" }}>
+                    style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: SPECS.sozialberater.color, textAlign: "center", padding: "18px 16px", borderBottom: "1px solid #E8F0FA", cursor: "default", background: hoveredCol === "sozialberater" ? "rgba(45,91,141,0.06)" : "white", transition: "background 0.18s" }}>
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
                       <img src="/icon_sozialberater.svg" width={28} height={28} alt="" style={{ objectFit: "contain" }} />
-                      {SOZIAL.label}
+                      {SPECS.sozialberater.label}
                     </div>
                   </th>
                 </tr>
@@ -270,7 +279,7 @@ export default function UnterschiedPage() {
                 return (
                   <button key={k} onClick={() => setActiveSpec(k)}
                     style={{ display: "flex", alignItems: "center", gap: 10, padding: isMobile ? "10px 14px" : "14px 18px", borderRadius: 14, border: active ? `2px solid ${s.color}` : "2px solid #EAF0FA", background: active ? s.lightBg : "white", cursor: "pointer", transition: "all 0.18s", flex: isMobile ? 1 : undefined, justifyContent: isMobile ? "center" : "flex-start" }}>
-                    <img src={s.icon} width={20} height={20} alt="" style={{ objectFit: "contain", opacity: active ? 1 : 0.4, filter: k === "psychologe" ? "brightness(0) saturate(100%) invert(35%) sepia(80%) saturate(400%) hue-rotate(190deg)" : k === "psychotherapeut" ? "brightness(0) saturate(100%) invert(45%) sepia(60%) saturate(600%) hue-rotate(320deg)" : "brightness(0) saturate(100%) invert(40%) sepia(60%) saturate(400%) hue-rotate(100deg)" }} />
+                    <img src={s.icon} width={20} height={20} alt="" style={{ objectFit: "contain", opacity: active ? 1 : 0.6 }} />
                     <span style={{ fontFamily: F, fontWeight: active ? 700 : 500, fontSize: 14, color: active ? s.color : "var(--grey-text)" }}>{s.label}</span>
                   </button>
                 );
@@ -281,8 +290,8 @@ export default function UnterschiedPage() {
             <div style={{ background: spec.lightBg, borderRadius: 24, padding: isMobile ? "24px 20px" : "36px 40px", border: `1.5px solid ${spec.color}30` }}>
               {/* Header */}
               <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 16 }}>
-                <div style={{ width: 60, height: 60, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${spec.color}25`, flexShrink: 0 }}>
-                  <img src={spec.image} width={40} height={40} alt="" style={{ objectFit: "contain" }} />
+                <div style={{ width: 60, height: 60, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${spec.color}25`, flexShrink: 0, overflow: "hidden" }}>
+                  <img src={spec.image} width={60} height={60} alt="" style={{ objectFit: activeSpec === "sozialberater" ? "cover" : "contain", width: activeSpec === "sozialberater" ? 60 : 40, height: activeSpec === "sozialberater" ? 60 : 40 }} />
                 </div>
                 <div>
                   <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: spec.color, letterSpacing: "0.1em", textTransform: "uppercase", margin: 0 }}>{spec.tagline}</p>
