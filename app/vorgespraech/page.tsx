@@ -57,7 +57,7 @@ export default function VorgespraechPage() {
       <Breadcrumbs />
 
       {/* ── HERO ─────────────────────────────────────────────────── */}
-      <section style={{ background: "white", padding: isMobile ? "0 0 40px" : "0 0 64px" }}>
+      <section style={{ background: "white", padding: isMobile ? "0 0 40px" : "0 0 48px" }}>
         <div style={{ ...wrap }}>
           <div style={{
             display: isMobile ? "flex" : "grid",
@@ -104,6 +104,15 @@ export default function VorgespraechPage() {
                   </div>
                 ))}
               </div>
+
+              {/* Primary CTA */}
+              <a href="/vorgespraech/buchen"
+                style={{ display: "inline-flex", alignItems: "center", gap: 10, height: 52, padding: "0 32px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 16, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.28)", transition: "background 0.2s, box-shadow 0.2s", alignSelf: "flex-start", marginBottom: 20 }}
+                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--cta-hover)"; el.style.boxShadow = "0 8px 28px rgba(45,91,141,0.34)"; }}
+                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = CTA; el.style.boxShadow = "0 6px 24px rgba(45,91,141,0.28)"; }}>
+                Kostenloses Gespräch buchen
+                <img src="/icons/arrow-right.svg" width={18} height={18} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
+              </a>
 
               {/* "Mehr erfahren" scroll link */}
               <button
@@ -160,17 +169,17 @@ export default function VorgespraechPage() {
               <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, position: "relative" }}>
                 {steps.map((s, i) => (
                   <div key={i}
-                    style={{ background: "white", borderRadius: 20, padding: "48px 20px 32px", border: "1px solid #EAF0FA", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden", transition: "background 0.2s, border-color 0.2s, box-shadow 0.2s", cursor: "default" }}
-                    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#F4F9FF"; el.style.borderColor = CTA; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.10)"; }}
-                    onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.borderColor = "#EAF0FA"; el.style.boxShadow = "none"; }}>
+                    style={{ background: i === 0 ? CTA : "white", borderRadius: 20, padding: "48px 20px 32px", border: i === 0 ? `1.5px solid ${CTA}` : "1px solid #EAF0FA", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden", transition: "background 0.2s, border-color 0.2s, box-shadow 0.2s", cursor: "default", boxShadow: i === 0 ? "0 6px 24px rgba(45,91,141,0.18)" : "none" }}
+                    onMouseEnter={e => { if (i === 0) return; const el = e.currentTarget as HTMLElement; el.style.background = "#F4F9FF"; el.style.borderColor = CTA; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.10)"; }}
+                    onMouseLeave={e => { if (i === 0) return; const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.borderColor = "#EAF0FA"; el.style.boxShadow = "none"; }}>
                     {/* Large background number */}
-                    <span style={{ position: "absolute", top: 10, right: 14, fontFamily: F, fontWeight: 800, fontSize: 80, color: CTA, opacity: 0.1, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{s.n}</span>
-                    {/* Icon — bigger, no circle border */}
+                    <span style={{ position: "absolute", top: 10, right: 14, fontFamily: F, fontWeight: 800, fontSize: 80, color: i === 0 ? "white" : CTA, opacity: i === 0 ? 0.15 : 0.13, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{s.n}</span>
+                    {/* Icon */}
                     <div style={{ position: "relative", marginBottom: 20 }}>
-                      <img src={s.icon} width={56} height={56} alt="" style={{ objectFit: "contain", filter: iconFilter, display: "block" }} />
+                      <img src={s.icon} width={56} height={56} alt="" style={{ objectFit: "contain", filter: i === 0 ? "brightness(0) invert(1)" : iconFilter, display: "block" }} />
                     </div>
-                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 10px", lineHeight: 1.35 }}>{s.title}</h3>
-                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{s.desc}</p>
+                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: i === 0 ? "white" : "var(--black)", margin: "0 0 10px", lineHeight: 1.35 }}>{s.title}</h3>
+                    <p style={{ fontFamily: F, fontSize: 13, color: i === 0 ? "rgba(255,255,255,0.82)" : "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{s.desc}</p>
                   </div>
                 ))}
               </div>
