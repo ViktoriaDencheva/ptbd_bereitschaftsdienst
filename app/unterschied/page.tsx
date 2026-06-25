@@ -198,7 +198,11 @@ export default function UnterschiedPage() {
               {specKeys.map((k) => {
                 const s = SPECS[k];
                 return (
-                  <div key={k} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, background: s.lightBg, borderRadius: 20, padding: isMobile ? "22px 16px" : "32px 20px" }}>
+                  <div key={k}
+                    style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, background: s.lightBg, borderRadius: 20, padding: isMobile ? "22px 16px" : "32px 20px", transition: "transform 0.3s ease", willChange: "transform" }}
+                    onMouseEnter={e => { if (!isMobile) (e.currentTarget as HTMLElement).style.transform = "scale(1.03)"; }}
+                    onMouseLeave={e => { if (!isMobile) (e.currentTarget as HTMLElement).style.transform = "scale(1)"; }}
+                  >
                     <div style={{ width: isMobile ? 64 : 88, height: isMobile ? 64 : 88, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${s.color}30`, overflow: "hidden" }}>
                       <img src={s.image} width={k === "sozialberater" ? (isMobile ? 44 : 58) : (isMobile ? 44 : 62)} height={k === "sozialberater" ? (isMobile ? 44 : 58) : (isMobile ? 44 : 62)} alt="" style={{ objectFit: "contain" }} />
                     </div>
