@@ -74,13 +74,13 @@ const SPECS = {
 };
 
 type CellVal = boolean | "partial";
-const QUICK_ROWS: { label: string; psychologe: CellVal; psychotherapeut: CellVal; psychiater: CellVal }[] = [
-  { label: "Gespräche / Beratung", psychologe: true, psychotherapeut: true, psychiater: true },
-  { label: "Diagnostik / Tests",   psychologe: true, psychotherapeut: true, psychiater: true },
-  { label: "Psychotherapie",        psychologe: false, psychotherapeut: true, psychiater: "partial" },
-  { label: "Medikamente",           psychologe: false, psychotherapeut: false, psychiater: true },
-  { label: "Kassenerstattung",      psychologe: "partial", psychotherapeut: true, psychiater: true },
-  { label: "Keine Diagnose nötig",  psychologe: true, psychotherapeut: false, psychiater: false },
+const QUICK_ROWS: { label: string; psychologe: CellVal; psychotherapeut: CellVal; psychiater: CellVal; sozialberater: CellVal }[] = [
+  { label: "Gespräche / Beratung", psychologe: true,      psychotherapeut: true,      psychiater: true,      sozialberater: true },
+  { label: "Diagnostik / Tests",   psychologe: true,      psychotherapeut: true,      psychiater: true,      sozialberater: false },
+  { label: "Psychotherapie",        psychologe: false,     psychotherapeut: true,      psychiater: "partial", sozialberater: false },
+  { label: "Medikamente",           psychologe: false,     psychotherapeut: false,     psychiater: true,      sozialberater: false },
+  { label: "Kassenerstattung",      psychologe: "partial", psychotherapeut: true,      psychiater: true,      sozialberater: false },
+  { label: "Keine Diagnose nötig",  psychologe: true,      psychotherapeut: false,     psychiater: false,     sozialberater: true },
 ];
 
 const DECISION_TREE = [
@@ -109,9 +109,21 @@ const EXAMPLES = [
 type SpecKey = keyof typeof SPECS;
 
 function CheckCell({ val }: { val: boolean | "partial" }) {
-  if (val === true)    return <span style={{ color: "#33700E", fontSize: 18 }}>✅</span>;
-  if (val === "partial") return <span style={{ fontSize: 18 }}>⚠️</span>;
-  return <span style={{ color: "#C0392B", fontSize: 18 }}>❌</span>;
+  if (val === true) return (
+    <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 28, height: 28, borderRadius: "50%", background: "var(--green-light)" }}>
+      <img src="/icons/icon-check.svg" width={14} height={14} alt="Ja" style={{ objectFit: "contain" }} />
+    </span>
+  );
+  if (val === "partial") return (
+    <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 28, height: 28, borderRadius: "50%", background: "var(--yellow-light)" }}>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 8v5M12 16h.01" stroke="#B07D3A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#B07D3A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+    </span>
+  );
+  return (
+    <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 28, height: 28, borderRadius: "50%", background: "var(--red-light-system)" }}>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#A81315" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+    </span>
+  );
 }
 
 export default function UnterschiedPage() {
@@ -186,7 +198,7 @@ export default function UnterschiedPage() {
       {/* ── QUICK COMPARISON TABLE ───────────────────────────── */}
       <section style={{ background: "var(--blue-ultra-light)", padding: isMobile ? "40px 0" : "56px 0" }}>
         <div style={{ ...wrap }}>
-          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>TL;DR</p>
+          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Auf einen Blick</p>
           <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 6px" }}>Schnellübersicht</h2>
           <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px", lineHeight: 1.6 }}>Die wichtigsten Unterschiede auf einen Blick.</p>
           <div style={{ overflowX: "auto" }}>
@@ -202,6 +214,12 @@ export default function UnterschiedPage() {
                       </div>
                     </th>
                   ))}
+                  <th style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: SOZIAL.color, textAlign: "center", padding: "10px 16px", borderBottom: "2px solid #DDE8F5" }}>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                      <img src="/sozialberater.jpg" width={20} height={20} alt="" style={{ objectFit: "cover", borderRadius: "50%" }} />
+                      {SOZIAL.label}
+                    </div>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -213,6 +231,9 @@ export default function UnterschiedPage() {
                         <CheckCell val={row[k]} />
                       </td>
                     ))}
+                    <td style={{ textAlign: "center", padding: "14px 16px", borderBottom: "1px solid #EAF0FA" }}>
+                      <CheckCell val={row.sozialberater} />
+                    </td>
                   </tr>
                 ))}
               </tbody>
