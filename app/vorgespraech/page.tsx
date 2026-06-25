@@ -83,18 +83,20 @@ export default function VorgespraechPage() {
                 <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>Kostenlos &amp; vertraulich</span>
               </div>
 
-              <h1 style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 28 : 40, lineHeight: 1.2, color: "var(--black)", margin: "0 0 14px" }}>
-                Kostenloses<br />Orientierungsgespräch
-              </h1>
+              <div style={{ display: "flex", alignItems: "flex-start", gap: 12, flexWrap: "wrap", marginBottom: 14 }}>
+                <h1 style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 28 : 40, lineHeight: 1.2, color: "var(--black)", margin: 0 }}>
+                  Kostenloses<br />Orientierungsgespräch
+                </h1>
+                {!isMobile && (
+                  <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "var(--blue-ultra-light)", border: `1px solid ${CTA}30`, borderRadius: 9999, padding: "5px 12px", marginTop: 6, flexShrink: 0 }}>
+                    <span style={{ fontSize: 13 }}>⭐</span>
+                    <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA }}>Über 500 Gespräche</span>
+                  </div>
+                )}
+              </div>
               <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 17, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 28px" }}>
                 Unsicher, wo du anfangen sollst? In einem 30-minütigen Gespräch hören wir dir zu, helfen dir deine Situation einzuordnen und zeigen dir, welche Unterstützung für dich sinnvoll sein könnte.
               </p>
-
-              {/* Trust strip */}
-              <div style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "#FFFBEC", border: "1px solid #F5E4A0", borderRadius: 9999, padding: "6px 14px", marginBottom: 20, alignSelf: "flex-start" }}>
-                <span style={{ fontSize: 14 }}>⭐</span>
-                <span style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: "#7A5C00" }}>Über 500 vermittelte Erstgespräche</span>
-              </div>
 
               {/* 4 benefits — blue checkmarks */}
               <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
@@ -175,17 +177,15 @@ export default function VorgespraechPage() {
               <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16, position: "relative" }}>
                 {steps.map((s, i) => (
                   <div key={i}
-                    style={{ background: i === 0 ? CTA : "white", borderRadius: 20, padding: "48px 20px 32px", border: i === 0 ? `1.5px solid ${CTA}` : "1px solid #EAF0FA", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden", transition: "background 0.2s, border-color 0.2s, box-shadow 0.2s", cursor: "default", boxShadow: i === 0 ? "0 6px 24px rgba(45,91,141,0.18)" : "none" }}
-                    onMouseEnter={e => { if (i === 0) return; const el = e.currentTarget as HTMLElement; el.style.background = "#F4F9FF"; el.style.borderColor = CTA; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.10)"; }}
-                    onMouseLeave={e => { if (i === 0) return; const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.borderColor = "#EAF0FA"; el.style.boxShadow = "none"; }}>
-                    {/* Large background number */}
-                    <span style={{ position: "absolute", top: 10, right: 14, fontFamily: F, fontWeight: 800, fontSize: 80, color: i === 0 ? "white" : CTA, opacity: i === 0 ? 0.15 : 0.13, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{s.n}</span>
-                    {/* Icon */}
+                    style={{ background: "white", borderRadius: 20, padding: "48px 20px 32px", border: "1px solid #EAF0FA", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden", transition: "background 0.2s, border-color 0.2s, box-shadow 0.2s", cursor: "default" }}
+                    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#F4F9FF"; el.style.borderColor = CTA; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.10)"; }}
+                    onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.borderColor = "#EAF0FA"; el.style.boxShadow = "none"; }}>
+                    <span style={{ position: "absolute", top: 10, right: 14, fontFamily: F, fontWeight: 800, fontSize: 80, color: CTA, opacity: 0.13, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{s.n}</span>
                     <div style={{ position: "relative", marginBottom: 20 }}>
-                      <img src={s.icon} width={56} height={56} alt="" style={{ objectFit: "contain", filter: i === 0 ? "brightness(0) invert(1)" : iconFilter, display: "block" }} />
+                      <img src={s.icon} width={56} height={56} alt="" style={{ objectFit: "contain", filter: iconFilter, display: "block" }} />
                     </div>
-                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: i === 0 ? "white" : "var(--black)", margin: "0 0 10px", lineHeight: 1.35 }}>{s.title}</h3>
-                    <p style={{ fontFamily: F, fontSize: 13, color: i === 0 ? "rgba(255,255,255,0.82)" : "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{s.desc}</p>
+                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 10px", lineHeight: 1.35 }}>{s.title}</h3>
+                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{s.desc}</p>
                   </div>
                 ))}
               </div>
