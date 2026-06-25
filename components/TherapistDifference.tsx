@@ -88,14 +88,15 @@ export default function TherapistDifference() {
           <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.5, color: "var(--grey-text)", flex: 1, minWidth: 220 }}>
             Psychologe, Psychotherapeute, Psychiater*in – drei Berufsgruppen, unterschiedliche Schwerpunkte. Wir erklären Dir die Unterschiede – einfach und verständlich.
           </p>
-          <button
-            style={{ background: "var(--cta)", color: "white", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", padding: "0 24px", height: 48, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 8, flexShrink: 0, marginLeft: "auto", transition: "background 0.2s" }}
+          <a
+            href="/unterschied"
+            style={{ background: "var(--cta)", color: "white", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", padding: "0 24px", height: 48, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 8, flexShrink: 0, marginLeft: "auto", transition: "background 0.2s", textDecoration: "none" }}
             onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
             onMouseLeave={e => (e.currentTarget.style.background = "var(--cta)")}
           >
             Unterschiede im Detail ansehen
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="white"/></svg>
-          </button>
+          </a>
         </div>
 
         {/* ── Tabs + Content ── */}
@@ -284,10 +285,10 @@ export default function TherapistDifference() {
           </div>
 
           {/* CTA */}
-          <button style={{ width: "100%", background: "var(--cta)", color: "white", border: "none", borderRadius: 9999, height: 48, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 15, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 4 }}>
+          <a href="/unterschied" style={{ width: "100%", background: "var(--cta)", color: "white", border: "none", borderRadius: 9999, height: 48, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 15, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 4, textDecoration: "none" }}>
             Unterschiede im Detail ansehen
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="white"/></svg>
-          </button>
+          </a>
         </div>
       </div>
 
