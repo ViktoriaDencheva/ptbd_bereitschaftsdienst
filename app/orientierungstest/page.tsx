@@ -736,10 +736,17 @@ export default function OrientierungstestPage() {
                 const availDot = t.availability === "today" ? "#2DB36A" : t.availability === "thisweek" ? "#F59E0B" : "var(--grey-border)";
                 const footnoteText = specKey === "psychiater" ? "Basierend auf deinen Antworten zu Belastungsgrad, Symptomen und Behandlungsbedarf." : specKey === "psychologe" ? "Basierend auf deinen Antworten zu Lebensthemen, Orientierung und persönlichem Wachstum." : "Basierend auf deinen Antworten zu Angst, Depression und gewünschter Behandlungsform.";
                 return (
-                  <div key={t.id}
-                    style={{ background: "white", borderRadius: 18, border: i === 0 ? `1.5px solid rgba(45,91,141,0.30)` : "1px solid #EBEBEB", boxShadow: i === 0 ? "0 2px 16px rgba(45,91,141,0.08)" : "none", overflow: "hidden", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: "stretch", transition: "border-color 0.2s, box-shadow 0.2s" }}
+                  <div key={t.id} style={{ display: "flex", flexDirection: "column" }}>
+                  {i === 0 && (
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "7px 14px", background: CTA, borderRadius: "14px 14px 0 0", alignSelf: "flex-start" }}>
+                      <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="white"/></svg>
+                      <span style={{ fontFamily: F, fontSize: 12, fontWeight: 700, color: "white", letterSpacing: "0.03em" }}>Beste Übereinstimmung</span>
+                    </div>
+                  )}
+                  <div
+                    style={{ background: "white", borderRadius: i === 0 ? "0 18px 18px 18px" : 18, border: i === 0 ? `1.5px solid ${CTA}` : "1px solid #EBEBEB", boxShadow: i === 0 ? "0 4px 20px rgba(45,91,141,0.12)" : "none", overflow: "hidden", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: "stretch", transition: "border-color 0.2s, box-shadow 0.2s" }}
                     onMouseEnter={e => { setHoveredCard(i); const el = e.currentTarget as HTMLElement; el.style.borderColor = CTA; el.style.boxShadow = "0 0 0 1.5px rgba(45,91,141,0.15), 0 8px 32px rgba(45,91,141,0.10)"; }}
-                    onMouseLeave={e => { setHoveredCard(null); const el = e.currentTarget as HTMLElement; el.style.borderColor = i === 0 ? "rgba(45,91,141,0.30)" : "#EBEBEB"; el.style.boxShadow = i === 0 ? "0 2px 16px rgba(45,91,141,0.08)" : "none"; }}>
+                    onMouseLeave={e => { setHoveredCard(null); const el = e.currentTarget as HTMLElement; el.style.borderColor = i === 0 ? CTA : "#EBEBEB"; el.style.boxShadow = i === 0 ? "0 4px 20px rgba(45,91,141,0.12)" : "none"; }}>
                     {/* Photo */}
                     <div style={{ width: isMobile ? "100%" : 180, height: isMobile ? 210 : "auto", flexShrink: 0, position: "relative" }}>
                       <img src={t.photo} alt={t.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
@@ -792,17 +799,18 @@ export default function OrientierungstestPage() {
                       </div>
                     )}
                   </div>
+                  </div>
                 );
               })}
             </div>
 
             {/* Actions */}
             <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 12, justifyContent: "center", alignItems: "center", marginBottom: 40 }}>
-              <a href="/fachkraefte"
+              <a href={`/fachkraefte?type=${specKey}`}
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, background: CTA, color: "white", borderRadius: 9999, padding: "12px 28px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.25)", transition: "background 0.2s" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                Alle Fachkräfte ansehen
+                Alle passenden {spec.title}en ansehen
               </a>
               <button onClick={() => { setPhase("test"); setCurrentQ(0); setAnswers({}); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, border: `1.5px solid ${CTA}`, background: "white", color: CTA, borderRadius: 9999, padding: "12px 24px", fontFamily: F, fontWeight: 500, fontSize: 14, cursor: "pointer" }}>
