@@ -154,7 +154,7 @@ export default function UnterschiedPage() {
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", transition: "background 0.2s", alignSelf: "flex-start" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                Vergleich starten
+                Jetzt herausfinden
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
               </a>
             </div>
