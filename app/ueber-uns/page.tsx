@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { Plus, Minus } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -289,26 +290,28 @@ export default function UeberUnsPage() {
       {/* ── FAQ ──────────────────────────────────────────────── */}
       <section style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
-          <div style={{ marginBottom: isMobile ? 28 : 40 }}>
-            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>FAQ</p>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: 0 }}>Häufig gestellte Fragen.</h2>
+          <div style={{ textAlign: "center", marginBottom: isMobile ? 28 : 48, display: "flex", flexDirection: "column", gap: 12 }}>
+            <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 28 : 40, lineHeight: "1.3", color: "var(--black)", margin: 0 }}>Häufige Fragen</h2>
+            <p style={{ fontFamily: F, fontWeight: 400, fontSize: isMobile ? 15 : 18, lineHeight: 1.5, color: "var(--grey-text)", margin: 0 }}>
+              Hier findest du Antworten auf die wichtigsten Fragen rund um PTBD.
+            </p>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8, maxWidth: 760 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 0, maxWidth: 864, margin: "0 auto" }}>
             {FAQ.map((item, i) => {
               const open = openFaq === i;
               return (
-                <div key={i} style={{ borderRadius: 14, border: `1.5px solid ${open ? CTA_HEX + "40" : "#E8EEF6"}`, background: open ? "#F5F9FD" : "white", overflow: "hidden", transition: "all 0.2s" }}>
+                <div key={i}>
                   <button
                     onClick={() => setOpenFaq(open ? null : i)}
-                    style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "18px 20px", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}>
-                    <span style={{ fontFamily: F, fontSize: isMobile ? 14 : 15, fontWeight: 600, color: "var(--black)", lineHeight: 1.4 }}>{item.q}</span>
-                    <svg width="18" height="18" fill="none" viewBox="0 0 24 24" style={{ flexShrink: 0, transform: open ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>
-                      <path d="M6 9l6 6 6-6" stroke={open ? CTA_HEX : "var(--grey-border)"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: 16, background: "none", border: "none", borderBottom: open ? "none" : "1px solid var(--grey-border)", cursor: "pointer", textAlign: "left", gap: 16 }}>
+                    <span style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 16 : 20, lineHeight: 1.4, color: "var(--black)", flex: 1 }}>{item.q}</span>
+                    <div style={{ width: 32, height: 32, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      {open ? <Minus size={16} color="var(--black)" /> : <Plus size={16} color="var(--black)" />}
+                    </div>
                   </button>
                   {open && (
-                    <div style={{ padding: "0 20px 18px" }}>
-                      <p style={{ fontFamily: F, fontSize: isMobile ? 13 : 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.75 }}>{item.a}</p>
+                    <div style={{ padding: "12px 16px 16px", fontFamily: F, fontWeight: 400, fontSize: isMobile ? 14 : 16, lineHeight: 1.5, color: "var(--grey-text)", borderBottom: "1px solid var(--grey-border)" }}>
+                      {item.a}
                     </div>
                   )}
                 </div>
