@@ -142,27 +142,18 @@ export default function UeberUnsPage() {
       {/* ── MISSION ──────────────────────────────────────────── */}
       <section style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0", borderTop: "1px solid #F0F4F8" }}>
         <div style={{ ...wrap }}>
-          <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: "1fr 1fr", gap: isMobile ? 32 : 80, alignItems: "center" }}>
-            {/* Quote */}
-            <div style={{ position: "relative" }}>
-              <div style={{ width: 48, height: 4, background: CTA, borderRadius: 2, marginBottom: 24 }} />
-              <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, lineHeight: 1.35, color: "var(--black)", margin: 0 }}>
-                „Niemand sollte monatelang auf psychotherapeutische Hilfe warten müssen."
-              </p>
-            </div>
-            {/* Text */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>Unsere Mission</p>
-              <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", lineHeight: 1.8, margin: 0 }}>
-                Der Psychotherapeutische Bereitschaftsdienst wurde gegründet, weil psychische Gesundheit keine Frage von Wartelisten sein sollte.
-              </p>
-              <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", lineHeight: 1.8, margin: 0 }}>
-                Wir schaffen einen direkten, persönlichen Zugang zu qualifizierten Fachkräften — für alle, die Hilfe suchen, unabhängig von Vorkenntnissen, Kassenstatus oder Wohnort.
-              </p>
-              <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", lineHeight: 1.8, margin: 0 }}>
-                Nicht als kommerzielle Plattform. Sondern als gemeinnütziger Verein, der Menschen in den Mittelpunkt stellt.
-              </p>
-            </div>
+          <div style={{ maxWidth: 760 }}>
+            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 20px" }}>Unsere Mission</p>
+            <div style={{ width: 48, height: 4, background: CTA, borderRadius: 2, marginBottom: 24 }} />
+            <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, lineHeight: 1.35, color: "var(--black)", margin: "0 0 24px" }}>
+              „Niemand sollte monatelang auf psychotherapeutische Hilfe warten müssen."
+            </p>
+            <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", lineHeight: 1.8, margin: "0 0 12px" }}>
+              Der Psychotherapeutische Bereitschaftsdienst wurde gegründet, um psychologische Hilfe schneller, einfacher und persönlicher zugänglich zu machen.
+            </p>
+            <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", lineHeight: 1.8, margin: 0 }}>
+              Nicht als kommerzielle Plattform — sondern als gemeinnütziger Verein, der Menschen in den Mittelpunkt stellt. Für alle, unabhängig von Kassenstatus oder Wohnort.
+            </p>
           </div>
         </div>
       </section>
@@ -249,8 +240,32 @@ export default function UeberUnsPage() {
         </div>
       </section>
 
-      {/* ── WERTE ────────────────────────────────────────────── */}
+      {/* ── VERTRAUEN / TIMELINE ─────────────────────────────── */}
       <section style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
+        <div style={{ ...wrap }}>
+          <div style={{ marginBottom: isMobile ? 32 : 48 }}>
+            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Warum Menschen uns vertrauen</p>
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: 0 }}>Unsere Geschichte, kurz erzählt.</h2>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 0, maxWidth: 720 }}>
+            {TRUST.map((t, i) => (
+              <div key={i} style={{ display: "flex", gap: isMobile ? 16 : 28, paddingBottom: i < TRUST.length - 1 ? 32 : 0 }}>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
+                  <div style={{ width: 12, height: 12, borderRadius: "50%", background: CTA, flexShrink: 0, marginTop: 4 }} />
+                  {i < TRUST.length - 1 && <div style={{ width: 2, flex: 1, background: "#D6E4F7", marginTop: 6 }} />}
+                </div>
+                <div>
+                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 14, color: CTA, margin: "0 0 4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>{t.year}</p>
+                  <p style={{ fontFamily: F, fontSize: isMobile ? 13 : 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>{t.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── WERTE ────────────────────────────────────────────── */}
+      <section style={{ background: "#F5F9FD", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
           <div style={{ textAlign: "center", marginBottom: isMobile ? 32 : 48 }}>
             <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unsere Werte</p>
@@ -265,31 +280,6 @@ export default function UeberUnsPage() {
                 </div>
                 <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 15, color: "var(--black)", margin: 0 }}>{w.title}</p>
                 <p style={{ fontFamily: F, fontSize: isMobile ? 12 : 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{w.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── VERTRAUEN / TIMELINE ─────────────────────────────── */}
-      <section style={{ background: "#F5F9FD", padding: isMobile ? "48px 0" : "72px 0" }}>
-        <div style={{ ...wrap }}>
-          <div style={{ marginBottom: isMobile ? 32 : 48 }}>
-            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Warum Menschen uns vertrauen</p>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: 0 }}>Unsere Geschichte, kurz erzählt.</h2>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 0, maxWidth: 720 }}>
-            {TRUST.map((t, i) => (
-              <div key={i} style={{ display: "flex", gap: isMobile ? 16 : 28, paddingBottom: i < TRUST.length - 1 ? 32 : 0 }}>
-                {/* Line */}
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
-                  <div style={{ width: 12, height: 12, borderRadius: "50%", background: CTA, flexShrink: 0, marginTop: 4 }} />
-                  {i < TRUST.length - 1 && <div style={{ width: 2, flex: 1, background: "#D6E4F7", marginTop: 6 }} />}
-                </div>
-                <div style={{ paddingBottom: i < TRUST.length - 1 ? 0 : 0 }}>
-                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 14, color: CTA, margin: "0 0 4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>{t.year}</p>
-                  <p style={{ fontFamily: F, fontSize: isMobile ? 13 : 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>{t.text}</p>
-                </div>
               </div>
             ))}
           </div>
