@@ -110,7 +110,8 @@ export default function VorgespraechPage() {
                 onClick={() => stepsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
                 style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "inline-flex", alignItems: "center", gap: 6, alignSelf: "flex-start" }}>
                 <span style={{ fontFamily: F, fontSize: 14, color: CTA, fontWeight: 500, textDecoration: "underline", textUnderlineOffset: 3 }}>Wie läuft das Gespräch ab?</span>
-                <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="var(--cta)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" style={{ animation: "subtleBounce 2s ease-in-out infinite" }}><path d="M12 5v14M5 12l7 7 7-7" stroke="var(--cta)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <style>{`@keyframes subtleBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }`}</style>
               </button>
 
             </div>
