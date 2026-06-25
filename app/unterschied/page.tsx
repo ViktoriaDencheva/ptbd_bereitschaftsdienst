@@ -153,7 +153,7 @@ export default function UnterschiedPage() {
 
   const [activeSpec, setActiveSpec] = useState<SpecKey>("psychologe");
   const [compareA, setCompareA] = useState<SpecKey | null>("psychologe");
-  const [compareB, setCompareB] = useState<SpecKey | null>("psychotherapeut");
+  const [compareB, setCompareB] = useState<SpecKey | null>(null);
   const [selectedDecision, setSelectedDecision] = useState<number | null>(null);
   const [hoveredCol, setHoveredCol] = useState<string | null>(null);
   const specKeys = Object.keys(SPECS) as SpecKey[];
