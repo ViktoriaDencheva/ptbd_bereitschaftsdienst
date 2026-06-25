@@ -826,11 +826,17 @@ export default function OrientierungstestPage() {
                 <span style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase" }}>Lieber persönlich?</span>
                 <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 24, lineHeight: 1.25, color: "var(--black)", margin: 0 }}>Sprich direkt mit uns</h2>
                 <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>In einem kostenlosen 30-minütigen Erstgespräch nehmen wir uns Zeit für dich und finden gemeinsam den besten nächsten Schritt.</p>
-                <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 2 }}>
-                  {["Persönliche Empfehlung", "Vertraulich & diskret", "Kostenlos & unverbindlich"].map((text, idx) => (
-                    <div key={idx} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <img src="/icons/icon-check.svg" width={18} height={18} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
-                      <span style={{ fontFamily: F, fontSize: 15, color: "var(--black)", fontWeight: 500 }}>{text}</span>
+                <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 2 }}>
+                  {[
+                    { icon: "/icons/icon-clock.svg", label: "30 Minuten für dich" },
+                    { icon: "/icons/shield-check.svg", label: "Vertraulich & unverbindlich" },
+                    { icon: "/icons/icon-orientierung.svg", label: "Individuelle Empfehlung" },
+                  ].map((f, idx) => (
+                    <div key={idx} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <div style={{ width: 38, height: 38, borderRadius: "50%", background: `${CTA}12`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                        <img src={f.icon} width={20} height={20} alt="" style={{ objectFit: "contain", filter: `brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)` }} />
+                      </div>
+                      <span style={{ fontFamily: F, fontSize: 13, color: "var(--black)", fontWeight: 500, lineHeight: 1.3 }}>{f.label}</span>
                     </div>
                   ))}
                 </div>
