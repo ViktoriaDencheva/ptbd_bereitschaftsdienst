@@ -320,25 +320,22 @@ export default function UnterschiedPage() {
           {(compareA || compareB) ? (() => {
             const active = [compareA, compareB].filter(Boolean) as SpecKey[];
             return (
-              <div key={active.join("-")} style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : active.length === 2 ? "1fr 1fr" : "1fr", gap: 20, animation: "tdFadeIn 0.3s ease" }}>
-                {active.map(k => {
-                  const s = SPECS[k];
+              <div key={active.join("-")} style={{ animation: "tdFadeIn 0.3s ease" }}>
+                {active.length === 1 ? (() => {
+                  const s = SPECS[active[0]];
                   return (
-                    <div key={k} style={{ background: "linear-gradient(135deg, #FFF6F2 0%, #F5FBFF 100%)", borderRadius: 20, padding: isMobile ? 20 : 32, display: "grid", gridTemplateColumns: active.length === 1 && !isMobile ? "1fr 220px" : "1fr", gridTemplateRows: "auto auto", columnGap: 32, rowGap: 24 }}>
-                      {/* Text */}
+                    <div style={{ background: "linear-gradient(135deg, #FFF6F2 0%, #F5FBFF 100%)", borderRadius: 20, padding: isMobile ? 20 : 32, display: "grid", gridTemplateColumns: !isMobile ? "1fr 220px" : "1fr", gridTemplateRows: "auto auto", columnGap: 32, rowGap: 24 }}>
                       <div style={{ gridColumn: 1, gridRow: 1, display: "flex", flexDirection: "column", gap: 12 }}>
                         <span style={{ display: "inline-flex", alignSelf: "flex-start", background: "var(--blue-subtle)", borderRadius: 9999, padding: "4px 14px", fontFamily: F, fontWeight: 400, fontSize: 13, color: "var(--black)" }}>{s.tagline}</span>
-                        <h3 style={{ fontFamily: F, fontWeight: 500, fontSize: active.length === 1 ? (isMobile ? 24 : 32) : (isMobile ? 20 : 24), lineHeight: 1.2, color: s.color, margin: 0 }}>{s.label}</h3>
+                        <h3 style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 24 : 32, lineHeight: 1.2, color: s.color, margin: 0 }}>{s.label}</h3>
                         <p style={{ fontFamily: F, fontSize: 14, lineHeight: 1.6, color: "var(--grey-text)", margin: 0 }}>{s.desc}</p>
                       </div>
-                      {/* Illustration — only when single card on desktop */}
-                      {active.length === 1 && !isMobile && (
+                      {!isMobile && (
                         <div style={{ gridColumn: 2, gridRow: "1 / 3", display: "flex", alignItems: "flex-start", justifyContent: "center" }}>
                           <img src={s.image} alt={s.label} style={{ width: "100%", maxWidth: 200, height: "auto", objectFit: "contain" }} />
                         </div>
                       )}
-                      {/* Details grid */}
-                      <div style={{ gridColumn: active.length === 1 && !isMobile ? "1 / 2" : 1, gridRow: 2, display: "grid", gridTemplateColumns: active.length === 2 ? "1fr" : (isMobile ? "1fr 1fr" : "1fr 1fr 1fr"), gap: 10 }}>
+                      <div style={{ gridColumn: !isMobile ? "1 / 2" : 1, gridRow: 2, display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr", gap: 10 }}>
                         {s.details.map((d, i) => (
                           <div key={i} style={{ background: "white", borderRadius: 12, padding: "14px", border: `1px solid ${s.color}18`, display: "flex", gap: 12, alignItems: "flex-start" }}>
                             <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#D6EBFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
@@ -353,7 +350,50 @@ export default function UnterschiedPage() {
                       </div>
                     </div>
                   );
-                })}
+                })() : (() => {
+                  const sA = SPECS[active[0]];
+                  const sB = SPECS[active[1]];
+                  return (
+                    <div style={{ background: "linear-gradient(135deg, #FFF6F2 0%, #F5FBFF 100%)", borderRadius: 20, padding: isMobile ? 16 : 28 }}>
+                      {/* Header row */}
+                      <div style={{ display: "grid", gridTemplateColumns: isMobile ? "36px 1fr 1fr" : "200px 1fr 1fr", gap: isMobile ? 8 : 16, marginBottom: 16, paddingBottom: 16, borderBottom: "1px solid rgba(0,0,0,0.07)" }}>
+                        <div />
+                        {[sA, sB].map(s => (
+                          <div key={s.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, textAlign: "center" }}>
+                            <img src={s.icon} alt={s.label} width={32} height={32} style={{ filter: `brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)` }} />
+                            <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 16, color: s.color, lineHeight: 1.2 }}>{s.label}</span>
+                            <span style={{ fontFamily: F, fontSize: 11, color: "var(--grey-text)" }}>{s.tagline}</span>
+                          </div>
+                        ))}
+                      </div>
+                      {/* Comparison rows */}
+                      {sA.details.map((dA, i) => {
+                        const dB = sB.details[i];
+                        return (
+                          <div key={i} style={{ display: "grid", gridTemplateColumns: isMobile ? "36px 1fr 1fr" : "200px 1fr 1fr", gap: isMobile ? 8 : 16, padding: "14px 0", borderBottom: i < sA.details.length - 1 ? "1px solid rgba(0,0,0,0.05)" : "none", alignItems: "flex-start" }}>
+                            {/* Icon + label */}
+                            <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: isMobile ? "flex-start" : "center", gap: isMobile ? 4 : 10 }}>
+                              <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#D6EBFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                                {DETAIL_ICONS[i]}
+                              </div>
+                              {!isMobile && <span style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--grey-text)", textTransform: "uppercase", letterSpacing: "0.05em" }}>{dA.label}</span>}
+                            </div>
+                            {/* Value A */}
+                            <div style={{ background: `${sA.color}08`, borderRadius: 10, padding: "10px 14px", borderLeft: `3px solid ${sA.color}40` }}>
+                              {isMobile && <p style={{ fontFamily: F, fontWeight: 700, fontSize: 10, color: "var(--grey-text)", margin: "0 0 4px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{dA.label}</p>}
+                              <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.4 }}>{dA.value}</p>
+                            </div>
+                            {/* Value B */}
+                            <div style={{ background: `${sB.color}08`, borderRadius: 10, padding: "10px 14px", borderLeft: `3px solid ${sB.color}40` }}>
+                              {isMobile && <p style={{ fontFamily: F, fontWeight: 700, fontSize: 10, color: "var(--grey-text)", margin: "0 0 4px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{dB.label}</p>}
+                              <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.4 }}>{dB.value}</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
               </div>
             );
           })() : (
