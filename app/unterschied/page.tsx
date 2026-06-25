@@ -328,7 +328,7 @@ export default function UnterschiedPage() {
                       {/* Text */}
                       <div style={{ gridColumn: 1, gridRow: 1, display: "flex", flexDirection: "column", gap: 12 }}>
                         <span style={{ display: "inline-flex", alignSelf: "flex-start", background: "var(--blue-subtle)", borderRadius: 9999, padding: "4px 14px", fontFamily: F, fontWeight: 400, fontSize: 13, color: "var(--black)" }}>{s.tagline}</span>
-                        <h3 style={{ fontFamily: F, fontWeight: 500, fontSize: active.length === 1 ? (isMobile ? 24 : 32) : (isMobile ? 20 : 24), lineHeight: 1.2, color: "var(--black)", margin: 0 }}>{s.label}</h3>
+                        <h3 style={{ fontFamily: F, fontWeight: 500, fontSize: active.length === 1 ? (isMobile ? 24 : 32) : (isMobile ? 20 : 24), lineHeight: 1.2, color: s.color, margin: 0 }}>{s.label}</h3>
                         <p style={{ fontFamily: F, fontSize: 14, lineHeight: 1.6, color: "var(--grey-text)", margin: 0 }}>{s.desc}</p>
                       </div>
                       {/* Illustration — only when single card on desktop */}
