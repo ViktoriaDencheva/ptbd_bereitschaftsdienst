@@ -354,7 +354,7 @@ export default function UnterschiedPage() {
                   const sA = SPECS[active[0]];
                   const sB = SPECS[active[1]];
                   return (
-                    <div style={{ background: "white", borderRadius: 20, overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
+                    <div style={{ background: "white", borderRadius: 20, overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.07)", width: "100%", boxSizing: "border-box" }}>
                       {/* Profession headers */}
                       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr", gap: 0 }}>
                         {[sA, sB].map((s, idx) => (
@@ -365,9 +365,9 @@ export default function UnterschiedPage() {
                             borderRight: idx === 0 ? "1px solid rgba(0,0,0,0.06)" : "none",
                             display: "flex", flexDirection: "column", alignItems: "center", gap: 8, textAlign: "center"
                           }}>
-                            <img src={s.image} alt={s.label} style={{ width: isMobile ? 64 : 88, height: isMobile ? 64 : 88, objectFit: "contain" }} />
-                            <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 18, color: s.color }}>{s.label}</span>
-                            <span style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", lineHeight: 1.3 }}>{s.tagline}</span>
+                            <img src={s.image} alt={s.label} style={{ width: isMobile ? 48 : 88, height: isMobile ? 48 : 88, objectFit: "contain" }} />
+                            <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 18, color: s.color }}>{s.label}</span>
+                            {!isMobile && <span style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", lineHeight: 1.3 }}>{s.tagline}</span>}
                           </div>
                         ))}
                       </div>
