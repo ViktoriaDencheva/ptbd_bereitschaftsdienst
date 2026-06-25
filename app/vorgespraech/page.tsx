@@ -75,25 +75,23 @@ export default function VorgespraechPage() {
 
             {/* Right: content */}
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: isMobile ? 0 : 24, paddingBottom: isMobile ? 0 : 24 }}>
-              {/* Badge — interactive hover */}
-              <div
-                style={{ display: "inline-block", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "5px 16px", marginBottom: 18, alignSelf: "flex-start", textAlign: "center", cursor: "default", transition: "background 0.2s, box-shadow 0.2s" }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--blue-ultra-light)"; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.18)"; }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "transparent"; el.style.boxShadow = "none"; }}>
-                <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>Kostenlos &amp; vertraulich</span>
+              {/* Badges row */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 18 }}>
+                <div
+                  style={{ display: "inline-block", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "5px 16px", alignSelf: "flex-start", textAlign: "center", cursor: "default", transition: "background 0.2s, box-shadow 0.2s" }}
+                  onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--blue-ultra-light)"; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.18)"; }}
+                  onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "transparent"; el.style.boxShadow = "none"; }}>
+                  <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>Kostenlos &amp; vertraulich</span>
+                </div>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "var(--blue-ultra-light)", border: `1px solid ${CTA}30`, borderRadius: 9999, padding: "5px 12px" }}>
+                  <span style={{ fontSize: 13 }}>⭐</span>
+                  <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA }}>Über 500 Gespräche</span>
+                </div>
               </div>
 
-              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: 12, marginBottom: 14 }}>
-                <h1 style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 28 : 40, lineHeight: 1.2, color: "var(--black)", margin: 0 }}>
-                  Kostenloses<br />Orientierungsgespräch
-                </h1>
-                {!isMobile && (
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "var(--blue-ultra-light)", border: `1px solid ${CTA}30`, borderRadius: 9999, padding: "5px 12px", whiteSpace: "nowrap", marginTop: 8, flexShrink: 0 }}>
-                    <span style={{ fontSize: 13 }}>⭐</span>
-                    <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA }}>Über 500 Gespräche</span>
-                  </div>
-                )}
-              </div>
+              <h1 style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 28 : 40, lineHeight: 1.2, color: "var(--black)", margin: "0 0 14px" }}>
+                Kostenloses<br />Orientierungsgespräch
+              </h1>
               <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 17, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 28px" }}>
                 Unsicher, wo du anfangen sollst? In einem 30-minütigen Gespräch hören wir dir zu, helfen dir deine Situation einzuordnen und zeigen dir, welche Unterstützung für dich sinnvoll sein könnte.
               </p>
