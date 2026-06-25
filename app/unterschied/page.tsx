@@ -258,62 +258,100 @@ export default function UnterschiedPage() {
       </section>
 
       {/* ── INTERACTIVE COMPARISON ───────────────────────────── */}
-      <section id="vergleich" style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
+      <section id="vergleich" style={{ background: "var(--blue-ultra-light)", padding: isMobile ? "40px 0" : "56px 0" }}>
         <div style={{ ...wrap }}>
           <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Im Detail</p>
-          <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 32px" }}>Interaktiver Vergleich</h2>
+          <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 22 : 32, lineHeight: 1.3, color: "var(--black)", margin: "0 0 32px" }}>Interaktiver Vergleich</h2>
 
-          <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "220px 1fr", gap: isMobile ? 20 : 32, alignItems: "flex-start" }}>
-            {/* Left: tab buttons */}
-            <div style={{ display: "flex", flexDirection: isMobile ? "row" : "column", gap: 8 }}>
+          <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "306px 1fr", gap: isMobile ? 16 : 20, alignItems: "start" }}>
+
+            {/* Left: tab buttons — same style as TherapistDifference */}
+            <div style={{ display: "flex", flexDirection: isMobile ? "row" : "column", gap: 8, overflowX: isMobile ? "auto" : undefined }}>
               {specKeys.map(k => {
                 const s = SPECS[k];
                 const active = activeSpec === k;
                 return (
-                  <button key={k} onClick={() => setActiveSpec(k)}
-                    style={{ display: "flex", alignItems: "center", gap: 10, padding: isMobile ? "10px 14px" : "14px 18px", borderRadius: 14, border: active ? `2px solid ${s.color}` : "2px solid #EAF0FA", background: active ? s.lightBg : "white", cursor: "pointer", transition: "all 0.18s", flex: isMobile ? 1 : undefined, justifyContent: isMobile ? "center" : "flex-start" }}>
-                    <img src={s.icon} width={20} height={20} alt="" style={{ objectFit: "contain", opacity: active ? 1 : 0.6 }} />
-                    <span style={{ fontFamily: F, fontWeight: active ? 700 : 500, fontSize: 14, color: active ? s.color : "var(--grey-text)" }}>{s.label}</span>
+                  <button key={k} onClick={() => setActiveSpec(k)} style={{
+                    display: "flex", alignItems: "center", justifyContent: "space-between",
+                    gap: 12,
+                    width: isMobile ? undefined : (active ? 306 : 300),
+                    height: isMobile ? undefined : (active ? 64 : 60),
+                    padding: isMobile ? "10px 14px" : "0 16px",
+                    flexShrink: 0,
+                    background: active ? "var(--red-bg)" : "white",
+                    border: "none",
+                    borderLeft: isMobile ? undefined : (active ? "2px solid var(--red-soft)" : "none"),
+                    borderBottom: isMobile ? (active ? "2px solid var(--red-soft)" : "none") : undefined,
+                    borderRadius: isMobile ? 9999 : "0 8px 8px 0",
+                    cursor: "pointer",
+                    transition: "all 0.2s",
+                    boxShadow: active ? "0 2px 12px rgba(0,0,0,0.07)" : "none",
+                  }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <img src={s.icon} width={22} height={22} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
+                      <span style={{ fontFamily: F, fontWeight: active ? 600 : 400, fontSize: 16, color: "var(--black)", whiteSpace: "nowrap" }}>{s.label}</span>
+                    </div>
+                    {!isMobile && (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="#1A1A1A"/>
+                      </svg>
+                    )}
                   </button>
                 );
               })}
             </div>
 
-            {/* Right: detail card */}
-            <div style={{ background: spec.lightBg, borderRadius: 24, padding: isMobile ? "24px 20px" : "36px 40px", border: `1.5px solid ${spec.color}30` }}>
-              {/* Header */}
-              <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 16 }}>
-                <div style={{ width: 60, height: 60, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${spec.color}25`, flexShrink: 0, overflow: "hidden" }}>
-                  <img src={spec.image} width={60} height={60} alt="" style={{ objectFit: activeSpec === "sozialberater" ? "cover" : "contain", width: activeSpec === "sozialberater" ? 60 : 40, height: activeSpec === "sozialberater" ? 60 : 40 }} />
-                </div>
-                <div>
-                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: spec.color, letterSpacing: "0.1em", textTransform: "uppercase", margin: 0 }}>{spec.tagline}</p>
-                  <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "2px 0 0" }}>{spec.label}</h3>
-                </div>
+            {/* Right: content card — same style as TherapistDifference */}
+            <div key={activeSpec} style={{
+              background: "linear-gradient(135deg, #FFF6F2 0%, #F5FBFF 100%)",
+              borderRadius: 20,
+              padding: isMobile ? 20 : 32,
+              display: "grid",
+              gridTemplateColumns: isMobile ? "1fr" : "1fr 220px",
+              gridTemplateRows: "auto auto",
+              columnGap: 32,
+              rowGap: 24,
+              animation: "tdFadeIn 0.3s ease",
+            }}>
+              {/* Text col */}
+              <div style={{ gridColumn: 1, gridRow: 1, display: "flex", flexDirection: "column", gap: 14 }}>
+                <span style={{ display: "inline-flex", alignSelf: "flex-start", background: "var(--blue-subtle)", borderRadius: 9999, padding: "4px 14px", fontFamily: F, fontWeight: 400, fontSize: 14, color: "var(--black)" }}>
+                  {spec.tagline}
+                </span>
+                <h3 style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 24 : 32, lineHeight: 1.2, color: "var(--black)", margin: 0 }}>
+                  {spec.label}
+                </h3>
+                <p style={{ fontFamily: F, fontWeight: 400, fontSize: 15, lineHeight: 1.6, color: "var(--grey-text)", margin: 0 }}>
+                  {spec.desc}
+                </p>
               </div>
-              <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 24px" }}>{spec.desc}</p>
 
-              {/* Detail cards grid */}
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(3, 1fr)", gap: 12, marginBottom: 24 }}>
-                {spec.details.map((d, i) => (
-                  <div key={i} style={{ background: "white", borderRadius: 14, padding: "16px 14px", border: `1px solid ${spec.color}20` }}>
-                    <div style={{ fontSize: 20, marginBottom: 6 }}>{d.icon}</div>
-                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: spec.color, margin: "0 0 4px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{d.label}</p>
-                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.5 }}>{d.value}</p>
+              {/* Illustration */}
+              {!isMobile && (
+                <div style={{ gridColumn: 2, gridRow: "1 / 3", display: "flex", alignItems: "flex-start", justifyContent: "center" }}>
+                  <img src={spec.image} alt={spec.label}
+                    style={{ width: "100%", maxWidth: 200, height: "auto", objectFit: activeSpec === "sozialberater" ? "cover" : "contain", borderRadius: activeSpec === "sozialberater" ? 16 : 0 }} />
+                </div>
+              )}
+
+              {/* 3 info columns */}
+              <div style={{ gridColumn: isMobile ? 1 : "1 / 2", gridRow: 2, display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 16 }}>
+                {[spec.details[0], spec.details[1], spec.details[4]].map((d, i) => (
+                  <div key={i} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <div style={{ width: 40, height: 40, borderRadius: "50%", background: "#D6EBFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                        <span style={{ fontSize: 18 }}>{d.icon}</span>
+                      </div>
+                      <span style={{ fontFamily: F, fontWeight: 600, fontSize: 15, color: "var(--black)" }}>{d.label}</span>
+                    </div>
+                    <span style={{ fontFamily: F, fontWeight: 400, fontSize: 14, lineHeight: 1.5, color: "var(--grey-text)" }}>{d.value}</span>
                   </div>
                 ))}
               </div>
-
-              <a href="/fachkraefte"
-                style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 44, padding: "0 22px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", transition: "background 0.2s" }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                {spec.label} finden
-                <img src="/icons/arrow-right.svg" width={14} height={14} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
-              </a>
             </div>
           </div>
         </div>
+        <style>{`@keyframes tdFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       </section>
 
       {/* ── DECISION HELPER ──────────────────────────────────── */}
