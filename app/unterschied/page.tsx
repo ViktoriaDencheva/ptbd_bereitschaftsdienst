@@ -337,14 +337,14 @@ export default function UnterschiedPage() {
                       )}
                       <div style={{ gridColumn: !isMobile ? "1 / 2" : 1, gridRow: 2, display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr", gap: 10 }}>
                         {s.details.map((d, i) => (
-                          <div key={i} style={{ background: "white", borderRadius: 12, padding: "14px", border: `1px solid ${s.color}18`, display: "flex", gap: 12, alignItems: "flex-start" }}>
-                            <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#D6EBFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                              {DETAIL_ICONS[i]}
+                          <div key={i} style={{ background: "white", borderRadius: 12, padding: "16px", border: `1px solid ${s.color}18`, display: "flex", flexDirection: "column", gap: 10 }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                              <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#D6EBFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                                {DETAIL_ICONS[i]}
+                              </div>
+                              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: "var(--grey-text)", margin: 0, textTransform: "uppercase", letterSpacing: "0.06em" }}>{d.label}</p>
                             </div>
-                            <div>
-                              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: "var(--grey-text)", margin: "0 0 2px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{d.label}</p>
-                              <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.4 }}>{d.value}</p>
-                            </div>
+                            <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.5 }}>{d.value}</p>
                           </div>
                         ))}
                       </div>
