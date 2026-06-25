@@ -431,7 +431,7 @@ export default function UnterschiedPage() {
                     <span style={{ fontFamily: F, fontWeight: 700, fontSize: 13, color: ex.color, background: ex.bg, borderRadius: 9999, padding: "2px 12px", border: `1px solid ${ex.color}30` }}>{ex.resultLabel}</span>
                   </div>
                   {ex.result !== "gespräch" ? (
-                    <a href={`/fachkraefte?typ=${ex.result}`} style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 36, padding: "0 16px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", flexShrink: 0 }}>
+                    <a href={`/fachkraefte?fach=${ex.result}`} style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 36, padding: "0 16px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", flexShrink: 0 }}>
                       Jetzt suchen
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </a>
