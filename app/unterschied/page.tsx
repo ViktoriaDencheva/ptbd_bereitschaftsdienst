@@ -339,7 +339,7 @@ export default function UnterschiedPage() {
                         {s.details.map((d, i) => (
                           <div key={i} style={{ background: "white", borderRadius: 12, padding: "16px", border: `1px solid ${s.color}18`, display: "flex", flexDirection: "column", gap: 10 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                              <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#D6EBFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                              <div style={{ width: 32, height: 32, borderRadius: "50%", background: "#D6EBFF", display: "grid", placeItems: "center", flexShrink: 0 }}>
                                 {DETAIL_ICONS[i]}
                               </div>
                               <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: "var(--grey-text)", margin: 0, textTransform: "uppercase", letterSpacing: "0.06em" }}>{d.label}</p>
@@ -378,7 +378,7 @@ export default function UnterschiedPage() {
                           <div key={i} style={{ borderBottom: i < sA.details.length - 1 ? "1px solid #F0F0F0" : "none" }}>
                             {/* Row label */}
                             <div style={{ display: "flex", alignItems: "center", gap: 10, padding: isMobile ? "12px 16px 6px" : "16px 28px 8px", background: isMobile ? "#F3F8FF" : "#FAFAFA" }}>
-                              <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#D6EBFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, lineHeight: 0 }}>
+                              <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#D6EBFF", display: "grid", placeItems: "center", flexShrink: 0 }}>
                                 {DETAIL_ICONS[i]}
                               </div>
                               <span style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: "var(--grey-text)", textTransform: "uppercase", letterSpacing: "0.07em" }}>{dA.label}</span>
