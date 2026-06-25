@@ -73,7 +73,8 @@ const SPECS = {
   },
 };
 
-const QUICK_ROWS = [
+type CellVal = boolean | "partial";
+const QUICK_ROWS: { label: string; psychologe: CellVal; psychotherapeut: CellVal; psychiater: CellVal }[] = [
   { label: "Gespräche / Beratung", psychologe: true, psychotherapeut: true, psychiater: true },
   { label: "Diagnostik / Tests",   psychologe: true, psychotherapeut: true, psychiater: true },
   { label: "Psychotherapie",        psychologe: false, psychotherapeut: true, psychiater: "partial" },
