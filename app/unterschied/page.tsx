@@ -167,7 +167,7 @@ export default function UnterschiedPage() {
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section style={{ background: "white", padding: isMobile ? "32px 0 40px" : "40px 0 64px" }}>
         <div style={{ ...wrap }}>
-          <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column-reverse" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 1fr", gap: isMobile ? 24 : 64, alignItems: "center" }}>
+          <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 1fr", gap: isMobile ? 24 : 64, alignItems: "center" }}>
             {/* Left */}
             <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
               <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 14px" }}>Die Unterschiede im Überblick</p>
