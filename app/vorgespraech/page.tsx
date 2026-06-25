@@ -83,12 +83,12 @@ export default function VorgespraechPage() {
                 <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>Kostenlos &amp; vertraulich</span>
               </div>
 
-              <div style={{ position: "relative", marginBottom: 14, display: "inline-block" }}>
+              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: 12, marginBottom: 14 }}>
                 <h1 style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 28 : 40, lineHeight: 1.2, color: "var(--black)", margin: 0 }}>
                   Kostenloses<br />Orientierungsgespräch
                 </h1>
                 {!isMobile && (
-                  <div style={{ position: "absolute", top: 4, left: "calc(100% + 12px)", display: "inline-flex", alignItems: "center", gap: 6, background: "var(--blue-ultra-light)", border: `1px solid ${CTA}30`, borderRadius: 9999, padding: "5px 12px", whiteSpace: "nowrap" }}>
+                  <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "var(--blue-ultra-light)", border: `1px solid ${CTA}30`, borderRadius: 9999, padding: "5px 12px", whiteSpace: "nowrap", marginTop: 8, flexShrink: 0 }}>
                     <span style={{ fontSize: 13 }}>⭐</span>
                     <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA }}>Über 500 Gespräche</span>
                   </div>
