@@ -226,21 +226,21 @@ function getRecommendation(answers: Record<string, string[]>): SpecialistKey {
 }
 
 // ── Mock therapists per specialist type ──────────────────────
-const RESULT_THERAPISTS: Record<string, { id: number; name: string; role: string; photo: string; tags: string[]; match: number }[]> = {
+const RESULT_THERAPISTS: Record<string, { id: number; name: string; role: string; photo: string; tags: string[]; match: number; availability: string; availabilityText: string; nextAppointment: string; angebot: string; kassenerstattung: boolean; experience: number; location: string; verified: boolean }[]> = {
   psychotherapeut: [
-    { id: 2,  name: "Michael Weber",        role: "Psychologischer Psychotherapeut", photo: "/fachkraefte/fachkraft-2.jpg", tags: ["Burnout", "Stress", "Angststörungen"], match: 98 },
-    { id: 18, name: "Tobias Lehner",        role: "Psychologischer Psychotherapeut", photo: "/fachkraefte/fachkraft-6.jpg", tags: ["Phobien", "Panikattacken", "Angst"], match: 93 },
-    { id: 9,  name: "Elena Koch",           role: "Psychotherapeutin",               photo: "/fachkraefte/fachkraft-3.jpg", tags: ["Trauma", "PTBS", "Depression"],       match: 88 },
+    { id: 2,  name: "Michael Weber",         role: "Psychologischer Psychotherapeut", photo: "/fachkraefte/fachkraft-2.jpg", tags: ["Burnout", "Stress", "Angststörungen"],         match: 98, availability: "later",    availabilityText: "In 2 Wochen",         nextAppointment: "28. Mai, 10:00",      angebot: "online",    kassenerstattung: true,  experience: 8,  location: "Graz",      verified: true },
+    { id: 18, name: "Tobias Lehner",          role: "Psychologischer Psychotherapeut", photo: "/fachkraefte/fachkraft-6.jpg", tags: ["Phobien", "Panikattacken", "Angst", "Stress"], match: 93, availability: "today",    availabilityText: "Heute verfügbar",     nextAppointment: "Heute, 14:00",        angebot: "beides",    kassenerstattung: false, experience: 6,  location: "Wien",      verified: true },
+    { id: 9,  name: "Elena Koch",             role: "Psychotherapeutin",               photo: "/fachkraefte/fachkraft-3.jpg", tags: ["Trauma", "PTBS", "Depression"],                match: 88, availability: "thisweek", availabilityText: "Diese Woche",         nextAppointment: "Mi. 21. Mai, 15:00",  angebot: "beides",    kassenerstattung: true,  experience: 9,  location: "Salzburg",  verified: true },
   ],
   psychologe: [
-    { id: 1,  name: "Dr. Sarah Müller",     role: "Klinische Psychologin",           photo: "/fachkraefte/fachkraft-1.jpg", tags: ["Lebenskrisen", "Stress", "Orientierung"], match: 96 },
-    { id: 7,  name: "Sophia Gruber",        role: "Psychologin (M.Sc.)",             photo: "/fachkraefte/fachkraft-1.jpg", tags: ["Selbstwert", "Angst", "Beziehungen"],     match: 91 },
-    { id: 11, name: "Dr. Christine Steiner",role: "Klinische Psychologin",           photo: "/fachkraefte/fachkraft-5.jpg", tags: ["Depression", "Stress", "Schlafprobleme"], match: 85 },
+    { id: 1,  name: "Dr. Sarah Müller",       role: "Klinische Psychologin",           photo: "/fachkraefte/fachkraft-1.jpg", tags: ["Lebenskrisen", "Stress", "Orientierung"],     match: 96, availability: "today",    availabilityText: "Heute verfügbar",     nextAppointment: "Heute, 16:00",        angebot: "beides",    kassenerstattung: true,  experience: 12, location: "Wien",      verified: true },
+    { id: 7,  name: "Sophia Gruber",           role: "Psychologin (M.Sc.)",             photo: "/fachkraefte/fachkraft-1.jpg", tags: ["Selbstwert", "Angst", "Beziehungen"],         match: 91, availability: "today",    availabilityText: "Heute verfügbar",     nextAppointment: "Heute, 19:00",        angebot: "online",    kassenerstattung: false, experience: 4,  location: "Wien",      verified: true },
+    { id: 11, name: "Dr. Christine Steiner",   role: "Klinische Psychologin",           photo: "/fachkraefte/fachkraft-5.jpg", tags: ["Depression", "Stress", "Schlafprobleme"],     match: 85, availability: "later",    availabilityText: "In 2 Wochen",         nextAppointment: "3. Jun, 11:00",       angebot: "beides",    kassenerstattung: true,  experience: 14, location: "Innsbruck", verified: true },
   ],
   psychiater: [
-    { id: 3,  name: "Dr. Anna Schmidt",     role: "Fachärztin für Psychiatrie",      photo: "/fachkraefte/fachkraft-3.jpg", tags: ["Trauma", "Angststörungen", "Depression"],  match: 97 },
-    { id: 8,  name: "Dr. Klaus Wagner",     role: "Facharzt für Psychiatrie",        photo: "/fachkraefte/fachkraft-2.jpg", tags: ["Depression", "Bipolare Störung", "Medikation"], match: 92 },
-    { id: 14, name: "Dr. Martin Wolf",      role: "Facharzt für Psychiatrie",        photo: "/fachkraefte/fachkraft-2.jpg", tags: ["ADHS", "Angststörungen", "Depression"],    match: 86 },
+    { id: 3,  name: "Dr. Anna Schmidt",        role: "Fachärztin für Psychiatrie",      photo: "/fachkraefte/fachkraft-3.jpg", tags: ["Trauma", "Angststörungen", "Depression"],     match: 97, availability: "thisweek", availabilityText: "Diese Woche",         nextAppointment: "Fr. 16. Mai, 14:00",  angebot: "vor-ort",   kassenerstattung: true,  experience: 15, location: "Salzburg",  verified: true },
+    { id: 8,  name: "Dr. Klaus Wagner",         role: "Facharzt für Psychiatrie",        photo: "/fachkraefte/fachkraft-2.jpg", tags: ["Depression", "Bipolare Störung", "Medikation"], match: 92, availability: "thisweek", availabilityText: "Diese Woche",       nextAppointment: "Do. 22. Mai, 10:00",  angebot: "vor-ort",   kassenerstattung: true,  experience: 20, location: "Graz",      verified: true },
+    { id: 14, name: "Dr. Martin Wolf",          role: "Facharzt für Psychiatrie",        photo: "/fachkraefte/fachkraft-2.jpg", tags: ["ADHS", "Angststörungen", "Depression"],       match: 86, availability: "later",    availabilityText: "In 3 Wochen",         nextAppointment: "5. Jun, 09:00",       angebot: "vor-ort",   kassenerstattung: true,  experience: 22, location: "Wien",      verified: true },
   ],
 };
 
@@ -574,9 +574,14 @@ export default function OrientierungstestPage() {
 
             {/* ── Recommendation banner: text over full-width image ── */}
             <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 320 : 380, marginBottom: 40, display: "flex", alignItems: "center" }}>
-              {/* Background image */}
+              {/* Background image — slight zoom to fill space */}
               <img src="/empfehlungs-page-banner.jpg" alt=""
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center" }} />
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "60% center", transform: "scale(1.18)", transformOrigin: "60% center" }} />
+              {/* Decorative organic shapes right side */}
+              {!isMobile && <>
+                <div style={{ position: "absolute", right: -60, top: "50%", transform: "translateY(-60%)", width: 340, height: 340, borderRadius: "50%", background: `${CTA}06`, zIndex: 0, pointerEvents: "none" }} />
+                <div style={{ position: "absolute", right: 60, bottom: -60, width: 180, height: 180, borderRadius: "50%", background: `${CTA}05`, zIndex: 0, pointerEvents: "none" }} />
+              </>}
               {/* Gradient: strong on left so text is readable, fades to transparent on right */}
               <div style={{ position: "absolute", inset: 0, background: isMobile
                 ? "linear-gradient(to bottom, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.92) 70%, rgba(236,245,255,0.5) 100%)"
@@ -602,7 +607,33 @@ export default function OrientierungstestPage() {
                 <div>
                   <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 10px" }}>Deine Empfehlung im Überblick</p>
                   <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 20px", lineHeight: 1.2 }}>Was bedeutet {spec.title}?</h2>
-                  <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 16, color: "var(--grey-text)", margin: 0, lineHeight: 1.8 }}>{spec.why}</p>
+                  <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 16, color: "var(--grey-text)", margin: "0 0 20px", lineHeight: 1.8 }}>{spec.why}</p>
+                  {/* Feature chips */}
+                  <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                    {(specKey === "psychiater"
+                      ? [
+                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Ärztliche Behandlung" },
+                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M10.5 20H4a2 2 0 01-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H20a2 2 0 012 2v3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/><circle cx="17" cy="17" r="4" stroke="currentColor" strokeWidth="1.8"/><path d="M17 15v2l1 1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Medikamente möglich" },
+                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Therapie kombiniert" },
+                        ]
+                      : specKey === "psychologe"
+                      ? [
+                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Keine Diagnose nötig" },
+                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.8"/></svg>, label: "Flexibel & individuell" },
+                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Lebenskrisen & Beratung" },
+                        ]
+                      : [
+                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Zugelassene Fachkraft" },
+                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.8"/><path d="M2 10h20M6 15h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Kassenerstattung" },
+                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8"/><path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Strukturierte Therapie" },
+                        ]
+                    ).map((chip, i) => (
+                      <div key={i} style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "var(--blue-ultra-light)", borderRadius: 9999, padding: "7px 14px", color: CTA }}>
+                        {chip.icon}
+                        <span style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: CTA }}>{chip.label}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 {/* Right: differences teaser card — aligns with eyebrow */}
                 {!isMobile && (
@@ -628,32 +659,23 @@ export default function OrientierungstestPage() {
               </div>
             </div>
 
-            {/* Why cards — uniform CTA-blue timeline, hoverable items */}
-            <div style={{ marginBottom: 64, background: "#F8FAFE", borderRadius: 24, padding: isMobile ? "28px 20px" : "44px 40px" }}>
-              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 36px", textAlign: isMobile ? "left" : "center" }}>
+            {/* Why cards — premium 4-card grid */}
+            <div style={{ marginBottom: 64 }}>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 28px" }}>
                 Warum empfehlen wir eine:n {spec.title}?
               </h2>
-              <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", position: "relative", gap: isMobile ? 0 : 8 }}>
-                {/* Connecting line desktop */}
-                {!isMobile && (
-                  <div style={{ position: "absolute", top: 28, left: "calc(12.5% + 4px)", right: "calc(12.5% + 4px)", height: 1.5, background: `${CTA}25`, zIndex: 0 }} />
-                )}
+              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: isMobile ? 12 : 20 }}>
                 {WHY_CARDS[specKey].map((card, i) => (
                   <div key={i}
-                    style={{ flex: 1, display: "flex", flexDirection: isMobile ? "row" : "column", alignItems: isMobile ? "flex-start" : "center", gap: isMobile ? 14 : 14, position: "relative", zIndex: 1, padding: isMobile ? "14px 12px" : "16px 12px 20px", borderRadius: 16, transition: "background 0.2s, box-shadow 0.2s, transform 0.18s", cursor: "default", marginBottom: isMobile && i < 3 ? 4 : 0 }}
-                    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.10)"; el.style.transform = "translateY(-3px)"; }}
-                    onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "transparent"; el.style.boxShadow = "none"; el.style.transform = "translateY(0)"; }}>
-                    {/* Icon circle — uniform CTA blue */}
-                    <div style={{ flexShrink: 0, width: 56, height: 56, borderRadius: "50%", background: "var(--blue-ultra-light)", border: `2px solid ${CTA}22`, display: "flex", alignItems: "center", justifyContent: "center", color: CTA, position: "relative", transition: "background 0.2s, box-shadow 0.2s" }}>
+                    style={{ background: "white", border: "1px solid #EAF0FA", borderRadius: 20, padding: isMobile ? "20px 16px" : "28px 22px", display: "flex", flexDirection: "column", gap: 16, transition: "border-color 0.2s, box-shadow 0.2s, transform 0.18s", cursor: "default" }}
+                    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = CTA; el.style.boxShadow = "0 6px 24px rgba(45,91,141,0.11)"; el.style.transform = "translateY(-4px)"; }}
+                    onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#EAF0FA"; el.style.boxShadow = "none"; el.style.transform = "translateY(0)"; }}>
+                    <div style={{ width: isMobile ? 46 : 52, height: isMobile ? 46 : 52, borderRadius: 16, background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", color: CTA, flexShrink: 0 }}>
                       {card.icon}
                     </div>
-                    {/* Vertical connector mobile */}
-                    {isMobile && i < 3 && (
-                      <div style={{ position: "absolute", left: 39, top: 70, width: 2, height: "calc(100% - 42px)", background: `${CTA}18` }} />
-                    )}
-                    <div style={{ textAlign: isMobile ? "left" : "center" }}>
-                      <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "var(--black)", margin: "0 0 6px", lineHeight: 1.3 }}>{card.title}</p>
-                      <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{card.desc}</p>
+                    <div>
+                      <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 15, color: "var(--black)", margin: "0 0 8px", lineHeight: 1.3 }}>{card.title}</p>
+                      <p style={{ fontFamily: F, fontSize: isMobile ? 12 : 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{card.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -683,15 +705,16 @@ export default function OrientierungstestPage() {
                       const col = CARD_COLORS[i % CARD_COLORS.length];
                       return (
                         <div key={i}
-                          style={{ background: "white", border: "1px solid #EAF0FA", borderTop: `3px solid ${col.stroke}`, borderRadius: 18, padding: isMobile ? "18px 18px 18px" : "22px 22px 22px", display: "flex", flexDirection: "column", gap: 12, position: "relative", overflow: "hidden", transition: "box-shadow 0.2s, transform 0.2s, border-color 0.2s", cursor: "default" }}
+                          style={{ background: "white", border: "1px solid #EAF0FA", borderTop: `3px solid ${col.stroke}`, borderRadius: 18, padding: isMobile ? "20px 18px 22px" : "24px 22px 28px", display: "flex", flexDirection: "column", gap: 14, position: "relative", overflow: "visible", transition: "box-shadow 0.2s, transform 0.2s, border-color 0.2s", cursor: "default" }}
                           onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 6px 24px rgba(45,91,141,0.11)"; el.style.transform = "translateY(-3px)"; el.style.borderColor = col.stroke; }}
                           onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "none"; el.style.transform = "translateY(0)"; el.style.borderColor = "#EAF0FA"; }}>
-                          <span style={{ position: "absolute", top: 10, right: 14, fontFamily: F, fontWeight: 800, fontSize: 60, color: col.stroke, opacity: 0.07, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>
-                            {String(i + 1).padStart(2, "0")}
+                          {/* Huge decorative number — overflows card */}
+                          <span style={{ position: "absolute", top: -36, right: -6, fontFamily: F, fontWeight: 900, fontSize: 110, color: col.stroke, opacity: 0.07, lineHeight: 1, userSelect: "none", pointerEvents: "none", zIndex: 0 }}>
+                            {i + 1}
                           </span>
-                          <div style={{ width: 44, height: 44, borderRadius: 12, background: col.bg, display: "flex", alignItems: "center", justifyContent: "center", color: col.stroke, flexShrink: 0 }}>{item.icon}</div>
-                          <div>
-                            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 5px" }}>{item.title}</p>
+                          <div style={{ width: 46, height: 46, borderRadius: 13, background: col.bg, display: "flex", alignItems: "center", justifyContent: "center", color: col.stroke, flexShrink: 0, position: "relative", zIndex: 1 }}>{item.icon}</div>
+                          <div style={{ position: "relative", zIndex: 1 }}>
+                            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 6px" }}>{item.title}</p>
                             <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{item.desc}</p>
                           </div>
                         </div>
@@ -708,50 +731,82 @@ export default function OrientierungstestPage() {
               <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: 0 }}>Für dich empfohlene Fachkräfte</h2>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
-              {RESULT_THERAPISTS[specKey].map((t, i) => (
-                <div key={t.id}
-                  style={{ background: i === 0 ? "#FAFCFF" : "white", borderRadius: 18, border: i === 0 ? `1.5px solid rgba(45,91,141,0.28)` : "1px solid #EEF2F7", boxShadow: i === 0 ? "0 2px 16px rgba(45,91,141,0.09)" : "0 1px 8px rgba(0,0,0,0.05)", overflow: "hidden", display: "flex", flexDirection: "row", alignItems: "stretch", transition: "border-color 0.2s, box-shadow 0.2s, transform 0.2s", cursor: "default" }}
-                  onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = CTA; el.style.boxShadow = "0 6px 24px rgba(45,91,141,0.13)"; el.style.transform = "scale(1.012)"; }}
-                  onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = i === 0 ? "rgba(45,91,141,0.28)" : "#EEF2F7"; el.style.boxShadow = i === 0 ? "0 2px 16px rgba(45,91,141,0.09)" : "0 1px 8px rgba(0,0,0,0.05)"; el.style.transform = "scale(1)"; }}>
-                  {/* Photo — tall left column */}
-                  <div style={{ width: isMobile ? 100 : 140, flexShrink: 0, position: "relative" }}>
-                    <img src={t.photo} alt={t.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
-                  </div>
-                  {/* Info */}
-                  <div style={{ flex: 1, minWidth: 0, padding: isMobile ? "16px 14px" : "20px 24px", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 0 }}>
-                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                      {/* Match label — top of card */}
-                      <span style={{ fontFamily: F, fontSize: 12, color: "#1E6B34", fontWeight: 700, background: "#E2F7E9", borderRadius: 8, padding: "3px 10px", display: "inline-flex", alignItems: "center", gap: 5, alignSelf: "flex-start" }}>
-                        <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" stroke="#1E6B34" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="9" stroke="#1E6B34" strokeWidth="1.5"/></svg>
-                        {t.match >= 90 ? "Sehr hohe Übereinstimmung" : t.match >= 80 ? "Hohe Übereinstimmung" : "Gute Übereinstimmung"} · {t.match}%*
-                      </span>
-                      <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 18, color: "var(--black)", margin: "4px 0 0" }}>{t.name}</h3>
-                      <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0 }}>{t.role}</p>
-                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 4 }}>
-                        {t.tags.map(tag => (
-                          <span key={tag} style={{ background: "#F5F8FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "3px 11px", fontFamily: F, fontSize: 12, color: "var(--black)" }}>{tag}</span>
-                        ))}
+              {RESULT_THERAPISTS[specKey].map((t, i) => {
+                const availDot = t.availability === "today" ? "#2DB36A" : t.availability === "thisweek" ? "#F59E0B" : "var(--grey-border)";
+                const footnoteText = specKey === "psychiater" ? "Basierend auf deinen Antworten zu Belastungsgrad, Symptomen und Behandlungsbedarf." : specKey === "psychologe" ? "Basierend auf deinen Antworten zu Lebensthemen, Orientierung und persönlichem Wachstum." : "Basierend auf deinen Antworten zu Angst, Depression und gewünschter Behandlungsform.";
+                return (
+                  <div key={t.id}
+                    style={{ background: "white", borderRadius: 18, border: i === 0 ? `1.5px solid rgba(45,91,141,0.30)` : "1px solid #EBEBEB", boxShadow: i === 0 ? "0 2px 16px rgba(45,91,141,0.08)" : "none", overflow: "hidden", display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: "stretch", transition: "border-color 0.2s, box-shadow 0.2s" }}
+                    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = CTA; el.style.boxShadow = "0 0 0 1.5px rgba(45,91,141,0.15), 0 8px 32px rgba(45,91,141,0.10)"; }}
+                    onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = i === 0 ? "rgba(45,91,141,0.30)" : "#EBEBEB"; el.style.boxShadow = i === 0 ? "0 2px 16px rgba(45,91,141,0.08)" : "none"; }}>
+                    {/* Photo */}
+                    <div style={{ width: isMobile ? "100%" : 150, height: isMobile ? 200 : "auto", flexShrink: 0, position: "relative" }}>
+                      <img src={t.photo} alt={t.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
+                      <div style={{ position: "absolute", top: 10, left: 10, display: "flex", alignItems: "center", gap: 5, background: "white", borderRadius: 9999, padding: "4px 10px", boxShadow: "0 1px 6px rgba(0,0,0,0.10)" }}>
+                        <div style={{ width: 7, height: 7, borderRadius: "50%", background: availDot, flexShrink: 0 }} />
+                        <span style={{ fontFamily: F, fontSize: 11, fontWeight: 600, color: "var(--black)" }}>{t.availabilityText}</span>
                       </div>
                     </div>
-                    {/* Footnote */}
-                    <p style={{ fontFamily: F, fontSize: 11, color: "var(--grey-text)", margin: "10px 0 0", fontStyle: "italic", lineHeight: 1.5 }}>
-                      *{specKey === "psychiater" ? "Basierend auf deinen Antworten zu Belastungsgrad, Symptomen und Behandlungsbedarf." : specKey === "psychologe" ? "Basierend auf deinen Antworten zu Lebensthemen, Orientierung und persönlichem Wachstum." : "Basierend auf deinen Antworten zu Angst, Depression und gewünschter Behandlungsform."}
-                    </p>
-                  </div>
-                  {/* CTA */}
-                  {!isMobile && (
-                    <div style={{ flexShrink: 0, display: "flex", alignItems: "center", padding: "20px 24px" }}>
-                      <a href={`/fachkraefte/${t.id}`}
-                        style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "white", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap", transition: "background 0.2s, color 0.2s, box-shadow 0.2s" }}
-                        onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = CTA; el.style.color = "white"; el.style.boxShadow = "0 3px 12px rgba(45,91,141,0.22)"; }}
-                        onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.color = CTA; el.style.boxShadow = "none"; }}>
-                        Profil ansehen
-                        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                      </a>
+                    {/* Info */}
+                    <div style={{ flex: 1, minWidth: 0, padding: isMobile ? "16px 16px 14px" : "20px 24px", display: "flex", flexDirection: "column", gap: 10 }}>
+                      <span style={{ fontFamily: F, fontSize: 12, color: "#1E6B34", fontWeight: 700, background: "#E2F7E9", borderRadius: 8, padding: "3px 10px", display: "inline-flex", alignItems: "center", gap: 5, alignSelf: "flex-start" }}>
+                        <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" stroke="#1E6B34" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="9" stroke="#1E6B34" strokeWidth="1.5"/></svg>
+                        {t.match >= 90 ? "Sehr hohe Übereinstimmung" : t.match >= 80 ? "Hohe Übereinstimmung" : "Gute Übereinstimmung"} · {t.match}%
+                      </span>
+                      <div>
+                        {t.verified && (
+                          <div style={{ display: "flex", alignItems: "center", gap: 4, marginBottom: 3 }}>
+                            <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" stroke="#33700E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            <span style={{ fontFamily: F, fontSize: 12, color: "#33700E", fontWeight: 500 }}>Verifiziert</span>
+                          </div>
+                        )}
+                        <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 18, color: "var(--black)", margin: 0, lineHeight: 1.25 }}>{t.name}</h3>
+                        <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "2px 0 0" }}>{t.role}</p>
+                      </div>
+                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                        {(t.angebot === "online" || t.angebot === "beides") && <span style={{ padding: "2px 10px", borderRadius: 9999, fontSize: 12, fontFamily: F, fontWeight: 500, color: CTA, border: `1.5px solid ${CTA}` }}>Online</span>}
+                        {(t.angebot === "vor-ort" || t.angebot === "beides") && <span style={{ padding: "2px 10px", borderRadius: 9999, fontSize: 12, fontFamily: F, fontWeight: 500, color: "#B07000", border: "1.5px solid #D4920A" }}>Vor Ort</span>}
+                        {t.kassenerstattung && (
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "2px 10px", borderRadius: 9999, fontSize: 12, fontFamily: F, fontWeight: 500, color: "#33700E", border: "1.5px solid #C3EDD0", background: "#EDF9F0" }}>
+                            <svg width="11" height="11" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#33700E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            Kassenerstattung
+                          </span>
+                        )}
+                      </div>
+                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+                        <span style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", fontWeight: 500, flexShrink: 0 }}>Hilft bei:</span>
+                        {t.tags.map(tag => (
+                          <span key={tag} style={{ background: "#F5F8FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "3px 11px", fontFamily: F, fontSize: 12, color: "var(--black)", flexShrink: 0 }}>{tag}</span>
+                        ))}
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke={CTA} strokeWidth="1.7"/><path d="M16 2v4M8 2v4M3 10h18" stroke={CTA} strokeWidth="1.7" strokeLinecap="round"/></svg>
+                        <span style={{ fontFamily: F, fontSize: 13, color: CTA, fontWeight: 500 }}>Nächster Termin: {t.nextAppointment}</span>
+                      </div>
+                      <p style={{ fontFamily: F, fontSize: 11, color: "var(--grey-text)", margin: 0, fontStyle: "italic", lineHeight: 1.5 }}>*{footnoteText}</p>
+                      {isMobile && (
+                        <a href={`/fachkraefte/${t.id}`}
+                          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, background: "white", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 0", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", marginTop: 4, transition: "background 0.2s, color 0.2s" }}
+                          onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = CTA; el.style.color = "white"; }}
+                          onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.color = CTA; }}>
+                          Profil ansehen →
+                        </a>
+                      )}
                     </div>
-                  )}
-                </div>
-              ))}
+                    {!isMobile && (
+                      <div style={{ flexShrink: 0, display: "flex", alignItems: "center", padding: "0 24px" }}>
+                        <a href={`/fachkraefte/${t.id}`}
+                          style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "white", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap", transition: "background 0.2s, color 0.2s, box-shadow 0.2s" }}
+                          onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = CTA; el.style.color = "white"; el.style.boxShadow = "0 3px 12px rgba(45,91,141,0.22)"; }}
+                          onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.color = CTA; el.style.boxShadow = "none"; }}>
+                          Profil ansehen
+                          <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
             {/* Actions */}
