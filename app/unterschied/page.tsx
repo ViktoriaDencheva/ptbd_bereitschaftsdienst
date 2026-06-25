@@ -426,9 +426,9 @@ export default function UnterschiedPage() {
               >
                 <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7, fontStyle: "italic", flex: 1 }}>„{ex.situation}"</p>
                 <div style={{ paddingTop: 12, borderTop: "1px solid #EEF3FA", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <span style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)" }}>Empfehlung:</span>
-                    <span style={{ fontFamily: F, fontWeight: 700, fontSize: 13, color: ex.color, background: ex.bg, borderRadius: 9999, padding: "2px 12px", border: `1px solid ${ex.color}30` }}>{ex.resultLabel}</span>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6, minWidth: 0, overflow: "hidden" }}>
+                    {!isMobile && <span style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", flexShrink: 0 }}>Empfehlung:</span>}
+                    <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 12 : 13, color: ex.color, background: ex.bg, borderRadius: 9999, padding: isMobile ? "2px 8px" : "2px 12px", border: `1px solid ${ex.color}30`, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{ex.resultLabel}</span>
                   </div>
                   {ex.result !== "gespräch" ? (
                     <a href={`/fachkraefte?fach=${ex.result}`} style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 34, padding: isMobile ? "0 12px" : "0 16px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: isMobile ? 12 : 13, textDecoration: "none", flexShrink: 0, whiteSpace: "nowrap" }}>
