@@ -7,7 +7,7 @@ import { getStoredUser, clearUser, getFirstName, type AuthUser } from "@/lib/aut
 const navLinks = [
   { label: "Startseite", href: "/" },
   { label: "Fachkräfte", href: "/fachkraefte" },
-  { label: "Über uns", href: "#" },
+  { label: "Über uns", href: "/ueber-uns" },
   { label: "Kontakt", href: "#" },
 ];
 
@@ -15,7 +15,7 @@ const menuLinks = [
   { label: "Startseite", href: "/" },
   { label: "Fachkräfte finden", href: "/fachkraefte" },
   { label: "Orientierungstest", href: "/orientierungstest" },
-  { label: "Über uns", href: "#" },
+  { label: "Über uns", href: "/ueber-uns" },
   { label: "FAQ", href: "#" },
   { label: "Kontakt", href: "#" },
 ];
