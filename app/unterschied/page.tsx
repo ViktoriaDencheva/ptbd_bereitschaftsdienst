@@ -331,11 +331,11 @@ export default function UnterschiedPage() {
                         <p style={{ fontFamily: F, fontSize: 14, lineHeight: 1.6, color: "var(--grey-text)", margin: 0 }}>{s.desc}</p>
                       </div>
                       {!isMobile && (
-                        <div style={{ gridColumn: 2, gridRow: "1 / 3", display: "flex", alignItems: "flex-start", justifyContent: "center" }}>
+                        <div style={{ gridColumn: 2, gridRow: 1, display: "flex", alignItems: "flex-start", justifyContent: "center" }}>
                           <img src={s.image} alt={s.label} style={{ width: "100%", maxWidth: 200, height: "auto", objectFit: "contain" }} />
                         </div>
                       )}
-                      <div style={{ gridColumn: !isMobile ? "1 / 2" : 1, gridRow: 2, display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr", gap: 10 }}>
+                      <div style={{ gridColumn: !isMobile ? "1 / 3" : 1, gridRow: 2, display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "1fr 1fr 1fr", gap: 10 }}>
                         {s.details.map((d, i) => (
                           <div key={i} style={{ background: "white", borderRadius: 12, padding: "16px", border: `1px solid ${s.color}18`, display: "flex", flexDirection: "column", gap: 10 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
