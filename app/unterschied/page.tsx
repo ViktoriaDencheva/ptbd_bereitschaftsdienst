@@ -211,7 +211,7 @@ export default function UnterschiedPage() {
                     <th key={k}
                       onMouseEnter={() => setHoveredCol(k)}
                       onMouseLeave={() => setHoveredCol(null)}
-                      style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: SPECS[k].color, textAlign: "center", padding: "18px 16px", borderBottom: "1px solid #E8F0FA", cursor: "default", background: hoveredCol === k ? SPECS[k].lightBg : "white", transition: "background 0.18s" }}>
+                      style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: SPECS[k].color, textAlign: "center", padding: "18px 16px", borderBottom: "1px solid #E8F0FA", cursor: "default", background: hoveredCol === k ? "rgba(45,91,141,0.06)" : "white", transition: "background 0.18s" }}>
                       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
                         <img src={k === "psychologe" ? "/icon_psychologist.svg" : k === "psychotherapeut" ? "/icon_psychotherapeut.svg" : "/icon_psychiater.svg"} width={28} height={28} alt="" style={{ objectFit: "contain" }} />
                         {SPECS[k].label}
@@ -221,7 +221,7 @@ export default function UnterschiedPage() {
                   <th
                     onMouseEnter={() => setHoveredCol("sozialberater")}
                     onMouseLeave={() => setHoveredCol(null)}
-                    style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: SOZIAL.color, textAlign: "center", padding: "18px 16px", borderBottom: "1px solid #E8F0FA", cursor: "default", background: hoveredCol === "sozialberater" ? SOZIAL.lightBg : "white", transition: "background 0.18s" }}>
+                    style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: SOZIAL.color, textAlign: "center", padding: "18px 16px", borderBottom: "1px solid #E8F0FA", cursor: "default", background: hoveredCol === "sozialberater" ? "rgba(45,91,141,0.06)" : "white", transition: "background 0.18s" }}>
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
                       <img src="/icon_sozialberater.svg" width={28} height={28} alt="" style={{ objectFit: "contain" }} />
                       {SOZIAL.label}
@@ -237,14 +237,14 @@ export default function UnterschiedPage() {
                       <td key={k}
                         onMouseEnter={() => setHoveredCol(k)}
                         onMouseLeave={() => setHoveredCol(null)}
-                        style={{ textAlign: "center", padding: "16px 16px", borderBottom: i < QUICK_ROWS.length - 1 ? "1px solid #EEF3FA" : "none", background: hoveredCol === k ? SPECS[k].lightBg : i % 2 === 0 ? "white" : "rgba(236,245,255,0.45)", transition: "background 0.18s" }}>
+                        style={{ textAlign: "center", padding: "16px 16px", borderBottom: i < QUICK_ROWS.length - 1 ? "1px solid #EEF3FA" : "none", background: hoveredCol === k ? "rgba(45,91,141,0.06)" : i % 2 === 0 ? "white" : "rgba(236,245,255,0.45)", transition: "background 0.18s" }}>
                         <CheckCell val={row[k]} />
                       </td>
                     ))}
                     <td
                       onMouseEnter={() => setHoveredCol("sozialberater")}
                       onMouseLeave={() => setHoveredCol(null)}
-                      style={{ textAlign: "center", padding: "16px 16px", borderBottom: i < QUICK_ROWS.length - 1 ? "1px solid #EEF3FA" : "none", background: hoveredCol === "sozialberater" ? SOZIAL.lightBg : i % 2 === 0 ? "white" : "rgba(236,245,255,0.45)", transition: "background 0.18s" }}>
+                      style={{ textAlign: "center", padding: "16px 16px", borderBottom: i < QUICK_ROWS.length - 1 ? "1px solid #EEF3FA" : "none", background: hoveredCol === "sozialberater" ? "rgba(45,91,141,0.06)" : i % 2 === 0 ? "white" : "rgba(236,245,255,0.45)", transition: "background 0.18s" }}>
                       <CheckCell val={row.sozialberater} />
                     </td>
                   </tr>
