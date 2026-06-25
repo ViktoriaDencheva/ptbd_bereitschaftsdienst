@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 function useWindowWidth() {
@@ -1010,7 +1010,7 @@ function TherapistCard({ t, isMobile = false, winW = 1440 }: { t: typeof therapi
 // â"€â"€â"€ Page â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 const CARDS_PER_PAGE = 5;
 
-export default function FachkraeftePage() {
+function FachkraeftePageInner() {
   const winW = useWindowWidth();
   const isMobile = winW < 1071;
   const searchParams = useSearchParams();
@@ -1334,5 +1334,12 @@ export default function FachkraeftePage() {
   );
 }
 
+export default function FachkraeftePage() {
+  return (
+    <Suspense fallback={null}>
+      <FachkraeftePageInner />
+    </Suspense>
+  );
+}
 
 
