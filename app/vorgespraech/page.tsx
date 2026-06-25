@@ -90,6 +90,12 @@ export default function VorgespraechPage() {
                 Unsicher, wo du anfangen sollst? In einem 30-minütigen Gespräch hören wir dir zu, helfen dir deine Situation einzuordnen und zeigen dir, welche Unterstützung für dich sinnvoll sein könnte.
               </p>
 
+              {/* Trust strip */}
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 10, background: "#FFFBEC", border: "1px solid #F5E4A0", borderRadius: 9999, padding: "6px 14px", marginBottom: 20, alignSelf: "flex-start" }}>
+                <span style={{ fontSize: 14 }}>⭐</span>
+                <span style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: "#7A5C00" }}>Über 500 vermittelte Erstgespräche</span>
+              </div>
+
               {/* 4 benefits — blue checkmarks */}
               <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
                 {[
