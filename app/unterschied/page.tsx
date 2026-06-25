@@ -111,7 +111,7 @@ type SpecKey = keyof typeof SPECS;
 function CheckCell({ val }: { val: boolean | "partial" }) {
   if (val === true) return (
     <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 28, height: 28, borderRadius: "50%", background: "var(--green-light)" }}>
-      <img src="/icons/icon-check.svg" width={14} height={14} alt="Ja" style={{ objectFit: "contain" }} />
+      <img src="/icon_check.svg" width={16} height={16} alt="Ja" style={{ objectFit: "contain" }} />
     </span>
   );
   if (val === "partial") return (
@@ -121,7 +121,7 @@ function CheckCell({ val }: { val: boolean | "partial" }) {
   );
   return (
     <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 28, height: 28, borderRadius: "50%", background: "var(--red-light-system)" }}>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="#A81315" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+      <img src="/icon_cancel.svg" width={16} height={16} alt="Nein" style={{ objectFit: "contain" }} />
     </span>
   );
 }
@@ -209,14 +209,14 @@ export default function UnterschiedPage() {
                   {specKeys.map(k => (
                     <th key={k} style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: SPECS[k].color, textAlign: "center", padding: "10px 16px", borderBottom: "2px solid #DDE8F5" }}>
                       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-                        <img src={SPECS[k].icon} width={20} height={20} alt="" style={{ objectFit: "contain", filter: k === "psychologe" ? "brightness(0) saturate(100%) invert(35%) sepia(80%) saturate(400%) hue-rotate(190deg)" : k === "psychotherapeut" ? "brightness(0) saturate(100%) invert(45%) sepia(60%) saturate(600%) hue-rotate(320deg)" : "brightness(0) saturate(100%) invert(40%) sepia(60%) saturate(400%) hue-rotate(100deg)" }} />
+                        <img src={k === "psychologe" ? "/icon_psychologist.svg" : k === "psychotherapeut" ? "/icon_psychotherapeut.svg" : "/icon_psychiater.svg"} width={24} height={24} alt="" style={{ objectFit: "contain" }} />
                         {SPECS[k].label}
                       </div>
                     </th>
                   ))}
                   <th style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: SOZIAL.color, textAlign: "center", padding: "10px 16px", borderBottom: "2px solid #DDE8F5" }}>
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-                      <img src="/sozialberater.jpg" width={20} height={20} alt="" style={{ objectFit: "cover", borderRadius: "50%" }} />
+                      <img src="/icon_sozialberater.svg" width={24} height={24} alt="" style={{ objectFit: "contain" }} />
                       {SOZIAL.label}
                     </div>
                   </th>
