@@ -417,10 +417,10 @@ export default function UnterschiedPage() {
           <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Erkennst du dich?</p>
           <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 8px" }}>Beispiele aus dem Alltag</h2>
           <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 32px", lineHeight: 1.6 }}>Reale Situationen — und welche Fachkraft dort am sinnvollsten ist.</p>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: 16, width: "100%", minWidth: 0 }}>
             {EXAMPLES.map((ex, i) => (
               <div key={i}
-                style={{ background: "white", borderRadius: 20, padding: "24px 24px 22px", border: `1.5px solid #D6E4F7`, display: "flex", flexDirection: "column", gap: 14, transition: "box-shadow 0.2s" }}
+                style={{ background: "white", borderRadius: 20, padding: isMobile ? "18px 16px 16px" : "24px 24px 22px", border: `1.5px solid #D6E4F7`, display: "flex", flexDirection: "column", gap: 14, transition: "box-shadow 0.2s", minWidth: 0, boxSizing: "border-box" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(45,91,141,0.13)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.boxShadow = "none"}
               >
