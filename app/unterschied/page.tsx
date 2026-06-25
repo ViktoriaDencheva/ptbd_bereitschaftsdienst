@@ -159,24 +159,24 @@ export default function UnterschiedPage() {
               </a>
             </div>
             {/* Right: illustration */}
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: isMobile ? 10 : 14 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: isMobile ? 10 : 16 }}>
               {specKeys.map((k) => {
                 const s = SPECS[k];
                 return (
-                  <div key={k} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, background: s.lightBg, borderRadius: 20, padding: isMobile ? "18px 10px" : "28px 16px" }}>
-                    <div style={{ width: isMobile ? 56 : 76, height: isMobile ? 56 : 76, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${s.color}30` }}>
-                      <img src={s.image} width={isMobile ? 38 : 54} height={isMobile ? 38 : 54} alt="" style={{ objectFit: "contain" }} />
+                  <div key={k} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, background: s.lightBg, borderRadius: 20, padding: isMobile ? "22px 16px" : "32px 20px" }}>
+                    <div style={{ width: isMobile ? 64 : 88, height: isMobile ? 64 : 88, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${s.color}30` }}>
+                      <img src={s.image} width={isMobile ? 44 : 62} height={isMobile ? 44 : 62} alt="" style={{ objectFit: "contain" }} />
                     </div>
-                    <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 12 : 14, color: s.color, textAlign: "center", lineHeight: 1.3 }}>{s.label}</span>
+                    <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 15, color: s.color, textAlign: "center", lineHeight: 1.3 }}>{s.label}</span>
                   </div>
                 );
               })}
               {/* Sozialberater*in */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, background: SOZIAL.lightBg, borderRadius: 20, padding: isMobile ? "18px 10px" : "28px 16px" }}>
-                <div style={{ width: isMobile ? 56 : 76, height: isMobile ? 56 : 76, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${SOZIAL.color}30` }}>
-                  <span style={{ fontSize: isMobile ? 26 : 36 }}>🤝</span>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, background: SOZIAL.lightBg, borderRadius: 20, padding: isMobile ? "22px 16px" : "32px 20px" }}>
+                <div style={{ width: isMobile ? 64 : 88, height: isMobile ? 64 : 88, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${SOZIAL.color}30`, overflow: "hidden" }}>
+                  <img src="/sozialberater.jpg" width={isMobile ? 64 : 88} height={isMobile ? 64 : 88} alt="" style={{ objectFit: "cover", borderRadius: "50%" }} />
                 </div>
-                <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 12 : 14, color: SOZIAL.color, textAlign: "center", lineHeight: 1.3 }}>{SOZIAL.label}</span>
+                <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 15, color: SOZIAL.color, textAlign: "center", lineHeight: 1.3 }}>{SOZIAL.label}</span>
               </div>
             </div>
           </div>
