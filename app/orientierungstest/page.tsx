@@ -819,18 +819,33 @@ export default function OrientierungstestPage() {
             </div>
 
             {/* Vorgesprach banner */}
-            <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 200 : 220, display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+            <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 260 : 300, display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
               <img src="/vorgespraech-small-banner.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.93) 40%, rgba(236,245,255,0.4) 70%, transparent 100%)" }} />
-              <div style={{ position: "relative", zIndex: 1, maxWidth: isMobile ? "100%" : 480, padding: isMobile ? "32px 24px" : "40px 52px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12 }}>
-                <p style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: 0 }}>Lieber persönlich?</p>
-                <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>Sprich direkt mit uns</h2>
-                <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>In einem kostenlosen 30-minütigen Erstgespräch helfen wir dir persönlich weiter.</p>
-                <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 46, padding: "0 24px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 4 }}
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(236,245,255,0.98) 0%, rgba(236,245,255,0.95) 40%, rgba(236,245,255,0.5) 70%, transparent 100%)" }} />
+              <div style={{ position: "relative", zIndex: 1, maxWidth: isMobile ? "100%" : 500, padding: isMobile ? "32px 24px" : "44px 56px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 14 }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: `${CTA}12`, borderRadius: 9999, padding: "5px 12px" }}>
+                  <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke={CTA} strokeWidth="1.8"/></svg>
+                  <span style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.08em", textTransform: "uppercase" }}>Lieber persönlich?</span>
+                </div>
+                <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 24, lineHeight: 1.25, color: "var(--black)", margin: 0 }}>Sprich direkt mit uns</h2>
+                <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>In einem kostenlosen 30-minütigen Erstgespräch nehmen wir uns Zeit für dich und finden gemeinsam den besten nächsten Schritt.</p>
+                <div style={{ display: "flex", gap: isMobile ? 16 : 24, flexWrap: "wrap", marginTop: 2 }}>
+                  {[
+                    { icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.7"/><path d="M12 7v5l3 3" stroke={CTA} strokeWidth="1.7" strokeLinecap="round"/></svg>, label: "30 Minuten für dich" },
+                    { icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke={CTA} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Vertraulich & unverbindlich" },
+                    { icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke={CTA} strokeWidth="1.7" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke={CTA} strokeWidth="1.7"/></svg>, label: "Individuelle Empfehlung" },
+                  ].map((f, i) => (
+                    <div key={i} style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                      <div style={{ width: 32, height: 32, borderRadius: "50%", background: `${CTA}10`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{f.icon}</div>
+                      <span style={{ fontFamily: F, fontSize: 13, color: "var(--black)", fontWeight: 500, lineHeight: 1.3 }}>{f.label}</span>
+                    </div>
+                  ))}
+                </div>
+                <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 26px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 2 }}
                   onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                   onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                  Kostenloses Erstgespräch
-                  <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
+                  <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke="white" strokeWidth="1.7"/><path d="M16 2v4M8 2v4M3 10h18" stroke="white" strokeWidth="1.7" strokeLinecap="round"/></svg>
+                  Kostenloses Erstgespräch vereinbaren
                 </a>
               </div>
             </div>
