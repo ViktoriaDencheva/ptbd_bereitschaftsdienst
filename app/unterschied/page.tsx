@@ -468,8 +468,8 @@ export default function UnterschiedPage() {
               </a>
               <a href="/orientierungstest"
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid ${CTA}`, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", background: "white", transition: "background 0.2s, color 0.2s", whiteSpace: "nowrap" }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = CTA; el.style.color = "white"; }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.color = CTA; }}>
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#EEF4FC"}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "white"}>
                 Orientierungstest starten
               </a>
             </div>
