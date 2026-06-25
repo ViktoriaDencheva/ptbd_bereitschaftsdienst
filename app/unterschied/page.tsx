@@ -80,7 +80,7 @@ const QUICK_ROWS: { label: string; psychologe: CellVal; psychotherapeut: CellVal
   { label: "Psychotherapie",        psychologe: false,     psychotherapeut: true,      psychiater: "partial", sozialberater: false },
   { label: "Medikamente",           psychologe: false,     psychotherapeut: false,     psychiater: true,      sozialberater: false },
   { label: "Kassenerstattung",      psychologe: "partial", psychotherapeut: true,      psychiater: true,      sozialberater: false },
-  { label: "Keine Diagnose nötig",  psychologe: true,      psychotherapeut: false,     psychiater: false,     sozialberater: true },
+  { label: "Diagnose nötig",         psychologe: false,     psychotherapeut: false,     psychiater: true,      sozialberater: false },
 ];
 
 const DECISION_TREE = [
