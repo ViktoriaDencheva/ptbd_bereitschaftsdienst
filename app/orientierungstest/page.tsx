@@ -228,19 +228,19 @@ function getRecommendation(answers: Record<string, string[]>): SpecialistKey {
 // ── Mock therapists per specialist type ──────────────────────
 const RESULT_THERAPISTS: Record<string, { id: number; name: string; role: string; photo: string; tags: string[]; match: number }[]> = {
   psychotherapeut: [
-    { id: 1, name: "Dr. Sarah Müller",  role: "Psychotherapeutin (VT)", photo: "/fachkraefte/fachkraft-1.jpg", tags: ["Depression", "Angst", "Trauma"], match: 98 },
-    { id: 2, name: "Michael Weber",     role: "Psychologischer Psychotherapeut", photo: "/fachkraefte/fachkraft-2.jpg", tags: ["Burnout", "Stress", "Angststörungen"], match: 94 },
-    { id: 3, name: "Dr. Elena Fischer", role: "Psychotherapeutin (TP)", photo: "/fachkraefte/fachkraft-3.jpg", tags: ["Trauma", "Trauer", "Depression"], match: 89 },
+    { id: 2,  name: "Michael Weber",        role: "Psychologischer Psychotherapeut", photo: "/fachkraefte/fachkraft-2.jpg", tags: ["Burnout", "Stress", "Angststörungen"], match: 98 },
+    { id: 18, name: "Tobias Lehner",        role: "Psychologischer Psychotherapeut", photo: "/fachkraefte/fachkraft-6.jpg", tags: ["Phobien", "Panikattacken", "Angst"], match: 93 },
+    { id: 9,  name: "Elena Koch",           role: "Psychotherapeutin",               photo: "/fachkraefte/fachkraft-3.jpg", tags: ["Trauma", "PTBS", "Depression"],       match: 88 },
   ],
   psychologe: [
-    { id: 4, name: "Dr. Anna Bauer",   role: "Psycholog:in", photo: "/fachkraefte/fachkraft-1.jpg", tags: ["Lebenskrisen", "Stress", "Orientierung"], match: 96 },
-    { id: 5, name: "Lena Schreiber",   role: "Psycholog:in & Beraterin", photo: "/fachkraefte/fachkraft-3.jpg", tags: ["Beziehungsprobleme", "Selbstwert"], match: 91 },
-    { id: 6, name: "Thomas Hoffmann",  role: "Klinischer Psychologe", photo: "/fachkraefte/fachkraft-2.jpg", tags: ["Coaching", "Persönlichkeit"], match: 85 },
+    { id: 1,  name: "Dr. Sarah Müller",     role: "Klinische Psychologin",           photo: "/fachkraefte/fachkraft-1.jpg", tags: ["Lebenskrisen", "Stress", "Orientierung"], match: 96 },
+    { id: 7,  name: "Sophia Gruber",        role: "Psychologin (M.Sc.)",             photo: "/fachkraefte/fachkraft-1.jpg", tags: ["Selbstwert", "Angst", "Beziehungen"],     match: 91 },
+    { id: 11, name: "Dr. Christine Steiner",role: "Klinische Psychologin",           photo: "/fachkraefte/fachkraft-5.jpg", tags: ["Depression", "Stress", "Schlafprobleme"], match: 85 },
   ],
   psychiater: [
-    { id: 7, name: "Dr. med. Klaus Richter", role: "Facharzt für Psychiatrie", photo: "/fachkraefte/fachkraft-2.jpg", tags: ["Schwere Depression", "Medikamente"], match: 97 },
-    { id: 8, name: "Dr. med. Maria Lang",    role: "Psychiaterin & Psychotherapeutin", photo: "/fachkraefte/fachkraft-3.jpg", tags: ["Akute Krisen", "Bipolare Störung"], match: 92 },
-    { id: 9, name: "Dr. med. Jan Berger",    role: "Facharzt für Psychiatrie", photo: "/fachkraefte/fachkraft-1.jpg", tags: ["Angststörungen", "Trauma", "Medikamente"], match: 87 },
+    { id: 3,  name: "Dr. Anna Schmidt",     role: "Fachärztin für Psychiatrie",      photo: "/fachkraefte/fachkraft-3.jpg", tags: ["Trauma", "Angststörungen", "Depression"],  match: 97 },
+    { id: 8,  name: "Dr. Klaus Wagner",     role: "Facharzt für Psychiatrie",        photo: "/fachkraefte/fachkraft-2.jpg", tags: ["Depression", "Bipolare Störung", "Medikation"], match: 92 },
+    { id: 14, name: "Dr. Martin Wolf",      role: "Facharzt für Psychiatrie",        photo: "/fachkraefte/fachkraft-2.jpg", tags: ["ADHS", "Angststörungen", "Depression"],    match: 86 },
   ],
 };
 
@@ -742,11 +742,11 @@ export default function OrientierungstestPage() {
                   {!isMobile && (
                     <div style={{ flexShrink: 0, display: "flex", alignItems: "center", padding: "20px 24px" }}>
                       <a href={`/fachkraefte/${t.id}`}
-                        style={{ display: "inline-flex", alignItems: "center", gap: 8, background: CTA, color: "white", border: "none", borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap", transition: "background 0.2s", boxShadow: "0 3px 12px rgba(45,91,141,0.22)" }}
-                        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"; }}
-                        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = CTA; }}>
+                        style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "white", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap", transition: "background 0.2s, color 0.2s, box-shadow 0.2s" }}
+                        onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = CTA; el.style.color = "white"; el.style.boxShadow = "0 3px 12px rgba(45,91,141,0.22)"; }}
+                        onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.color = CTA; el.style.boxShadow = "none"; }}>
                         Profil ansehen
-                        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       </a>
                     </div>
                   )}
