@@ -141,6 +141,8 @@ export default function UnterschiedPage() {
   const wrap = { maxWidth: 1440, margin: "0 auto", padding: isMobile ? "0 16px" : "0 40px" } as const;
 
   const [activeSpec, setActiveSpec] = useState<SpecKey>("psychologe");
+  const [compareA, setCompareA] = useState<SpecKey | null>("psychologe");
+  const [compareB, setCompareB] = useState<SpecKey | null>("psychotherapeut");
   const [selectedDecision, setSelectedDecision] = useState<number | null>(null);
   const [hoveredCol, setHoveredCol] = useState<string | null>(null);
   const specKeys = Object.keys(SPECS) as SpecKey[];
@@ -257,95 +259,87 @@ export default function UnterschiedPage() {
         </div>
       </section>
 
-      {/* ── INTERACTIVE COMPARISON ───────────────────────────── */}
+      {/* ── SIDE-BY-SIDE COMPARISON ──────────────────────────── */}
       <section id="vergleich" style={{ background: "white", padding: isMobile ? "40px 0" : "56px 0" }}>
         <div style={{ ...wrap }}>
           <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Im Detail</p>
-          <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 22 : 32, lineHeight: 1.3, color: "var(--black)", margin: "0 0 32px" }}>Interaktiver Vergleich</h2>
+          <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 22 : 32, lineHeight: 1.3, color: "var(--black)", margin: "0 0 6px" }}>Vergleiche zwei Berufsgruppen</h2>
+          <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px", lineHeight: 1.6 }}>Wähle zwei Berufsgruppen aus und sieh die Unterschiede auf einen Blick.</p>
 
-          <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "306px 1fr", gap: isMobile ? 16 : 20, alignItems: "start" }}>
+          {/* Picker: 4 selection cards */}
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: 12, marginBottom: 32 }}>
+            {specKeys.map(k => {
+              const s = SPECS[k];
+              const isA = compareA === k;
+              const isB = compareB === k;
+              const selected = isA || isB;
+              return (
+                <button key={k} onClick={() => {
+                  if (isA) { setCompareA(null); return; }
+                  if (isB) { setCompareB(null); return; }
+                  if (!compareA) { setCompareA(k); return; }
+                  if (!compareB) { setCompareB(k); return; }
+                  setCompareA(k); setCompareB(null);
+                }} style={{
+                  display: "flex", flexDirection: "column", alignItems: "center", gap: 10,
+                  padding: isMobile ? "16px 10px" : "20px 14px",
+                  borderRadius: 16,
+                  background: isA ? SPECS[k].lightBg : isB ? SPECS[k].lightBg : "white",
+                  border: selected ? `2px solid ${s.color}` : "2px solid #EAF0FA",
+                  cursor: "pointer", transition: "all 0.18s",
+                  position: "relative",
+                }}>
+                  {selected && (
+                    <span style={{ position: "absolute", top: 8, right: 8, width: 20, height: 20, borderRadius: "50%", background: s.color, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <span style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: "white" }}>{isA ? "A" : "B"}</span>
+                    </span>
+                  )}
+                  <img src={k === "psychologe" ? "/icon_psychologist.svg" : k === "psychotherapeut" ? "/icon_psychotherapeut.svg" : k === "psychiater" ? "/icon_psychiater.svg" : "/icon_sozialberater.svg"} width={32} height={32} alt="" style={{ objectFit: "contain" }} />
+                  <span style={{ fontFamily: F, fontWeight: selected ? 700 : 500, fontSize: isMobile ? 12 : 14, color: selected ? s.color : "var(--grey-text)", textAlign: "center", lineHeight: 1.3 }}>{s.label}</span>
+                </button>
+              );
+            })}
+          </div>
 
-            {/* Left: tab buttons — same style as TherapistDifference */}
-            <div style={{ display: "flex", flexDirection: isMobile ? "row" : "column", gap: 8, overflowX: isMobile ? "auto" : undefined }}>
-              {specKeys.map(k => {
-                const s = SPECS[k];
-                const active = activeSpec === k;
+          {/* Side-by-side result */}
+          {compareA && compareB ? (
+            <div key={`${compareA}-${compareB}`} style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 20, animation: "tdFadeIn 0.3s ease" }}>
+              {[compareA, compareB].map((k, col) => {
+                const s = SPECS[k as SpecKey];
                 return (
-                  <button key={k} onClick={() => setActiveSpec(k)} style={{
-                    display: "flex", alignItems: "center", justifyContent: "space-between",
-                    gap: 12,
-                    width: isMobile ? undefined : (active ? 306 : 300),
-                    height: isMobile ? undefined : (active ? 64 : 60),
-                    padding: isMobile ? "10px 14px" : "0 16px",
-                    flexShrink: 0,
-                    background: active ? "var(--red-bg)" : "white",
-                    border: "none",
-                    borderLeft: isMobile ? undefined : (active ? "2px solid var(--red-soft)" : "none"),
-                    borderBottom: isMobile ? (active ? "2px solid var(--red-soft)" : "none") : undefined,
-                    borderRadius: isMobile ? 9999 : "0 8px 8px 0",
-                    cursor: "pointer",
-                    transition: "all 0.2s",
-                    boxShadow: active ? "0 2px 12px rgba(0,0,0,0.07)" : "none",
-                  }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <img src={k === "psychologe" ? "/icon_psychologist.svg" : k === "psychotherapeut" ? "/icon_psychotherapeut.svg" : k === "psychiater" ? "/icon_psychiater.svg" : "/icon_sozialberater.svg"} width={22} height={22} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
-                      <span style={{ fontFamily: F, fontWeight: active ? 600 : 400, fontSize: 16, color: "var(--black)", whiteSpace: "nowrap" }}>{s.label}</span>
+                  <div key={k} style={{ background: s.lightBg, borderRadius: 20, padding: isMobile ? 18 : 28, border: `1.5px solid ${s.color}30` }}>
+                    {/* Header */}
+                    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+                      <div style={{ width: 48, height: 48, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 12px ${s.color}25`, overflow: "hidden", flexShrink: 0 }}>
+                        <img src={k === "sozialberater" ? s.image : s.image} width={k === "sozialberater" ? 48 : 32} height={k === "sozialberater" ? 48 : 32} alt="" style={{ objectFit: k === "sozialberater" ? "cover" : "contain" }} />
+                      </div>
+                      <div>
+                        <span style={{ display: "inline-block", background: "white", borderRadius: 9999, padding: "2px 10px", fontFamily: F, fontSize: 11, color: s.color, fontWeight: 600, marginBottom: 4 }}>{col === 0 ? "A" : "B"}</span>
+                        <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 16 : 18, color: "var(--black)", margin: 0 }}>{s.label}</h3>
+                      </div>
                     </div>
-                    {!isMobile && (
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                        <path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="#1A1A1A"/>
-                      </svg>
-                    )}
-                  </button>
+                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.6, margin: "0 0 20px" }}>{s.desc}</p>
+                    {/* Details */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                      {s.details.map((d, i) => (
+                        <div key={i} style={{ background: "white", borderRadius: 12, padding: "12px 14px", border: `1px solid ${s.color}18`, display: "flex", gap: 10, alignItems: "flex-start" }}>
+                          <span style={{ fontSize: 16, flexShrink: 0 }}>{d.icon}</span>
+                          <div>
+                            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: s.color, margin: "0 0 2px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{d.label}</p>
+                            <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.4 }}>{d.value}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 );
               })}
             </div>
-
-            {/* Right: content card — same style as TherapistDifference */}
-            <div key={activeSpec} style={{
-              background: "linear-gradient(135deg, #FFF6F2 0%, #F5FBFF 100%)",
-              borderRadius: 20,
-              padding: isMobile ? 20 : 32,
-              display: "grid",
-              gridTemplateColumns: isMobile ? "1fr" : "1fr 220px",
-              gridTemplateRows: "auto auto",
-              columnGap: 32,
-              rowGap: 24,
-              animation: "tdFadeIn 0.3s ease",
-            }}>
-              {/* Text col */}
-              <div style={{ gridColumn: 1, gridRow: 1, display: "flex", flexDirection: "column", gap: 14 }}>
-                <span style={{ display: "inline-flex", alignSelf: "flex-start", background: "var(--blue-subtle)", borderRadius: 9999, padding: "4px 14px", fontFamily: F, fontWeight: 400, fontSize: 14, color: "var(--black)" }}>
-                  {spec.tagline}
-                </span>
-                <h3 style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 24 : 32, lineHeight: 1.2, color: "var(--black)", margin: 0 }}>
-                  {spec.label}
-                </h3>
-                <p style={{ fontFamily: F, fontWeight: 400, fontSize: 15, lineHeight: 1.6, color: "var(--grey-text)", margin: 0 }}>
-                  {spec.desc}
-                </p>
-              </div>
-
-              {/* Illustration — row 1 only, cards span full width on row 2 */}
-              {!isMobile && (
-                <div style={{ gridColumn: 2, gridRow: 1, display: "flex", alignItems: "flex-start", justifyContent: "center" }}>
-                  <img src={spec.image} alt={spec.label}
-                    style={{ width: "100%", maxWidth: 200, height: "auto", objectFit: activeSpec === "sozialberater" ? "cover" : "contain", borderRadius: activeSpec === "sozialberater" ? 16 : 0 }} />
-                </div>
-              )}
-
-              {/* 6 detail cards */}
-              <div style={{ gridColumn: isMobile ? 1 : "1 / 3", gridRow: 2, display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(3, 1fr)", gap: 12 }}>
-                {spec.details.map((d, i) => (
-                  <div key={i} style={{ background: "white", borderRadius: 14, padding: "16px 14px", border: `1px solid ${spec.color}20`, display: "flex", flexDirection: "column", gap: 6 }}>
-                    <div style={{ fontSize: 20 }}>{d.icon}</div>
-                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: spec.color, margin: 0, textTransform: "uppercase", letterSpacing: "0.06em" }}>{d.label}</p>
-                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.5 }}>{d.value}</p>
-                  </div>
-                ))}
-              </div>
+          ) : (
+            <div style={{ textAlign: "center", padding: "48px 0", color: "var(--grey-text)", fontFamily: F, fontSize: 15 }}>
+              {!compareA && !compareB ? "Wähle zwei Berufsgruppen oben aus, um sie zu vergleichen." : "Wähle noch eine weitere Berufsgruppe aus."}
             </div>
-          </div>
+          )}
         </div>
         <style>{`@keyframes tdFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
       </section>
