@@ -186,20 +186,13 @@ export default function UnterschiedPage() {
                 const s = SPECS[k];
                 return (
                   <div key={k} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, background: s.lightBg, borderRadius: 20, padding: isMobile ? "22px 16px" : "32px 20px" }}>
-                    <div style={{ width: isMobile ? 64 : 88, height: isMobile ? 64 : 88, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${s.color}30` }}>
-                      <img src={s.image} width={isMobile ? 44 : 62} height={isMobile ? 44 : 62} alt="" style={{ objectFit: "contain" }} />
+                    <div style={{ width: isMobile ? 64 : 88, height: isMobile ? 64 : 88, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${s.color}30`, overflow: "hidden" }}>
+                      <img src={s.image} width={k === "sozialberater" ? (isMobile ? 64 : 88) : (isMobile ? 44 : 62)} height={k === "sozialberater" ? (isMobile ? 64 : 88) : (isMobile ? 44 : 62)} alt="" style={{ objectFit: k === "sozialberater" ? "cover" : "contain" }} />
                     </div>
                     <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 15, color: s.color, textAlign: "center", lineHeight: 1.3 }}>{s.label}</span>
                   </div>
                 );
               })}
-              {/* Sozialberater*in */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, background: SPECS.sozialberater.lightBg, borderRadius: 20, padding: isMobile ? "22px 16px" : "32px 20px" }}>
-                <div style={{ width: isMobile ? 64 : 88, height: isMobile ? 64 : 88, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${SPECS.sozialberater.color}30`, overflow: "hidden" }}>
-                  <img src="/sozialberater.jpg" width={isMobile ? 64 : 88} height={isMobile ? 64 : 88} alt="" style={{ objectFit: "cover", borderRadius: "50%" }} />
-                </div>
-                <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 15, color: SPECS.sozialberater.color, textAlign: "center", lineHeight: 1.3 }}>{SPECS.sozialberater.label}</span>
-              </div>
             </div>
           </div>
         </div>
