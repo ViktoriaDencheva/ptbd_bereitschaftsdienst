@@ -345,7 +345,7 @@ export default function UnterschiedPage() {
                               {DETAIL_ICONS[i]}
                             </div>
                             <div>
-                              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: s.color, margin: "0 0 2px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{d.label}</p>
+                              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: "var(--grey-text)", margin: "0 0 2px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{d.label}</p>
                               <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.4 }}>{d.value}</p>
                             </div>
                           </div>
