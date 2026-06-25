@@ -572,10 +572,17 @@ export default function OrientierungstestPage() {
         return (
           <div style={{ ...wrap, paddingTop: isMobile ? 24 : 56, paddingBottom: 80 }}>
 
-            {/* ── Recommendation banner: two-column ── */}
-            <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", background: "var(--blue-ultra-light)", marginBottom: 40, display: "flex", flexDirection: isMobile ? "column" : "row", alignItems: "stretch", minHeight: isMobile ? "auto" : 360 }}>
-              {/* Left: text */}
-              <div style={{ flex: "1 1 55%", padding: isMobile ? "32px 24px" : "48px 52px", display: "flex", flexDirection: "column", gap: 18, justifyContent: "center" }}>
+            {/* ── Recommendation banner: text over full-width image ── */}
+            <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 320 : 380, marginBottom: 40, display: "flex", alignItems: "center" }}>
+              {/* Background image */}
+              <img src="/empfehlungs-page-banner.jpg" alt=""
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center" }} />
+              {/* Gradient: strong on left so text is readable, fades to transparent on right */}
+              <div style={{ position: "absolute", inset: 0, background: isMobile
+                ? "linear-gradient(to bottom, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.92) 70%, rgba(236,245,255,0.5) 100%)"
+                : "linear-gradient(to right, rgba(236,245,255,1) 0%, rgba(236,245,255,0.98) 35%, rgba(236,245,255,0.75) 58%, rgba(236,245,255,0.0) 78%)" }} />
+              {/* Text on top */}
+              <div style={{ position: "relative", zIndex: 1, padding: isMobile ? "36px 24px" : "52px 56px", maxWidth: isMobile ? "100%" : 620, display: "flex", flexDirection: "column", gap: 18 }}>
                 <p style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>Dein Ergebnis</p>
 
                 <div>
@@ -589,7 +596,7 @@ export default function OrientierungstestPage() {
                 </div>
 
                 {/* Why box */}
-                <div style={{ background: "rgba(255,255,255,0.75)", border: "1px solid rgba(45,91,141,0.12)", borderRadius: 14, padding: "14px 18px", display: "flex", gap: 12, alignItems: "flex-start", maxWidth: 480 }}>
+                <div style={{ background: "rgba(255,255,255,0.82)", border: "1px solid rgba(45,91,141,0.12)", borderRadius: 14, padding: "14px 18px", display: "flex", gap: 12, alignItems: "flex-start", maxWidth: 500 }}>
                   <svg style={{ flexShrink: 0, marginTop: 2 }} width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 8v4M12 16h.01" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>
                   <p style={{ fontFamily: F, fontSize: 14, color: "var(--black)", margin: 0, lineHeight: 1.7 }}>{spec.why}</p>
                 </div>
@@ -600,14 +607,6 @@ export default function OrientierungstestPage() {
                   Was ist der Unterschied zwischen den Fachkräften? →
                 </a>
               </div>
-
-              {/* Right: image */}
-              {!isMobile && (
-                <div style={{ flex: "0 0 42%", position: "relative", overflow: "hidden" }}>
-                  <img src="/empfehlungs-page-banner.jpg" alt=""
-                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center center" }} />
-                </div>
-              )}
             </div>
 
             {/* ── Emotional reassurance ── */}
