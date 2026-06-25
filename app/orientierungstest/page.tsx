@@ -582,54 +582,33 @@ export default function OrientierungstestPage() {
                 ? "linear-gradient(to bottom, rgba(236,245,255,0.97) 0%, rgba(236,245,255,0.92) 70%, rgba(236,245,255,0.5) 100%)"
                 : "linear-gradient(to right, rgba(236,245,255,1) 0%, rgba(236,245,255,0.98) 35%, rgba(236,245,255,0.75) 58%, rgba(236,245,255,0.0) 78%)" }} />
               {/* Text on top */}
-              <div style={{ position: "relative", zIndex: 1, padding: isMobile ? "36px 24px" : "52px 56px", maxWidth: isMobile ? "100%" : 620, display: "flex", flexDirection: "column", gap: 18 }}>
+              <div style={{ position: "relative", zIndex: 1, padding: isMobile ? "36px 24px" : "52px 56px", maxWidth: isMobile ? "100%" : 620, display: "flex", flexDirection: "column", gap: 14 }}>
                 <p style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>Dein Ergebnis</p>
-
                 <div>
                   <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 28 : 40, color: "var(--black)", margin: "0 0 8px", lineHeight: 1.15 }}>
                     {spec.title}
                   </h1>
                   <p style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 18 : 26, color: CTA, lineHeight: 1.3, margin: "10px 0 0" }}>– die beste Fachrichtung für dich.</p>
-                  <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>
-                    Basierend auf Deinen Antworten empfehlen wir eine:n {spec.title.toLowerCase()}, {specKey === "psychiater" ? "die auf schwere psychische Erkrankungen spezialisiert ist — auch für medikamentöse Behandlung und akute Krisen." : specKey === "psychologe" ? "die dir bei Lebensfragen, Orientierung und persönlicher Entwicklung hilft." : "die auf langfristige Behandlung von Depressionen, Angststörungen und Traumata spezialisiert ist."}
+                  <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 15, color: "var(--grey-text)", margin: "14px 0 0", lineHeight: 1.7 }}>
+                    Basierend auf deinen Antworten empfehlen wir eine:n {spec.title.toLowerCase()}, {specKey === "psychiater" ? "die auf schwere psychische Erkrankungen spezialisiert ist — auch für medikamentöse Behandlung und akute Krisen." : specKey === "psychologe" ? "die dir bei Lebensfragen, Orientierung und persönlicher Entwicklung hilft." : "die auf langfristige Behandlung von Depressionen, Angststörungen und Traumata spezialisiert ist."}
                   </p>
                 </div>
+              </div>
+            </div>
 
-                {/* Why box */}
-                <div style={{ background: "rgba(255,255,255,0.82)", border: "1px solid rgba(45,91,141,0.12)", borderRadius: 14, padding: "14px 18px", display: "flex", gap: 12, alignItems: "flex-start", maxWidth: 500 }}>
-                  <svg style={{ flexShrink: 0, marginTop: 2 }} width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 8v4M12 16h.01" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>
-                  <p style={{ fontFamily: F, fontSize: 14, color: "var(--black)", margin: 0, lineHeight: 1.7 }}>{spec.why}</p>
-                </div>
-
-                <a href="/fachkraefte" style={{ fontFamily: F, fontSize: 14, color: CTA, textDecoration: "none", fontWeight: 600, alignSelf: "flex-start" }}
+            {/* ── Was bedeutet X? — spec.why als eigene Sektion ── */}
+            <div style={{ marginBottom: 48, background: "var(--blue-ultra-light)", borderRadius: 20, padding: isMobile ? "28px 24px" : "36px 44px", display: "flex", gap: isMobile ? 18 : 28, alignItems: "flex-start" }}>
+              <div style={{ flexShrink: 0, width: 48, height: 48, borderRadius: 14, background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 1px 6px rgba(45,91,141,0.10)" }}>
+                <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke={CTA} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </div>
+              <div>
+                <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 10px" }}>Was bedeutet {spec.title}?</p>
+                <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 16, color: "var(--black)", margin: 0, lineHeight: 1.75 }}>{spec.why}</p>
+                <a href="/fachkraefte" style={{ display: "inline-block", fontFamily: F, fontSize: 13, color: CTA, fontWeight: 600, textDecoration: "none", marginTop: 14 }}
                   onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
                   onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}>
                   Was ist der Unterschied zwischen den Fachkräften? →
                 </a>
-              </div>
-            </div>
-
-            {/* ── Emotional reassurance ── */}
-            <div style={{ marginBottom: 56, textAlign: "center", padding: isMobile ? "0 8px" : "0 40px" }}>
-              <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 12px", lineHeight: 1.3 }}>
-                Wir haben eine passende Richtung für dich gefunden.
-              </p>
-              <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 16, color: "var(--grey-text)", margin: "0 auto 24px", maxWidth: 560, lineHeight: 1.7 }}>
-                Du bist mit diesen Themen nicht allein. Viele Menschen mit ähnlichen Antworten profitieren von {specKey === "psychiater" ? "psychiatrischer Begleitung und fachärztlicher Behandlung" : specKey === "psychologe" ? "psychologischer Beratung und gezielter Begleitung" : "psychotherapeutischer Begleitung und strukturierter Therapie"} — und machen damit echte Fortschritte.
-              </p>
-              <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 12 : 0, justifyContent: "center", alignItems: "stretch", borderRadius: 20, overflow: "hidden", border: "1px solid #EAF0FA" }}>
-                {[
-                  { n: "2.000+", label: "Menschen begleitet", icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.7"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg> },
-                  { n: "35+", label: "Fachkräfte in Wien", icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg> },
-                  { n: "Seit 2018", label: "im Einsatz für dich", icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.7"/><path d="M12 7v5l3 3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg> },
-                  { n: "3–5 Tage", label: "bis zum ersten Termin", icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg> },
-                ].map((s, i) => (
-                  <div key={i} style={{ flex: 1, background: i % 2 === 0 ? "white" : "var(--blue-ultra-light)", padding: isMobile ? "20px 16px" : "28px 20px", display: "flex", flexDirection: "column", alignItems: "center", gap: 8, borderRight: !isMobile && i < 3 ? "1px solid #EAF0FA" : "none" }}>
-                    <div style={{ color: CTA }}>{s.icon}</div>
-                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 26, color: "var(--black)", margin: 0 }}>{s.n}</p>
-                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0 }}>{s.label}</p>
-                  </div>
-                ))}
               </div>
             </div>
 
@@ -673,7 +652,6 @@ export default function OrientierungstestPage() {
               ];
               return (
                 <div style={{ marginBottom: 56 }}>
-                  <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 8px" }}>Was bedeutet {spec.title}?</p>
                   <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 28px" }}>Was erwartet dich?</h2>
                   <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: isMobile ? 12 : 20 }}>
                     {erwarten.map((item, i) => (
@@ -703,23 +681,25 @@ export default function OrientierungstestPage() {
                     <img src={t.photo} alt={t.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
                   </div>
                   {/* Info */}
-                  <div style={{ flex: 1, minWidth: 0, padding: isMobile ? "16px 14px" : "20px 24px", display: "flex", flexDirection: "column", justifyContent: "center", gap: 8 }}>
-                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 18, color: "var(--black)", margin: 0 }}>{t.name}</h3>
-                    <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0 }}>{t.role}</p>
-                    <div>
-                      <span style={{ fontFamily: F, fontSize: 13, color: "#1E6B34", fontWeight: 700, background: "#E2F7E9", borderRadius: 8, padding: "3px 10px", display: "inline-flex", alignItems: "center", gap: 5 }}>
+                  <div style={{ flex: 1, minWidth: 0, padding: isMobile ? "16px 14px" : "20px 24px", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 0 }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                      {/* Match label — top of card */}
+                      <span style={{ fontFamily: F, fontSize: 12, color: "#1E6B34", fontWeight: 700, background: "#E2F7E9", borderRadius: 8, padding: "3px 10px", display: "inline-flex", alignItems: "center", gap: 5, alignSelf: "flex-start" }}>
                         <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" stroke="#1E6B34" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="9" stroke="#1E6B34" strokeWidth="1.5"/></svg>
-                        {t.match >= 90 ? "Sehr hohe Übereinstimmung" : t.match >= 80 ? "Hohe Übereinstimmung" : "Gute Übereinstimmung"}
+                        {t.match >= 90 ? "Sehr hohe Übereinstimmung" : t.match >= 80 ? "Hohe Übereinstimmung" : "Gute Übereinstimmung"} · {t.match}%*
                       </span>
-                      <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: "5px 0 0", fontStyle: "italic" }}>
-                        {specKey === "psychiater" ? "Basierend auf deinen Antworten zu Belastungsgrad, Symptomen und Behandlungsbedarf." : specKey === "psychologe" ? "Basierend auf deinen Antworten zu Lebensthemen, Orientierung und persönlichem Wachstum." : "Basierend auf deinen Antworten zu Angst, Depression und gewünschter Behandlungsform."}
-                      </p>
+                      <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 18, color: "var(--black)", margin: "4px 0 0" }}>{t.name}</h3>
+                      <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0 }}>{t.role}</p>
+                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 4 }}>
+                        {t.tags.map(tag => (
+                          <span key={tag} style={{ background: "#F5F8FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "3px 11px", fontFamily: F, fontSize: 12, color: "var(--black)" }}>{tag}</span>
+                        ))}
+                      </div>
                     </div>
-                    <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                      {t.tags.map(tag => (
-                        <span key={tag} style={{ background: "#F5F8FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "3px 11px", fontFamily: F, fontSize: 12, color: "var(--black)" }}>{tag}</span>
-                      ))}
-                    </div>
+                    {/* Footnote */}
+                    <p style={{ fontFamily: F, fontSize: 11, color: "var(--grey-text)", margin: "10px 0 0", fontStyle: "italic", lineHeight: 1.5 }}>
+                      *{specKey === "psychiater" ? "Basierend auf deinen Antworten zu Belastungsgrad, Symptomen und Behandlungsbedarf." : specKey === "psychologe" ? "Basierend auf deinen Antworten zu Lebensthemen, Orientierung und persönlichem Wachstum." : "Basierend auf deinen Antworten zu Angst, Depression und gewünschter Behandlungsform."}
+                    </p>
                   </div>
                   {/* CTA */}
                   {!isMobile && (
