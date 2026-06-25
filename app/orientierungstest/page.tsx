@@ -596,37 +596,60 @@ export default function OrientierungstestPage() {
               </div>
             </div>
 
-            {/* ── Was bedeutet X? — clean text block, no box ── */}
-            <div style={{ marginBottom: 52 }}>
-              <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 14px" }}>Was bedeutet {spec.title}?</p>
-              <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 17, color: "var(--grey-text)", margin: "0 0 14px", lineHeight: 1.8, maxWidth: 780 }}>{spec.why}</p>
-              <a href="/fachkraefte" style={{ fontFamily: F, fontSize: 14, color: CTA, fontWeight: 600, textDecoration: "none" }}
-                onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
-                onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}>
-                Was ist der Unterschied zwischen den Fachkräften? →
-              </a>
+            {/* ── Was bedeutet X? — section heading + two-column ── */}
+            <div style={{ marginBottom: 56 }}>
+              <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 10px" }}>Deine Empfehlung im Überblick</p>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 28px", lineHeight: 1.2 }}>Was bedeutet {spec.title}?</h2>
+              <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 300px", gap: isMobile ? 24 : 40, alignItems: "flex-start" }}>
+                <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 16, color: "var(--grey-text)", margin: 0, lineHeight: 1.8 }}>{spec.why}</p>
+                {/* Right: differences teaser card */}
+                <div style={{ background: "#F8FAFE", borderRadius: 18, border: "1px solid #EAF0FA", padding: "24px 22px", display: "flex", flexDirection: "column", gap: 14 }}>
+                  <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                    <div style={{ width: 36, height: 36, borderRadius: 10, background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke={CTA} strokeWidth="1.7" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke={CTA} strokeWidth="1.7"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke={CTA} strokeWidth="1.7" strokeLinecap="round"/></svg>
+                    </div>
+                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "var(--black)", margin: 0 }}>Was unterscheidet die Fachrichtungen?</p>
+                  </div>
+                  <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>
+                    Psychotherapeut:in, Psycholog:in oder Psychiater:in — nicht alle helfen bei denselben Themen. Finde heraus, wer wofür zuständig ist.
+                  </p>
+                  <a href="/fachkraefte"
+                    style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13, color: CTA, fontWeight: 600, textDecoration: "none", marginTop: 4 }}
+                    onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
+                    onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}>
+                    Alle Fachrichtungen vergleichen
+                    <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </a>
+                </div>
+              </div>
             </div>
 
-            {/* Why cards — numbered with accent top border */}
-            <div style={{ marginBottom: 64 }}>
-              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 28px" }}>
+            {/* Why cards — timeline style on grey bg */}
+            <div style={{ marginBottom: 64, background: "#F8FAFE", borderRadius: 24, padding: isMobile ? "28px 20px" : "44px 48px" }}>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 36px", textAlign: isMobile ? "left" : "center" }}>
                 Warum empfehlen wir eine:n {spec.title}?
               </h2>
-              <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: isMobile ? 12 : 20 }}>
+              <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", position: "relative" }}>
+                {/* Connecting line desktop */}
+                {!isMobile && (
+                  <div style={{ position: "absolute", top: 24, left: "calc(12.5%)", right: "calc(12.5%)", height: 2, background: `linear-gradient(to right, ${CTA}30, ${CTA}30)`, zIndex: 0 }} />
+                )}
                 {WHY_CARDS[specKey].map((card, i) => {
                   const col = CARD_COLORS[i % CARD_COLORS.length];
                   return (
-                    <div key={i} style={{ background: "white", border: "1px solid #EAF0FA", borderTop: `3px solid ${col.stroke}`, borderRadius: 18, padding: isMobile ? "18px 14px" : "24px 20px", display: "flex", flexDirection: "column", gap: isMobile ? 12 : 16, position: "relative", overflow: "hidden" }}>
-                      {/* Background number */}
-                      <span style={{ position: "absolute", top: -4, right: 12, fontFamily: F, fontWeight: 800, fontSize: 72, color: col.stroke, opacity: 0.06, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <div style={{ width: isMobile ? 44 : 48, height: isMobile ? 44 : 48, borderRadius: 13, background: col.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: col.stroke }}>
+                    <div key={i} style={{ flex: 1, display: "flex", flexDirection: isMobile ? "row" : "column", alignItems: isMobile ? "flex-start" : "center", gap: isMobile ? 16 : 16, position: "relative", zIndex: 1, paddingBottom: isMobile && i < 3 ? 28 : 0 }}>
+                      {/* Icon circle */}
+                      <div style={{ flexShrink: 0, width: 48, height: 48, borderRadius: "50%", background: col.bg, border: `2px solid ${col.stroke}40`, display: "flex", alignItems: "center", justifyContent: "center", color: col.stroke, position: "relative" }}>
                         {card.icon}
+                        <span style={{ position: "absolute", top: -7, right: -7, width: 20, height: 20, borderRadius: "50%", background: "white", border: `2px solid ${col.stroke}`, fontFamily: F, fontWeight: 800, fontSize: 9, color: col.stroke, display: "flex", alignItems: "center", justifyContent: "center" }}>{i + 1}</span>
                       </div>
-                      <div>
-                        <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 15, color: "var(--black)", margin: "0 0 8px", lineHeight: 1.3 }}>{card.title}</p>
-                        <p style={{ fontFamily: F, fontSize: isMobile ? 12 : 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{card.desc}</p>
+                      {/* Vertical connector mobile */}
+                      {isMobile && i < 3 && (
+                        <div style={{ position: "absolute", left: 23, top: 48, width: 2, height: "calc(100% - 20px)", background: `${CTA}20` }} />
+                      )}
+                      <div style={{ textAlign: isMobile ? "left" : "center", paddingTop: isMobile ? 4 : 0 }}>
+                        <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "var(--black)", margin: "0 0 6px", lineHeight: 1.3 }}>{card.title}</p>
+                        <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.65, maxWidth: isMobile ? undefined : 180 }}>{card.desc}</p>
                       </div>
                     </div>
                   );
@@ -650,32 +673,24 @@ export default function OrientierungstestPage() {
                 { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Dauerhafte Veränderung", desc: "Psychotherapie verändert nicht nur das Gefühl im Moment — sie verändert, wie du mit dir selbst umgehst." },
               ];
               return (
-                <div style={{ marginBottom: 64, background: "#F8FAFE", borderRadius: 24, padding: isMobile ? "28px 20px" : "44px 48px" }}>
-                  <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 36px", textAlign: isMobile ? "left" : "center" }}>Was erwartet dich?</h2>
-                  {/* Timeline */}
-                  <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 0 : 0, position: "relative" }}>
-                    {/* Connecting line — desktop only */}
-                    {!isMobile && (
-                      <div style={{ position: "absolute", top: 24, left: "calc(16.66% + 0px)", right: "calc(16.66% + 0px)", height: 2, background: `linear-gradient(to right, ${CTA}40, ${CTA}40)`, zIndex: 0 }} />
-                    )}
-                    {erwarten.map((item, i) => (
-                      <div key={i} style={{ flex: 1, display: "flex", flexDirection: isMobile ? "row" : "column", alignItems: isMobile ? "flex-start" : "center", gap: isMobile ? 16 : 20, position: "relative", zIndex: 1, paddingBottom: isMobile && i < 2 ? 28 : 0 }}>
-                        {/* Step circle */}
-                        <div style={{ flexShrink: 0, width: 48, height: 48, borderRadius: "50%", background: CTA, display: "flex", alignItems: "center", justifyContent: "center", color: "white", boxShadow: "0 4px 16px rgba(45,91,141,0.25)", position: "relative" }}>
-                          {item.icon}
-                          {/* Step number badge */}
-                          <span style={{ position: "absolute", top: -6, right: -6, width: 18, height: 18, borderRadius: "50%", background: "white", border: `2px solid ${CTA}`, fontFamily: F, fontWeight: 800, fontSize: 9, color: CTA, display: "flex", alignItems: "center", justifyContent: "center" }}>{i + 1}</span>
+                <div style={{ marginBottom: 64 }}>
+                  <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 28px" }}>Was erwartet dich?</h2>
+                  <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: isMobile ? 12 : 20 }}>
+                    {erwarten.map((item, i) => {
+                      const col = CARD_COLORS[i % CARD_COLORS.length];
+                      return (
+                        <div key={i} style={{ background: "white", border: "1px solid #EAF0FA", borderTop: `3px solid ${col.stroke}`, borderRadius: 18, padding: isMobile ? "20px 18px" : "28px 24px", display: "flex", flexDirection: "column", gap: 14, position: "relative", overflow: "hidden" }}>
+                          <span style={{ position: "absolute", top: -4, right: 14, fontFamily: F, fontWeight: 800, fontSize: 72, color: col.stroke, opacity: 0.06, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <div style={{ width: 44, height: 44, borderRadius: 12, background: col.bg, display: "flex", alignItems: "center", justifyContent: "center", color: col.stroke, flexShrink: 0 }}>{item.icon}</div>
+                          <div>
+                            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 6px" }}>{item.title}</p>
+                            <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{item.desc}</p>
+                          </div>
                         </div>
-                        {/* Vertical connector — mobile only */}
-                        {isMobile && i < 2 && (
-                          <div style={{ position: "absolute", left: 23, top: 48, width: 2, height: "calc(100% - 20px)", background: `${CTA}30` }} />
-                        )}
-                        <div style={{ textAlign: isMobile ? "left" : "center", paddingTop: isMobile ? 6 : 0 }}>
-                          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 6px" }}>{item.title}</p>
-                          <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65, maxWidth: isMobile ? undefined : 220 }}>{item.desc}</p>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               );
@@ -689,9 +704,9 @@ export default function OrientierungstestPage() {
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
               {RESULT_THERAPISTS[specKey].map((t, i) => (
                 <div key={t.id}
-                  style={{ background: "white", borderRadius: 18, border: "1px solid #EEF2F7", boxShadow: "0 1px 8px rgba(0,0,0,0.05)", overflow: "hidden", display: "flex", flexDirection: "row", alignItems: "stretch", transition: "border-color 0.2s, box-shadow 0.2s, transform 0.2s", cursor: "default" }}
+                  style={{ background: i === 0 ? "#FAFCFF" : "white", borderRadius: 18, border: i === 0 ? `1.5px solid rgba(45,91,141,0.28)` : "1px solid #EEF2F7", boxShadow: i === 0 ? "0 2px 16px rgba(45,91,141,0.09)" : "0 1px 8px rgba(0,0,0,0.05)", overflow: "hidden", display: "flex", flexDirection: "row", alignItems: "stretch", transition: "border-color 0.2s, box-shadow 0.2s, transform 0.2s", cursor: "default" }}
                   onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = CTA; el.style.boxShadow = "0 6px 24px rgba(45,91,141,0.13)"; el.style.transform = "scale(1.012)"; }}
-                  onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#EEF2F7"; el.style.boxShadow = "0 1px 8px rgba(0,0,0,0.05)"; el.style.transform = "scale(1)"; }}>
+                  onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = i === 0 ? "rgba(45,91,141,0.28)" : "#EEF2F7"; el.style.boxShadow = i === 0 ? "0 2px 16px rgba(45,91,141,0.09)" : "0 1px 8px rgba(0,0,0,0.05)"; el.style.transform = "scale(1)"; }}>
                   {/* Photo — tall left column */}
                   <div style={{ width: isMobile ? 100 : 140, flexShrink: 0, position: "relative" }}>
                     <img src={t.photo} alt={t.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
