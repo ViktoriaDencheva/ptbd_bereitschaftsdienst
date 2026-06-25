@@ -377,8 +377,8 @@ export default function UnterschiedPage() {
                         return (
                           <div key={i} style={{ borderBottom: i < sA.details.length - 1 ? "1px solid #F0F0F0" : "none" }}>
                             {/* Row label */}
-                            <div style={{ display: "flex", alignItems: "center", gap: 10, padding: isMobile ? "12px 16px 6px" : "16px 28px 8px", background: isMobile ? "#EDF4FF" : "#FAFAFA" }}>
-                              <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#D6EBFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 10, padding: isMobile ? "12px 16px 6px" : "16px 28px 8px", background: isMobile ? "#F3F8FF" : "#FAFAFA" }}>
+                              <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#D6EBFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, lineHeight: 0 }}>
                                 {DETAIL_ICONS[i]}
                               </div>
                               <span style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: "var(--grey-text)", textTransform: "uppercase", letterSpacing: "0.07em" }}>{dA.label}</span>
