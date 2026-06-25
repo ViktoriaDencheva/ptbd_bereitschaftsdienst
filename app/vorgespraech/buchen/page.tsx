@@ -513,10 +513,19 @@ export default function VorgespraechBuchenPage() {
                         const date = new Date(calYear, calMonth, day);
                         const avail = isAvailableDay(date);
                         const isPast = date < today;
+                        const isToday = date.getTime() === today.getTime();
                         const isSel = selectedDayObj?.getDate() === day && selectedDayObj?.getMonth() === calMonth && selectedDayObj?.getFullYear() === calYear;
                         return (
-                          <button key={day} onClick={() => avail && selectDay(day)} disabled={!avail || isPast}
-                            style={{ width: "100%", aspectRatio: "1", borderRadius: 8, background: isSel ? CTA : avail ? "var(--blue-ultra-light)" : "transparent", color: isSel ? "white" : avail ? CTA : isPast ? "#D8D8D8" : "#C0C0C0", border: "none", fontFamily: F, fontWeight: isSel ? 600 : avail ? 500 : 400, fontSize: 11, cursor: avail ? "pointer" : "default", transition: "all 0.15s" }}
+                          <button key={day} onClick={() => avail && selectDay(day)} disabled={!avail}
+                            style={{
+                              width: "100%", aspectRatio: "1", borderRadius: 8,
+                              background: isSel ? CTA : avail ? "var(--blue-ultra-light)" : "transparent",
+                              color: isSel ? "white" : avail ? CTA : isPast ? "#D8D8D8" : isToday ? "var(--grey-text)" : "#C0C0C0",
+                              border: isToday ? "1.5px solid var(--grey-border)" : "none",
+                              fontFamily: F, fontWeight: isSel ? 600 : avail ? 500 : 400, fontSize: 11,
+                              cursor: avail ? "pointer" : "default", transition: "all 0.15s",
+                              position: "relative",
+                            }}
                             onMouseEnter={e => { if (avail && !isSel) (e.currentTarget as HTMLElement).style.background = "#D6EBFF"; }}
                             onMouseLeave={e => { if (avail && !isSel) (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"; }}>
                             {day}
