@@ -258,7 +258,7 @@ export default function UnterschiedPage() {
       </section>
 
       {/* ── INTERACTIVE COMPARISON ───────────────────────────── */}
-      <section id="vergleich" style={{ background: "var(--blue-ultra-light)", padding: isMobile ? "40px 0" : "56px 0" }}>
+      <section id="vergleich" style={{ background: "white", padding: isMobile ? "40px 0" : "56px 0" }}>
         <div style={{ ...wrap }}>
           <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Im Detail</p>
           <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 22 : 32, lineHeight: 1.3, color: "var(--black)", margin: "0 0 32px" }}>Interaktiver Vergleich</h2>
@@ -326,25 +326,21 @@ export default function UnterschiedPage() {
                 </p>
               </div>
 
-              {/* Illustration */}
+              {/* Illustration — row 1 only, cards span full width on row 2 */}
               {!isMobile && (
-                <div style={{ gridColumn: 2, gridRow: "1 / 3", display: "flex", alignItems: "flex-start", justifyContent: "center" }}>
+                <div style={{ gridColumn: 2, gridRow: 1, display: "flex", alignItems: "flex-start", justifyContent: "center" }}>
                   <img src={spec.image} alt={spec.label}
                     style={{ width: "100%", maxWidth: 200, height: "auto", objectFit: activeSpec === "sozialberater" ? "cover" : "contain", borderRadius: activeSpec === "sozialberater" ? 16 : 0 }} />
                 </div>
               )}
 
-              {/* 3 info columns */}
-              <div style={{ gridColumn: isMobile ? 1 : "1 / 2", gridRow: 2, display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr 1fr", gap: 16 }}>
-                {[spec.details[0], spec.details[1], spec.details[4]].map((d, i) => (
-                  <div key={i} style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      <div style={{ width: 40, height: 40, borderRadius: "50%", background: "#D6EBFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                        <span style={{ fontSize: 18 }}>{d.icon}</span>
-                      </div>
-                      <span style={{ fontFamily: F, fontWeight: 600, fontSize: 15, color: "var(--black)" }}>{d.label}</span>
-                    </div>
-                    <span style={{ fontFamily: F, fontWeight: 400, fontSize: 14, lineHeight: 1.5, color: "var(--grey-text)" }}>{d.value}</span>
+              {/* 6 detail cards */}
+              <div style={{ gridColumn: isMobile ? 1 : "1 / 3", gridRow: 2, display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(3, 1fr)", gap: 12 }}>
+                {spec.details.map((d, i) => (
+                  <div key={i} style={{ background: "white", borderRadius: 14, padding: "16px 14px", border: `1px solid ${spec.color}20`, display: "flex", flexDirection: "column", gap: 6 }}>
+                    <div style={{ fontSize: 20 }}>{d.icon}</div>
+                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: spec.color, margin: 0, textTransform: "uppercase", letterSpacing: "0.06em" }}>{d.label}</p>
+                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.5 }}>{d.value}</p>
                   </div>
                 ))}
               </div>
