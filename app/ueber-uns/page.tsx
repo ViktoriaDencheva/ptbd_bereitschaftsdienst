@@ -101,7 +101,7 @@ export default function UeberUnsPage() {
           <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: "1fr 1fr", gap: isMobile ? 32 : 64, alignItems: "center" }}>
             {/* Left */}
             <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 14px" }}>Über uns</p>
+
               <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 28 : 42, lineHeight: 1.15, color: "var(--black)", margin: "0 0 12px" }}>
                 Wenn Menschen Hilfe brauchen, sollte der Weg dorthin nicht kompliziert sein.
               </h1>
