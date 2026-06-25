@@ -117,20 +117,15 @@ const EXAMPLES = [
 
 type SpecKey = keyof typeof SPECS;
 
+const blueFilter = "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)";
 // Outline icons for detail rows — same stroke style as platform icons
 const DETAIL_ICONS = [
-  // Ausbildung
-  <svg key="0" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 10V6L12 2L2 6L12 10L22 6V10M6 12.5V17.5L12 20L18 17.5V12.5L12 15L6 12.5Z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  // Hilft bei
-  <svg key="1" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  // Methoden
-  <svg key="2" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  // Medikamente
-  <img key="3" src="/icon_pill.svg" width={18} height={18} alt="" style={{ objectFit: "contain" }} />,
-  // Wann sinnvoll
-  <svg key="4" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 2V6M16 2V6M3 10H21M5 4H19C20.1046 4 21 4.89543 21 6V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V6C3 4.89543 3.89543 4 5 4Z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-  // Dauer
-  <svg key="5" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="var(--cta)" strokeWidth="1.8"/><path d="M12 6v6l4 2" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  <svg key="0" width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ display: "block" }}><path d="M22 10V6L12 2L2 6L12 10L22 6V10M6 12.5V17.5L12 20L18 17.5V12.5L12 15L6 12.5Z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  <svg key="1" width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ display: "block" }}><path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  <svg key="2" width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ display: "block" }}><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  <img key="3" src="/icon_pill.svg" width={18} height={18} alt="" style={{ display: "block", objectFit: "contain", filter: blueFilter }} />,
+  <svg key="4" width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ display: "block" }}><path d="M8 2V6M16 2V6M3 10H21M5 4H19C20.1046 4 21 4.89543 21 6V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V6C3 4.89543 3.89543 4 5 4Z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  <svg key="5" width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ display: "block" }}><circle cx="12" cy="12" r="10" stroke="var(--cta)" strokeWidth="1.8"/><path d="M12 6v6l4 2" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
 ];
 
 function CheckCell({ val }: { val: boolean | "partial" }) {
