@@ -460,7 +460,7 @@ export default function UnterschiedPage() {
               Noch unsicher, wer zu dir passt?
             </h2>
             <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>
-              Kein Problem — dafür sind wir da. In einem kostenlosen Gespräch helfen wir dir persönlich weiter.
+              Kein Problem — dafür sind wir da. Mach einfach unseren kurzen Orientierungstest oder buch ein kostenloses Gespräch, und wir helfen dir persönlich weiter.
             </p>
             <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 12, marginTop: 8 }}>
               <a href="/vorgespraech"
