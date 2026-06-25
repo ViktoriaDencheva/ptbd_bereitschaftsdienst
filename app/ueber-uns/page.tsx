@@ -87,24 +87,17 @@ export default function UeberUnsPage() {
     <main style={{ background: "white", minHeight: "100vh" }}>
       <Navbar />
 
-      {/* ── BREADCRUMBS ──────────────────────────────────────── */}
-      <div style={{ background: "white", borderBottom: "1px solid #F0F4F8" }}>
-        <div style={{ ...wrap, padding: isMobile ? "10px 16px" : "10px 40px" }}>
-          <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            <a href="/" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}
-              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = CTA}
-              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>
-              Startseite
-            </a>
-            <span style={{ fontFamily: F, fontSize: 13, color: "#C0CDD8" }}>/</span>
-            <span style={{ fontFamily: F, fontSize: 13, color: CTA, fontWeight: 600 }}>Über uns</span>
-          </nav>
-        </div>
-      </div>
-
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section style={{ background: "white", padding: isMobile ? "40px 0 48px" : "56px 0 72px" }}>
         <div style={{ ...wrap }}>
+          {/* Breadcrumbs */}
+          <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: isMobile ? 16 : 20, fontFamily: F, fontSize: 13 }}>
+            <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = CTA}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>Startseite</a>
+            <span style={{ color: "#C3C3C3" }}>›</span>
+            <span style={{ color: "var(--black)", fontWeight: 500 }}>Über uns</span>
+          </div>
           <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: "1fr 1fr", gap: isMobile ? 32 : 64, alignItems: "center" }}>
             {/* Left */}
             <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
