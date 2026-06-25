@@ -316,7 +316,7 @@ export default function UnterschiedPage() {
           </div>
 
           {/* Right: Result cards */}
-          <div>
+          <div style={{ minWidth: 0, width: isMobile ? "100%" : undefined }}>
           {(compareA || compareB) ? (() => {
             const active = [compareA, compareB].filter(Boolean) as SpecKey[];
             return (
@@ -385,11 +385,11 @@ export default function UnterschiedPage() {
                             </div>
                             {/* Values */}
                             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
-                              <div style={{ padding: isMobile ? "10px 16px 14px" : "12px 28px 18px", borderRight: "1px solid #F0F0F0" }}>
-                                <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.5 }}>{dA.value}</p>
+                              <div style={{ padding: isMobile ? "10px 12px 14px" : "12px 28px 18px", borderRight: "1px solid #F0F0F0", minWidth: 0 }}>
+                                <p style={{ fontFamily: F, fontSize: isMobile ? 12 : 13, color: "var(--black)", margin: 0, lineHeight: 1.5, wordBreak: "break-word" }}>{dA.value}</p>
                               </div>
-                              <div style={{ padding: isMobile ? "10px 16px 14px" : "12px 28px 18px" }}>
-                                <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.5 }}>{dB.value}</p>
+                              <div style={{ padding: isMobile ? "10px 12px 14px" : "12px 28px 18px", minWidth: 0 }}>
+                                <p style={{ fontFamily: F, fontSize: isMobile ? 12 : 13, color: "var(--black)", margin: 0, lineHeight: 1.5, wordBreak: "break-word" }}>{dB.value}</p>
                               </div>
                             </div>
                           </div>
