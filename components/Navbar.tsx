@@ -34,6 +34,7 @@ export default function Navbar() {
 
   const active = pathname === "/fachkraefte" ? "Fachkräfte"
     : pathname === "/" ? "Startseite"
+    : pathname === "/ueber-uns" ? "Über uns"
     : null;
   const [headerBottom, setHeaderBottom] = useState(108);
 

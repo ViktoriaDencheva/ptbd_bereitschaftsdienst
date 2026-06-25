@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Plus, Minus } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AustriaMap from "@/components/AustriaMap";
 
 const F = "'Poppins', sans-serif";
 const CTA = "var(--cta)";
@@ -85,6 +86,21 @@ export default function UeberUnsPage() {
   return (
     <main style={{ background: "white", minHeight: "100vh" }}>
       <Navbar />
+
+      {/* ── BREADCRUMBS ──────────────────────────────────────── */}
+      <div style={{ background: "white", borderBottom: "1px solid #F0F4F8" }}>
+        <div style={{ ...wrap, padding: isMobile ? "10px 16px" : "10px 40px" }}>
+          <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <a href="/" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = CTA}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>
+              Startseite
+            </a>
+            <span style={{ fontFamily: F, fontSize: 13, color: "#C0CDD8" }}>/</span>
+            <span style={{ fontFamily: F, fontSize: 13, color: CTA, fontWeight: 600 }}>Über uns</span>
+          </nav>
+        </div>
+      </div>
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section style={{ background: "white", padding: isMobile ? "40px 0 48px" : "56px 0 72px" }}>
@@ -208,8 +224,8 @@ export default function UeberUnsPage() {
         <div style={{ ...wrap }}>
           <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: "1fr 1fr", gap: isMobile ? 32 : 64, alignItems: "center" }}>
             {/* Map */}
-            <div style={{ background: "white", borderRadius: 24, padding: isMobile ? 20 : 32, boxShadow: "0 4px 24px rgba(45,91,141,0.07)", display: "flex", alignItems: "center", justifyContent: "center", minHeight: 280 }}>
-              <img src="/icons/frame346.svg" alt="Österreich Karte" style={{ width: "100%", maxWidth: 380, height: "auto", objectFit: "contain" }} />
+            <div style={{ background: "white", borderRadius: 24, padding: isMobile ? 16 : 28, boxShadow: "0 4px 24px rgba(45,91,141,0.07)" }}>
+              <AustriaMap />
             </div>
             {/* Text */}
             <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
