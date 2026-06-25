@@ -117,6 +117,22 @@ const EXAMPLES = [
 
 type SpecKey = keyof typeof SPECS;
 
+// Outline icons for detail rows — same stroke style as platform icons
+const DETAIL_ICONS = [
+  // Ausbildung
+  <svg key="0" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 10V6L12 2L2 6L12 10L22 6V10M6 12.5V17.5L12 20L18 17.5V12.5L12 15L6 12.5Z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  // Hilft bei
+  <svg key="1" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  // Methoden
+  <svg key="2" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  // Medikamente
+  <svg key="3" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M10.5 20H4a2 2 0 01-2-2V6a2 2 0 012-2h16a2 2 0 012 2v7M16 19h6M19 16v6" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  // Wann sinnvoll
+  <svg key="4" width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 2V6M16 2V6M3 10H21M5 4H19C20.1046 4 21 4.89543 21 6V20C21 21.1046 20.1046 22 19 22H5C3.89543 22 3 21.1046 3 20V6C3 4.89543 3.89543 4 5 4Z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  // Dauer
+  <svg key="5" width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="var(--cta)" strokeWidth="1.8"/><path d="M12 6v6l4 2" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+];
+
 function CheckCell({ val }: { val: boolean | "partial" }) {
   if (val === true) return (
     <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 32, height: 32, borderRadius: "50%", background: "#D4F0C8" }}>
@@ -263,81 +279,87 @@ export default function UnterschiedPage() {
       <section id="vergleich" style={{ background: "white", padding: isMobile ? "40px 0" : "56px 0" }}>
         <div style={{ ...wrap }}>
           <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Im Detail</p>
-          <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 22 : 32, lineHeight: 1.3, color: "var(--black)", margin: "0 0 6px" }}>Vergleiche zwei Berufsgruppen</h2>
-          <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px", lineHeight: 1.6 }}>Wähle zwei Berufsgruppen aus und sieh die Unterschiede auf einen Blick.</p>
+          <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 22 : 32, lineHeight: 1.3, color: "var(--black)", margin: "0 0 6px" }}>Vergleiche Berufsgruppen</h2>
+          <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px", lineHeight: 1.6 }}>Wähle eine oder zwei Berufsgruppen aus.</p>
 
-          {/* Picker: 4 selection cards */}
+          {/* Checkboxes */}
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: 12, marginBottom: 32 }}>
             {specKeys.map(k => {
               const s = SPECS[k];
-              const isA = compareA === k;
-              const isB = compareB === k;
-              const selected = isA || isB;
+              const checked1 = compareA === k;
+              const checked2 = compareB === k;
+              const checked = checked1 || checked2;
               return (
                 <button key={k} onClick={() => {
-                  if (isA) { setCompareA(null); return; }
-                  if (isB) { setCompareB(null); return; }
+                  if (checked1) { setCompareA(compareB); setCompareB(null); return; }
+                  if (checked2) { setCompareB(null); return; }
                   if (!compareA) { setCompareA(k); return; }
                   if (!compareB) { setCompareB(k); return; }
-                  setCompareA(k); setCompareB(null);
+                  // already 2 selected: replace oldest (A)
+                  setCompareA(compareB); setCompareB(k);
                 }} style={{
                   display: "flex", flexDirection: "column", alignItems: "center", gap: 10,
                   padding: isMobile ? "16px 10px" : "20px 14px",
                   borderRadius: 16,
-                  background: isA ? SPECS[k].lightBg : isB ? SPECS[k].lightBg : "white",
-                  border: selected ? `2px solid ${s.color}` : "2px solid #EAF0FA",
+                  background: checked ? s.lightBg : "white",
+                  border: checked ? `2px solid ${s.color}` : "2px solid #EAF0FA",
                   cursor: "pointer", transition: "all 0.18s",
                   position: "relative",
                 }}>
-                  {selected && (
-                    <span style={{ position: "absolute", top: 8, right: 8, width: 20, height: 20, borderRadius: "50%", background: s.color, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <span style={{ fontFamily: F, fontSize: 10, fontWeight: 700, color: "white" }}>{isA ? "A" : "B"}</span>
-                    </span>
-                  )}
-                  <img src={k === "psychologe" ? "/icon_psychologist.svg" : k === "psychotherapeut" ? "/icon_psychotherapeut.svg" : k === "psychiater" ? "/icon_psychiater.svg" : "/icon_sozialberater.svg"} width={32} height={32} alt="" style={{ objectFit: "contain" }} />
-                  <span style={{ fontFamily: F, fontWeight: selected ? 700 : 500, fontSize: isMobile ? 12 : 14, color: selected ? s.color : "var(--grey-text)", textAlign: "center", lineHeight: 1.3 }}>{s.label}</span>
+                  {/* Checkbox indicator */}
+                  <span style={{ position: "absolute", top: 10, right: 10, width: 18, height: 18, borderRadius: 5, border: checked ? `2px solid ${s.color}` : "2px solid #C3C3C3", background: checked ? s.color : "white", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.15s" }}>
+                    {checked && <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                  </span>
+                  <img src={k === "psychologe" ? "/icon_psychologist.svg" : k === "psychotherapeut" ? "/icon_psychotherapeut.svg" : k === "psychiater" ? "/icon_psychiater.svg" : "/icon_sozialberater.svg"} width={36} height={36} alt="" style={{ objectFit: "contain" }} />
+                  <span style={{ fontFamily: F, fontWeight: checked ? 700 : 500, fontSize: isMobile ? 12 : 14, color: checked ? s.color : "var(--grey-text)", textAlign: "center", lineHeight: 1.3 }}>{s.label}</span>
                 </button>
               );
             })}
           </div>
 
-          {/* Side-by-side result */}
-          {compareA && compareB ? (
-            <div key={`${compareA}-${compareB}`} style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 20, animation: "tdFadeIn 0.3s ease" }}>
-              {[compareA, compareB].map((k, col) => {
-                const s = SPECS[k as SpecKey];
-                return (
-                  <div key={k} style={{ background: s.lightBg, borderRadius: 20, padding: isMobile ? 18 : 28, border: `1.5px solid ${s.color}30` }}>
-                    {/* Header */}
-                    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-                      <div style={{ width: 48, height: 48, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 12px ${s.color}25`, overflow: "hidden", flexShrink: 0 }}>
-                        <img src={s.image} width={38} height={38} alt="" style={{ objectFit: "contain" }} />
+          {/* Result cards */}
+          {(compareA || compareB) ? (() => {
+            const active = [compareA, compareB].filter(Boolean) as SpecKey[];
+            return (
+              <div key={active.join("-")} style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : active.length === 2 ? "1fr 1fr" : "1fr", gap: 20, animation: "tdFadeIn 0.3s ease" }}>
+                {active.map(k => {
+                  const s = SPECS[k];
+                  return (
+                    <div key={k} style={{ background: "linear-gradient(135deg, #FFF6F2 0%, #F5FBFF 100%)", borderRadius: 20, padding: isMobile ? 20 : 32, display: "grid", gridTemplateColumns: active.length === 1 && !isMobile ? "1fr 220px" : "1fr", gridTemplateRows: "auto auto", columnGap: 32, rowGap: 24 }}>
+                      {/* Text */}
+                      <div style={{ gridColumn: 1, gridRow: 1, display: "flex", flexDirection: "column", gap: 12 }}>
+                        <span style={{ display: "inline-flex", alignSelf: "flex-start", background: "var(--blue-subtle)", borderRadius: 9999, padding: "4px 14px", fontFamily: F, fontWeight: 400, fontSize: 13, color: "var(--black)" }}>{s.tagline}</span>
+                        <h3 style={{ fontFamily: F, fontWeight: 500, fontSize: active.length === 1 ? (isMobile ? 24 : 32) : (isMobile ? 20 : 24), lineHeight: 1.2, color: "var(--black)", margin: 0 }}>{s.label}</h3>
+                        <p style={{ fontFamily: F, fontSize: 14, lineHeight: 1.6, color: "var(--grey-text)", margin: 0 }}>{s.desc}</p>
                       </div>
-                      <div>
-                        <span style={{ display: "inline-block", background: "white", borderRadius: 9999, padding: "2px 10px", fontFamily: F, fontSize: 11, color: s.color, fontWeight: 600, marginBottom: 4 }}>{col === 0 ? "A" : "B"}</span>
-                        <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 16 : 18, color: "var(--black)", margin: 0 }}>{s.label}</h3>
-                      </div>
-                    </div>
-                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.6, margin: "0 0 20px" }}>{s.desc}</p>
-                    {/* Details */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                      {s.details.map((d, i) => (
-                        <div key={i} style={{ background: "white", borderRadius: 12, padding: "12px 14px", border: `1px solid ${s.color}18`, display: "flex", gap: 10, alignItems: "flex-start" }}>
-                          <span style={{ fontSize: 16, flexShrink: 0 }}>{d.icon}</span>
-                          <div>
-                            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: s.color, margin: "0 0 2px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{d.label}</p>
-                            <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.4 }}>{d.value}</p>
-                          </div>
+                      {/* Illustration — only when single card on desktop */}
+                      {active.length === 1 && !isMobile && (
+                        <div style={{ gridColumn: 2, gridRow: "1 / 3", display: "flex", alignItems: "flex-start", justifyContent: "center" }}>
+                          <img src={s.image} alt={s.label} style={{ width: "100%", maxWidth: 200, height: "auto", objectFit: "contain" }} />
                         </div>
-                      ))}
+                      )}
+                      {/* Details grid */}
+                      <div style={{ gridColumn: active.length === 1 && !isMobile ? "1 / 2" : 1, gridRow: 2, display: "grid", gridTemplateColumns: active.length === 2 ? "1fr" : (isMobile ? "1fr 1fr" : "1fr 1fr 1fr"), gap: 10 }}>
+                        {s.details.map((d, i) => (
+                          <div key={i} style={{ background: "white", borderRadius: 12, padding: "14px", border: `1px solid ${s.color}18`, display: "flex", gap: 12, alignItems: "flex-start" }}>
+                            <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#D6EBFF", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                              {DETAIL_ICONS[i]}
+                            </div>
+                            <div>
+                              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: s.color, margin: "0 0 2px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{d.label}</p>
+                              <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.4 }}>{d.value}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
+                  );
+                })}
+              </div>
+            );
+          })() : (
             <div style={{ textAlign: "center", padding: "48px 0", color: "var(--grey-text)", fontFamily: F, fontSize: 15 }}>
-              {!compareA && !compareB ? "Wähle zwei Berufsgruppen oben aus, um sie zu vergleichen." : "Wähle noch eine weitere Berufsgruppe aus."}
+              Wähle eine Berufsgruppe oben aus.
             </div>
           )}
         </div>
