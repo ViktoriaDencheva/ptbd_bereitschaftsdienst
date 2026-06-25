@@ -76,7 +76,7 @@ const SPECS = {
     color: "#B07D3A",
     lightBg: "#FFF8EE",
     icon: "/icon_sozialberater.svg",
-    image: "/sozialberater.jpg",
+    image: "/sozialberater.png",
     tagline: "Lebensberatung & Orientierung",
     desc: "Soziale Lebensberater*innen begleiten Menschen in schwierigen Lebenssituationen — ohne Diagnose, ohne lange Wartezeiten. Ideal bei Krisen, Orientierungsbedarf und alltäglichen Belastungen.",
     details: [
@@ -189,7 +189,7 @@ export default function UnterschiedPage() {
                 return (
                   <div key={k} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, background: s.lightBg, borderRadius: 20, padding: isMobile ? "22px 16px" : "32px 20px" }}>
                     <div style={{ width: isMobile ? 64 : 88, height: isMobile ? 64 : 88, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${s.color}30`, overflow: "hidden" }}>
-                      <img src={s.image} width={k === "sozialberater" ? (isMobile ? 44 : 58) : (isMobile ? 44 : 62)} height={k === "sozialberater" ? (isMobile ? 44 : 58) : (isMobile ? 44 : 62)} alt="" style={{ objectFit: k === "sozialberater" ? "cover" : "contain", borderRadius: k === "sozialberater" ? "50%" : 0 }} />
+                      <img src={s.image} width={k === "sozialberater" ? (isMobile ? 44 : 58) : (isMobile ? 44 : 62)} height={k === "sozialberater" ? (isMobile ? 44 : 58) : (isMobile ? 44 : 62)} alt="" style={{ objectFit: "contain" }} />
                     </div>
                     <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 15, color: s.color, textAlign: "center", lineHeight: 1.3 }}>{s.label}</span>
                   </div>
@@ -311,7 +311,7 @@ export default function UnterschiedPage() {
                     {/* Header */}
                     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
                       <div style={{ width: 48, height: 48, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 12px ${s.color}25`, overflow: "hidden", flexShrink: 0 }}>
-                        <img src={k === "sozialberater" ? s.image : s.image} width={k === "sozialberater" ? 48 : 32} height={k === "sozialberater" ? 48 : 32} alt="" style={{ objectFit: k === "sozialberater" ? "cover" : "contain" }} />
+                        <img src={s.image} width={38} height={38} alt="" style={{ objectFit: "contain" }} />
                       </div>
                       <div>
                         <span style={{ display: "inline-block", background: "white", borderRadius: 9999, padding: "2px 10px", fontFamily: F, fontSize: 11, color: s.color, fontWeight: 600, marginBottom: 4 }}>{col === 0 ? "A" : "B"}</span>
