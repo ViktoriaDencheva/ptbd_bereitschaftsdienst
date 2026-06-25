@@ -90,6 +90,15 @@ const DECISION_TREE = [
   { q: "Ich weiß noch nicht, was ich brauche.", answer: "gespräch", answerLabel: "Orientierungsgespräch" },
 ];
 
+// Sozialberater data (shown separately, not in main SPECS tab comparison)
+const SOZIAL = {
+  label: "Sozialberater*in",
+  color: "#B07D3A",
+  lightBg: "#FFF8EE",
+  tagline: "Lebensberatung & soziale Unterstützung",
+  desc: "Soziale Lebensberater*innen bieten Orientierung und Unterstützung bei persönlichen Lebensfragen — ohne Diagnose, ohne langen Wartezeiten. Ideal bei Lebenskrisen, Entscheidungsprozessen und alltäglichen Belastungen.",
+};
+
 const EXAMPLES = [
   { name: "Anna, 27", situation: "Ich habe seit Monaten Panikattacken und traue mich kaum noch aus dem Haus.", result: "psychotherapeut", resultLabel: "Psychotherapeut*in", color: "#E07878", bg: "#FFF0F0" },
   { name: "Markus, 42", situation: "Mein Arzt vermutet eine schwere Depression. Ich brauche Medikamente und Unterstützung.", result: "psychiater", resultLabel: "Psychiater*in", color: "#5BAA6E", bg: "#F0FAF2" },
@@ -128,13 +137,13 @@ export default function UnterschiedPage() {
             <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
               <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 14px" }}>Die Unterschiede im Überblick</p>
               <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 26 : 38, lineHeight: 1.2, color: "var(--black)", margin: "0 0 16px" }}>
-                Psycholog*in,<br />Psychotherapeut*in<br />oder Psychiater*in?
+                Psycholog*in,<br />Psychotherapeut*in,<br />Psychiater*in<br />oder Sozialberater*in?
               </h1>
               <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 16, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 24px" }}>
                 Wir erklären dir einfach, wer dir wann helfen kann — damit du die richtige Entscheidung triffst.
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
-                {["Einfach erklärt", "In 3 Minuten verständlich", "Für die richtige Entscheidung"].map((t, i) => (
+                {["Einfach erklärt", "Schnell verständlich", "Für die richtige Entscheidung"].map((t, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <img src="/icons/icon-check.svg" width={18} height={18} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
                     <span style={{ fontFamily: F, fontSize: 15, color: "var(--black)", fontWeight: 500 }}>{t}</span>
@@ -150,18 +159,25 @@ export default function UnterschiedPage() {
               </a>
             </div>
             {/* Right: illustration */}
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: isMobile ? 12 : 20 }}>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: isMobile ? 10 : 14 }}>
               {specKeys.map((k) => {
                 const s = SPECS[k];
                 return (
-                  <div key={k} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, background: s.lightBg, borderRadius: 20, padding: isMobile ? "20px 14px" : "28px 20px", flex: 1 }}>
-                    <div style={{ width: isMobile ? 52 : 72, height: isMobile ? 52 : 72, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${s.color}30` }}>
-                      <img src={s.image} width={isMobile ? 36 : 50} height={isMobile ? 36 : 50} alt="" style={{ objectFit: "contain" }} />
+                  <div key={k} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, background: s.lightBg, borderRadius: 20, padding: isMobile ? "18px 10px" : "28px 16px" }}>
+                    <div style={{ width: isMobile ? 56 : 76, height: isMobile ? 56 : 76, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${s.color}30` }}>
+                      <img src={s.image} width={isMobile ? 38 : 54} height={isMobile ? 38 : 54} alt="" style={{ objectFit: "contain" }} />
                     </div>
-                    <span style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 11 : 13, color: s.color, textAlign: "center", lineHeight: 1.3 }}>{s.label}</span>
+                    <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 12 : 14, color: s.color, textAlign: "center", lineHeight: 1.3 }}>{s.label}</span>
                   </div>
                 );
               })}
+              {/* Sozialberater*in */}
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, background: SOZIAL.lightBg, borderRadius: 20, padding: isMobile ? "18px 10px" : "28px 16px" }}>
+                <div style={{ width: isMobile ? 56 : 76, height: isMobile ? 56 : 76, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${SOZIAL.color}30` }}>
+                  <span style={{ fontSize: isMobile ? 26 : 36 }}>🤝</span>
+                </div>
+                <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 12 : 14, color: SOZIAL.color, textAlign: "center", lineHeight: 1.3 }}>{SOZIAL.label}</span>
+              </div>
             </div>
           </div>
         </div>
