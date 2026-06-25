@@ -187,7 +187,7 @@ export default function UnterschiedPage() {
                 return (
                   <div key={k} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12, background: s.lightBg, borderRadius: 20, padding: isMobile ? "22px 16px" : "32px 20px" }}>
                     <div style={{ width: isMobile ? 64 : 88, height: isMobile ? 64 : 88, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: `0 4px 16px ${s.color}30`, overflow: "hidden" }}>
-                      <img src={s.image} width={k === "sozialberater" ? (isMobile ? 64 : 88) : (isMobile ? 44 : 62)} height={k === "sozialberater" ? (isMobile ? 64 : 88) : (isMobile ? 44 : 62)} alt="" style={{ objectFit: k === "sozialberater" ? "cover" : "contain" }} />
+                      <img src={s.image} width={k === "sozialberater" ? (isMobile ? 44 : 58) : (isMobile ? 44 : 62)} height={k === "sozialberater" ? (isMobile ? 44 : 58) : (isMobile ? 44 : 62)} alt="" style={{ objectFit: k === "sozialberater" ? "cover" : "contain", borderRadius: k === "sozialberater" ? "50%" : 0 }} />
                     </div>
                     <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 15, color: s.color, textAlign: "center", lineHeight: 1.3 }}>{s.label}</span>
                   </div>
