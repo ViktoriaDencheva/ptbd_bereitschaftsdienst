@@ -760,34 +760,30 @@ export default function OrientierungstestPage() {
                         <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 18, color: "var(--black)", margin: 0, lineHeight: 1.25 }}>{t.name}</h3>
                         <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "2px 0 0" }}>{t.role}</p>
                       </div>
+                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                        {(t.angebot === "online" || t.angebot === "beides") && <span style={{ padding: "2px 10px", borderRadius: 9999, fontSize: 12, fontFamily: F, fontWeight: 500, color: CTA, border: `1.5px solid ${CTA}` }}>Online</span>}
+                        {(t.angebot === "vor-ort" || t.angebot === "beides") && <span style={{ padding: "2px 10px", borderRadius: 9999, fontSize: 12, fontFamily: F, fontWeight: 500, color: "#B07000", border: "1.5px solid #D4920A" }}>Vor Ort · {t.location}</span>}
+                        {t.kassenerstattung && (
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "2px 10px", borderRadius: 9999, fontSize: 12, fontFamily: F, fontWeight: 500, color: "#33700E", border: "1.5px solid #C3EDD0", background: "#EDF9F0" }}>
+                            <svg width="11" height="11" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#33700E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            Kassenerstattung
+                          </span>
+                        )}
+                      </div>
                       <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
                         <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke={CTA} strokeWidth="1.7"/><path d="M16 2v4M8 2v4M3 10h18" stroke={CTA} strokeWidth="1.7" strokeLinecap="round"/></svg>
                         <span style={{ fontFamily: F, fontSize: 13, color: CTA, fontWeight: 500 }}>Nächster Termin: {t.nextAppointment}</span>
                       </div>
                       <p style={{ fontFamily: F, fontSize: 11, color: "var(--grey-text)", margin: 0, fontStyle: "italic", lineHeight: 1.5 }}>*{footnoteText}</p>
                       {isMobile && (
-                        <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 4 }}>
-                          {t.availability === "today" && (
-                            <a href={`/vorgespraech/buchen?specialist=${t.id}`}
-                              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, background: CTA, color: "white", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 0", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
-                              Termin buchen
-                            </a>
-                          )}
-                          <a href={`/fachkraefte/${t.id}`}
-                            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, background: "white", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 0", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
-                            Profil ansehen →
-                          </a>
-                        </div>
+                        <a href={`/fachkraefte/${t.id}`}
+                          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, background: "white", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 0", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", marginTop: 4 }}>
+                          Profil ansehen →
+                        </a>
                       )}
                     </div>
                     {!isMobile && (
-                      <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "stretch", justifyContent: "center", gap: 8, padding: "0 24px" }}>
-                        {t.availability === "today" && (
-                          <a href={`/vorgespraech/buchen?specialist=${t.id}`}
-                            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, background: CTA, color: "white", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 3px 12px rgba(45,91,141,0.22)" }}>
-                            Termin buchen
-                          </a>
-                        )}
+                      <div style={{ flexShrink: 0, display: "flex", alignItems: "center", padding: "0 24px" }}>
                         <a href={`/fachkraefte/${t.id}`}
                           style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, background: hoveredCard === i ? CTA : "white", color: hoveredCard === i ? "white" : CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap", transition: "background 0.2s, color 0.2s, box-shadow 0.2s", boxShadow: hoveredCard === i ? "0 3px 12px rgba(45,91,141,0.22)" : "none" }}>
                           Profil ansehen
