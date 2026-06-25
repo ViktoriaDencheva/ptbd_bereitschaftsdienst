@@ -288,7 +288,7 @@ export default function UnterschiedPage() {
                     boxShadow: active ? "0 2px 12px rgba(0,0,0,0.07)" : "none",
                   }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <img src={s.icon} width={22} height={22} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
+                      <img src={k === "psychologe" ? "/icon_psychologist.svg" : k === "psychotherapeut" ? "/icon_psychotherapeut.svg" : k === "psychiater" ? "/icon_psychiater.svg" : "/icon_sozialberater.svg"} width={22} height={22} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
                       <span style={{ fontFamily: F, fontWeight: active ? 600 : 400, fontSize: 16, color: "var(--black)", whiteSpace: "nowrap" }}>{s.label}</span>
                     </div>
                     {!isMobile && (
