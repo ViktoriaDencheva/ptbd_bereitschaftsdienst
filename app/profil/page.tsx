@@ -687,11 +687,11 @@ ${isRechnung ? `
 
   if (!user) return null;
 
-  const upcoming = bookings
-    .filter(b => b.status === "confirmed")
-    .sort((a, b) => getBookingDate(a).getTime() - getBookingDate(b).getTime());
   const nowTs = Date.now();
-  const past = bookings.filter(b => b.status !== "cancelled" && getBookingDate(b).getTime() < nowTs);
+  const upcoming = bookings
+    .filter(b => b.status === "confirmed" && getBookingDate(b).getTime() > nowTs)
+    .sort((a, b) => getBookingDate(a).getTime() - getBookingDate(b).getTime());
+  const past = bookings.filter(b => b.status !== "cancelled" && getBookingDate(b).getTime() <= nowTs);
   const next = upcoming[0] ?? null;
   const lastTherapist = upcoming[0] ?? past[0] ?? null;
   const unreadCount = getTotalUnread();
