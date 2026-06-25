@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 function useWindowWidth() {
   const [width, setWidth] = useState(0); // 0 = mobile-first (filters hidden until hydration)
@@ -1012,12 +1013,15 @@ const CARDS_PER_PAGE = 5;
 export default function FachkraeftePage() {
   const winW = useWindowWidth();
   const isMobile = winW < 1071;
+  const searchParams = useSearchParams();
+  const fachParam = searchParams.get("fach");
   const isTablet = winW >= 1071 && winW < 1280;
   const [showFilters, setShowFilters] = useState(false);
 
   // Filter state
   const [suche, setSuche] = useState("");
-  const [fachrichtung, setFachrichtung] = useState("Alle");
+  const fachParamMap: Record<string, string> = { psychologe: "Psycholog*in", psychotherapeut: "Psychotherapeut*in", psychiater: "Psychiater*in" };
+  const [fachrichtung, setFachrichtung] = useState(fachParam && fachParamMap[fachParam] ? fachParamMap[fachParam] : "Alle");
   const [angebot, setAngebot] = useState<string[]>([]);
   const [kasse, setKasse] = useState(false);
   const [verfuegbarkeit, setVerfuegbarkeit] = useState("");

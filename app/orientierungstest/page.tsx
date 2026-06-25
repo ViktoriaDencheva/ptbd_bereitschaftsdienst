@@ -806,7 +806,7 @@ export default function OrientierungstestPage() {
 
             {/* Actions */}
             <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 12, justifyContent: "center", alignItems: "center", marginBottom: 40 }}>
-              <a href={`/fachkraefte?type=${specKey}`}
+              <a href={`/fachkraefte?fach=${specKey}`}
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, background: CTA, color: "white", borderRadius: 9999, padding: "12px 28px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.25)", transition: "background 0.2s" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
@@ -821,22 +821,19 @@ export default function OrientierungstestPage() {
             {/* Vorgesprach banner */}
             <div style={{ borderRadius: isMobile ? 20 : 24, overflow: "hidden", position: "relative", minHeight: isMobile ? 260 : 300, display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
               <img src="/vorgespraech-small-banner.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(236,245,255,0.98) 0%, rgba(236,245,255,0.95) 40%, rgba(236,245,255,0.5) 70%, transparent 100%)" }} />
-              <div style={{ position: "relative", zIndex: 1, maxWidth: isMobile ? "100%" : 500, padding: isMobile ? "32px 24px" : "44px 56px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 14 }}>
-                <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: `${CTA}12`, borderRadius: 9999, padding: "5px 12px" }}>
-                  <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke={CTA} strokeWidth="1.8"/></svg>
-                  <span style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.08em", textTransform: "uppercase" }}>Lieber persönlich?</span>
-                </div>
+              <div style={{ position: "absolute", inset: 0, background: isMobile ? "linear-gradient(to top, rgba(236,245,255,0.98) 0%, rgba(236,245,255,0.92) 60%, rgba(236,245,255,0.3) 100%)" : "linear-gradient(to left, rgba(236,245,255,1) 0%, rgba(236,245,255,0.98) 38%, rgba(236,245,255,0.7) 58%, transparent 80%)" }} />
+              <div style={{ position: "relative", zIndex: 1, width: isMobile ? "100%" : "58%", padding: isMobile ? "32px 24px" : "40px 48px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 14 }}>
+                <span style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase" }}>Lieber persönlich?</span>
                 <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 24, lineHeight: 1.25, color: "var(--black)", margin: 0 }}>Sprich direkt mit uns</h2>
                 <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>In einem kostenlosen 30-minütigen Erstgespräch nehmen wir uns Zeit für dich und finden gemeinsam den besten nächsten Schritt.</p>
-                <div style={{ display: "flex", gap: isMobile ? 16 : 24, flexWrap: "wrap", marginTop: 2 }}>
+                <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 2 }}>
                   {[
-                    { icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.7"/><path d="M12 7v5l3 3" stroke={CTA} strokeWidth="1.7" strokeLinecap="round"/></svg>, label: "30 Minuten für dich" },
-                    { icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke={CTA} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Vertraulich & unverbindlich" },
-                    { icon: <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke={CTA} strokeWidth="1.7" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke={CTA} strokeWidth="1.7"/></svg>, label: "Individuelle Empfehlung" },
-                  ].map((f, i) => (
-                    <div key={i} style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                      <div style={{ width: 32, height: 32, borderRadius: "50%", background: `${CTA}10`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{f.icon}</div>
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.7"/><path d="M12 7v5l3 3" stroke={CTA} strokeWidth="1.7" strokeLinecap="round"/></svg>, label: "30 Minuten für dich" },
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke={CTA} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Vertraulich & unverbindlich" },
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke={CTA} strokeWidth="1.7" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke={CTA} strokeWidth="1.7"/></svg>, label: "Individuelle Empfehlung" },
+                  ].map((f, idx) => (
+                    <div key={idx} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <div style={{ width: 38, height: 38, borderRadius: "50%", background: `${CTA}12`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{f.icon}</div>
                       <span style={{ fontFamily: F, fontSize: 13, color: "var(--black)", fontWeight: 500, lineHeight: 1.3 }}>{f.label}</span>
                     </div>
                   ))}
