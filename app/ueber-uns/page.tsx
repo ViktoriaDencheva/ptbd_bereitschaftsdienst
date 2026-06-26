@@ -294,13 +294,9 @@ export default function UeberUnsPage() {
                       <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "6px 0 0", lineHeight: 1.4 }}>Fachkräfte verfügbar in {activeProvince.name}</p>
                     </div>
                     <div style={{ width: 40, height: 3, background: "#CD1719", borderRadius: 2 }} />
-                    <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
-                      {[
-                        { label: "Persönliche Vermittlung", bg: "var(--blue-ultra-light)", color: "#2D5B8D" },
-                        { label: "Verschiedene Fachrichtungen", bg: "var(--yellow-light)", color: "#7A5C00" },
-                        { label: "Kassenplätze & Privatpraxis", bg: "var(--green-light)", color: "#1A6B2A" },
-                      ].map((t, i) => (
-                        <span key={i} style={{ fontFamily: F, fontSize: 13, fontWeight: 500, color: t.color, background: t.bg, borderRadius: 9999, padding: "6px 14px", display: "inline-block" }}>{t.label}</span>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                      {["Persönliche Vermittlung", "Verschiedene Fachrichtungen", "Kassenplätze & Privatpraxis"].map((t, i) => (
+                        <span key={i} style={{ fontFamily: F, fontSize: 14, fontWeight: 500, color: "var(--black)", borderLeft: `3px solid ${CTA_HEX}`, paddingLeft: 12, display: "block" }}>{t}</span>
                       ))}
                     </div>
                   </div>
@@ -318,14 +314,9 @@ export default function UeberUnsPage() {
                       Klicke auf ein Bundesland auf der Karte, um die Fachkräfte in deiner Region zu entdecken.
                     </p>
                   </div>
-                  <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
-                    {[
-                      { label: "9 Bundesländer", bg: "var(--blue-ultra-light)", color: "#2D5B8D" },
-                      { label: "Persönliche Vermittlung", bg: "var(--yellow-light)", color: "#7A5C00" },
-                      { label: "Kassenplätze & Privatpraxis", bg: "var(--green-light)", color: "#1A6B2A" },
-                      { label: "Unterschiedliche Schwerpunkte", bg: "var(--blue-ultra-light)", color: "#2D5B8D" },
-                    ].map((t, i) => (
-                      <span key={i} style={{ fontFamily: F, fontSize: 13, fontWeight: 500, color: t.color, background: t.bg, borderRadius: 9999, padding: "6px 14px", display: "inline-block" }}>{t.label}</span>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    {["Alle 9 Bundesländer Österreichs", "Persönliche Vermittlung — kein Algorithmus", "Kassenplätze & Privatpraxis", "Unterschiedliche Schwerpunkte"].map((t, i) => (
+                      <span key={i} style={{ fontFamily: F, fontSize: 14, fontWeight: 500, color: "var(--black)", borderLeft: `3px solid ${CTA_HEX}`, paddingLeft: 12, display: "block" }}>{t}</span>
                     ))}
                   </div>
                   <a href="/fachkraefte"
