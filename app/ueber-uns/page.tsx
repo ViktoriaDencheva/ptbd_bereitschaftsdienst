@@ -275,9 +275,9 @@ export default function UeberUnsPage() {
               Klicke auf ein Bundesland, um die verfügbaren Fachkräfte zu sehen.
             </p>
           </div>
-          <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: "3fr 2fr", gap: isMobile ? 24 : 48, alignItems: "start" }}>
+          <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: "5fr 2fr", gap: isMobile ? 24 : 48, alignItems: "start" }}>
             {/* Interactive Map */}
-            <div style={{ background: "white", borderRadius: 24, padding: isMobile ? 16 : 28, boxShadow: "0 4px 24px rgba(45,91,141,0.07)" }}>
+            <div>
               <AustriaMap activeId={selectedProvince} onSelect={setSelectedProvince} />
             </div>
             {/* Info Panel */}
@@ -311,7 +311,6 @@ export default function UeberUnsPage() {
               ) : (
                 <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                   <div>
-                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>Unser Netzwerk</p>
                     <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 8px" }}>1.000+ Fachkräfte österreichweit</h3>
                     <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.7, margin: 0 }}>
                       Klicke auf ein Bundesland auf der Karte, um die Fachkräfte in deiner Region zu entdecken.
