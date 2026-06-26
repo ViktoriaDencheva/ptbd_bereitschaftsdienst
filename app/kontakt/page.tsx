@@ -126,11 +126,10 @@ export default function KontaktPage() {
           </div>
         </div>
 
-        {/* Mobile hero — full height + bottom gradient (like homepage) */}
-        <div className="k-hero-mobile" style={{ display: "none", position: "relative", flexDirection: "column", justifyContent: "flex-end", minHeight: "calc(100svh - 64px)" }}>
-          <img src="/kontakt-banner-mobile.png" alt="Kontakt" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", zIndex: 0 }} />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 25%, rgba(255,255,255,0.55) 55%, rgba(255,255,255,0.92) 75%, rgba(255,255,255,0.97) 90%)", pointerEvents: "none", zIndex: 1 }} />
-          <div style={{ position: "relative", zIndex: 2, padding: "0 20px 48px", display: "flex", flexDirection: "column", gap: 16 }}>
+        {/* Mobile hero — text at top, image at bottom */}
+        <div className="k-hero-mobile" style={{ display: "none", position: "relative", flexDirection: "column", justifyContent: "flex-start", minHeight: "calc(100svh - 64px)" }}>
+          <img src="/kontakt-banner-mobile.png" alt="Kontakt" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center bottom", zIndex: 0 }} />
+          <div style={{ position: "relative", zIndex: 2, padding: "32px 20px 0", display: "flex", flexDirection: "column", gap: 16 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: 32, lineHeight: 1.2, color: "var(--black)", margin: 0 }}>Wir sind für dich da.</h1>
               <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", lineHeight: 1.5, margin: 0 }}>
