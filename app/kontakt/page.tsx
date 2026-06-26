@@ -124,52 +124,74 @@ export default function KontaktPage() {
           </div>
         </div>
 
-        {/* Banner — overlay approach (same as ueber-uns) */}
-        <div style={{ position: "relative", width: "100%", overflow: "hidden", height: isMobile ? 480 : 560 }}>
-          <img src="/kontakt-banner.png" alt="Kontakt" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: isMobile ? "center 25%" : "center", display: "block" }} />
-          {/* Gradient overlay for readability */}
-          <div style={{ position: "absolute", inset: 0, background: isMobile
-            ? "linear-gradient(to top, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0.75) 35%, rgba(255,255,255,0) 65%)"
-            : "none",
-            pointerEvents: "none" }} />
-          {/* Text */}
-          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: isMobile ? "flex-end" : "center" }}>
-            <div style={{ maxWidth: 1440, margin: "0 auto", padding: isMobile ? "0 20px 48px" : "0 40px", width: "100%" }}>
-              <div style={{ maxWidth: isMobile ? "100%" : 560 }}>
-                <span style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: CTA_HEX, letterSpacing: "0.1em", textTransform: "uppercase" as const }}>Kontakt</span>
-                <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 28 : 44, lineHeight: 1.2, color: "var(--black)", margin: "10px 0 14px" }}>
-                  Wir sind für<br />dich da.
+        {isMobile ? (
+          /* Mobile: full-height image + bottom gradient + text at bottom (same as homepage Hero mobile) */
+          <div style={{ position: "relative", minHeight: "calc(100svh - 64px)", display: "flex", flexDirection: "column" as const, justifyContent: "flex-end" }}>
+            <img src="/kontakt-banner.png" alt="Kontakt" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", zIndex: 0 }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 25%, rgba(255,255,255,0.55) 55%, rgba(255,255,255,0.92) 75%, rgba(255,255,255,0.97) 90%)", pointerEvents: "none", zIndex: 1 }} />
+            <div style={{ position: "relative", zIndex: 2, padding: "0 20px 48px", display: "flex", flexDirection: "column" as const, gap: 16 }}>
+              <div style={{ display: "flex", flexDirection: "column" as const, gap: 8 }}>
+                <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: 32, lineHeight: 1.2, color: "var(--black)", margin: 0 }}>
+                  Wir sind für dich da.
                 </h1>
-                <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 16, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 20px" }}>
+                <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", lineHeight: 1.5, margin: 0 }}>
                   Egal ob du Fragen hast, Unterstützung brauchst oder einfach nicht weißt, wo du anfangen sollst — wir helfen dir weiter.
                 </p>
-                <div style={{ display: "flex", flexDirection: "column" as const, gap: 10, marginBottom: 24 }}>
-                  {["Persönliche Beratung auf Wunsch", "Antwort innerhalb von 24 Stunden", "Kostenlos & vertraulich"].map((text, i) => (
-                    <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <CheckCircle2 size={isMobile ? 17 : 18} color={CTA_HEX} strokeWidth={2.2} />
-                      <span style={{ fontFamily: F, fontSize: isMobile ? 14 : 15, color: "var(--black)", fontWeight: 500 }}>{text}</span>
-                    </div>
-                  ))}
-                </div>
-                <div style={{ display: "flex", flexDirection: isMobile ? "column" as const : "row" as const, gap: isMobile ? 10 : 12 }}>
-                  <a href="#kontaktformular"
-                    style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", whiteSpace: "nowrap" as const }}
-                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
-                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA_HEX}>
-                    Nachricht schreiben
-                    <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ filter: "brightness(0) invert(1)" }} />
-                  </a>
-                  <a href="tel:+4311234567"
-                    style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, height: 50, padding: "0 24px", borderRadius: 9999, border: `1.5px solid ${CTA_HEX}`, color: CTA_HEX, fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", background: "rgba(255,255,255,0.85)", whiteSpace: "nowrap" as const }}
-                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#EEF4FC"}
-                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.85)"}>
-                    +43 1 123 45 67
-                  </a>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column" as const, gap: 12 }}>
+                <a href="#kontaktformular" style={{ background: CTA_HEX, color: "white", border: "none", borderRadius: 9999, minHeight: 52, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, fontFamily: F, fontWeight: 600, fontSize: 16, textDecoration: "none", cursor: "pointer" }}>
+                  Nachricht schreiben
+                  <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ filter: "brightness(0) invert(1)" }} />
+                </a>
+                <a href="tel:+4311234567" style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(8px)", color: CTA_HEX, border: `1.5px solid ${CTA_HEX}`, borderRadius: 9999, minHeight: 52, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F, fontWeight: 500, fontSize: 16, textDecoration: "none" }}>
+                  +43 1 123 45 67
+                </a>
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* Desktop: banner with left gradient + text on left */
+          <div style={{ position: "relative", width: "100%", overflow: "hidden", height: 560 }}>
+            <img src="/kontakt-banner.png" alt="Kontakt" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "60% center", display: "block" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90.76deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.55) 40%, rgba(255,255,255,0) 65%)", pointerEvents: "none" }} />
+            <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center" }}>
+              <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 40px", width: "100%" }}>
+                <div style={{ maxWidth: 560 }}>
+                  <span style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: CTA_HEX, letterSpacing: "0.1em", textTransform: "uppercase" as const }}>Kontakt</span>
+                  <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: 44, lineHeight: 1.2, color: "var(--black)", margin: "10px 0 16px" }}>
+                    Wir sind für<br />dich da.
+                  </h1>
+                  <p style={{ fontFamily: F, fontSize: 16, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 20px" }}>
+                    Egal ob du Fragen hast, Unterstützung brauchst oder einfach nicht weißt, wo du anfangen sollst — wir helfen dir weiter.
+                  </p>
+                  <div style={{ display: "flex", flexDirection: "column" as const, gap: 10, marginBottom: 28 }}>
+                    {["Persönliche Beratung auf Wunsch", "Antwort innerhalb von 24 Stunden", "Kostenlos & vertraulich"].map((text, i) => (
+                      <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <CheckCircle2 size={18} color={CTA_HEX} strokeWidth={2.2} />
+                        <span style={{ fontFamily: F, fontSize: 15, color: "var(--black)", fontWeight: 500 }}>{text}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div style={{ display: "flex", gap: 12, flexWrap: "wrap" as const }}>
+                    <a href="#kontaktformular"
+                      style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", whiteSpace: "nowrap" as const }}
+                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA_HEX}>
+                      Nachricht schreiben
+                      <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ filter: "brightness(0) invert(1)" }} />
+                    </a>
+                    <a href="tel:+4311234567"
+                      style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 24px", borderRadius: 9999, border: `1.5px solid ${CTA_HEX}`, color: CTA_HEX, fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", background: "white", whiteSpace: "nowrap" as const }}
+                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#EEF4FC"}
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "white"}>
+                      +43 1 123 45 67
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </section>
 
 
