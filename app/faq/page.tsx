@@ -167,7 +167,7 @@ export default function FaqPage() {
 
       {/* ── BREADCRUMBS ── */}
       <section style={{ background: "white" }}>
-        <div style={{ ...W }} className="faq-breadcrumbs">
+        <div style={{ maxWidth: 1440, margin: "0 auto" }} className="k-breadcrumbs-wrap">
           <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13 }}>
             <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = CTA_HEX}
@@ -333,7 +333,6 @@ export default function FaqPage() {
       <Footer />
 
       <style>{`
-        .faq-breadcrumbs { padding: 28px 40px 16px; }
         .faq-h1 { font-size: 42px; }
         .faq-cat-grid {
           display: grid;
@@ -346,7 +345,6 @@ export default function FaqPage() {
           gap: 14px;
         }
         @media (max-width: 1070px) {
-          .faq-breadcrumbs { padding: 20px 16px 12px !important; }
           .faq-h1 { font-size: 30px !important; }
           .faq-cat-grid { grid-template-columns: repeat(3, 1fr) !important; }
           .faq-popular-grid { grid-template-columns: 1fr !important; }
