@@ -158,12 +158,16 @@ export default function UeberUnsPage() {
         <div style={{ ...wrap }}>
           {/* Mission quote */}
           {isMobile ? (
-            <div style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 40 }}>
-              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: 0 }}>Unsere Mission & Werte</p>
-              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 22, lineHeight: 1.4, margin: 0 }}>
-                „<span style={{ color: "#CD1719" }}>Niemand</span> sollte <span style={{ color: "#CD1719" }}>monatelang</span> auf psychotherapeutische <span style={{ color: "#CD1719" }}>Hilfe</span> warten müssen."
-              </p>
-              <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", lineHeight: 1.8, margin: 0 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 0, marginBottom: 40 }}>
+              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 20px" }}>Unsere Mission & Werte</p>
+              <div style={{ display: "flex", gap: 0, alignItems: "stretch" }}>
+                {/* vertical divider */}
+                <div style={{ width: 3, flexShrink: 0, background: "#E2EBF5", borderRadius: 2, marginRight: 20 }} />
+                <p style={{ fontFamily: F, fontWeight: 700, fontSize: 20, lineHeight: 1.45, margin: 0, color: "var(--black)" }}>
+                  „<span style={{ color: "#CD1719" }}>Niemand</span> sollte <span style={{ color: "#CD1719" }}>monatelang</span> auf psychotherapeutische <span style={{ color: "#CD1719" }}>Hilfe</span> warten müssen."
+                </p>
+              </div>
+              <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", lineHeight: 1.8, margin: "20px 0 0" }}>
                 Der Psychotherapeutische Bereitschaftsdienst wurde gegründet, um psychologische Hilfe schneller, einfacher und persönlicher zugänglich zu machen — als gemeinnütziger Verein, der Menschen in den Mittelpunkt stellt.
               </p>
             </div>
@@ -184,20 +188,30 @@ export default function UeberUnsPage() {
             </div>
           )}
           {/* Werte cards */}
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: 16 }}>
-            {WERTE.map((w, i) => (
-              <div key={i}
-                style={{ background: w.bg, borderRadius: 20, padding: isMobile ? "20px 16px" : "28px 24px", display: "flex", flexDirection: "column", gap: 12, transition: "transform 0.35s ease", cursor: "default" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-5px)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "none"; }}>
-                <div style={{ width: 52, height: 52, borderRadius: "50%", background: "white", display: "grid", placeItems: "center", boxShadow: `0 2px 12px ${w.color}20` }}>
-                  {w.icon}
+          {isMobile ? (
+            <div style={{ display: "flex", overflowX: "auto", gap: 12, scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", paddingBottom: 8, marginLeft: -16, marginRight: -16, paddingLeft: 16, paddingRight: 16 } as React.CSSProperties}>
+              {WERTE.map((w, i) => (
+                <div key={i} style={{ background: w.bg, borderRadius: 20, padding: "20px 16px", display: "flex", flexDirection: "column", gap: 12, flexShrink: 0, width: "72vw", scrollSnapAlign: "start" }}>
+                  <div style={{ width: 48, height: 48, borderRadius: "50%", background: "white", display: "grid", placeItems: "center", boxShadow: `0 2px 12px ${w.color}20` }}>{w.icon}</div>
+                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: 0 }}>{w.title}</p>
+                  <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{w.desc}</p>
                 </div>
-                <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 15, color: "var(--black)", margin: 0 }}>{w.title}</p>
-                <p style={{ fontFamily: F, fontSize: isMobile ? 12 : 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{w.desc}</p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+              {WERTE.map((w, i) => (
+                <div key={i}
+                  style={{ background: w.bg, borderRadius: 20, padding: "28px 24px", display: "flex", flexDirection: "column", gap: 12, transition: "transform 0.35s ease", cursor: "default" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-5px)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "none"; }}>
+                  <div style={{ width: 52, height: 52, borderRadius: "50%", background: "white", display: "grid", placeItems: "center", boxShadow: `0 2px 12px ${w.color}20` }}>{w.icon}</div>
+                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: 0 }}>{w.title}</p>
+                  <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{w.desc}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -206,35 +220,45 @@ export default function UeberUnsPage() {
         <div style={{ ...wrap }}>
           <div style={{ textAlign: "center", marginBottom: isMobile ? 32 : 48 }}>
             <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unsere Wirkung</p>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: 0 }}>Zahlen, die für sich sprechen.</h2>
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: 0 }}>Zahlen, die für sich sprechen.</h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: isMobile ? 12 : 20 }}>
-            {STATS.map((s, i) => {
-              const hov = hoveredStat === i;
-              return (
-                <div key={i}
-                  onMouseEnter={() => setHoveredStat(i)}
-                  onMouseLeave={() => setHoveredStat(null)}
-                  style={{
-                    background: hov ? "white" : "transparent",
-                    borderRadius: 20,
-                    padding: isMobile ? "20px 16px" : "28px 24px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 8,
-                    border: `1.5px solid ${hov ? "#D6E8FF" : "#D0DFF0"}`,
-                    boxShadow: hov ? "0 8px 28px rgba(45,91,141,0.10)" : "none",
-                    transform: hov ? "translateY(-4px) scale(1.02)" : "translateY(0) scale(1)",
-                    transition: "all 0.2s ease",
-                  }}>
-                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 28 : 38, color: CTA, margin: 0, lineHeight: 1.1 }}>{s.value}</p>
-                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 14 : 16, color: "var(--black)", margin: 0, lineHeight: 1.3 }}>{s.label}</p>
+          {isMobile ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {STATS.map((s, i) => (
+                <div key={i} style={{ background: "white", borderRadius: 20, padding: "20px 16px", display: "flex", flexDirection: "column", gap: 8, border: "1.5px solid #D0DFF0" }}>
+                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: 28, color: CTA, margin: 0, lineHeight: 1.1 }}>{s.value}</p>
+                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: 0, lineHeight: 1.3 }}>{s.label}</p>
                   <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.sub}</p>
                 </div>
-              );
-            })}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }}>
+              {STATS.map((s, i) => {
+                const hov = hoveredStat === i;
+                return (
+                  <div key={i}
+                    onMouseEnter={() => setHoveredStat(i)}
+                    onMouseLeave={() => setHoveredStat(null)}
+                    style={{
+                      background: hov ? "white" : "transparent",
+                      borderRadius: 20,
+                      padding: "28px 24px",
+                      display: "flex", flexDirection: "column", gap: 8,
+                      border: `1.5px solid ${hov ? "#D6E8FF" : "#D0DFF0"}`,
+                      boxShadow: hov ? "0 8px 28px rgba(45,91,141,0.10)" : "none",
+                      transform: hov ? "translateY(-4px) scale(1.02)" : "translateY(0) scale(1)",
+                      transition: "all 0.2s ease",
+                    }}>
+                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 38, color: CTA, margin: 0, lineHeight: 1.1 }}>{s.value}</p>
+                    <p style={{ fontFamily: F, fontWeight: 600, fontSize: 16, color: "var(--black)", margin: 0, lineHeight: 1.3 }}>{s.label}</p>
+                    <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.sub}</p>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 
@@ -243,21 +267,17 @@ export default function UeberUnsPage() {
         <div style={{ ...wrap }}>
           <div style={{ marginBottom: isMobile ? 32 : 48 }}>
             <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Wie wir Menschen begleiten</p>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: "0 0 8px" }}>Vom ersten Gedanken bis zur Unterstützung.</h2>
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: "0 0 8px" }}>Vom ersten Gedanken bis zur Unterstützung.</h2>
             <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>Wir begleiten dich durch jeden Schritt — klar, persönlich und ohne Umwege.</p>
           </div>
           {isMobile ? (
-            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <div style={{ display: "flex", overflowX: "auto", gap: 12, scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", paddingBottom: 8, marginLeft: -16, marginRight: -16, paddingLeft: 16, paddingRight: 16 } as React.CSSProperties}>
               {STEPS.map((s, i) => (
-                <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start", background: "#F8FAFE", borderRadius: 16, padding: "20px 18px" }}>
-                  <div style={{ width: 48, height: 48, borderRadius: "50%", background: "white", border: `1.5px solid ${CTA_HEX}30`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <img src={s.icon} width={24} height={24} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
-                  </div>
-                  <div>
-                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, margin: "0 0 2px", letterSpacing: "0.06em" }}>{i + 1}.</p>
-                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 4px" }}>{s.title}</h3>
-                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
-                  </div>
+                <div key={i} style={{ flexShrink: 0, width: "72vw", scrollSnapAlign: "start", background: "white", borderRadius: 20, padding: "40px 18px 28px", border: "1px solid #EAF0FA", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden" }}>
+                  <span style={{ position: "absolute", top: 8, right: 12, fontFamily: F, fontWeight: 800, fontSize: 64, color: CTA, opacity: 0.1, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{i + 1}</span>
+                  <img src={s.icon} width={44} height={44} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)", marginBottom: 16 }} />
+                  <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 8px" }}>{s.title}</h3>
+                  <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
                 </div>
               ))}
             </div>
@@ -286,14 +306,14 @@ export default function UeberUnsPage() {
         <div style={{ ...wrap }}>
           <div style={{ marginBottom: isMobile ? 28 : 40, textAlign: isMobile ? "center" : "left" }}>
             <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unser Netzwerk</p>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: "0 0 8px" }}>Österreichweit für dich da.</h2>
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: "0 0 8px" }}>Österreichweit für dich da.</h2>
             <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", lineHeight: 1.7, margin: 0 }}>
               Klicke auf ein Bundesland, um die verfügbaren Fachkräfte zu sehen.
             </p>
           </div>
           <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: "5fr 2fr", gap: isMobile ? 24 : 48, alignItems: "start" }}>
             {/* Interactive Map */}
-            <div>
+            <div style={isMobile ? { marginLeft: -16, marginRight: -16 } : {}}>
               <AustriaMap activeId={selectedProvince} onSelect={setSelectedProvince} />
             </div>
             {/* Info Panel */}
@@ -352,7 +372,7 @@ export default function UeberUnsPage() {
         <div style={{ ...wrap }}>
           <div style={{ marginBottom: isMobile ? 32 : 48 }}>
             <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Warum Menschen uns vertrauen</p>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: 0 }}>Unsere Geschichte, kurz erzählt.</h2>
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: 0 }}>Unsere Geschichte, kurz erzählt.</h2>
           </div>
           {/* Desktop: horizontal timeline */}
           {!isMobile ? (
@@ -428,7 +448,7 @@ export default function UeberUnsPage() {
       <section style={{ background: "#F5F9FD", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
           <div style={{ textAlign: "center", maxWidth: 560, margin: "0 auto", display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: 0, lineHeight: 1.3 }}>
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: 0, lineHeight: 1.3 }}>
               Bereit, den ersten Schritt zu machen?
             </h2>
             <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>
