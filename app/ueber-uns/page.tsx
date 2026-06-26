@@ -111,10 +111,11 @@ export default function UeberUnsPage() {
             />
           </picture>
 
-          {/* Light white overlay on mobile for text readability */}
-          {isMobile && (
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.42) 30%, rgba(255,255,255,0.52) 55%, rgba(255,255,255,0) 85%)" }} />
-          )}
+          {/* Overlay for readability and tone-matching */}
+          <div style={{ position: "absolute", inset: 0, background: isMobile
+            ? "linear-gradient(to top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.42) 30%, rgba(255,255,255,0.52) 55%, rgba(255,255,255,0) 85%)"
+            : "linear-gradient(to right, rgba(240,246,255,0.55) 0%, rgba(240,246,255,0.28) 55%, rgba(240,246,255,0) 100%)"
+          }} />
 
           {/* Text content */}
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: isMobile ? "flex-end" : "center" }}>
