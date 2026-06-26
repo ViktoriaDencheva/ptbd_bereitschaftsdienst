@@ -161,7 +161,7 @@ export default function FaqPage() {
 
       {/* ── HERO ── */}
       <section style={{ position: "relative", overflow: "hidden", background: "white", padding: "72px 0 64px", minHeight: 300 }}>
-        <img src="/FAQ-banner.png" alt="" aria-hidden={true} style={{ position: "absolute", top: 0, right: 0, height: "100%", pointerEvents: "none" as const }} />
+        <img src="/FAQ-banner.png" alt="" aria-hidden={true} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", pointerEvents: "none" as const }} />
         <div style={{ ...W, position: "relative", zIndex: 1 }}>
           <h1 className="faq-h1" style={{ fontFamily: F, fontWeight: 800, color: "#1A1A1A", lineHeight: 1.2, marginBottom: 16 }}>
             Wie können wir dir helfen?
