@@ -159,7 +159,7 @@ export default function UeberUnsPage() {
             <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
               <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: 0 }}>Unsere Mission</p>
               <p style={{ fontFamily: F, fontWeight: 700, fontSize: 22, lineHeight: 1.4, margin: 0 }}>
-                <span style={{ color: "#CD1719" }}>Niemand sollte monatelang</span> auf psychotherapeutische Hilfe warten müssen.
+                <span style={{ color: "#CD1719" }}>Niemand</span> sollte <span style={{ color: "#CD1719" }}>monatelang</span> auf psychotherapeutische <span style={{ color: "#CD1719" }}>Hilfe</span> warten müssen.
               </p>
               <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", lineHeight: 1.8, margin: 0 }}>
                 Der Psychotherapeutische Bereitschaftsdienst wurde gegründet, um psychologische Hilfe schneller, einfacher und persönlicher zugänglich zu machen — als gemeinnütziger Verein, der Menschen in den Mittelpunkt stellt.
@@ -172,7 +172,7 @@ export default function UeberUnsPage() {
               <div style={{ paddingRight: 8 }}>
                 <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 20px" }}>Unsere Mission</p>
                 <p style={{ fontFamily: F, fontWeight: 700, fontSize: 26, lineHeight: 1.45, margin: 0, color: "var(--black)" }}>
-                  „<span style={{ color: "#CD1719" }}>Niemand sollte monatelang</span> auf psychotherapeutische Hilfe warten müssen."
+                  „<span style={{ color: "#CD1719" }}>Niemand</span> sollte <span style={{ color: "#CD1719" }}>monatelang</span> auf psychotherapeutische <span style={{ color: "#CD1719" }}>Hilfe</span> warten müssen."
                 </p>
               </div>
               {/* Divider */}
