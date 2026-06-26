@@ -187,9 +187,9 @@ export default function UeberUnsPage() {
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: 16 }}>
             {WERTE.map((w, i) => (
               <div key={i}
-                style={{ background: w.bg, borderRadius: 20, padding: isMobile ? "20px 16px" : "28px 24px", display: "flex", flexDirection: "column", gap: 12, transition: "transform 0.2s ease, box-shadow 0.2s ease", cursor: "default" }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.transform = "translateY(-4px) scale(1.02)"; el.style.boxShadow = `0 8px 28px ${w.color}30`; }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.transform = "none"; el.style.boxShadow = "none"; }}>
+                style={{ background: w.bg, borderRadius: 20, padding: isMobile ? "20px 16px" : "28px 24px", display: "flex", flexDirection: "column", gap: 12, transition: "transform 0.35s ease", cursor: "default" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "translateY(-5px)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "none"; }}>
                 <div style={{ width: 52, height: 52, borderRadius: "50%", background: "white", display: "grid", placeItems: "center", boxShadow: `0 2px 12px ${w.color}20` }}>
                   {w.icon}
                 </div>
