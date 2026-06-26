@@ -179,7 +179,8 @@ export default function FaqPage() {
               value={query}
               onChange={e => setQuery(e.target.value)}
               placeholder="Suche nach einer Frage..."
-              style={{ width: "100%", boxSizing: "border-box", paddingLeft: 52, paddingRight: 20, height: 56, borderRadius: 16, border: "1.5px solid #DDE8F5", fontFamily: F, fontSize: 15.5, color: "#1A1A1A", outline: "none", boxShadow: "0 4px 24px rgba(45,91,141,0.10)", background: "white" }}
+              className="faq-search-input"
+              style={{ width: "100%", boxSizing: "border-box", paddingLeft: 52, paddingRight: 20, height: 56, borderRadius: 16, border: "1.5px solid #DDE8F5", fontFamily: F, fontSize: 15.5, color: "#1A1A1A", outline: "none", boxShadow: "0 4px 24px rgba(45,91,141,0.10)", background: "white", transition: "border-color 0.2s, box-shadow 0.2s" }}
             />
           </div>
         </div>
@@ -276,6 +277,7 @@ export default function FaqPage() {
       <style>{`
         .faq-bc-wrap { max-width: 1440px; margin: 0 auto; padding: 32px 80px 28px; }
         .faq-h1 { font-size: 42px; }
+        .faq-search-input:focus { border-color: #2D5B8D !important; box-shadow: 0 0 0 3px rgba(45,91,141,0.15), 0 4px 24px rgba(45,91,141,0.10) !important; }
         .faq-cat-grid {
           display: grid;
           grid-template-columns: repeat(6, 1fr);
