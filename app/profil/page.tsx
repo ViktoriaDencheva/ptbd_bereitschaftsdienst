@@ -1051,7 +1051,7 @@ ${isRechnung ? `
                       <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
                     </a>
                     {[
-                      { label: "Hilfe bei der Auswahl", icon: <UserIcon />, href: "/fachkraefte" },
+                      { label: "Hilfe bei der Auswahl", icon: <UserIcon />, href: "/vorgespraech" },
                       { label: "Datenschutz & Sicherheit", icon: <LockIcon />, href: "/datenschutz" },
                     ].map((item, i) => (
                       <a key={i} href={item.href} style={{ display: "flex", alignItems: "center", gap: 12, padding: "13px 16px", borderRadius: 12, background: "#F9FAFB", color: "var(--black)", textDecoration: "none", border: "1px solid #F3F4F6", transition: "background 0.2s" }}
@@ -1080,21 +1080,16 @@ ${isRechnung ? `
                     <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0 }}>Wir sind für Sie da.</p>
                   </div>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
-                  <button style={{ height: 40, padding: "0 20px", borderRadius: 9999, background: "var(--blue-ultra-light)", color: CTA, border: "none", fontFamily: F, fontWeight: 500, fontSize: 14, cursor: "pointer" }}>
-                    Kontakt aufnehmen
-                  </button>
-                  <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
-                    {["FAQ", "Kontakt", "Datenschutz"].map((l, i) => (
-                      <span key={i} style={{ display: "flex", alignItems: "center", gap: 0 }}>
-                        {i > 0 && <span style={{ color: "#D1D5DB", margin: "0 12px" }}>·</span>}
-                        <a href="#" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
-                          onMouseEnter={e => (e.currentTarget.style.color = CTA)}
-                          onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-                        >{l}</a>
-                      </span>
-                    ))}
-                  </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 0 }}>
+                  {[{ label: "FAQ", href: "/faq" }, { label: "Kontakt", href: "/kontakt" }, { label: "Datenschutz", href: "/datenschutz" }].map((l, i) => (
+                    <span key={i} style={{ display: "flex", alignItems: "center" }}>
+                      {i > 0 && <span style={{ color: "#D1D5DB", margin: "0 12px" }}>·</span>}
+                      <a href={l.href} style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
+                        onMouseEnter={e => (e.currentTarget.style.color = CTA)}
+                        onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
+                      >{l.label}</a>
+                    </span>
+                  ))}
                 </div>
               </div>
             </div>
