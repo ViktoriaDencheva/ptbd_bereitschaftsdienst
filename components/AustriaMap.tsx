@@ -43,7 +43,7 @@ export default function AustriaMap({ activeId, onSelect }: Props) {
 
   return (
     <svg
-      viewBox="50 350 4400 2000"
+      viewBox="0 0 4400 2300"
       style={{ width: "100%", height: "auto", display: "block" }}
       xmlns="http://www.w3.org/2000/svg"
     >
