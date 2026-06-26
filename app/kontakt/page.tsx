@@ -328,14 +328,16 @@ export default function KontaktPage() {
                 </div>
                 <div style={{ background: "white", padding: "20px 24px", display: "flex", flexDirection: "column", gap: 0 }}>
                   {[
-                    { text: "Wir finden gemeinsam die passende Unterstützung für dich", icon: "🎯" },
-                    { text: "Keine Wartelisten — schnelle, unkomplizierte Hilfe", icon: "⚡" },
-                    { text: "Unser Team kennt das österreichische Versorgungssystem", icon: "🇦🇹" },
-                    { text: "Vertraulich, kostenlos und ohne Verpflichtung", icon: "🔒" },
-                    { text: "Österreichweit verfügbar — in allen 9 Bundesländern", icon: "📍" },
+                    { text: "Wir finden gemeinsam die passende Unterstützung für dich", icon: "/icons/icon-orientierung.svg" },
+                    { text: "Keine Wartelisten — schnelle, unkomplizierte Hilfe", icon: "/icons/icon-clock.svg" },
+                    { text: "Unser Team kennt das österreichische Versorgungssystem", icon: "/icons/icon-fachkraefte-warum.svg" },
+                    { text: "Vertraulich, kostenlos und ohne Verpflichtung", icon: "/icons/lock-keyhole.svg" },
+                    { text: "Österreichweit verfügbar — in allen 9 Bundesländern", icon: "/icons/icon-pin.svg" },
                   ].map((item, i, arr) => (
                     <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, padding: "14px 0", borderBottom: i < arr.length - 1 ? "1px solid #F0F4F8" : "none" }}>
-                      <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }}>{item.icon}</span>
+                      <div style={{ width: 28, height: 28, borderRadius: 8, background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
+                        <img src={item.icon} width={15} height={15} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
+                      </div>
                       <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", lineHeight: 1.55 }}>{item.text}</span>
                     </div>
                   ))}
