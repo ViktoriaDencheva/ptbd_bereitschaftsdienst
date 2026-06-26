@@ -159,7 +159,7 @@ export default function UeberUnsPage() {
           {isMobile ? (
             /* Mobile: stacked */
             <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: 0 }}>Unsere Mission</p>
+              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: 0 }}>Unsere Mission</p>
               <p style={{ fontFamily: F, fontWeight: 700, fontSize: 22, lineHeight: 1.4, margin: 0 }}>
                 <span style={{ color: "#CD1719" }}>Niemand</span> sollte <span style={{ color: "#CD1719" }}>monatelang</span> auf psychotherapeutische <span style={{ color: "#CD1719" }}>Hilfe</span> warten müssen.
               </p>
@@ -172,7 +172,7 @@ export default function UeberUnsPage() {
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1px 1fr", gap: "0 48px", alignItems: "center" }}>
               {/* Quote */}
               <div style={{ paddingRight: 8 }}>
-                <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 20px" }}>Unsere Mission</p>
+                <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 20px" }}>Unsere Mission</p>
                 <p style={{ fontFamily: F, fontWeight: 700, fontSize: 26, lineHeight: 1.45, margin: 0, color: "var(--black)" }}>
                   „<span style={{ color: "#CD1719" }}>Niemand</span> sollte <span style={{ color: "#CD1719" }}>monatelang</span> auf psychotherapeutische <span style={{ color: "#CD1719" }}>Hilfe</span> warten müssen."
                 </p>
@@ -194,7 +194,7 @@ export default function UeberUnsPage() {
       <section style={{ background: "#F5F9FD", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
           <div style={{ textAlign: "center", marginBottom: isMobile ? 32 : 48 }}>
-            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unsere Wirkung</p>
+            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unsere Wirkung</p>
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: 0 }}>Zahlen, die für sich sprechen.</h2>
           </div>
 
@@ -231,7 +231,7 @@ export default function UeberUnsPage() {
       <section style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
           <div style={{ marginBottom: isMobile ? 32 : 48 }}>
-            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Wie wir Menschen begleiten</p>
+            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Wie wir Menschen begleiten</p>
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: "0 0 8px" }}>Vom ersten Gedanken bis zur Unterstützung.</h2>
             <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>Wir begleiten dich durch jeden Schritt — klar, persönlich und ohne Umwege.</p>
           </div>
@@ -269,7 +269,7 @@ export default function UeberUnsPage() {
       <section style={{ background: "#F5F9FD", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
           <div style={{ marginBottom: isMobile ? 28 : 40, textAlign: isMobile ? "center" : "left" }}>
-            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unser Netzwerk</p>
+            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unser Netzwerk</p>
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: "0 0 8px" }}>Österreichweit für dich da.</h2>
             <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", lineHeight: 1.7, margin: 0 }}>
               Klicke auf ein Bundesland, um die verfügbaren Fachkräfte zu sehen.
@@ -285,7 +285,7 @@ export default function UeberUnsPage() {
               {activeProvince ? (
                 <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                   <div>
-                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>Ausgewähltes Bundesland</p>
+                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>Ausgewähltes Bundesland</p>
                     <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 26, color: "var(--black)", margin: 0 }}>{activeProvince.name}</h3>
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -311,7 +311,7 @@ export default function UeberUnsPage() {
               ) : (
                 <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                   <div>
-                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>Unser Netzwerk</p>
+                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>Unser Netzwerk</p>
                     <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 8px" }}>1.000+ Fachkräfte österreichweit</h3>
                     <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.7, margin: 0 }}>
                       Klicke auf ein Bundesland auf der Karte, um die Fachkräfte in deiner Region zu entdecken.
@@ -341,7 +341,7 @@ export default function UeberUnsPage() {
       <section style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
           <div style={{ marginBottom: isMobile ? 32 : 48 }}>
-            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Warum Menschen uns vertrauen</p>
+            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Warum Menschen uns vertrauen</p>
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: 0 }}>Unsere Geschichte, kurz erzählt.</h2>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 0, maxWidth: 720 }}>
@@ -365,7 +365,7 @@ export default function UeberUnsPage() {
       <section style={{ background: "#F5F9FD", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
           <div style={{ textAlign: "center", marginBottom: isMobile ? 32 : 48 }}>
-            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unsere Werte</p>
+            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unsere Werte</p>
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: "0 0 8px" }}>Was uns antreibt.</h2>
             <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0 }}>Keine Unternehmensphilosophie. Menschliche Überzeugungen.</p>
           </div>
