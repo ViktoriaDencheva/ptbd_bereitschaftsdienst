@@ -152,47 +152,39 @@ export default function UeberUnsPage() {
       </section>
 
       {/* ── MISSION ──────────────────────────────────────────── */}
-      <section style={{ background: "white", padding: isMobile ? "56px 0" : "96px 0" }}>
+      <section style={{ background: "white", padding: isMobile ? "48px 0" : "64px 0", borderTop: "1px solid #F0F4F8", borderBottom: "1px solid #F0F4F8" }}>
         <div style={{ ...wrap }}>
-          <div style={{ maxWidth: 800, margin: "0 auto", textAlign: "center" }}>
-            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 40px" }}>Unsere Mission</p>
-            {/* Quote card */}
-            <div style={{
-              background: "#F0F6FF",
-              border: "1px solid #D6E8FF",
-              borderRadius: 24,
-              padding: isMobile ? "36px 28px" : "56px 64px",
-              position: "relative",
-            }}>
-              {/* Decorative quote mark */}
-              <div style={{
-                fontFamily: "Georgia, 'Times New Roman', serif",
-                fontSize: isMobile ? 96 : 140,
-                lineHeight: 1,
-                color: CTA,
-                opacity: 0.15,
-                position: "absolute",
-                top: isMobile ? 12 : 20,
-                left: isMobile ? 20 : 40,
-                userSelect: "none",
-                pointerEvents: "none",
-              }}>"</div>
-              <p style={{
-                fontFamily: F,
-                fontWeight: 700,
-                fontSize: isMobile ? 22 : 34,
-                lineHeight: 1.4,
-                color: "var(--black)",
-                margin: "0 0 28px",
-                position: "relative",
-              }}>
-                Niemand sollte monatelang auf psychotherapeutische Hilfe warten müssen.
+          {isMobile ? (
+            /* Mobile: stacked */
+            <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: 0 }}>Unsere Mission</p>
+              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 22, lineHeight: 1.4, margin: 0 }}>
+                <span style={{ color: "#CD1719" }}>Niemand sollte monatelang</span> auf psychotherapeutische Hilfe warten müssen.
               </p>
-              <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", lineHeight: 1.8, margin: 0, position: "relative" }}>
+              <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", lineHeight: 1.8, margin: 0 }}>
                 Der Psychotherapeutische Bereitschaftsdienst wurde gegründet, um psychologische Hilfe schneller, einfacher und persönlicher zugänglich zu machen — als gemeinnütziger Verein, der Menschen in den Mittelpunkt stellt.
               </p>
             </div>
-          </div>
+          ) : (
+            /* Desktop: quote | divider | text */
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1px 1fr", gap: "0 48px", alignItems: "center" }}>
+              {/* Quote */}
+              <div style={{ paddingRight: 8 }}>
+                <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 20px" }}>Unsere Mission</p>
+                <p style={{ fontFamily: F, fontWeight: 700, fontSize: 26, lineHeight: 1.45, margin: 0, color: "var(--black)" }}>
+                  „<span style={{ color: "#CD1719" }}>Niemand sollte monatelang</span> auf psychotherapeutische Hilfe warten müssen."
+                </p>
+              </div>
+              {/* Divider */}
+              <div style={{ width: 1, alignSelf: "stretch", background: "#E2EBF5" }} />
+              {/* Text */}
+              <div style={{ paddingLeft: 8 }}>
+                <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", lineHeight: 1.85, margin: 0 }}>
+                  Der Psychotherapeutische Bereitschaftsdienst wurde gegründet, um psychologische Hilfe schneller, einfacher und persönlicher zugänglich zu machen — als gemeinnütziger Verein, der Menschen in den Mittelpunkt stellt. Für alle, unabhängig von Kassenstatus oder Wohnort.
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
