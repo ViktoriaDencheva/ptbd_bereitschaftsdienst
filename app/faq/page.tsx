@@ -98,13 +98,12 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   );
 }
 
-function CategoryAccordion({ cat }: { cat: typeof FAQ_BY_CAT[number] }) {
-  const [open, setOpen] = useState(false);
+function CategoryAccordion({ cat, open, onToggle }: { cat: typeof FAQ_BY_CAT[number]; open: boolean; onToggle: () => void }) {
   const { Icon } = cat;
   return (
     <div style={{ borderRadius: 8, background: open ? "#EBF2FC" : "#F2F2F4", overflow: "hidden", transition: "background 0.2s" }}>
       <button
-        onClick={() => setOpen(o => !o)}
+        onClick={onToggle}
         style={{ width: "100%", background: "none", border: "none", cursor: "pointer", padding: "18px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -129,11 +128,16 @@ function CategoryAccordion({ cat }: { cat: typeof FAQ_BY_CAT[number] }) {
 export default function FaqPage() {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [openCat, setOpenCat] = useState<string | null>(null);
   const faqRef = useRef<HTMLDivElement>(null);
 
   const scrollToCategory = (catId: string) => {
     setActiveCategory(catId);
-    setTimeout(() => faqRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+    setOpenCat(catId);
+    setTimeout(() => {
+      const el = document.getElementById(`cat-${catId}`);
+      el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
   };
 
   const filteredFaq = query.trim()
@@ -244,7 +248,11 @@ export default function FaqPage() {
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 {FAQ_BY_CAT.map(cat => (
                   <div key={cat.id} id={`cat-${cat.id}`}>
-                    <CategoryAccordion cat={cat} />
+                    <CategoryAccordion
+                      cat={cat}
+                      open={openCat === cat.id}
+                      onToggle={() => setOpenCat(openCat === cat.id ? null : cat.id)}
+                    />
                   </div>
                 ))}
               </div>
