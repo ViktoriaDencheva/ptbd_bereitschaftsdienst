@@ -111,36 +111,30 @@ export default function UeberUnsPage() {
             />
           </picture>
 
-          {/* Dark gradient for text readability */}
-          <div style={{ position: "absolute", inset: 0, background: isMobile
-            ? "linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.38) 60%, rgba(0,0,0,0.12) 100%)"
-            : "linear-gradient(to right, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.38) 55%, rgba(0,0,0,0.04) 100%)"
-          }} />
-
           {/* Text content */}
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: isMobile ? "flex-end" : "center" }}>
             <div style={{ maxWidth: 1440, margin: "0 auto", padding: isMobile ? "0 20px 40px" : "0 40px", width: "100%" }}>
               <div style={{ maxWidth: isMobile ? "100%" : 560 }}>
-                <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 26 : 44, lineHeight: 1.2, color: "white", margin: "0 0 16px", textShadow: "0 2px 12px rgba(0,0,0,0.18)" }}>
+                <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 26 : 44, lineHeight: 1.2, color: "var(--black)", margin: "0 0 16px" }}>
                   Psychotherapie sollte einfach erreichbar sein.
                 </h1>
-                <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 16, color: "rgba(255,255,255,0.88)", lineHeight: 1.7, margin: "0 0 28px" }}>
+                <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 16, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 28px" }}>
                   Seit über 10 Jahren verbinden wir Menschen mit qualifizierter psychotherapeutischer Unterstützung — schnell, persönlich und österreichweit.
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 32 }}>
                   {["Über 10 Jahre Erfahrung", "Rund 1.000 Therapeut*innen", "Österreichweit verfügbar"].map((t, i) => (
                     <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                      <img src="/icons/icon-check.svg" width={18} height={18} alt="" style={{ objectFit: "contain", flexShrink: 0, filter: "brightness(0) invert(1)" }} />
-                      <span style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.92)", fontWeight: 500 }}>{t}</span>
+                      <img src="/icons/icon-check.svg" width={18} height={18} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
+                      <span style={{ fontFamily: F, fontSize: 15, color: "var(--black)", fontWeight: 500 }}>{t}</span>
                     </div>
                   ))}
                 </div>
                 <a href="/vorgespraech"
-                  style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 36px 0 28px", borderRadius: 9999, background: "white", color: CTA_HEX, fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(0,0,0,0.22)", alignSelf: "flex-start", whiteSpace: "nowrap" }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#F0F6FF"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "white"; }}>
+                  style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 36px 0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", alignSelf: "flex-start", whiteSpace: "nowrap" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = CTA; }}>
                   Unser Angebot entdecken
-                  <img src="/icons/arrow-right.svg" width={16} height={16} alt="" />
+                  <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ filter: "brightness(0) invert(1)" }} />
                 </a>
               </div>
             </div>
