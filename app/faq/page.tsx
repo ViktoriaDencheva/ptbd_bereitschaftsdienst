@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
+import { Plus, Minus } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -15,8 +16,6 @@ const IconCalendar= () => <svg width="26" height="26" viewBox="0 0 24 24" fill="
 const IconCoin    = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke={CTA_HEX} strokeWidth="1.8"/><path d="M12 7v10M9.5 9.5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5c0 2.5-5 2.5-5 5 0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round"/></svg>;
 const IconLock    = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M7 11V7a5 5 0 0110 0v4" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
 const IconGlobe   = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke={CTA_HEX} strokeWidth="1.8"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
-const IconStar    = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
-
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const CATEGORIES = [
@@ -26,13 +25,6 @@ const CATEGORIES = [
   { id: "kosten",      Icon: IconCoin,     label: "Kosten" },
   { id: "datenschutz", Icon: IconLock,     label: "Datenschutz" },
   { id: "plattform",   Icon: IconGlobe,    label: "Plattform" },
-];
-
-const POPULAR = [
-  { q: "Ist das Orientierungsgespräch kostenlos?",                              cat: "orientierung" },
-  { q: "Wie schnell bekomme ich einen Termin?",                                 cat: "termine" },
-  { q: "Wer übernimmt die Kosten?",                                             cat: "kosten" },
-  { q: "Was ist der Unterschied zwischen Psychologe und Psychotherapeut?",      cat: "fachkraefte" },
 ];
 
 const FAQ_DATA: { cat: string; q: string; a: string }[] = [
@@ -79,35 +71,27 @@ const FAQ_BY_CAT = CATEGORIES.map(cat => ({
 
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
-  const [helpful, setHelpful] = useState<null | "yes" | "no">(null);
 
   return (
-    <div style={{ borderBottom: "1px solid #E8EFF8" }}>
+    <div>
       <button
         onClick={() => setOpen(o => !o)}
-        style={{ width: "100%", background: "none", border: "none", cursor: "pointer", padding: "18px 0", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, textAlign: "left" }}
+        style={{
+          width: "100%", display: "flex", alignItems: "center",
+          justifyContent: "space-between", padding: 16,
+          background: "none", border: "none",
+          borderBottom: open ? "none" : "1px solid var(--grey-border)",
+          cursor: "pointer", textAlign: "left", gap: 16,
+        }}
       >
-        <span style={{ fontFamily: F, fontWeight: 600, fontSize: 15, color: "#1A1A1A", lineHeight: 1.45 }}>{q}</span>
-        <span style={{ flexShrink: 0, width: 28, height: 28, borderRadius: "50%", background: open ? CTA_HEX : "#EBF2FC", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }}>
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d={open ? "M2 8L6 4L10 8" : "M2 4L6 8L10 4"} stroke={open ? "white" : CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </span>
+        <span style={{ fontFamily: F, fontWeight: 500, fontSize: 20, lineHeight: 1.4, color: "var(--black)", flex: 1 }}>{q}</span>
+        <div style={{ width: 32, height: 32, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+          {open ? <Minus size={16} color="var(--black)" /> : <Plus size={16} color="var(--black)" />}
+        </div>
       </button>
       {open && (
-        <div style={{ paddingBottom: 20 }}>
-          <p style={{ fontFamily: F, fontSize: 14.5, color: "#444", lineHeight: 1.7, margin: 0 }}>{a}</p>
-          <div style={{ marginTop: 16, display: "flex", alignItems: "center", gap: 10 }}>
-            <span style={{ fontFamily: F, fontSize: 12.5, color: "#888" }}>War diese Antwort hilfreich?</span>
-            {helpful === null ? (
-              <>
-                <button onClick={() => setHelpful("yes")} style={{ background: "#F0FAF2", border: "1px solid #C6E8CC", borderRadius: 8, padding: "4px 12px", fontFamily: F, fontSize: 12.5, color: "#2D7A3A", cursor: "pointer" }}>👍 Ja</button>
-                <button onClick={() => setHelpful("no")}  style={{ background: "#FFF0F0", border: "1px solid #F5C6C6", borderRadius: 8, padding: "4px 12px", fontFamily: F, fontSize: 12.5, color: "#B03A3A", cursor: "pointer" }}>👎 Nein</button>
-              </>
-            ) : (
-              <span style={{ fontFamily: F, fontSize: 12.5, color: "#888" }}>{helpful === "yes" ? "Danke für dein Feedback! 🙏" : "Danke — wir verbessern uns."}</span>
-            )}
-          </div>
+        <div style={{ padding: "12px 16px 16px", fontFamily: F, fontWeight: 400, fontSize: 16, lineHeight: 1.5, color: "var(--grey)", borderBottom: "1px solid var(--grey-border)" }}>
+          {a}
         </div>
       )}
     </div>
@@ -137,7 +121,7 @@ function CategoryAccordion({ cat }: { cat: typeof FAQ_BY_CAT[number] }) {
         </span>
       </button>
       {open && (
-        <div style={{ padding: "0 24px", background: "white" }}>
+        <div>
           {cat.items.map((item, i) => <FaqItem key={i} q={item.q} a={item.a} />)}
         </div>
       )}
@@ -252,37 +236,6 @@ export default function FaqPage() {
                     <span style={{ fontFamily: F, fontWeight: 600, fontSize: 13.5, color: activeCategory === id ? CTA_HEX : "#333", textAlign: "center", lineHeight: 1.3 }}>{label}</span>
                   </button>
                 ))}
-              </div>
-            </div>
-          </section>
-
-          {/* ── BELIEBTE FRAGEN ── */}
-          <section style={{ background: "white", padding: "64px 0 0" }}>
-            <div style={W}>
-              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 8 }}>Beliebte Fragen</h2>
-              <p style={{ fontFamily: F, fontSize: 14.5, color: "#888", marginBottom: 28 }}>Diese Fragen werden am häufigsten gestellt.</p>
-              <div className="faq-popular-grid">
-                {POPULAR.map((item, i) => {
-                  const catData = CATEGORIES.find(c => c.id === item.cat);
-                  return (
-                    <button
-                      key={i}
-                      onClick={() => scrollToCategory(item.cat)}
-                      style={{ background: "#F8FAFF", border: "1.5px solid #DDE8F5", borderRadius: 14, padding: "20px", cursor: "pointer", textAlign: "left", display: "flex", flexDirection: "column", gap: 10, transition: "box-shadow 0.2s" }}
-                      onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 4px 20px rgba(45,91,141,0.12)")}
-                      onMouseLeave={e => (e.currentTarget.style.boxShadow = "none")}
-                    >
-                      <IconStar />
-                      <span style={{ fontFamily: F, fontWeight: 600, fontSize: 14.5, color: "#1A1A1A", lineHeight: 1.4 }}>{item.q}</span>
-                      {catData && (
-                        <span style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 12.5, color: CTA_HEX, background: "#EBF2FC", borderRadius: 999, padding: "3px 10px", width: "fit-content" }}>
-                          <catData.Icon />
-                          <span style={{ fontSize: 12 }}>{catData.label}</span>
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
               </div>
             </div>
           </section>
