@@ -256,23 +256,23 @@ export default function FaqPage() {
       {/* ── NOCH FRAGEN ── */}
       <section style={{ background: "white", padding: "80px 0 96px" }}>
         <div style={W}>
-          <div style={{ maxWidth: 560, margin: "0 auto", textAlign: "center", background: "linear-gradient(135deg, #F0F6FF 0%, #EBF2FC 100%)", borderRadius: 24, padding: "52px 40px", border: "1.5px solid #DDE8F5" }}>
-            <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
-              <div style={{ width: 56, height: 56, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 12px rgba(45,91,141,0.12)" }}>
-                <IconChat />
+          <div className="faq-cta-wrap" style={{ borderRadius: 20, overflow: "hidden", display: "flex", background: "linear-gradient(120deg, #EBF2FC 0%, #F5F9FF 100%)" }}>
+            <img src="/vorgespraech-banner.png" alt="" aria-hidden={true} className="faq-cta-img" style={{ width: "45%", objectFit: "cover", flexShrink: 0, display: "block" }} />
+            <div className="faq-cta-text" style={{ flex: 1, padding: "52px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 28, color: "#1A1A1A", marginBottom: 14, lineHeight: 1.25 }}>Noch Fragen?</h2>
+              <p style={{ fontFamily: F, fontSize: 16, color: "#555", lineHeight: 1.7, marginBottom: 32 }}>
+                Wenn du keine passende Antwort gefunden hast, helfen wir dir gerne persönlich weiter.
+              </p>
+              <div>
+                <a
+                  href="/kontakt"
+                  style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 32px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.22)" }}
+                >
+                  Zum Kontaktformular
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </a>
               </div>
             </div>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 10 }}>Noch Fragen?</h2>
-            <p style={{ fontFamily: F, fontSize: 15, color: "#555", lineHeight: 1.7, marginBottom: 28 }}>
-              Wenn du keine passende Antwort gefunden hast, helfen wir dir gerne persönlich weiter.
-            </p>
-            <a
-              href="/kontakt"
-              style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 32px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.22)" }}
-            >
-              Zum Kontaktformular
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </a>
           </div>
         </div>
       </section>
@@ -299,6 +299,9 @@ export default function FaqPage() {
           .faq-h1 { font-size: 30px !important; }
           .faq-cat-grid { grid-template-columns: repeat(3, 1fr) !important; }
           .faq-popular-grid { grid-template-columns: 1fr !important; }
+          .faq-cta-wrap { flex-direction: column !important; }
+          .faq-cta-img { width: 100% !important; height: 220px !important; }
+          .faq-cta-text { padding: 32px 24px !important; }
         }
         @media (max-width: 480px) {
           .faq-cat-grid { grid-template-columns: repeat(2, 1fr) !important; }
