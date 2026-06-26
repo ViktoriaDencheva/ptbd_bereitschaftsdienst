@@ -8,7 +8,7 @@ const navLinks = [
   { label: "Startseite", href: "/" },
   { label: "Fachkräfte", href: "/fachkraefte" },
   { label: "Über uns", href: "/ueber-uns" },
-  { label: "Kontakt", href: "#" },
+  { label: "Kontakt", href: "/kontakt" },
 ];
 
 const menuLinks = [
@@ -17,7 +17,7 @@ const menuLinks = [
   { label: "Orientierungstest", href: "/orientierungstest" },
   { label: "Über uns", href: "/ueber-uns" },
   { label: "FAQ", href: "#" },
-  { label: "Kontakt", href: "#" },
+  { label: "Kontakt", href: "/kontakt" },
 ];
 
 const ArrowIcon = ({ color = "white" }: { color?: string }) => (

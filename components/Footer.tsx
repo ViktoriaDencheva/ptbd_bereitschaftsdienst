@@ -10,7 +10,7 @@ const LinkedinIcon = () => (<svg width="42" height="42" viewBox="0 0 42 42" fill
 const footerCols = [
   {
     title: "Plattform",
-    links: ["Fachkräfte finden", "Orientierungsgespräch", "Termin buchen", "So funktioniert es", "Häufige Fragen", "Kontakt"],
+    links: ["Fachkräfte finden", "Orientierungsgespräch", "Termin buchen", "So funktioniert es", "Häufige Fragen"],
   },
   {
     title: "Wichtige Informationen",
