@@ -22,10 +22,10 @@ function useWindowWidth() {
 }
 
 const STATS = [
-  { value: "Ø 1 Woche", label: "bis zum ersten Gespräch", sub: "Kein monatelanges Warten.", icon: "/icons/icon-vorgespraech.svg" },
-  { value: "1.000+", label: "Fachkräfte im Netzwerk", sub: "Psychotherapeut*innen, Psycholog*innen & Psychiater*innen.", icon: "/icons/icon-fachkraefte-warum.svg" },
-  { value: "9", label: "Bundesländer", sub: "Österreichweit verfügbar — in jeder Region.", icon: "/icons/icon-orientierung.svg" },
-  { value: "10+", label: "Jahre Erfahrung", sub: "Seit 2014 verbinden wir Menschen mit Unterstützung.", icon: "/icons/icon-test.svg" },
+  { value: "1 Woche", label: "bis zum ersten Gespräch", sub: "Kein monatelanges Warten." },
+  { value: "1.000+", label: "Fachkräfte im Netzwerk", sub: "Psychotherapeut*innen, Psycholog*innen & Psychiater*innen." },
+  { value: "9", label: "Bundesländer", sub: "Österreichweit verfügbar — in jeder Region." },
+  { value: "10+", label: "Jahre Erfahrung", sub: "Seit 2014 verbinden wir Menschen mit Unterstützung." },
 ];
 
 const STEPS = [
@@ -84,6 +84,7 @@ export default function UeberUnsPage() {
   const wrap = { maxWidth: 1440, margin: "0 auto", padding: isMobile ? "0 16px" : "0 40px" } as const;
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [selectedProvince, setSelectedProvince] = useState<ProvinceId | null>(null);
+  const [hoveredStat, setHoveredStat] = useState<number | null>(null);
   const activeProvince = PROVINCES.find(p => p.id === selectedProvince) ?? null;
 
   return (
@@ -196,25 +197,33 @@ export default function UeberUnsPage() {
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: 0 }}>Zahlen, die für sich sprechen.</h2>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: isMobile ? 12 : 20 }}>
-            {STATS.map((s, i) => (
-              <div key={i} style={{
-                background: "white",
-                borderRadius: 20,
-                padding: isMobile ? "20px 16px" : "28px 24px",
-                display: "flex",
-                flexDirection: "column",
-                gap: 12,
-                boxShadow: "0 2px 16px rgba(45,91,141,0.05)",
-                border: "1px solid #EEF4FB",
-              }}>
-                <img src={s.icon} width={28} height={28} alt="" style={{ opacity: 0.75 }} />
-                <div>
-                  <p style={{ fontFamily: F, fontWeight: 800, fontSize: isMobile ? 26 : 32, color: CTA, margin: "0 0 2px", lineHeight: 1.1 }}>{s.value}</p>
-                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 12 : 13, color: "var(--black)", margin: 0, lineHeight: 1.3 }}>{s.label}</p>
+            {STATS.map((s, i) => {
+              const hov = hoveredStat === i;
+              return (
+                <div key={i}
+                  onMouseEnter={() => setHoveredStat(i)}
+                  onMouseLeave={() => setHoveredStat(null)}
+                  style={{
+                    background: hov ? "white" : "transparent",
+                    borderRadius: 20,
+                    padding: isMobile ? "20px 16px" : "28px 24px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
+                    border: `1.5px solid ${hov ? "#D6E8FF" : "#D0DFF0"}`,
+                    boxShadow: hov ? "0 8px 28px rgba(45,91,141,0.10)" : "none",
+                    transform: hov ? "translateY(-4px) scale(1.02)" : "translateY(0) scale(1)",
+                    transition: "all 0.2s ease",
+                    cursor: "default",
+                  }}>
+                  <div>
+                    <p style={{ fontFamily: F, fontWeight: 800, fontSize: isMobile ? 26 : 32, color: CTA, margin: "0 0 2px", lineHeight: 1.1 }}>{s.value}</p>
+                    <p style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 12 : 13, color: "var(--black)", margin: 0, lineHeight: 1.3 }}>{s.label}</p>
+                  </div>
+                  <p style={{ fontFamily: F, fontSize: isMobile ? 11 : 12, color: "var(--grey-text)", margin: 0, lineHeight: 1.5 }}>{s.sub}</p>
                 </div>
-                <p style={{ fontFamily: F, fontSize: isMobile ? 11 : 12, color: "var(--grey-text)", margin: 0, lineHeight: 1.5 }}>{s.sub}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
