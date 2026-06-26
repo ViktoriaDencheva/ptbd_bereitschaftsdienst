@@ -59,11 +59,11 @@ const ACTION_CARDS = [
 ];
 
 const INFO_CARDS = [
+  { icon: "/icons/icon-vorgespraech.svg", label: "Kontaktformular", value: "Nachricht schreiben", sub: "Direkt & unkompliziert", href: "#kontaktformular" },
   { icon: "/icons/icon-phone-contact.svg", label: "Telefon", value: "+43 1 123 45 67", sub: "Mo–Fr · 9:00–17:00 Uhr", href: "tel:+4311234567" },
   { icon: "/icons/icon-mail.svg", label: "E-Mail", value: "info@ptbd.at", sub: "Antwort innerhalb 24h", href: "mailto:info@ptbd.at" },
   { icon: "/icons/icon-pin.svg", label: "Österreichweit", value: "Alle 9 Bundesländer", sub: "In deiner Region verfügbar", href: null },
   { icon: "/icons/icon-clock.svg", label: "Antwortzeit", value: "< 24 Stunden", sub: "Schnelle, persönliche Rückmeldung", href: null },
-  { icon: "/icons/icon-vorgespraech.svg", label: "Kontaktformular", value: "Nachricht schreiben", sub: "Direkt & unkompliziert", href: "#kontaktformular" },
 ];
 
 const THEMEN = [
