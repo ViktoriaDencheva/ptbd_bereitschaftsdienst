@@ -294,9 +294,9 @@ export default function UeberUnsPage() {
                       <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "6px 0 0", lineHeight: 1.4 }}>Fachkräfte verfügbar in {activeProvince.name}</p>
                     </div>
                     <div style={{ width: 40, height: 3, background: "#CD1719", borderRadius: 2 }} />
-                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
                       {["Persönliche Vermittlung", "Verschiedene Fachrichtungen", "Kassenplätze & Privatpraxis"].map((t, i) => (
-                        <span key={i} style={{ fontFamily: F, fontSize: 14, fontWeight: 500, color: "var(--black)", borderLeft: `3px solid ${CTA_HEX}`, paddingLeft: 12, display: "block" }}>{t}</span>
+                        <span key={i} style={{ fontFamily: F, fontSize: 13, fontWeight: 500, color: CTA_HEX, border: `1.5px solid ${CTA_HEX}`, borderRadius: 9999, padding: "6px 14px", display: "inline-block" }}>{t}</span>
                       ))}
                     </div>
                   </div>
@@ -314,9 +314,9 @@ export default function UeberUnsPage() {
                       Klicke auf ein Bundesland auf der Karte, um die Fachkräfte in deiner Region zu entdecken.
                     </p>
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
                     {["Alle 9 Bundesländer Österreichs", "Persönliche Vermittlung — kein Algorithmus", "Kassenplätze & Privatpraxis", "Unterschiedliche Schwerpunkte"].map((t, i) => (
-                      <span key={i} style={{ fontFamily: F, fontSize: 14, fontWeight: 500, color: "var(--black)", borderLeft: `3px solid ${CTA_HEX}`, paddingLeft: 12, display: "block" }}>{t}</span>
+                      <span key={i} style={{ fontFamily: F, fontSize: 13, fontWeight: 500, color: CTA_HEX, border: `1.5px solid ${CTA_HEX}`, borderRadius: 9999, padding: "6px 14px", display: "inline-block" }}>{t}</span>
                     ))}
                   </div>
                   <a href="/fachkraefte"
