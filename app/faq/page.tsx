@@ -160,7 +160,7 @@ export default function FaqPage() {
       </div>
 
       {/* ── HERO ── */}
-      <section style={{ backgroundImage: "url('/FAQ-banner.png')", backgroundSize: "cover", backgroundPosition: "center", padding: "72px 0 64px" }}>
+      <section style={{ backgroundImage: "url('/FAQ-banner.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", minHeight: 300, padding: "72px 0 64px" }}>
         <div style={{ ...W }}>
           <h1 className="faq-h1" style={{ fontFamily: F, fontWeight: 800, color: "#1A1A1A", lineHeight: 1.2, marginBottom: 16 }}>
             Wie können wir dir helfen?
