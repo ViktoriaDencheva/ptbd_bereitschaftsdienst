@@ -167,7 +167,8 @@ export default function UeberUnsPage() {
                   „<span style={{ color: "#CD1719" }}>Niemand</span> sollte <span style={{ color: "#CD1719" }}>monatelang</span> auf psychotherapeutische <span style={{ color: "#CD1719" }}>Hilfe</span> warten müssen."
                 </p>
               </div>
-              <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", lineHeight: 1.8, margin: "20px 0 0" }}>
+              <div style={{ height: 1, background: "#E2EBF5", margin: "24px 0" }} />
+              <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", lineHeight: 1.8, margin: 0 }}>
                 Der Psychotherapeutische Bereitschaftsdienst wurde gegründet, um psychologische Hilfe schneller, einfacher und persönlicher zugänglich zu machen — als gemeinnütziger Verein, der Menschen in den Mittelpunkt stellt.
               </p>
             </div>
@@ -189,9 +190,9 @@ export default function UeberUnsPage() {
           )}
           {/* Werte cards */}
           {isMobile ? (
-            <div style={{ display: "flex", overflowX: "auto", gap: 12, scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", paddingBottom: 8, marginLeft: -16, marginRight: -16, paddingLeft: 16, paddingRight: 16 } as React.CSSProperties}>
+            <div style={{ display: "flex", overflowX: "auto", gap: 12, scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", paddingBottom: 12 } as React.CSSProperties}>
               {WERTE.map((w, i) => (
-                <div key={i} style={{ background: w.bg, borderRadius: 20, padding: "20px 16px", display: "flex", flexDirection: "column", gap: 12, flexShrink: 0, width: "72vw", scrollSnapAlign: "start" }}>
+                <div key={i} style={{ background: w.bg, borderRadius: 20, padding: "20px 16px", display: "flex", flexDirection: "column", gap: 12, flexShrink: 0, width: "78%", scrollSnapAlign: "start" }}>
                   <div style={{ width: 48, height: 48, borderRadius: "50%", background: "white", display: "grid", placeItems: "center", boxShadow: `0 2px 12px ${w.color}20` }}>{w.icon}</div>
                   <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: 0 }}>{w.title}</p>
                   <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{w.desc}</p>
@@ -271,9 +272,9 @@ export default function UeberUnsPage() {
             <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>Wir begleiten dich durch jeden Schritt — klar, persönlich und ohne Umwege.</p>
           </div>
           {isMobile ? (
-            <div style={{ display: "flex", overflowX: "auto", gap: 12, scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", paddingBottom: 8, marginLeft: -16, marginRight: -16, paddingLeft: 16, paddingRight: 16 } as React.CSSProperties}>
+            <div style={{ display: "flex", overflowX: "auto", gap: 12, scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", paddingBottom: 12 } as React.CSSProperties}>
               {STEPS.map((s, i) => (
-                <div key={i} style={{ flexShrink: 0, width: "72vw", scrollSnapAlign: "start", background: "white", borderRadius: 20, padding: "40px 18px 28px", border: "1px solid #EAF0FA", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden" }}>
+                <div key={i} style={{ flexShrink: 0, width: "78%", scrollSnapAlign: "start", background: "white", borderRadius: 20, padding: "40px 18px 28px", border: "1px solid #EAF0FA", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden" }}>
                   <span style={{ position: "absolute", top: 8, right: 12, fontFamily: F, fontWeight: 800, fontSize: 64, color: CTA, opacity: 0.1, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{i + 1}</span>
                   <img src={s.icon} width={44} height={44} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)", marginBottom: 16 }} />
                   <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 8px" }}>{s.title}</h3>
@@ -313,7 +314,7 @@ export default function UeberUnsPage() {
           </div>
           <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: "5fr 2fr", gap: isMobile ? 24 : 48, alignItems: "start" }}>
             {/* Interactive Map */}
-            <div style={isMobile ? { marginLeft: -16, marginRight: -16 } : {}}>
+            <div>
               <AustriaMap activeId={selectedProvince} onSelect={setSelectedProvince} />
             </div>
             {/* Info Panel */}
