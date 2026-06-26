@@ -67,17 +67,17 @@ export default function Hero() {
             </div>
             <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
               {/* Primary button */}
-              <button
-                style={{ background: "var(--cta)", color: "white", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", padding: "0 24px", height: 48, fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", whiteSpace: "nowrap", transition: "all var(--duration-base) var(--ease-standard)" }}
+              <a href="/vorgespraech"
+                style={{ background: "var(--cta)", color: "white", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", padding: "0 24px", height: 48, fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", whiteSpace: "nowrap", transition: "all var(--duration-base) var(--ease-standard)", display: "inline-flex", alignItems: "center", textDecoration: "none" }}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--cta-hover)"; el.style.borderColor = "var(--cta-hover)"; }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--cta)"; el.style.borderColor = "var(--cta)"; }}
-              >Termin vereinbaren</button>
+              >Orientierungsgespräch</a>
               {/* Secondary button */}
-              <button
-                style={{ background: "transparent", color: "var(--cta)", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", padding: "0 24px", height: 48, fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", whiteSpace: "nowrap", transition: "all var(--duration-base) var(--ease-standard)" }}
+              <a href="/fachkraefte"
+                style={{ background: "transparent", color: "var(--cta)", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", padding: "0 24px", height: 48, fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", whiteSpace: "nowrap", transition: "all var(--duration-base) var(--ease-standard)", display: "inline-flex", alignItems: "center", textDecoration: "none" }}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--blue-ultra-light)"; el.style.borderColor = "var(--cta)"; }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "transparent"; el.style.borderColor = "var(--cta)"; }}
-              >Passende Hilfe finden</button>
+              >Fachkräfte entdecken</a>
             </div>
           </div>
         </div>
@@ -110,12 +110,12 @@ export default function Hero() {
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <button style={{ background: "var(--cta)", color: "white", border: "none", borderRadius: "var(--radius-circle)", minHeight: 52, padding: "12px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 16, cursor: "pointer" }}>
-              Termin vereinbaren
-            </button>
-            <button style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(8px)", color: "var(--cta)", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", minHeight: 52, padding: "12px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer" }}>
-              Passende Hilfe finden
-            </button>
+            <a href="/vorgespraech" style={{ background: "var(--cta)", color: "white", border: "none", borderRadius: "var(--radius-circle)", minHeight: 52, padding: "12px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 16, cursor: "pointer", textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              Orientierungsgespräch
+            </a>
+            <a href="/fachkraefte" style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(8px)", color: "var(--cta)", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", minHeight: 52, padding: "12px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              Fachkräfte entdecken
+            </a>
           </div>
         </div>
       </div>
