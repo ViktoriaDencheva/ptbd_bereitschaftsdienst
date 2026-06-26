@@ -160,26 +160,22 @@ export default function FaqPage() {
       </div>
 
       {/* ── HERO ── */}
-      <section style={{ background: "linear-gradient(160deg, #F0F6FF 0%, #FAFCFF 60%, white 100%)", padding: "80px 0 64px" }}>
-        <div style={{ ...W, textAlign: "center" }}>
-          <div style={{ marginBottom: 32, display: "flex", justifyContent: "center" }}>
-            <div style={{ width: 96, height: 96, borderRadius: "50%", background: "#EBF2FC", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="10" stroke={CTA_HEX} strokeWidth="1.6"/>
-                <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" stroke={CTA_HEX} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-                <circle cx="12" cy="17" r=".5" fill={CTA_HEX} stroke={CTA_HEX} strokeWidth="1.2"/>
-              </svg>
-            </div>
-          </div>
-
+      <section style={{ background: "linear-gradient(120deg, #EBF2FC 0%, #F5F9FF 60%, #FAFCFF 100%)", padding: "72px 0 64px", position: "relative", overflow: "hidden" }}>
+        <img
+          src="/Austria_location_map.svg"
+          alt=""
+          aria-hidden="true"
+          style={{ position: "absolute", right: "-40px", top: "50%", transform: "translateY(-50%)", height: "140%", opacity: 0.13, pointerEvents: "none", userSelect: "none" }}
+        />
+        <div style={{ ...W, position: "relative" }}>
           <h1 className="faq-h1" style={{ fontFamily: F, fontWeight: 800, color: "#1A1A1A", lineHeight: 1.2, marginBottom: 16 }}>
             Wie können wir dir helfen?
           </h1>
-          <p style={{ fontFamily: F, fontSize: 17, color: "#555", lineHeight: 1.7, maxWidth: 560, margin: "0 auto 36px" }}>
+          <p style={{ fontFamily: F, fontSize: 17, color: "#555", lineHeight: 1.7, maxWidth: 520, marginBottom: 36 }}>
             Hier findest du Antworten auf die häufigsten Fragen rund um unsere Plattform und psychotherapeutische Unterstützung.
           </p>
 
-          <div style={{ position: "relative", maxWidth: 560, margin: "0 auto" }}>
+          <div style={{ position: "relative", maxWidth: 560 }}>
             <svg style={{ position: "absolute", left: 20, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} width="20" height="20" viewBox="0 0 24 24" fill="none">
               <circle cx="11" cy="11" r="8" stroke="#999" strokeWidth="2"/>
               <path d="M21 21l-4.35-4.35" stroke="#999" strokeWidth="2" strokeLinecap="round"/>
