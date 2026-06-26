@@ -102,26 +102,26 @@ function CategoryAccordion({ cat }: { cat: typeof FAQ_BY_CAT[number] }) {
   const [open, setOpen] = useState(false);
   const { Icon } = cat;
   return (
-    <div style={{ borderRadius: 16, border: "1.5px solid #DDE8F5", overflow: "hidden", background: "white" }}>
+    <div style={{ borderRadius: 16, background: "#F5F8FD", overflow: "hidden" }}>
       <button
         onClick={() => setOpen(o => !o)}
-        style={{ width: "100%", background: open ? "#F3F8FF" : "white", border: "none", cursor: "pointer", padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, transition: "background 0.2s" }}
+        style={{ width: "100%", background: "none", border: "none", cursor: "pointer", padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 40, height: 40, borderRadius: 10, background: "#EBF2FC", flexShrink: 0 }}>
+          <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 40, height: 40, borderRadius: 10, background: "white", flexShrink: 0 }}>
             <Icon />
           </span>
           <span style={{ fontFamily: F, fontWeight: 700, fontSize: 16, color: "#1A1A1A" }}>{cat.label}</span>
-          <span style={{ fontFamily: F, fontSize: 13, color: "#888", background: "#EBF2FC", borderRadius: 999, padding: "2px 10px" }}>{cat.items.length} Fragen</span>
+          <span style={{ fontFamily: F, fontSize: 13, color: CTA_HEX, background: "#E4EEF9", borderRadius: 999, padding: "2px 10px" }}>{cat.items.length} Fragen</span>
         </div>
-        <span style={{ flexShrink: 0, width: 32, height: 32, borderRadius: "50%", background: open ? CTA_HEX : "#EBF2FC", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }}>
+        <span style={{ flexShrink: 0, width: 32, height: 32, borderRadius: "50%", background: open ? CTA_HEX : "white", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }}>
           <svg width="13" height="13" viewBox="0 0 12 12" fill="none">
             <path d={open ? "M2 8L6 4L10 8" : "M2 4L6 8L10 4"} stroke={open ? "white" : CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </span>
       </button>
       {open && (
-        <div>
+        <div style={{ background: "white", borderRadius: "0 0 16px 16px" }}>
           {cat.items.map((item, i) => <FaqItem key={i} q={item.q} a={item.a} />)}
         </div>
       )}
