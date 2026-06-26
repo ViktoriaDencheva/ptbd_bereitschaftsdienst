@@ -180,7 +180,7 @@ export default function FaqPage() {
               onChange={e => setQuery(e.target.value)}
               placeholder="Suche nach einer Frage..."
               className="faq-search-input"
-              style={{ width: "100%", boxSizing: "border-box", paddingLeft: 52, paddingRight: 20, height: 56, borderRadius: 16, border: "1.5px solid #DDE8F5", fontFamily: F, fontSize: 15.5, color: "#1A1A1A", outline: "none", boxShadow: "0 4px 24px rgba(45,91,141,0.10)", background: "white", transition: "border-color 0.2s, box-shadow 0.2s" }}
+              style={{ width: "100%", boxSizing: "border-box", paddingLeft: 52, paddingRight: 20, height: 56, borderRadius: 10, border: "1.5px solid #DDE8F5", fontFamily: F, fontSize: 15.5, color: "#1A1A1A", outline: "none", boxShadow: "0 4px 24px rgba(45,91,141,0.10)", background: "white", transition: "border-color 0.2s, box-shadow 0.2s" }}
             />
           </div>
         </div>
@@ -209,7 +209,8 @@ export default function FaqPage() {
           {/* ── KATEGORIEN ── */}
           <section style={{ background: "white", padding: "64px 0 0" }}>
             <div style={W}>
-              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", textAlign: "center", marginBottom: 32 }}>Kategorien</h2>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 8 }}>Was beschäftigt dich?</h2>
+              <p style={{ fontFamily: F, fontSize: 14.5, color: "#888", marginBottom: 28 }}>Wähle ein Thema und finde die passende Antwort.</p>
               <div className="faq-cat-grid">
                 {CATEGORIES.map(({ id, Icon, label }) => (
                   <button
@@ -224,12 +225,12 @@ export default function FaqPage() {
                   >
                     <span style={{ display: "flex" }}>
                       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" style={{ display: "block" }}>
-                        {id === "orientierung" && <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>}
-                        {id === "fachkraefte" && <><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></>}
-                        {id === "termine" && <><rect x="3" y="4" width="18" height="18" rx="2" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M16 2v4M8 2v4M3 10h18" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></>}
-                        {id === "kosten" && <><circle cx="12" cy="12" r="9" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8"/><path d="M12 7v10M9.5 9.5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5c0 2.5-5 2.5-5 5 0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round"/></>}
-                        {id === "datenschutz" && <><rect x="3" y="11" width="18" height="11" rx="2" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M7 11V7a5 5 0 0110 0v4" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></>}
-                        {id === "plattform" && <><circle cx="12" cy="12" r="9" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></>}
+                        {id === "orientierung" && <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>}
+                        {id === "fachkraefte" && <><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></>}
+                        {id === "termine" && <><rect x="3" y="4" width="18" height="18" rx="2" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M16 2v4M8 2v4M3 10h18" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></>}
+                        {id === "kosten" && <><circle cx="12" cy="12" r="9" stroke={CTA_HEX} strokeWidth="1.8"/><path d="M12 7v10M9.5 9.5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5c0 2.5-5 2.5-5 5 0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round"/></>}
+                        {id === "datenschutz" && <><rect x="3" y="11" width="18" height="11" rx="2" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M7 11V7a5 5 0 0110 0v4" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></>}
+                        {id === "plattform" && <><circle cx="12" cy="12" r="9" stroke={CTA_HEX} strokeWidth="1.8"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></>}
                       </svg>
                     </span>
                     <span style={{ fontFamily: F, fontWeight: 600, fontSize: 12.5, color: activeCategory === id ? CTA_HEX : "#333", textAlign: "left", lineHeight: 1.3 }}>{label}</span>
