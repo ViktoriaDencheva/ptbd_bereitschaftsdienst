@@ -217,7 +217,7 @@ export default function UeberUnsPage() {
                     cursor: "default",
                   }}>
                   <div>
-                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 36 : 52, color: CTA, margin: "0 0 4px", lineHeight: 1.05 }}>{s.value}</p>
+                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 28 : 38, color: CTA, margin: "0 0 4px", lineHeight: 1.1 }}>{s.value}</p>
                     <p style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 14 : 16, color: "var(--black)", margin: 0, lineHeight: 1.4 }}>{s.label}</p>
                   </div>
                   <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.sub}</p>
