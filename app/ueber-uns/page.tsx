@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { Plus, Minus } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import AustriaMap from "@/components/AustriaMap";
+import AustriaMap, { PROVINCES } from "@/components/AustriaMap";
+type ProvinceId = typeof PROVINCES[number]["id"];
 
 const F = "'Poppins', sans-serif";
 const CTA = "var(--cta)";
@@ -82,6 +83,8 @@ export default function UeberUnsPage() {
   const isMobile = winW > 0 && winW < 1071;
   const wrap = { maxWidth: 1440, margin: "0 auto", padding: isMobile ? "0 16px" : "0 40px" } as const;
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [selectedProvince, setSelectedProvince] = useState<ProvinceId | null>(null);
+  const activeProvince = PROVINCES.find(p => p.id === selectedProvince) ?? null;
 
   return (
     <main style={{ background: "white", minHeight: "100vh" }}>
@@ -215,35 +218,70 @@ export default function UeberUnsPage() {
       {/* ── NETZWERK ─────────────────────────────────────────── */}
       <section style={{ background: "#F5F9FD", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
-          <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: "1fr 1fr", gap: isMobile ? 32 : 64, alignItems: "center" }}>
-            {/* Map */}
+          <div style={{ marginBottom: isMobile ? 28 : 40, textAlign: isMobile ? "center" : "left" }}>
+            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unser Netzwerk</p>
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: "0 0 8px" }}>Österreichweit für dich da.</h2>
+            <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", lineHeight: 1.7, margin: 0 }}>
+              Klicke auf ein Bundesland, um die verfügbaren Fachkräfte zu sehen.
+            </p>
+          </div>
+          <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: "3fr 2fr", gap: isMobile ? 24 : 48, alignItems: "start" }}>
+            {/* Interactive Map */}
             <div style={{ background: "white", borderRadius: 24, padding: isMobile ? 16 : 28, boxShadow: "0 4px 24px rgba(45,91,141,0.07)" }}>
-              <AustriaMap />
+              <AustriaMap activeId={selectedProvince} onSelect={setSelectedProvince} />
             </div>
-            {/* Text */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-              <div>
-                <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unser Netzwerk</p>
-                <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: "0 0 8px" }}>Österreichweit für dich da.</h2>
-                <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", lineHeight: 1.7, margin: 0 }}>
-                  Unser Netzwerk aus Psycholog*innen, Psychotherapeut*innen und Psychiater*innen ist in allen Bundesländern für dich verfügbar.
-                </p>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                {["1.000+ Psychotherapeut*innen im Netzwerk", "Alle 9 Bundesländer Österreichs", "Persönliche Vermittlung — kein Algorithmus", "Unterschiedliche Fachrichtungen & Schwerpunkte"].map((t, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <img src="/icons/icon-check.svg" width={18} height={18} alt="" style={{ flexShrink: 0 }} />
-                    <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)" }}>{t}</span>
+            {/* Info Panel */}
+            <div style={{ background: "white", borderRadius: 24, padding: isMobile ? "24px 20px" : "32px 28px", boxShadow: "0 4px 24px rgba(45,91,141,0.07)", minHeight: isMobile ? "auto" : 260, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              {activeProvince ? (
+                <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                  <div>
+                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>Ausgewähltes Bundesland</p>
+                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 26, color: "var(--black)", margin: 0 }}>{activeProvince.name}</h3>
                   </div>
-                ))}
-              </div>
-              <a href="/fachkraefte"
-                style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 46, padding: "0 28px", borderRadius: 9999, border: `1.5px solid ${CTA}`, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", alignSelf: "flex-start", whiteSpace: "nowrap", background: "white" }}
-                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#EEF4FC"}
-                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "white"}>
-                Fachkräfte in deiner Nähe finden
-                <img src="/icons/arrow-right.svg" width={14} height={14} alt="" style={{ filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
-              </a>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 16px", background: "#EEF4FC", borderRadius: 12 }}>
+                      <span style={{ fontFamily: F, fontWeight: 700, fontSize: 28, color: CTA }}>{activeProvince.count}</span>
+                      <span style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.4 }}>Fachkräfte verfügbar<br />in {activeProvince.name}</span>
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                      {["Persönliche Vermittlung", "Verschiedene Fachrichtungen", "Kassenplätze & Privatpraxis"].map((t, i) => (
+                        <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                          <img src="/icons/icon-check.svg" width={16} height={16} alt="" style={{ flexShrink: 0 }} />
+                          <span style={{ fontFamily: F, fontSize: 13, color: "var(--black)" }}>{t}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <a href={`/fachkraefte?bundesland=${activeProvince.id}`}
+                    style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 44, padding: "0 22px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", alignSelf: "flex-start", whiteSpace: "nowrap" }}>
+                    Fachkräfte in {activeProvince.name} finden
+                    <img src="/icons/arrow-right.svg" width={13} height={13} alt="" style={{ filter: "brightness(0) invert(1)" }} />
+                  </a>
+                </div>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                  <div>
+                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>Unser Netzwerk</p>
+                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 8px" }}>1.000+ Fachkräfte österreichweit</h3>
+                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.7, margin: 0 }}>
+                      Klicke auf ein Bundesland auf der Karte, um die Fachkräfte in deiner Region zu entdecken.
+                    </p>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    {["Alle 9 Bundesländer Österreichs", "Persönliche Vermittlung — kein Algorithmus", "Kassenplätze & Privatpraxis", "Unterschiedliche Schwerpunkte"].map((t, i) => (
+                      <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <img src="/icons/icon-check.svg" width={16} height={16} alt="" style={{ flexShrink: 0 }} />
+                        <span style={{ fontFamily: F, fontSize: 13, color: "var(--black)" }}>{t}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <a href="/fachkraefte"
+                    style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 44, padding: "0 22px", borderRadius: 9999, border: `1.5px solid ${CTA}`, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", alignSelf: "flex-start", whiteSpace: "nowrap", background: "white" }}>
+                    Alle Fachkräfte entdecken
+                    <img src="/icons/arrow-right.svg" width={13} height={13} alt="" style={{ filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </div>
