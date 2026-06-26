@@ -434,27 +434,29 @@ export default function KontaktPage() {
       </section>
 
       {/* ── FAQ ───────────────────────────────────────────────────────── */}
-      <section style={{ background: "#F5F9FD", padding: isMobile ? "48px 0" : "72px 0" }}>
-        <div style={{ ...wrap }}>
-          <div style={{ textAlign: "center", marginBottom: 40 }}>
-            <span style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase" }}>Häufige Fragen</span>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: "8px 0 0" }}>FAQ</h2>
+      <section style={{ background: "white", padding: isMobile ? "48px 16px" : "72px var(--page-side)" }}>
+        <div style={{ maxWidth: "var(--max-width)", margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 48, display: "flex", flexDirection: "column", gap: 16 }}>
+            <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 28 : 40, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>Häufige Fragen</h2>
+            <p style={{ fontFamily: F, fontWeight: 400, fontSize: isMobile ? 16 : 18, lineHeight: 1.5, color: "var(--grey-text)", margin: 0 }}>
+              Hier findest du Antworten auf häufige Fragen rund um Kontakt und Erreichbarkeit.
+            </p>
           </div>
-          <div style={{ maxWidth: 760, margin: "0 auto", display: "flex", flexDirection: "column", gap: 2 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, maxWidth: 864, margin: "0 auto" }}>
             {FAQS.map((item, i) => {
               const open = openFaq === i;
               return (
-                <div key={i} style={{ background: "white", borderRadius: 14, overflow: "hidden", marginBottom: 8, border: "1px solid #EAF0FA" }}>
+                <div key={i}>
                   <button
                     onClick={() => setOpenFaq(open ? null : i)}
-                    style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "18px 20px", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}>
-                    <span style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 14 : 15, color: "var(--black)", lineHeight: 1.4 }}>{item.q}</span>
-                    <div style={{ width: 28, height: 28, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      {open ? <Minus size={15} color="var(--black)" /> : <Plus size={15} color="var(--black)" />}
+                    style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, padding: 16, background: "none", border: "none", borderBottom: open ? "none" : "1px solid var(--grey-border)", cursor: "pointer", textAlign: "left" }}>
+                    <span style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 16 : 20, lineHeight: 1.4, color: "var(--black)", flex: 1 }}>{item.q}</span>
+                    <div style={{ width: 32, height: 32, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      {open ? <Minus size={16} color="var(--black)" /> : <Plus size={16} color="var(--black)" />}
                     </div>
                   </button>
                   {open && (
-                    <div style={{ padding: "4px 20px 18px", fontFamily: F, fontSize: isMobile ? 14 : 15, lineHeight: 1.65, color: "var(--grey-text)" }}>
+                    <div style={{ padding: "12px 16px 16px", fontFamily: F, fontWeight: 400, fontSize: isMobile ? 14 : 16, lineHeight: 1.5, color: "var(--grey-text)", borderBottom: "1px solid var(--grey-border)" }}>
                       {item.a}
                     </div>
                   )}
