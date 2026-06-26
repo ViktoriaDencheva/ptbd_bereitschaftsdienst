@@ -288,16 +288,17 @@ export default function UeberUnsPage() {
                     <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>Ausgewähltes Bundesland</p>
                     <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 26, color: "var(--black)", margin: 0 }}>{activeProvince.name}</h3>
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 16px", background: "#EEF4FC", borderRadius: 12 }}>
-                      <span style={{ fontFamily: F, fontWeight: 700, fontSize: 28, color: CTA }}>{activeProvince.count}</span>
-                      <span style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.4 }}>Fachkräfte verfügbar<br />in {activeProvince.name}</span>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                    <div>
+                      <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 48 : 56, color: "#CD1719", lineHeight: 1 }}>{activeProvince.count}</span>
+                      <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "6px 0 0", lineHeight: 1.4 }}>Fachkräfte verfügbar in {activeProvince.name}</p>
                     </div>
+                    <div style={{ width: 40, height: 3, background: "#CD1719", borderRadius: 2 }} />
                     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                       {["Persönliche Vermittlung", "Verschiedene Fachrichtungen", "Kassenplätze & Privatpraxis"].map((t, i) => (
                         <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
                           <img src="/icons/icon-check.svg" width={16} height={16} alt="" style={{ flexShrink: 0 }} />
-                          <span style={{ fontFamily: F, fontSize: 13, color: "var(--black)" }}>{t}</span>
+                          <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)" }}>{t}</span>
                         </div>
                       ))}
                     </div>
