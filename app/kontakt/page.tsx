@@ -489,41 +489,6 @@ export default function KontaktPage() {
         </div>
       </section>
 
-      {/* ── NOTFALL ───────────────────────────────────────────────────── */}
-      <section id="notfall" style={{ background: "#FEF5F0", padding: isMobile ? "48px 0" : "72px 0", borderTop: "1px solid #FECDCD" }}>
-        <div style={{ ...wrap }}>
-          <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: isMobile ? 24 : 48, alignItems: isMobile ? "flex-start" : "center" }}>
-            <div style={{ flex: 1 }}>
-              <span style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: RED, letterSpacing: "0.1em", textTransform: "uppercase" }}>Wichtig</span>
-              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 28, color: "var(--black)", margin: "8px 0 12px" }}>Bei akuter Gefahr sofort handeln</h2>
-              <p style={{ fontFamily: F, fontSize: 15, lineHeight: 1.7, color: "var(--grey-text)", margin: "0 0 20px", maxWidth: 540 }}>
-                Unsere Plattform ist nicht für Notfallsituationen geeignet. Wenn du dich oder jemand anderen in unmittelbarer Gefahr siehst, wende dich bitte sofort an die Notfallnummern.
-              </p>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-                <a href="tel:142" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 24px", borderRadius: 9999, background: RED, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none" }}>
-                  142 — Telefonseelsorge
-                </a>
-                <a href="tel:112" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 24px", borderRadius: 9999, border: `1.5px solid ${RED}`, color: RED, fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", background: "white" }}>
-                  112 — Notruf
-                </a>
-              </div>
-            </div>
-            <div style={{ flex: "0 0 auto", display: "flex", flexDirection: "column", gap: 12 }}>
-              {[
-                { label: "Telefonseelsorge:", num: "142" },
-                { label: "Notruf:", num: "112" },
-                { label: "Kriseninterventionszentrum Wien:", num: "+43 1 406 95 95" },
-              ].map((item, i) => (
-                <div key={i} style={{ background: "white", borderRadius: 14, padding: "16px 20px", border: "1px solid #FECDCD" }}>
-                  <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 2px" }}>{item.label}</p>
-                  <a href={`tel:${item.num.replace(/\s/g, "")}`} style={{ fontFamily: F, fontWeight: 700, fontSize: 18, color: RED, textDecoration: "none" }}>{item.num}</a>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       <Footer />
     </main>
   );
