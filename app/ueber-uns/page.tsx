@@ -29,11 +29,11 @@ const STATS = [
 ];
 
 const STEPS = [
-  { icon: "/icons/icon-vorgespraech.svg", title: "Hilfe suchen", desc: "Du erkennst, dass du Unterstützung brauchst — das ist der mutigste Schritt." },
-  { icon: "/icons/icon-orientierung.svg", title: "Orientierungsgespräch", desc: "In einem kostenlosen Gespräch klären wir gemeinsam, was du brauchst." },
-  { icon: "/icons/icon-test.svg", title: "Passende Empfehlung", desc: "Wir empfehlen dir gezielt die Fachkraft, die am besten zu deiner Situation passt." },
-  { icon: "/icons/icon-fachkraefte-warum.svg", title: "Therapeut*in finden", desc: "Direkter Kontakt zu einer qualifizierten Fachkraft — ohne lange Wartezeiten." },
-  { icon: "/icons/icon-unterstuetzung.svg", title: "Unterstützung erhalten", desc: "Du bist nicht allein. Wir bleiben an deiner Seite, auch nach der Vermittlung." },
+  { icon: "/icons/icon-vorgespraech.svg", title: "Hilfe suchen", desc: "Du erkennst, dass du Unterstützung brauchst — das ist der mutigste Schritt.", bg: "var(--blue-ultra-light)" },
+  { icon: "/icons/icon-orientierung.svg", title: "Orientierungsgespräch", desc: "In einem kostenlosen Gespräch klären wir gemeinsam, was du brauchst.", bg: "var(--yellow-light)" },
+  { icon: "/icons/icon-test.svg", title: "Passende Empfehlung", desc: "Wir empfehlen dir gezielt die Fachkraft, die am besten zu deiner Situation passt.", bg: "var(--green-light)" },
+  { icon: "/icons/icon-fachkraefte-warum.svg", title: "Therapeut*in finden", desc: "Direkter Kontakt zu einer qualifizierten Fachkraft — ohne lange Wartezeiten.", bg: "var(--blue-ultra-light)" },
+  { icon: "/icons/icon-unterstuetzung.svg", title: "Unterstützung erhalten", desc: "Du bist nicht allein. Wir bleiben an deiner Seite, auch nach der Vermittlung.", bg: "var(--yellow-light)" },
 ];
 
 const WERTE = [
@@ -234,18 +234,15 @@ export default function UeberUnsPage() {
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: "0 0 8px" }}>Vom ersten Gedanken bis zur Unterstützung.</h2>
             <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>Wir begleiten dich durch jeden Schritt — klar, persönlich und ohne Umwege.</p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(5, 1fr)", gap: isMobile ? 16 : 0, position: "relative" }}>
-            {!isMobile && (
-              <div style={{ position: "absolute", top: 32, left: "10%", right: "10%", height: 2, background: "linear-gradient(90deg, #D6E4F7 0%, #2D5B8D 50%, #D6E4F7 100%)", zIndex: 0 }} />
-            )}
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(5, 1fr)", gap: isMobile ? 12 : 16 }}>
             {STEPS.map((s, i) => (
-              <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: isMobile ? "flex-start" : "center", gap: 12, position: "relative", zIndex: 1, padding: isMobile ? "0 0 0 16px" : "0 8px", borderLeft: isMobile ? `3px solid ${i === 0 ? CTA : "#D6E4F7"}` : "none" }}>
-                <div style={{ width: 64, height: 64, borderRadius: "50%", background: i === 0 ? "#D6E4F7" : "#F0F6FF", border: `2px solid ${i === 0 ? CTA_HEX : "#D6E4F7"}`, display: "grid", placeItems: "center", flexShrink: 0 }}>
-                  <img src={s.icon} width={28} height={28} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
+              <div key={i} style={{ background: s.bg, borderRadius: 16, padding: isMobile ? "20px 16px" : "24px 20px", display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ width: 52, height: 52, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <img src={s.icon} width={26} height={26} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
                 </div>
-                <div style={{ textAlign: isMobile ? "left" : "center" }}>
-                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: 13, color: CTA, margin: "0 0 4px" }}>{`${i + 1}. ${s.title}`}</p>
-                  <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: 0, lineHeight: 1.5 }}>{s.desc}</p>
+                <div>
+                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 15 : 16, color: "var(--black)", margin: "0 0 6px", lineHeight: 1.3 }}>{`${i + 1}. ${s.title}`}</p>
+                  <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
                 </div>
               </div>
             ))}
