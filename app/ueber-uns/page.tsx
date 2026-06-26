@@ -21,11 +21,11 @@ function useWindowWidth() {
   return w;
 }
 
+const STAT_HERO = { value: "Ø 1 Woche", label: "bis zum ersten Gespräch", sub: "Kein monatelanges Warten auf Unterstützung." };
 const STATS = [
-  { value: "1 Woche", label: "bis zum ersten Gespräch", sub: "Kein monatelanges Warten." },
   { value: "1.000+", label: "Fachkräfte im Netzwerk", sub: "Psychotherapeut*innen, Psycholog*innen & Psychiater*innen." },
-  { value: "9", label: "Bundesländer", sub: "Österreichweit verfügbar — in jeder Region." },
   { value: "10+", label: "Jahre Erfahrung", sub: "Seit 2014 verbinden wir Menschen mit Unterstützung." },
+  { value: "9", label: "Bundesländer österreichweit", sub: "Österreichweit verfügbar — in jeder Region." },
 ];
 
 const STEPS = [
@@ -194,9 +194,34 @@ export default function UeberUnsPage() {
         <div style={{ ...wrap }}>
           <div style={{ textAlign: "center", marginBottom: isMobile ? 32 : 48 }}>
             <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unsere Wirkung</p>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: 0 }}>Zahlen, die für sich sprechen.</h2>
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: "0 0 12px" }}>Zahlen, die Vertrauen schaffen.</h2>
+            <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 16, color: "var(--grey-text)", margin: 0, lineHeight: 1.7, maxWidth: 560, marginLeft: "auto", marginRight: "auto" }}>
+              Seit über zehn Jahren helfen wir Menschen dabei, schneller die passende psychotherapeutische Unterstützung zu finden.
+            </p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: isMobile ? 12 : 20 }}>
+
+          {/* Hero KPI */}
+          <div
+            onMouseEnter={() => setHoveredStat(-1)}
+            onMouseLeave={() => setHoveredStat(null)}
+            style={{
+              background: hoveredStat === -1 ? "white" : "transparent",
+              borderRadius: 24,
+              padding: isMobile ? "32px 24px" : "48px 56px",
+              border: `1.5px solid ${hoveredStat === -1 ? "#D6E8FF" : "#D0DFF0"}`,
+              boxShadow: hoveredStat === -1 ? "0 8px 32px rgba(45,91,141,0.10)" : "none",
+              transform: hoveredStat === -1 ? "translateY(-4px)" : "translateY(0)",
+              transition: "all 0.2s ease",
+              marginBottom: isMobile ? 12 : 20,
+              textAlign: isMobile ? "center" : "left",
+            }}>
+            <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 52 : 72, color: CTA, margin: "0 0 6px", lineHeight: 1 }}>{STAT_HERO.value}</p>
+            <p style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 12px", lineHeight: 1.3 }}>{STAT_HERO.label}</p>
+            <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{STAT_HERO.sub}</p>
+          </div>
+
+          {/* Supporting metrics */}
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: isMobile ? 12 : 20 }}>
             {STATS.map((s, i) => {
               const hov = hoveredStat === i;
               return (
@@ -206,20 +231,17 @@ export default function UeberUnsPage() {
                   style={{
                     background: hov ? "white" : "transparent",
                     borderRadius: 20,
-                    padding: isMobile ? "20px 16px" : "28px 24px",
+                    padding: isMobile ? "20px 16px" : "28px 32px",
                     display: "flex",
                     flexDirection: "column",
-                    gap: 10,
+                    gap: 8,
                     border: `1.5px solid ${hov ? "#D6E8FF" : "#D0DFF0"}`,
                     boxShadow: hov ? "0 8px 28px rgba(45,91,141,0.10)" : "none",
                     transform: hov ? "translateY(-4px) scale(1.02)" : "translateY(0) scale(1)",
                     transition: "all 0.2s ease",
-                    cursor: "default",
                   }}>
-                  <div>
-                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 28 : 38, color: CTA, margin: "0 0 4px", lineHeight: 1.1 }}>{s.value}</p>
-                    <p style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 14 : 16, color: "var(--black)", margin: 0, lineHeight: 1.4 }}>{s.label}</p>
-                  </div>
+                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 28 : 38, color: CTA, margin: 0, lineHeight: 1.1 }}>{s.value}</p>
+                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 14 : 16, color: "var(--black)", margin: 0, lineHeight: 1.3 }}>{s.label}</p>
                   <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.sub}</p>
                 </div>
               );
