@@ -321,19 +321,22 @@ export default function KontaktPage() {
 
             {/* Right info panel */}
             <div style={{ flex: "0 0 340px", display: "flex", flexDirection: "column", gap: 20 }}>
-              <div style={{ background: "var(--blue-ultra-light)", borderRadius: 20, padding: "28px 24px" }}>
-                <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 18, color: "var(--black)", margin: "0 0 16px" }}>Warum uns kontaktieren?</h3>
-                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <div style={{ borderRadius: 20, overflow: "hidden", border: "1.5px solid #EAF0FA" }}>
+                <div style={{ background: CTA_HEX, padding: "22px 24px" }}>
+                  <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 18, color: "white", margin: 0 }}>Warum uns kontaktieren?</h3>
+                  <p style={{ fontFamily: F, fontSize: 13, color: "rgba(255,255,255,0.75)", margin: "4px 0 0" }}>5 gute Gründe, uns zu schreiben</p>
+                </div>
+                <div style={{ background: "white", padding: "20px 24px", display: "flex", flexDirection: "column", gap: 0 }}>
                   {[
-                    "Wir finden gemeinsam die passende Unterstützung für dich",
-                    "Keine Wartelisten — schnelle, unkomplizierte Hilfe",
-                    "Unser Team kennt das österreichische Versorgungssystem",
-                    "Vertraulich, kostenlos und ohne Verpflichtung",
-                    "Österreichweit verfügbar — in allen 9 Bundesländern",
-                  ].map((text, i) => (
-                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
-                      <CheckCircle2 size={17} color={CTA_HEX} strokeWidth={2.2} style={{ flexShrink: 0, marginTop: 2 }} />
-                      <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", lineHeight: 1.55 }}>{text}</span>
+                    { text: "Wir finden gemeinsam die passende Unterstützung für dich", icon: "🎯" },
+                    { text: "Keine Wartelisten — schnelle, unkomplizierte Hilfe", icon: "⚡" },
+                    { text: "Unser Team kennt das österreichische Versorgungssystem", icon: "🇦🇹" },
+                    { text: "Vertraulich, kostenlos und ohne Verpflichtung", icon: "🔒" },
+                    { text: "Österreichweit verfügbar — in allen 9 Bundesländern", icon: "📍" },
+                  ].map((item, i, arr) => (
+                    <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, padding: "14px 0", borderBottom: i < arr.length - 1 ? "1px solid #F0F4F8" : "none" }}>
+                      <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }}>{item.icon}</span>
+                      <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", lineHeight: 1.55 }}>{item.text}</span>
                     </div>
                   ))}
                 </div>
