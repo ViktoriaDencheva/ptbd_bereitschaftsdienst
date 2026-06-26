@@ -206,7 +206,7 @@ export default function FaqPage() {
       {!filteredFaq && (
         <>
           {/* ── KATEGORIEN ── */}
-          <section style={{ background: "white", padding: "64px 0 0" }}>
+          <section className="faq-section-kategorien" style={{ background: "white", padding: "64px 0 0" }}>
             <div className="faq-w" style={W}>
               <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 8 }}>Was beschäftigt dich?</h2>
               <p style={{ fontFamily: F, fontSize: 14.5, color: "#888", marginBottom: 28 }}>Wähle ein Thema und finde die passende Antwort.</p>
@@ -240,7 +240,7 @@ export default function FaqPage() {
           </section>
 
           {/* ── FAQ ACCORDION ── */}
-          <section ref={faqRef} style={{ background: "white", padding: "64px 0 0" }}>
+          <section ref={faqRef} className="faq-section-accordion" style={{ background: "white", padding: "64px 0 0" }}>
             <div className="faq-w" style={W}>
               <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 8 }}>Alle Fragen</h2>
               <p style={{ fontFamily: F, fontSize: 14.5, color: "#888", marginBottom: 32 }}>Wähle eine Kategorie und finde schnell die passende Antwort.</p>
@@ -261,7 +261,7 @@ export default function FaqPage() {
       )}
 
       {/* ── NOCH FRAGEN ── */}
-      <section style={{ background: "white", padding: "80px 0 96px" }}>
+      <section className="faq-section-cta" style={{ background: "white", padding: "80px 0 96px" }}>
         <div style={W}>
           <div className="faq-cta-wrap" style={{ borderRadius: 20, overflow: "hidden", display: "flex", background: "white", boxShadow: "0 1px 8px rgba(0,0,0,0.06)", border: "1px solid #F0F0F0" }}>
             <img src="/vorgespraech-banner.png" alt="" aria-hidden={true} className="faq-cta-img" style={{ width: "45%", objectFit: "cover", flexShrink: 0, display: "block" }} />
@@ -302,17 +302,17 @@ export default function FaqPage() {
           gap: 14px;
         }
         @media (max-width: 1070px) {
+          .faq-w { padding-left: 16px !important; padding-right: 16px !important; }
           .faq-bc-wrap { padding: 20px 16px 16px !important; }
           .faq-h1 { font-size: 30px !important; }
-          .faq-cat-grid { grid-template-columns: repeat(3, 1fr) !important; }
-          .faq-popular-grid { grid-template-columns: 1fr !important; }
-          .faq-cta-wrap { flex-direction: column !important; }
-          .faq-cta-img { width: 100% !important; height: 220px !important; }
-          .faq-cta-text { padding: 32px 24px !important; }
-        }
-        @media (max-width: 1070px) {
-          .faq-w { padding-left: 16px !important; padding-right: 16px !important; }
           .faq-cat-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .faq-popular-grid { grid-template-columns: 1fr !important; }
+          .faq-section-kategorien { padding: 32px 0 0 !important; }
+          .faq-section-accordion { padding: 24px 0 0 !important; }
+          .faq-section-cta { padding: 32px 0 40px !important; }
+          .faq-cta-wrap { flex-direction: column !important; border-radius: 12px !important; }
+          .faq-cta-img { width: calc(100% + 32px) !important; margin-left: -16px !important; height: 240px !important; border-radius: 0 !important; }
+          .faq-cta-text { padding: 24px 16px 28px !important; }
         }
       `}</style>
     </>
