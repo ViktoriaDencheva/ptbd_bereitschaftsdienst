@@ -162,7 +162,7 @@ export default function FaqPage() {
       {/* ── HERO ── */}
       <section style={{ position: "relative", overflow: "hidden", background: "white", padding: "72px 0 64px", minHeight: 300 }}>
         <img src="/FAQ-banner.png" alt="" aria-hidden={true} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", pointerEvents: "none" as const }} />
-        <div style={{ ...W, position: "relative", zIndex: 1 }}>
+        <div className="faq-w" style={{ ...W, position: "relative", zIndex: 1 }}>
           <h1 className="faq-h1" style={{ fontFamily: F, fontWeight: 800, color: "#1A1A1A", lineHeight: 1.2, marginBottom: 16 }}>
             Wie können wir dir helfen?
           </h1>
@@ -189,7 +189,7 @@ export default function FaqPage() {
       {/* ── SEARCH RESULTS ── */}
       {filteredFaq && (
         <section style={{ background: "white", padding: "48px 0" }}>
-          <div style={W}>
+          <div className="faq-w" style={W}>
             <p style={{ fontFamily: F, fontSize: 13.5, color: "#888", marginBottom: 16 }}>
               {filteredFaq.length} Ergebnis{filteredFaq.length !== 1 ? "se" : ""} für „{query}"
             </p>
@@ -208,7 +208,7 @@ export default function FaqPage() {
         <>
           {/* ── KATEGORIEN ── */}
           <section style={{ background: "white", padding: "64px 0 0" }}>
-            <div style={W}>
+            <div className="faq-w" style={W}>
               <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 8 }}>Was beschäftigt dich?</h2>
               <p style={{ fontFamily: F, fontSize: 14.5, color: "#888", marginBottom: 28 }}>Wähle ein Thema und finde die passende Antwort.</p>
               <div className="faq-cat-grid">
@@ -242,7 +242,7 @@ export default function FaqPage() {
 
           {/* ── FAQ ACCORDION ── */}
           <section ref={faqRef} style={{ background: "white", padding: "64px 0 0" }}>
-            <div style={W}>
+            <div className="faq-w" style={W}>
               <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 8 }}>Alle Fragen</h2>
               <p style={{ fontFamily: F, fontSize: 14.5, color: "#888", marginBottom: 32 }}>Wähle eine Kategorie und finde schnell die passende Antwort.</p>
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -311,7 +311,8 @@ export default function FaqPage() {
           .faq-cta-img { width: 100% !important; height: 220px !important; }
           .faq-cta-text { padding: 32px 24px !important; }
         }
-        @media (max-width: 480px) {
+        @media (max-width: 1070px) {
+          .faq-w { padding-left: 16px !important; padding-right: 16px !important; }
           .faq-cat-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
       `}</style>
