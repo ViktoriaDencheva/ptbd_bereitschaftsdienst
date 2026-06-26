@@ -102,25 +102,21 @@ function CategoryAccordion({ cat }: { cat: typeof FAQ_BY_CAT[number] }) {
   const [open, setOpen] = useState(false);
   const { Icon } = cat;
   return (
-    <div style={{ borderRadius: 16, background: "#F5F8FD", overflow: "hidden" }}>
+    <div style={{ borderRadius: 8, background: open ? "#EBF2FC" : "#F5F8FD", overflow: "hidden", transition: "background 0.2s" }}>
       <button
         onClick={() => setOpen(o => !o)}
-        style={{ width: "100%", background: "none", border: "none", cursor: "pointer", padding: "20px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}
+        style={{ width: "100%", background: "none", border: "none", cursor: "pointer", padding: "18px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 40, height: 40, borderRadius: 10, background: "white", flexShrink: 0 }}>
-            <Icon />
-          </span>
-          <span style={{ fontFamily: F, fontWeight: 700, fontSize: 16, color: "#1A1A1A" }}>{cat.label}</span>
+          <Icon />
+          <span style={{ fontFamily: F, fontWeight: 700, fontSize: 16, color: open ? CTA_HEX : "#1A1A1A", transition: "color 0.2s" }}>{cat.label}</span>
         </div>
-        <span style={{ flexShrink: 0, width: 32, height: 32, borderRadius: "50%", background: open ? CTA_HEX : "white", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }}>
-          <svg width="13" height="13" viewBox="0 0 12 12" fill="none">
-            <path d={open ? "M2 8L6 4L10 8" : "M2 4L6 8L10 4"} stroke={open ? "white" : CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, transition: "transform 0.2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }}>
+          <path d="M3 6l5 5 5-5" stroke={open ? CTA_HEX : "#888"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
       </button>
       {open && (
-        <div style={{ background: "white", borderRadius: "0 0 16px 16px" }}>
+        <div style={{ background: "white" }}>
           {cat.items.map((item, i) => <FaqItem key={i} q={item.q} a={item.a} />)}
         </div>
       )}
