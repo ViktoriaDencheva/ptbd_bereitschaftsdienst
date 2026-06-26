@@ -153,33 +153,29 @@ export default function UeberUnsPage() {
         </div>
       </section>
 
-      {/* ── MISSION ──────────────────────────────────────────── */}
-      <section style={{ background: "white", padding: isMobile ? "48px 0" : "64px 0", borderTop: "1px solid #F0F4F8", borderBottom: "1px solid #F0F4F8" }}>
+      {/* ── MISSION + WERTE (combined) ───────────────────────── */}
+      <section style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0", borderTop: "1px solid #F0F4F8" }}>
         <div style={{ ...wrap }}>
+          {/* Mission quote */}
           {isMobile ? (
-            /* Mobile: stacked */
-            <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: 0 }}>Unsere Mission</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 24, marginBottom: 40 }}>
+              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: 0 }}>Unsere Mission & Werte</p>
               <p style={{ fontFamily: F, fontWeight: 700, fontSize: 22, lineHeight: 1.4, margin: 0 }}>
-                <span style={{ color: "#CD1719" }}>Niemand</span> sollte <span style={{ color: "#CD1719" }}>monatelang</span> auf psychotherapeutische <span style={{ color: "#CD1719" }}>Hilfe</span> warten müssen.
+                „<span style={{ color: "#CD1719" }}>Niemand</span> sollte <span style={{ color: "#CD1719" }}>monatelang</span> auf psychotherapeutische <span style={{ color: "#CD1719" }}>Hilfe</span> warten müssen."
               </p>
               <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", lineHeight: 1.8, margin: 0 }}>
                 Der Psychotherapeutische Bereitschaftsdienst wurde gegründet, um psychologische Hilfe schneller, einfacher und persönlicher zugänglich zu machen — als gemeinnütziger Verein, der Menschen in den Mittelpunkt stellt.
               </p>
             </div>
           ) : (
-            /* Desktop: quote | divider | text */
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1px 1fr", gap: "0 48px", alignItems: "center" }}>
-              {/* Quote */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1px 1fr", gap: "0 48px", alignItems: "center", marginBottom: 56 }}>
               <div style={{ paddingRight: 8 }}>
-                <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 20px" }}>Unsere Mission</p>
+                <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 20px" }}>Unsere Mission & Werte</p>
                 <p style={{ fontFamily: F, fontWeight: 700, fontSize: 26, lineHeight: 1.45, margin: 0, color: "var(--black)" }}>
                   „<span style={{ color: "#CD1719" }}>Niemand</span> sollte <span style={{ color: "#CD1719" }}>monatelang</span> auf psychotherapeutische <span style={{ color: "#CD1719" }}>Hilfe</span> warten müssen."
                 </p>
               </div>
-              {/* Divider */}
               <div style={{ width: 1, alignSelf: "stretch", background: "#E2EBF5" }} />
-              {/* Text */}
               <div style={{ paddingLeft: 8 }}>
                 <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", lineHeight: 1.85, margin: 0 }}>
                   Der Psychotherapeutische Bereitschaftsdienst wurde gegründet, um psychologische Hilfe schneller, einfacher und persönlicher zugänglich zu machen — als gemeinnütziger Verein, der Menschen in den Mittelpunkt stellt. Für alle, unabhängig von Kassenstatus oder Wohnort.
@@ -187,6 +183,18 @@ export default function UeberUnsPage() {
               </div>
             </div>
           )}
+          {/* Werte cards */}
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: 16 }}>
+            {WERTE.map((w, i) => (
+              <div key={i} style={{ background: w.bg, borderRadius: 20, padding: isMobile ? "20px 16px" : "28px 24px", display: "flex", flexDirection: "column", gap: 12 }}>
+                <div style={{ width: 52, height: 52, borderRadius: "50%", background: "white", display: "grid", placeItems: "center", boxShadow: `0 2px 12px ${w.color}20` }}>
+                  {w.icon}
+                </div>
+                <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 15, color: "var(--black)", margin: 0 }}>{w.title}</p>
+                <p style={{ fontFamily: F, fontSize: isMobile ? 12 : 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{w.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -373,27 +381,6 @@ export default function UeberUnsPage() {
         </div>
       </section>
 
-      {/* ── WERTE ────────────────────────────────────────────── */}
-      <section style={{ background: "#F5F9FD", padding: isMobile ? "48px 0" : "72px 0" }}>
-        <div style={{ ...wrap }}>
-          <div style={{ textAlign: "center", marginBottom: isMobile ? 32 : 48 }}>
-            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unsere Werte</p>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: "0 0 8px" }}>Was uns antreibt.</h2>
-            <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0 }}>Keine Unternehmensphilosophie. Menschliche Überzeugungen.</p>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: 16 }}>
-            {WERTE.map((w, i) => (
-              <div key={i} style={{ background: w.bg, borderRadius: 20, padding: isMobile ? "20px 16px" : "28px 24px", display: "flex", flexDirection: "column", gap: 12 }}>
-                <div style={{ width: 52, height: 52, borderRadius: "50%", background: "white", display: "grid", placeItems: "center", boxShadow: `0 2px 12px ${w.color}20` }}>
-                  {w.icon}
-                </div>
-                <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 15, color: "var(--black)", margin: 0 }}>{w.title}</p>
-                <p style={{ fontFamily: F, fontSize: isMobile ? 12 : 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{w.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── FAQ ──────────────────────────────────────────────── */}
       <section style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
