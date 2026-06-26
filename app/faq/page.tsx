@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 const F = "'Poppins', sans-serif";
 const CTA_HEX = "#2D5B8D";
-const W = { maxWidth: 1200, margin: "0 auto", padding: "0 24px" } as const;
+const W = { maxWidth: 1440, margin: "0 auto", padding: "0 40px" } as const;
 
 // ─── Icons ───────────────────────────────────────────────────────────────────
 
@@ -165,6 +165,19 @@ export default function FaqPage() {
     <>
       <Navbar />
 
+      {/* ── BREADCRUMBS ── */}
+      <section style={{ background: "white" }}>
+        <div style={{ ...W }} className="faq-breadcrumbs">
+          <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13 }}>
+            <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = CTA_HEX}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>Startseite</a>
+            <span style={{ color: "#C3C3C3" }}>›</span>
+            <span style={{ color: "var(--black)", fontWeight: 500 }}>FAQ</span>
+          </div>
+        </div>
+      </section>
+
       {/* ── HERO ── */}
       <section style={{ background: "linear-gradient(160deg, #F0F6FF 0%, #FAFCFF 60%, white 100%)", padding: "80px 0 64px" }}>
         <div style={{ ...W, textAlign: "center" }}>
@@ -320,6 +333,7 @@ export default function FaqPage() {
       <Footer />
 
       <style>{`
+        .faq-breadcrumbs { padding: 28px 40px 16px; }
         .faq-h1 { font-size: 42px; }
         .faq-cat-grid {
           display: grid;
@@ -332,6 +346,7 @@ export default function FaqPage() {
           gap: 14px;
         }
         @media (max-width: 1070px) {
+          .faq-breadcrumbs { padding: 20px 16px 12px !important; }
           .faq-h1 { font-size: 30px !important; }
           .faq-cat-grid { grid-template-columns: repeat(3, 1fr) !important; }
           .faq-popular-grid { grid-template-columns: 1fr !important; }
