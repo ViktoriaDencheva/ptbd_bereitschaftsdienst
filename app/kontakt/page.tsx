@@ -328,7 +328,7 @@ export default function KontaktPage() {
                 </div>
                 <div style={{ background: "white", padding: "20px 24px", display: "flex", flexDirection: "column", gap: 0 }}>
                   {[
-                    { text: "Wir finden gemeinsam die passende Unterstützung für dich", icon: "/icons/icon-orientierung.svg" },
+                    { text: "Wir finden gemeinsam die passende Unterstützung für dich", icon: "/icons/icon-unterstuetzung.svg" },
                     { text: "Keine Wartelisten — schnelle, unkomplizierte Hilfe", icon: "/icons/icon-clock.svg" },
                     { text: "Unser Team kennt das österreichische Versorgungssystem", icon: "/icons/icon-fachkraefte-warum.svg" },
                     { text: "Vertraulich, kostenlos und ohne Verpflichtung", icon: "/icons/lock-keyhole.svg" },
