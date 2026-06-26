@@ -262,7 +262,7 @@ export default function FaqPage() {
 
       {/* ── NOCH FRAGEN ── */}
       <section className="faq-section-cta" style={{ background: "white", padding: "80px 0 96px" }}>
-        <div style={W}>
+        <div className="faq-w" style={W}>
           <div className="faq-cta-wrap" style={{ borderRadius: 20, overflow: "hidden", display: "flex", background: "white", boxShadow: "0 1px 8px rgba(0,0,0,0.06)", border: "1px solid #F0F0F0" }}>
             <img src="/vorgespraech-banner.png" alt="" aria-hidden={true} className="faq-cta-img" style={{ width: "45%", objectFit: "cover", flexShrink: 0, display: "block" }} />
             <div className="faq-cta-text" style={{ flex: 1, padding: "52px 48px", display: "flex", flexDirection: "column", justifyContent: "center", background: "white" }}>
