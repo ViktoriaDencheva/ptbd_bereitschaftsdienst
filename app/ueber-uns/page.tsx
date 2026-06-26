@@ -118,7 +118,7 @@ export default function UeberUnsPage() {
           {/* Overlay for readability and tone-matching */}
           <div style={{ position: "absolute", inset: 0, background: isMobile
             ? "linear-gradient(to top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.42) 30%, rgba(255,255,255,0.52) 55%, rgba(255,255,255,0) 85%)"
-            : "linear-gradient(to right, rgba(240,246,255,0.55) 0%, rgba(240,246,255,0.28) 55%, rgba(240,246,255,0) 100%)"
+            : "linear-gradient(to left, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.55) 35%, rgba(255,255,255,0) 65%)"
           }} />
 
           {/* Text content */}
