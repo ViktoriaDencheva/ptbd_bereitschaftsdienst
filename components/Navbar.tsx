@@ -5,19 +5,20 @@ import { Menu, X, User, Phone } from "lucide-react";
 import { getStoredUser, clearUser, getFirstName, type AuthUser } from "@/lib/auth";
 
 const navLinks = [
-  { label: "Startseite", href: "/" },
-  { label: "Fachkräfte", href: "/fachkraefte" },
-  { label: "Über uns", href: "/ueber-uns" },
-  { label: "Kontakt", href: "/kontakt" },
+  { label: "Startseite",   href: "/" },
+  { label: "Fachkräfte",  href: "/fachkraefte" },
+  { label: "Unterschiede", href: "/unterschied" },
+  { label: "Über uns",    href: "/ueber-uns" },
+  { label: "Kontakt",     href: "/kontakt" },
 ];
 
 const menuLinks = [
-  { label: "Startseite", href: "/" },
-  { label: "Fachkräfte finden", href: "/fachkraefte" },
-  { label: "Orientierungstest", href: "/orientierungstest" },
-  { label: "Über uns", href: "/ueber-uns" },
-  { label: "FAQ", href: "#" },
-  { label: "Kontakt", href: "/kontakt" },
+  { label: "Startseite",   href: "/" },
+  { label: "Fachkräfte",  href: "/fachkraefte" },
+  { label: "Unterschiede", href: "/unterschied" },
+  { label: "Über uns",    href: "/ueber-uns" },
+  { label: "FAQ",          href: "/faq" },
+  { label: "Kontakt",     href: "/kontakt" },
 ];
 
 const ArrowIcon = ({ color = "white" }: { color?: string }) => (
@@ -32,9 +33,11 @@ export default function Navbar() {
   const [user, setUser] = useState<AuthUser | null>(null);
   const headerRef = useRef<HTMLElement>(null);
 
-  const active = pathname === "/fachkraefte" ? "Fachkräfte"
-    : pathname === "/" ? "Startseite"
+  const active = pathname === "/" ? "Startseite"
+    : pathname === "/fachkraefte" ? "Fachkräfte"
+    : pathname === "/unterschied" ? "Unterschiede"
     : pathname === "/ueber-uns" ? "Über uns"
+    : pathname === "/kontakt" ? "Kontakt"
     : null;
   const [headerBottom, setHeaderBottom] = useState(108);
 
@@ -164,20 +167,20 @@ export default function Navbar() {
 
           <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
             {UserButton}
-            <button style={{
+            <a href="/vorgespraech" style={{
               display: "flex", alignItems: "center", gap: 6,
               background: "var(--cta)", color: "white",
               border: "none", borderRadius: 9999,
               padding: "0 20px", height: 44,
               fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 15,
               cursor: "pointer", whiteSpace: "nowrap",
-              transition: "background 0.2s",
+              transition: "background 0.2s", textDecoration: "none",
             }}
               onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
               onMouseLeave={e => (e.currentTarget.style.background = "var(--cta)")}
             >
-              Termin vereinbaren <ArrowIcon />
-            </button>
+              Erstgespräch vereinbaren <ArrowIcon />
+            </a>
           </div>
         </div>
 
@@ -213,14 +216,15 @@ export default function Navbar() {
             boxShadow: "0 16px 40px rgba(0,0,0,0.12)",
             borderRadius: "0 0 24px 24px",
           }}>
-            <button style={{
+            <a href="/vorgespraech" style={{
               width: "100%", background: "var(--cta)", color: "white",
               border: "none", borderRadius: 9999, height: 52,
               fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16,
               cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+              textDecoration: "none",
             }}>
-              Termin vereinbaren <ArrowIcon />
-            </button>
+              Erstgespräch vereinbaren <ArrowIcon />
+            </a>
             <div style={{ height: 1, background: "#f0f0f0", margin: "16px 0 8px" }} />
             {menuLinks.map(l => (
               <a key={l.label} href={l.href}
