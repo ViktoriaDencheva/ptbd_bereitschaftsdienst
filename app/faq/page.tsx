@@ -112,7 +112,6 @@ function CategoryAccordion({ cat }: { cat: typeof FAQ_BY_CAT[number] }) {
             <Icon />
           </span>
           <span style={{ fontFamily: F, fontWeight: 700, fontSize: 16, color: "#1A1A1A" }}>{cat.label}</span>
-          <span style={{ fontFamily: F, fontSize: 13, color: CTA_HEX, background: "#E4EEF9", borderRadius: 999, padding: "2px 10px" }}>{cat.items.length} Fragen</span>
         </div>
         <span style={{ flexShrink: 0, width: 32, height: 32, borderRadius: "50%", background: open ? CTA_HEX : "white", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }}>
           <svg width="13" height="13" viewBox="0 0 12 12" fill="none">
