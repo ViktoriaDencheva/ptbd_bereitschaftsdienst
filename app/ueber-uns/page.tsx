@@ -85,6 +85,7 @@ export default function UeberUnsPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [selectedProvince, setSelectedProvince] = useState<ProvinceId | null>(null);
   const [hoveredStat, setHoveredStat] = useState<number | null>(null);
+  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
   const activeProvince = PROVINCES.find(p => p.id === selectedProvince) ?? null;
 
   return (
@@ -236,7 +237,21 @@ export default function UeberUnsPage() {
           </div>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(5, 1fr)", gap: isMobile ? 12 : 16 }}>
             {STEPS.map((s, i) => (
-              <div key={i} style={{ background: s.bg, borderRadius: 16, padding: isMobile ? "20px 16px" : "24px 20px", display: "flex", flexDirection: "column", gap: 12 }}>
+              <div key={i}
+                onMouseEnter={() => setHoveredStep(i)}
+                onMouseLeave={() => setHoveredStep(null)}
+                style={{
+                  background: s.bg,
+                  borderRadius: 16,
+                  padding: isMobile ? "20px 16px" : "24px 20px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 12,
+                  boxShadow: hoveredStep === i ? "0 8px 28px rgba(45,91,141,0.12)" : "none",
+                  transform: hoveredStep === i ? "translateY(-4px) scale(1.02)" : "translateY(0) scale(1)",
+                  transition: "all 0.2s ease",
+                  cursor: "default",
+                }}>
                 <div style={{ width: 52, height: 52, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   <img src={s.icon} width={26} height={26} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
                 </div>
