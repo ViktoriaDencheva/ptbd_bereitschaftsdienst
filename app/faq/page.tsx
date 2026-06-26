@@ -160,14 +160,8 @@ export default function FaqPage() {
       </div>
 
       {/* ── HERO ── */}
-      <section style={{ background: "linear-gradient(120deg, #EBF2FC 0%, #F5F9FF 60%, #FAFCFF 100%)", padding: "72px 0 64px", position: "relative", overflow: "hidden" }}>
-        <img
-          src="/FAQ-banner.png"
-          alt=""
-          aria-hidden="true"
-          style={{ position: "absolute", right: 0, top: "50%", transform: "translateY(-50%)", height: "100%", pointerEvents: "none", userSelect: "none" }}
-        />
-        <div style={{ ...W, position: "relative" }}>
+      <section style={{ backgroundImage: "url('/FAQ-banner.png')", backgroundSize: "cover", backgroundPosition: "center", padding: "72px 0 64px" }}>
+        <div style={{ ...W }}>
           <h1 className="faq-h1" style={{ fontFamily: F, fontWeight: 800, color: "#1A1A1A", lineHeight: 1.2, marginBottom: 16 }}>
             Wie können wir dir helfen?
           </h1>
