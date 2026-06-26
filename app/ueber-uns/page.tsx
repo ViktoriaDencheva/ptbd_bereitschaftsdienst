@@ -152,20 +152,40 @@ export default function UeberUnsPage() {
       </section>
 
       {/* ── MISSION ──────────────────────────────────────────── */}
-      <section style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0", borderTop: "1px solid #F0F4F8" }}>
+      <section style={{ background: "#0D1F3C", padding: isMobile ? "56px 0" : "88px 0" }}>
         <div style={{ ...wrap }}>
-          <div style={{ maxWidth: 760 }}>
-            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 20px" }}>Unsere Mission</p>
-            <div style={{ width: 48, height: 4, background: CTA, borderRadius: 2, marginBottom: 24 }} />
-            <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, lineHeight: 1.35, color: "var(--black)", margin: "0 0 24px" }}>
-              „Niemand sollte monatelang auf psychotherapeutische Hilfe warten müssen."
-            </p>
-            <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", lineHeight: 1.8, margin: "0 0 12px" }}>
-              Der Psychotherapeutische Bereitschaftsdienst wurde gegründet, um psychologische Hilfe schneller, einfacher und persönlicher zugänglich zu machen.
-            </p>
-            <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", lineHeight: 1.8, margin: 0 }}>
-              Nicht als kommerzielle Plattform — sondern als gemeinnütziger Verein, der Menschen in den Mittelpunkt stellt. Für alle, unabhängig von Kassenstatus oder Wohnort.
-            </p>
+          <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: "1fr 1fr", gap: isMobile ? 36 : 80, alignItems: "center" }}>
+            {/* Left */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: "#7BAFD4", letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 28px" }}>Unsere Mission</p>
+              {/* Large decorative quote mark */}
+              <div style={{ fontFamily: "Georgia, serif", fontSize: isMobile ? 80 : 120, lineHeight: 0.7, color: "#2D5B8D", margin: "0 0 16px", userSelect: "none" }}>"</div>
+              <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 32, lineHeight: 1.35, color: "white", margin: "0 0 28px" }}>
+                Niemand sollte monatelang auf psychotherapeutische Hilfe warten müssen.
+              </p>
+              <p style={{ fontFamily: F, fontSize: 15, color: "rgba(255,255,255,0.65)", lineHeight: 1.8, margin: "0 0 32px" }}>
+                Der Psychotherapeutische Bereitschaftsdienst wurde gegründet, um psychologische Hilfe schneller, einfacher und persönlicher zugänglich zu machen — als gemeinnütziger Verein, der Menschen in den Mittelpunkt stellt.
+              </p>
+              <a href="/fachkraefte"
+                style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 46, padding: "0 28px", borderRadius: 9999, background: "white", color: "#0D1F3C", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", alignSelf: "flex-start" }}>
+                Fachkräfte finden
+                <img src="/icons/arrow-right.svg" width={14} height={14} alt="" />
+              </a>
+            </div>
+            {/* Right — stats as accent cards */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              {[
+                { value: "1.000+", label: "Fachkräfte im Netzwerk" },
+                { value: "9", label: "Bundesländer österreichweit" },
+                { value: "10+", label: "Jahre Erfahrung" },
+                { value: "Gemeinnützig", label: "Nicht kommerziell" },
+              ].map((s, i) => (
+                <div key={i} style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 16, padding: isMobile ? "20px 16px" : "28px 24px" }}>
+                  <p style={{ fontFamily: F, fontWeight: 800, fontSize: isMobile ? 22 : 28, color: "white", margin: "0 0 6px", lineHeight: 1.1 }}>{s.value}</p>
+                  <p style={{ fontFamily: F, fontSize: 13, color: "rgba(255,255,255,0.55)", margin: 0, lineHeight: 1.4 }}>{s.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
