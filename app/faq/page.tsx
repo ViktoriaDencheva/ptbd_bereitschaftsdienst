@@ -264,12 +264,12 @@ export default function FaqPage() {
       {/* ── NOCH FRAGEN ── */}
       <section style={{ background: "white", padding: "80px 0 96px" }}>
         <div style={W}>
-          <div className="faq-cta-wrap" style={{ borderRadius: 20, overflow: "hidden", display: "flex", background: "linear-gradient(120deg, #EBF2FC 0%, #F5F9FF 100%)" }}>
+          <div className="faq-cta-wrap" style={{ borderRadius: 20, overflow: "hidden", display: "flex", background: "white", boxShadow: "0 2px 24px rgba(45,91,141,0.08)", border: "1px solid #E8EFF8" }}>
             <img src="/vorgespraech-banner.png" alt="" aria-hidden={true} className="faq-cta-img" style={{ width: "45%", objectFit: "cover", flexShrink: 0, display: "block" }} />
-            <div className="faq-cta-text" style={{ flex: 1, padding: "52px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 28, color: "#1A1A1A", marginBottom: 14, lineHeight: 1.25 }}>Noch Fragen?</h2>
+            <div className="faq-cta-text" style={{ flex: 1, padding: "52px 48px", display: "flex", flexDirection: "column", justifyContent: "center", background: "white" }}>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 28, color: "#1A1A1A", marginBottom: 14, lineHeight: 1.25 }}>Hast du noch offene Fragen?</h2>
               <p style={{ fontFamily: F, fontSize: 16, color: "#555", lineHeight: 1.7, marginBottom: 32 }}>
-                Wenn du keine passende Antwort gefunden hast, helfen wir dir gerne persönlich weiter.
+                Du musst das nicht alleine herausfinden. Wir sind für dich da und helfen dir persönlich weiter — ganz ohne Wartezeit.
               </p>
               <div>
                 <a
