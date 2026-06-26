@@ -348,11 +348,11 @@ export default function KontaktPage() {
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   <a href="tel:+4311234567" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
                     <img src="/icons/icon-phone-contact.svg" width={18} height={18} alt="" />
-                    <span style={{ fontFamily: F, fontSize: 14, color: CTA_HEX, fontWeight: 500 }}>+43 1 123 45 67</span>
+                    <span style={{ fontFamily: F, fontSize: 14, color: CTA_HEX, fontWeight: 500, textDecoration: "underline", textUnderlineOffset: 3 }}>+43 1 123 45 67</span>
                   </a>
                   <a href="mailto:info@ptbd.at" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
                     <img src="/icons/icon-mail.svg" width={18} height={18} alt="" />
-                    <span style={{ fontFamily: F, fontSize: 14, color: CTA_HEX, fontWeight: 500 }}>info@ptbd.at</span>
+                    <span style={{ fontFamily: F, fontSize: 14, color: CTA_HEX, fontWeight: 500, textDecoration: "underline", textUnderlineOffset: 3 }}>info@ptbd.at</span>
                   </a>
                   <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <img src="/icons/icon-clock.svg" width={18} height={18} alt="" />
