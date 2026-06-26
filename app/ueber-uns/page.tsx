@@ -111,6 +111,11 @@ export default function UeberUnsPage() {
             />
           </picture>
 
+          {/* Light white overlay on mobile for text readability */}
+          {isMobile && (
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.55) 55%, rgba(255,255,255,0) 100%)" }} />
+          )}
+
           {/* Text content */}
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: isMobile ? "flex-end" : "center" }}>
             <div style={{ maxWidth: 1440, margin: "0 auto", padding: isMobile ? "0 20px 40px" : "0 40px", width: "100%" }}>
