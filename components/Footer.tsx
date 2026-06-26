@@ -10,15 +10,32 @@ const LinkedinIcon = () => (<svg width="42" height="42" viewBox="0 0 42 42" fill
 const footerCols = [
   {
     title: "Plattform",
-    links: ["Fachkräfte finden", "Orientierungsgespräch", "Termin buchen", "So funktioniert es", "Häufige Fragen"],
+    links: [
+      { label: "Fachkräfte finden",       href: "/fachkraefte" },
+      { label: "Orientierungsgespräch",    href: "/gespraech" },
+      { label: "Termin buchen",            href: "/buchen" },
+      { label: "So funktioniert es",       href: "/#wie-es-funktioniert" },
+      { label: "Häufige Fragen",           href: "/faq" },
+    ],
   },
   {
     title: "Wichtige Informationen",
-    links: ["Kosten & Krankenkasse", "Termin absagen & verschieben", "Ablauf der Beratung", "Krisenhilfe"],
+    links: [
+      { label: "Kosten & Krankenkasse",         href: "#" },
+      { label: "Termin absagen & verschieben",   href: "/termin-verschieben" },
+      { label: "Ablauf der Beratung",            href: "#" },
+      { label: "Krisenhilfe",                   href: "#" },
+    ],
   },
   {
     title: "Rechtliches",
-    links: ["Datenschutz", "AGB", "Impressum", "Nutzungsbedingungen", "Cookie-Einstellungen"],
+    links: [
+      { label: "Datenschutz",          href: "#" },
+      { label: "AGB",                  href: "#" },
+      { label: "Impressum",            href: "#" },
+      { label: "Nutzungsbedingungen",  href: "#" },
+      { label: "Cookie-Einstellungen", href: "#" },
+    ],
   },
 ];
 
@@ -38,7 +55,7 @@ const paymentIcons = [
   "/icons/krankenkasse.svg",
 ];
 
-function AccordionCol({ title, links }: { title: string; links: string[] }) {
+function AccordionCol({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   const [open, setOpen] = useState(false);
   return (
     <div style={{ borderBottom: "1px solid var(--grey-bg)" }}>
@@ -55,7 +72,7 @@ function AccordionCol({ title, links }: { title: string; links: string[] }) {
       {open && (
         <div style={{ display: "flex", flexDirection: "column", gap: 10, paddingBottom: 14 }}>
           {links.map(link => (
-            <a key={link} href="#" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 15, color: "var(--grey-text)", textDecoration: "none" }}>{link}</a>
+            <a key={link.label} href={link.href} style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 15, color: "var(--grey-text)", textDecoration: "none" }}>{link.label}</a>
           ))}
         </div>
       )}
@@ -210,10 +227,10 @@ export default function Footer() {
                 <div style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, lineHeight: 1.5, color: "var(--black)" }}>{col.title}</div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                   {col.links.map((link) => (
-                    <a key={link} href="#" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 14, lineHeight: 1.5, color: "var(--grey-text)", textDecoration: "none", transition: "color 0.2s" }}
+                    <a key={link.label} href={link.href} style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 14, lineHeight: 1.5, color: "var(--grey-text)", textDecoration: "none", transition: "color 0.2s" }}
                       onMouseEnter={e => (e.currentTarget.style.color = "var(--cta)")}
                       onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-                    >{link}</a>
+                    >{link.label}</a>
                   ))}
                 </div>
               </div>
