@@ -59,10 +59,11 @@ const ACTION_CARDS = [
 ];
 
 const INFO_CARDS = [
-  { icon: "/icons/icon-phone-contact.svg", label: "Telefon", value: "+43 1 123 45 67", sub: "Mo–Fr · 9:00–17:00 Uhr" },
-  { icon: "/icons/icon-mail.svg", label: "E-Mail", value: "info@ptbd.at", sub: "Antwort innerhalb 24h" },
-  { icon: "/icons/icon-pin.svg", label: "Österreichweit", value: "Alle 9 Bundesländer", sub: "In deiner Region verfügbar" },
-  { icon: "/icons/icon-clock.svg", label: "Antwortzeit", value: "< 24 Stunden", sub: "Schnelle, persönliche Rückmeldung" },
+  { icon: "/icons/icon-phone-contact.svg", label: "Telefon", value: "+43 1 123 45 67", sub: "Mo–Fr · 9:00–17:00 Uhr", href: "tel:+4311234567" },
+  { icon: "/icons/icon-mail.svg", label: "E-Mail", value: "info@ptbd.at", sub: "Antwort innerhalb 24h", href: "mailto:info@ptbd.at" },
+  { icon: "/icons/icon-pin.svg", label: "Österreichweit", value: "Alle 9 Bundesländer", sub: "In deiner Region verfügbar", href: null },
+  { icon: "/icons/icon-clock.svg", label: "Antwortzeit", value: "< 24 Stunden", sub: "Schnelle, persönliche Rückmeldung", href: null },
+  { icon: "/icons/icon-vorgespraech.svg", label: "Kontaktformular", value: "Nachricht schreiben", sub: "Direkt & unkompliziert", href: "#kontaktformular" },
 ];
 
 const THEMEN = [
@@ -182,17 +183,29 @@ export default function KontaktPage() {
             <span style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase" }}>Direkt erreichbar</span>
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: "8px 0 0" }}>So erreichst du uns</h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: 16 }}>
-            {INFO_CARDS.map((card, i) => (
-              <div key={i} style={{ background: "white", borderRadius: 20, padding: "28px 20px", border: "1.5px solid #D0DFF0", display: "flex", flexDirection: "column", gap: 10, textAlign: "center", alignItems: "center" }}>
-                <div style={{ width: 52, height: 52, borderRadius: "50%", background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <img src={card.icon} width={24} height={24} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
-                </div>
-                <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: CTA, margin: 0, textTransform: "uppercase", letterSpacing: "0.06em" }}>{card.label}</p>
-                <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 14 : 16, color: "var(--black)", margin: 0 }}>{card.value}</p>
-                <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0 }}>{card.sub}</p>
-              </div>
-            ))}
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(5, 1fr)", gap: 16 }}>
+            {INFO_CARDS.map((card, i) => {
+              const inner = (
+                <>
+                  <div style={{ width: 52, height: 52, borderRadius: "50%", background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <img src={card.icon} width={24} height={24} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
+                  </div>
+                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: CTA, margin: 0, textTransform: "uppercase" as const, letterSpacing: "0.06em" }}>{card.label}</p>
+                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 14 : 16, color: "var(--black)", margin: 0 }}>{card.value}</p>
+                  <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0 }}>{card.sub}</p>
+                </>
+              );
+              const baseStyle: React.CSSProperties = { background: "white", borderRadius: 20, padding: "28px 20px", border: "1.5px solid #D0DFF0", display: "flex", flexDirection: "column", gap: 10, textAlign: "center", alignItems: "center", textDecoration: "none", transition: "all 0.2s" };
+              return card.href ? (
+                <a key={i} href={card.href} style={baseStyle}
+                  onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = CTA_HEX; el.style.transform = "translateY(-2px)"; }}
+                  onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#D0DFF0"; el.style.transform = "translateY(0)"; }}>
+                  {inner}
+                </a>
+              ) : (
+                <div key={i} style={baseStyle}>{inner}</div>
+              );
+            })}
           </div>
         </div>
       </section>
