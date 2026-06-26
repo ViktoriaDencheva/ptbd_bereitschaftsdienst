@@ -243,33 +243,38 @@ export default function UeberUnsPage() {
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: "0 0 8px" }}>Vom ersten Gedanken bis zur Unterstützung.</h2>
             <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>Wir begleiten dich durch jeden Schritt — klar, persönlich und ohne Umwege.</p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(5, 1fr)", gap: isMobile ? 12 : 16 }}>
-            {STEPS.map((s, i) => (
-              <div key={i}
-                onMouseEnter={() => setHoveredStep(i)}
-                onMouseLeave={() => setHoveredStep(null)}
-                style={{
-                  background: s.bg,
-                  borderRadius: 16,
-                  padding: isMobile ? "20px 16px" : "24px 20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 12,
-                  boxShadow: hoveredStep === i ? "0 8px 28px rgba(45,91,141,0.12)" : "none",
-                  transform: hoveredStep === i ? "translateY(-4px) scale(1.02)" : "translateY(0) scale(1)",
-                  transition: "all 0.2s ease",
-                  cursor: "default",
-                }}>
-                <div style={{ width: 52, height: 52, borderRadius: "50%", background: "white", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <img src={s.icon} width={26} height={26} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
+          {isMobile ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {STEPS.map((s, i) => (
+                <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start", background: "#F8FAFE", borderRadius: 16, padding: "20px 18px" }}>
+                  <div style={{ width: 48, height: 48, borderRadius: "50%", background: "white", border: `1.5px solid ${CTA_HEX}30`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <img src={s.icon} width={24} height={24} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
+                  </div>
+                  <div>
+                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, margin: "0 0 2px", letterSpacing: "0.06em" }}>{i + 1}.</p>
+                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 4px" }}>{s.title}</h3>
+                    <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 15 : 16, color: "var(--black)", margin: "0 0 6px", lineHeight: 1.3 }}>{`${i + 1}. ${s.title}`}</p>
-                  <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
+              ))}
+            </div>
+          ) : (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16, position: "relative" }}>
+              {STEPS.map((s, i) => (
+                <div key={i}
+                  style={{ background: "white", borderRadius: 20, padding: "48px 20px 32px", border: "1px solid #EAF0FA", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", position: "relative", overflow: "hidden", transition: "background 0.2s, border-color 0.2s, box-shadow 0.2s", cursor: "default" }}
+                  onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "#F4F9FF"; el.style.borderColor = CTA_HEX; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.10)"; }}
+                  onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "white"; el.style.borderColor = "#EAF0FA"; el.style.boxShadow = "none"; }}>
+                  <span style={{ position: "absolute", top: 10, right: 14, fontFamily: F, fontWeight: 800, fontSize: 72, color: CTA, opacity: 0.1, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{i + 1}</span>
+                  <div style={{ position: "relative", marginBottom: 20 }}>
+                    <img src={s.icon} width={52} height={52} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)", display: "block" }} />
+                  </div>
+                  <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 10px", lineHeight: 1.35 }}>{s.title}</h3>
+                  <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{s.desc}</p>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
