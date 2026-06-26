@@ -166,17 +166,15 @@ export default function FaqPage() {
       <Navbar />
 
       {/* ── BREADCRUMBS ── */}
-      <section style={{ background: "white" }}>
-        <div style={{ maxWidth: 1440, margin: "0 auto" }} className="k-breadcrumbs-wrap">
-          <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13 }}>
-            <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
-              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = CTA_HEX}
-              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>Startseite</a>
-            <span style={{ color: "#C3C3C3" }}>›</span>
-            <span style={{ color: "var(--black)", fontWeight: 500 }}>FAQ</span>
-          </div>
+      <div className="faq-bc-wrap">
+        <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13 }}>
+          <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = CTA_HEX}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>Startseite</a>
+          <span style={{ color: "#C3C3C3" }}>›</span>
+          <span style={{ color: "var(--black)", fontWeight: 500 }}>FAQ</span>
         </div>
-      </section>
+      </div>
 
       {/* ── HERO ── */}
       <section style={{ background: "linear-gradient(160deg, #F0F6FF 0%, #FAFCFF 60%, white 100%)", padding: "80px 0 64px" }}>
@@ -333,6 +331,7 @@ export default function FaqPage() {
       <Footer />
 
       <style>{`
+        .faq-bc-wrap { max-width: 1440px; margin: 0 auto; padding: 32px 80px 28px; }
         .faq-h1 { font-size: 42px; }
         .faq-cat-grid {
           display: grid;
@@ -345,6 +344,7 @@ export default function FaqPage() {
           gap: 14px;
         }
         @media (max-width: 1070px) {
+          .faq-bc-wrap { padding: 20px 16px 16px !important; }
           .faq-h1 { font-size: 30px !important; }
           .faq-cat-grid { grid-template-columns: repeat(3, 1fr) !important; }
           .faq-popular-grid { grid-template-columns: 1fr !important; }
