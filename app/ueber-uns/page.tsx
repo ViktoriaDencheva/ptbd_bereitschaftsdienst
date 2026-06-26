@@ -22,10 +22,10 @@ function useWindowWidth() {
 }
 
 const STATS = [
-  { value: "10+", label: "Jahre Erfahrung" },
-  { value: "1.000+", label: "Therapeut*innen im Netzwerk" },
-  { value: "9", label: "Bundesländer österreichweit" },
-  { value: "Ø 1 Woche", label: "bis zum Therapiebeginn" },
+  { value: "Ø 1 Woche", label: "bis zum ersten Gespräch", sub: "Kein monatelanges Warten.", icon: "/icons/icon-vorgespraech.svg" },
+  { value: "1.000+", label: "Fachkräfte im Netzwerk", sub: "Psychotherapeut*innen, Psycholog*innen & Psychiater*innen.", icon: "/icons/icon-fachkraefte-warum.svg" },
+  { value: "9", label: "Bundesländer", sub: "Österreichweit verfügbar — in jeder Region.", icon: "/icons/icon-orientierung.svg" },
+  { value: "10+", label: "Jahre Erfahrung", sub: "Seit 2014 verbinden wir Menschen mit Unterstützung.", icon: "/icons/icon-test.svg" },
 ];
 
 const STEPS = [
@@ -193,13 +193,26 @@ export default function UeberUnsPage() {
         <div style={{ ...wrap }}>
           <div style={{ textAlign: "center", marginBottom: isMobile ? 32 : 48 }}>
             <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unsere Wirkung</p>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: 0 }}>Zahlen, die vertrauen schaffen.</h2>
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: 0 }}>Zahlen, die für sich sprechen.</h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: isMobile ? 16 : 24 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: isMobile ? 12 : 20 }}>
             {STATS.map((s, i) => (
-              <div key={i} style={{ background: "white", borderRadius: 20, padding: isMobile ? "24px 16px" : "32px 24px", textAlign: "center", boxShadow: "0 2px 16px rgba(45,91,141,0.06)" }}>
-                <p style={{ fontFamily: F, fontWeight: 800, fontSize: isMobile ? 28 : 36, color: CTA, margin: "0 0 6px", lineHeight: 1.1 }}>{s.value}</p>
-                <p style={{ fontFamily: F, fontSize: isMobile ? 12 : 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.4 }}>{s.label}</p>
+              <div key={i} style={{
+                background: "white",
+                borderRadius: 20,
+                padding: isMobile ? "20px 16px" : "28px 24px",
+                display: "flex",
+                flexDirection: "column",
+                gap: 12,
+                boxShadow: "0 2px 16px rgba(45,91,141,0.05)",
+                border: "1px solid #EEF4FB",
+              }}>
+                <img src={s.icon} width={28} height={28} alt="" style={{ opacity: 0.75 }} />
+                <div>
+                  <p style={{ fontFamily: F, fontWeight: 800, fontSize: isMobile ? 26 : 32, color: CTA, margin: "0 0 2px", lineHeight: 1.1 }}>{s.value}</p>
+                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 12 : 13, color: "var(--black)", margin: 0, lineHeight: 1.3 }}>{s.label}</p>
+                </div>
+                <p style={{ fontFamily: F, fontSize: isMobile ? 11 : 12, color: "var(--grey-text)", margin: 0, lineHeight: 1.5 }}>{s.sub}</p>
               </div>
             ))}
           </div>
