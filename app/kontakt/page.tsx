@@ -414,15 +414,23 @@ export default function KontaktPage() {
                 Wähle ein Bundesland auf der Karte, um Fachkräfte in deiner Region zu entdecken.
               </p>
               {selectedProvince && (
-                <div style={{ background: "var(--blue-ultra-light)", borderRadius: 16, padding: "20px", marginBottom: 20 }}>
-                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: 15, color: CTA_HEX, margin: "0 0 10px" }}>
-                    {PROVINCES.find(p => p.id === selectedProvince)?.name}
-                  </p>
+                <div style={{ border: `1.5px solid ${CTA_HEX}`, borderRadius: 16, padding: "20px 24px", marginBottom: 20, background: "white", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, boxShadow: "0 4px 20px rgba(45,91,141,0.10)" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <div style={{ width: 40, height: 40, borderRadius: "50%", background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <img src="/icons/icon-pin.svg" width={18} height={18} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
+                    </div>
+                    <div>
+                      <p style={{ fontFamily: F, fontWeight: 700, fontSize: 16, color: "var(--black)", margin: 0 }}>
+                        {PROVINCES.find(p => p.id === selectedProvince)?.name}
+                      </p>
+                      <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0 }}>Fachkräfte verfügbar</p>
+                    </div>
+                  </div>
                   <a href={`/fachkraefte?bundesland=${selectedProvince}`}
-                    style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 40, padding: "0 20px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none" }}
+                    style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 38, padding: "0 18px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", whiteSpace: "nowrap" as const, flexShrink: 0 }}
                     onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                     onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA_HEX}>
-                    Fachkräfte anzeigen →
+                    Anzeigen →
                   </a>
                 </div>
               )}
