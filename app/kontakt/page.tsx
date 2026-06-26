@@ -174,30 +174,6 @@ export default function KontaktPage() {
         </div>
       </section>
 
-      {/* ── ACTION CARDS ──────────────────────────────────────────────── */}
-      <section style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
-        <div style={{ ...wrap }}>
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(4, 1fr)", gap: 16 }}>
-            {ACTION_CARDS.map((card, i) => (
-              <a key={i} href={card.href}
-                style={{ display: "flex", flexDirection: "column", gap: 12, background: card.isRed ? "#FEF5F0" : "white", border: `1.5px solid ${card.isRed ? "#FECDCD" : "#EAF0FA"}`, borderRadius: 20, padding: "28px 20px 24px", textDecoration: "none", transition: "all 0.2s ease" }}
-                onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = card.accent; el.style.boxShadow = `0 4px 20px ${card.isRed ? "rgba(205,23,25,0.12)" : "rgba(45,91,141,0.10)"}` ; el.style.transform = "translateY(-2px)"; }}
-                onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = card.isRed ? "#FECDCD" : "#EAF0FA"; el.style.boxShadow = "none"; el.style.transform = "translateY(0)"; }}>
-                <div style={{ width: 48, height: 48, borderRadius: 12, background: card.isRed ? "#FCDEDE" : "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <img src={card.icon} width={26} height={26} alt="" style={{ objectFit: "contain", filter: card.isRed ? "brightness(0) saturate(100%) invert(12%) sepia(90%) saturate(4000%) hue-rotate(349deg)" : "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
-                </div>
-                <div>
-                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: 16, color: "var(--black)", margin: "0 0 6px" }}>{card.title}</p>
-                  <p style={{ fontFamily: F, fontSize: 14, lineHeight: 1.6, color: "var(--grey-text)", margin: 0 }}>{card.desc}</p>
-                </div>
-                <span style={{ fontFamily: F, fontSize: 14, fontWeight: 600, color: card.accent, marginTop: "auto", display: "inline-flex", alignItems: "center", gap: 4 }}>
-                  {card.cta} →
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ── KONTAKTMÖGLICHKEITEN ──────────────────────────────────────── */}
       <section style={{ background: "#F5F9FD", padding: isMobile ? "48px 0" : "72px 0" }}>
