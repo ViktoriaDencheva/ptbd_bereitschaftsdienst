@@ -113,12 +113,12 @@ export default function UeberUnsPage() {
 
           {/* Light white overlay on mobile for text readability */}
           {isMobile && (
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.55) 55%, rgba(255,255,255,0) 100%)" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.42) 30%, rgba(255,255,255,0.52) 55%, rgba(255,255,255,0) 85%)" }} />
           )}
 
           {/* Text content */}
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: isMobile ? "flex-end" : "center" }}>
-            <div style={{ maxWidth: 1440, margin: "0 auto", padding: isMobile ? "0 20px 40px" : "0 40px", width: "100%" }}>
+            <div style={{ maxWidth: 1440, margin: "0 auto", padding: isMobile ? "0 20px 60px" : "0 40px", width: "100%" }}>
               <div style={{ maxWidth: isMobile ? "100%" : 560 }}>
                 <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 26 : 44, lineHeight: 1.2, color: "var(--black)", margin: "0 0 16px" }}>
                   Psychotherapie sollte einfach erreichbar sein.
