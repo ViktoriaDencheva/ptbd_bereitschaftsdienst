@@ -1015,8 +1015,21 @@ function FachkraeftePageInner() {
   const isMobile = winW < 1071;
   const searchParams = useSearchParams();
   const fachParam = searchParams.get("fach");
+  const bundeslandParam = searchParams.get("bundesland");
   const isTablet = winW >= 1071 && winW < 1280;
   const [showFilters, setShowFilters] = useState(false);
+
+  const bundeslandToStandort: Record<string, string> = {
+    wien: "Wien",
+    steiermark: "Graz",
+    salzburg: "Salzburg",
+    oberoesterreich: "Linz",
+    tirol: "Innsbruck",
+    kaernten: "Klagenfurt",
+    niederoesterreich: "St. Pölten",
+    burgenland: "Eisenstadt",
+    vorarlberg: "Bregenz",
+  };
 
   // Filter state
   const [suche, setSuche] = useState("");
@@ -1028,7 +1041,7 @@ function FachkraeftePageInner() {
   const [preisMin, setPreisMin] = useState(30);
   const [preisMax, setPreisMax] = useState(200);
   const [sprachen, setSprachen] = useState<string[]>([]);
-  const [standort, setStandort] = useState("");
+  const [standort, setStandort] = useState(bundeslandParam && bundeslandToStandort[bundeslandParam] ? bundeslandToStandort[bundeslandParam] : "");
   const [sortBy, setSortBy] = useState("best");
   const [page, setPage] = useState(1);
 

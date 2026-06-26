@@ -281,7 +281,7 @@ export default function UeberUnsPage() {
               <AustriaMap activeId={selectedProvince} onSelect={setSelectedProvince} />
             </div>
             {/* Info Panel */}
-            <div style={{ background: "white", borderRadius: 24, padding: isMobile ? "24px 20px" : "32px 28px", boxShadow: "0 4px 24px rgba(45,91,141,0.07)", minHeight: isMobile ? "auto" : 260, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            <div style={{ minHeight: isMobile ? "auto" : 260, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
               {activeProvince ? (
                 <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                   <div>
@@ -326,9 +326,9 @@ export default function UeberUnsPage() {
                     ))}
                   </div>
                   <a href="/fachkraefte"
-                    style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 44, padding: "0 22px", borderRadius: 9999, border: `1.5px solid ${CTA}`, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", alignSelf: "flex-start", whiteSpace: "nowrap", background: "white" }}>
+                    style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 44, padding: "0 22px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", alignSelf: "flex-start", whiteSpace: "nowrap" }}>
                     Alle Fachkräfte entdecken
-                    <img src="/icons/arrow-right.svg" width={13} height={13} alt="" style={{ filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
+                    <img src="/icons/arrow-right.svg" width={13} height={13} alt="" style={{ filter: "brightness(0) invert(1)" }} />
                   </a>
                 </div>
               )}
