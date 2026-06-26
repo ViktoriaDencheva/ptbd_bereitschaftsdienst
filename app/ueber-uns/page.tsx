@@ -338,20 +338,38 @@ export default function UeberUnsPage() {
             <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Warum Menschen uns vertrauen</p>
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: 0 }}>Unsere Geschichte, kurz erzählt.</h2>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 0, maxWidth: 720 }}>
-            {TRUST.map((t, i) => (
-              <div key={i} style={{ display: "flex", gap: isMobile ? 16 : 28, paddingBottom: i < TRUST.length - 1 ? 32 : 0 }}>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
-                  <div style={{ width: 12, height: 12, borderRadius: "50%", background: CTA, flexShrink: 0, marginTop: 4 }} />
-                  {i < TRUST.length - 1 && <div style={{ width: 2, flex: 1, background: "#D6E4F7", marginTop: 6 }} />}
-                </div>
-                <div>
-                  <p style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 13 : 14, color: CTA, margin: "0 0 4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>{t.year}</p>
-                  <p style={{ fontFamily: F, fontSize: isMobile ? 13 : 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>{t.text}</p>
-                </div>
+          {/* Desktop: horizontal timeline */}
+          {!isMobile ? (
+            <div style={{ position: "relative" }}>
+              {/* connector line */}
+              <div style={{ position: "absolute", top: 6, left: 0, right: 0, height: 2, background: "#D6E4F7", zIndex: 0 }} />
+              <div style={{ display: "grid", gridTemplateColumns: `repeat(${TRUST.length}, 1fr)`, gap: 24 }}>
+                {TRUST.map((t, i) => (
+                  <div key={i} style={{ position: "relative", zIndex: 1, paddingTop: 28 }}>
+                    <div style={{ position: "absolute", top: 0, left: 0, width: 14, height: 14, borderRadius: "50%", background: CTA, border: "3px solid white", boxShadow: `0 0 0 2px ${CTA_HEX}` }} />
+                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 13, color: CTA, margin: "0 0 6px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{t.year}</p>
+                    <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>{t.text}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ) : (
+            /* Mobile: vertical */
+            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+              {TRUST.map((t, i) => (
+                <div key={i} style={{ display: "flex", gap: 16, paddingBottom: i < TRUST.length - 1 ? 28 : 0 }}>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
+                    <div style={{ width: 12, height: 12, borderRadius: "50%", background: CTA, flexShrink: 0, marginTop: 4 }} />
+                    {i < TRUST.length - 1 && <div style={{ width: 2, flex: 1, background: "#D6E4F7", marginTop: 6 }} />}
+                  </div>
+                  <div>
+                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 13, color: CTA, margin: "0 0 4px", textTransform: "uppercase", letterSpacing: "0.05em" }}>{t.year}</p>
+                    <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>{t.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
