@@ -32,10 +32,8 @@ export default function MiniFAQ() {
             fontWeight: 400, fontSize: 18,
             lineHeight: 1.5, color: "var(--grey)",
           }}>
-            Hier findest Du Antworten auf die wichtigsten Fragen rund um unsere Plattform und den Ablauf der Unterstützung.{" "}
-            <br />
-            Bei weiteren Fragen kannst Du uns jederzeit{" "}
-            <a href="#" style={{ color: "#0B72B2", textDecoration: "underline" }}>kontaktieren.</a>
+            Hier findest Du Antworten auf die wichtigsten Fragen. Nicht das Richtige dabei?{" "}
+            <a href="/faq" style={{ color: "#0B72B2", textDecoration: "underline" }}>Alle häufigen Fragen ansehen →</a>
           </p>
         </div>
 
