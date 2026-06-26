@@ -102,7 +102,7 @@ function CategoryAccordion({ cat }: { cat: typeof FAQ_BY_CAT[number] }) {
   const [open, setOpen] = useState(false);
   const { Icon } = cat;
   return (
-    <div style={{ borderRadius: 8, background: open ? "#EBF2FC" : "#F5F8FD", overflow: "hidden", transition: "background 0.2s" }}>
+    <div style={{ borderRadius: 8, background: open ? "#EBF2FC" : "#F2F2F4", overflow: "hidden", transition: "background 0.2s" }}>
       <button
         onClick={() => setOpen(o => !o)}
         style={{ width: "100%", background: "none", border: "none", cursor: "pointer", padding: "18px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}
