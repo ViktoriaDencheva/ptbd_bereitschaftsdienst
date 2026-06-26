@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Plus, Minus, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -47,6 +47,8 @@ const WARUM = [
 
 export default function KontaktPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [cardIdx, setCardIdx] = useState(0);
+  const cardSliderRef = useRef<HTMLDivElement>(null);
   const [selectedProvince, setSelectedProvince] = useState<ProvinceId | null>(null);
   const [formState, setFormState] = useState({ vorname: "", nachname: "", email: "", telefon: "", thema: "", nachricht: "", dsgvo: false });
   const [submitted, setSubmitted] = useState(false);
@@ -126,7 +128,7 @@ export default function KontaktPage() {
 
         {/* Mobile hero — full height + bottom gradient (like homepage) */}
         <div className="k-hero-mobile" style={{ display: "none", position: "relative", flexDirection: "column", justifyContent: "flex-end", minHeight: "calc(100svh - 64px)" }}>
-          <img src="/kontakt-banner.png" alt="Kontakt" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", zIndex: 0 }} />
+          <img src="/kontakt-banner-mobile.png" alt="Kontakt" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", zIndex: 0 }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 25%, rgba(255,255,255,0.55) 55%, rgba(255,255,255,0.92) 75%, rgba(255,255,255,0.97) 90%)", pointerEvents: "none", zIndex: 1 }} />
           <div style={{ position: "relative", zIndex: 2, padding: "0 20px 48px", display: "flex", flexDirection: "column", gap: 16 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -155,19 +157,43 @@ export default function KontaktPage() {
             <span style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase" }}>Direkt erreichbar</span>
             <h2 style={{ fontFamily: F, fontWeight: 700, color: "var(--black)", margin: "8px 0 0" }} className="k-h2">So erreichst du uns</h2>
           </div>
-          <div className="k-cards-grid">
-            {INFO_CARDS.map((card, i) => {
-              const baseStyle: React.CSSProperties = { background: "white", borderRadius: 20, border: "1.5px solid #D0DFF0", display: "flex", flexDirection: "column", gap: 10, textAlign: "center", alignItems: "center", textDecoration: "none", transition: "all 0.2s" };
-              return card.href ? (
-                <a key={i} href={card.href} style={baseStyle} className="k-card"
-                  onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = CTA_HEX; el.style.transform = "translateY(-2px)"; }}
-                  onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#D0DFF0"; el.style.transform = "translateY(0)"; }}>
-                  {cardInner(card, "lg")}
-                </a>
-              ) : (
-                <div key={i} style={baseStyle} className="k-card">{cardInner(card, "lg")}</div>
-              );
-            })}
+          {/* Desktop: 5-col grid */}
+          <div className="k-cards-desktop">
+            <div className="k-cards-grid">
+              {INFO_CARDS.map((card, i) => {
+                const baseStyle: React.CSSProperties = { background: "white", borderRadius: 20, border: "1.5px solid #D0DFF0", display: "flex", flexDirection: "column", gap: 10, textAlign: "center", alignItems: "center", textDecoration: "none", transition: "all 0.2s" };
+                return card.href ? (
+                  <a key={i} href={card.href} style={baseStyle} className="k-card"
+                    onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = CTA_HEX; el.style.transform = "translateY(-2px)"; }}
+                    onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#D0DFF0"; el.style.transform = "translateY(0)"; }}>
+                    {cardInner(card, "lg")}
+                  </a>
+                ) : (
+                  <div key={i} style={baseStyle} className="k-card">{cardInner(card, "lg")}</div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Mobile: slider with dots */}
+          <div className="k-cards-mobile" style={{ display: "none" }}>
+            <div ref={cardSliderRef}
+              onScroll={e => { const el = e.currentTarget; setCardIdx(Math.round(el.scrollLeft / (el.clientWidth * 0.75))); }}
+              style={{ display: "flex", overflowX: "auto", gap: 12, scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", marginRight: -16, paddingRight: 32 } as React.CSSProperties}>
+              {INFO_CARDS.map((card, i) => {
+                const baseStyle: React.CSSProperties = { background: "white", borderRadius: 20, border: "1.5px solid #D0DFF0", display: "flex", flexDirection: "column", gap: 8, textAlign: "center", alignItems: "center", textDecoration: "none", flexShrink: 0, width: "75%", scrollSnapAlign: "start", padding: "20px 16px" };
+                return card.href ? (
+                  <a key={i} href={card.href} style={baseStyle}>{cardInner(card, "sm")}</a>
+                ) : (
+                  <div key={i} style={baseStyle}>{cardInner(card, "sm")}</div>
+                );
+              })}
+            </div>
+            <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 14 }}>
+              {INFO_CARDS.map((_, i) => (
+                <div key={i} style={{ height: 6, borderRadius: 3, background: cardIdx === i ? CTA_HEX : "#D0DFF0", width: cardIdx === i ? 20 : 6, transition: "all 0.3s ease" }} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -332,7 +358,7 @@ export default function KontaktPage() {
       </section>
 
       {/* ── AUSTRIA MAP ───────────────────────────────────────────────── */}
-      <section style={{ background: "white" }} className="k-section">
+      <section style={{ background: "white" }} className="k-section k-map-section">
         <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
           <div className="k-map-row">
             <div className="k-map-text">
@@ -419,7 +445,9 @@ export default function KontaktPage() {
         .k-section { padding: 72px 0; }
         .k-section-lg { padding: 80px 0; }
 
-        /* Cards grid: 5 columns desktop */
+        /* Cards */
+        .k-cards-desktop { display: block; }
+        .k-cards-mobile { display: none !important; }
         .k-cards-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
         .k-card { padding: 28px 20px; }
 
@@ -457,9 +485,9 @@ export default function KontaktPage() {
           .k-hero-desktop { display: none !important; }
           .k-hero-mobile { display: flex !important; }
 
-          /* Cards: 2 columns */
-          .k-cards-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-          .k-card { padding: 18px 14px; }
+          /* Cards: slider on mobile */
+          .k-cards-desktop { display: none !important; }
+          .k-cards-mobile { display: block !important; }
 
           /* Form: stacked */
           .k-form-row { flex-direction: column !important; gap: 40px !important; }
@@ -473,7 +501,9 @@ export default function KontaktPage() {
           /* Map */
           .k-map-row { flex-direction: column !important; gap: 32px !important; }
           .k-map-text { max-width: 100% !important; }
-          .k-map-svg { min-height: 240px; }
+          .k-map-svg { min-height: 200px; }
+          .k-map-section { padding-bottom: 24px !important; }
+          .k-faq-section { padding-top: 24px !important; }
 
           /* Typography */
           .k-h2 { font-size: 24px; }
