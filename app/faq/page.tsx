@@ -215,16 +215,24 @@ export default function FaqPage() {
                   <button
                     key={id}
                     onClick={() => scrollToCategory(id)}
+                    className="faq-cat-card"
                     style={{
                       background: activeCategory === id ? "#EBF2FC" : "white",
                       border: activeCategory === id ? `1.5px solid ${CTA_HEX}` : "1.5px solid #DDE8F5",
-                      borderRadius: 14, padding: "20px 16px", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", gap: 10, transition: "all 0.2s",
+                      borderRadius: 14, padding: "20px 16px", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 12, transition: "all 0.2s",
                     }}
                   >
-                    <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 48, height: 48, borderRadius: 12, background: activeCategory === id ? "white" : "#EBF2FC" }}>
-                      <Icon />
+                    <span style={{ display: "flex" }}>
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" style={{ display: "block" }}>
+                        {id === "orientierung" && <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>}
+                        {id === "fachkraefte" && <><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></>}
+                        {id === "termine" && <><rect x="3" y="4" width="18" height="18" rx="2" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M16 2v4M8 2v4M3 10h18" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></>}
+                        {id === "kosten" && <><circle cx="12" cy="12" r="9" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8"/><path d="M12 7v10M9.5 9.5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5c0 2.5-5 2.5-5 5 0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round"/></>}
+                        {id === "datenschutz" && <><rect x="3" y="11" width="18" height="11" rx="2" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M7 11V7a5 5 0 0110 0v4" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></>}
+                        {id === "plattform" && <><circle cx="12" cy="12" r="9" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" stroke={activeCategory === id ? CTA_HEX : "#555"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></>}
+                      </svg>
                     </span>
-                    <span style={{ fontFamily: F, fontWeight: 600, fontSize: 13.5, color: activeCategory === id ? CTA_HEX : "#333", textAlign: "center", lineHeight: 1.3 }}>{label}</span>
+                    <span style={{ fontFamily: F, fontWeight: 600, fontSize: 12.5, color: activeCategory === id ? CTA_HEX : "#333", textAlign: "left", lineHeight: 1.3 }}>{label}</span>
                   </button>
                 ))}
               </div>
@@ -278,6 +286,7 @@ export default function FaqPage() {
         .faq-bc-wrap { max-width: 1440px; margin: 0 auto; padding: 32px 80px 28px; }
         .faq-h1 { font-size: 42px; }
         .faq-search-input:focus { border-color: #2D5B8D !important; box-shadow: 0 0 0 3px rgba(45,91,141,0.15), 0 4px 24px rgba(45,91,141,0.10) !important; }
+        .faq-cat-card:hover { border-color: #2D5B8D !important; box-shadow: 0 4px 16px rgba(45,91,141,0.12); transform: translateY(-2px); }
         .faq-cat-grid {
           display: grid;
           grid-template-columns: repeat(6, 1fr);
