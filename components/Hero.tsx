@@ -54,7 +54,7 @@ export default function Hero() {
       {/* ===== DESKTOP HERO ===== */}
       <div className="hero-desktop" style={{ position: "relative", height: 580, overflow: "hidden" }}>
         <img src={imgHeroDesktop} alt="" className="photo-warm" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "60% center" }} />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to left, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.4) 40%, rgba(255,255,255,0) 65%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 40%, rgba(255,255,255,0.92) 65%)" }} />
         <div className="hero-desktop-inner" style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", padding: "80px 80px 60px", maxWidth: 1440, margin: "0 auto", left: "50%", transform: "translateX(-50%)", width: "100%" }}>
           <div style={{ width: "50%", display: "flex", flexDirection: "column", gap: 32 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
