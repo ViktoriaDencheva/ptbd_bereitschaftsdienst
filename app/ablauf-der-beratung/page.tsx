@@ -119,15 +119,15 @@ export default function AblaufPage() {
           <p style={{ fontFamily: F, fontSize: 15, color: "#888", marginBottom: 48 }}>Ein typisches Erstgespräch dauert 45–60 Minuten.</p>
           <div className="adb-phases" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20 }}>
             {PHASES.map((phase, i) => (
-              <div key={i} style={{ background: "white", borderRadius: 16, padding: "28px 32px", border: "1.5px solid #E8EFF8", display: "flex", flexDirection: "column", gap: 16, position: "relative", overflow: "hidden" }}>
-                {/* Step number watermark */}
-                <span style={{ position: "absolute", top: -8, right: 16, fontFamily: F, fontWeight: 900, fontSize: 80, color: "#F0F5FC", lineHeight: 1, userSelect: "none" }}>{i + 1}</span>
+              <div key={i} style={{ background: "white", borderRadius: 16, padding: "36px 32px 28px", border: "1.5px solid #E8EFF8", display: "flex", flexDirection: "column", gap: 12, position: "relative", overflow: "hidden", transition: "box-shadow 0.2s, border-color 0.2s", cursor: "default" }}
+                onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 6px 24px rgba(45,91,141,0.10)"; e.currentTarget.style.borderColor = "#C5D8F0"; }}
+                onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.borderColor = "#E8EFF8"; }}
+              >
+                {/* Watermark number — darker blue */}
+                <span style={{ position: "absolute", top: -4, right: 14, fontFamily: F, fontWeight: 900, fontSize: 88, color: "#2D5B8D", opacity: 0.08, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{i + 1}</span>
                 <div style={{ display: "flex", flexDirection: "column", gap: 4, position: "relative" }}>
-                  <div style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
-                    <div style={{ width: 28, height: 28, borderRadius: "50%", background: CTA, color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F, fontWeight: 800, fontSize: 13, flexShrink: 0 }}>{i + 1}</div>
-                    <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.05em" }}>{phase.duration}</span>
-                  </div>
                   <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 18, color: "#1A1A1A", margin: 0 }}>{phase.title}</h3>
+                  <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.05em" }}>{phase.duration}</span>
                 </div>
                 <p style={{ fontFamily: F, fontSize: 14.5, color: "#666", lineHeight: 1.7, margin: 0, position: "relative" }}>{phase.desc}</p>
               </div>
@@ -178,7 +178,7 @@ export default function AblaufPage() {
                 Alle Fragen ansehen →
               </a>
             </div>
-            <div style={{ background: "#F7F9FC", borderRadius: 16, padding: "8px 24px" }}>
+            <div style={{ padding: "0 4px" }}>
               {FAQS.map((f, i) => <FaqItem key={i} q={f.q} a={f.a} />)}
             </div>
           </div>
