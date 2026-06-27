@@ -428,32 +428,6 @@ export default function StandortePage() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section style={{ background: "white", padding: "80px 0 96px" }}>
-        <div className="st-w" style={W}>
-          <div style={{ background: "linear-gradient(135deg, #EBF2FC 0%, #F5F9FF 100%)", borderRadius: 20, padding: "60px 48px", textAlign: "center", maxWidth: 680, margin: "0 auto" }}>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 28, color: "#1A1A1A", marginBottom: 12, lineHeight: 1.25 }}>Noch unsicher?</h2>
-            <p style={{ fontFamily: F, fontSize: 16, color: "#555", lineHeight: 1.7, marginBottom: 36, maxWidth: 480, margin: "0 auto 36px" }}>
-              Starte mit einem kostenlosen Orientierungsgespräch — wir helfen dir herauszufinden, welcher Standort und welche Fachkraft am besten zu dir passt.
-            </p>
-            <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-              <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 52, padding: "0 32px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.22)", transition: "background 0.2s" }}
-                onMouseEnter={e => (e.currentTarget.style.background = "#234a72")}
-                onMouseLeave={e => (e.currentTarget.style.background = CTA_HEX)}
-              >
-                Kostenloses Orientierungsgespräch
-              </a>
-              <a href="/fachkraefte" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 52, padding: "0 32px", borderRadius: 9999, border: `1.5px solid ${CTA_HEX}`, color: CTA_HEX, fontFamily: F, fontWeight: 500, fontSize: 15, textDecoration: "none", transition: "all 0.2s" }}
-                onMouseEnter={e => { e.currentTarget.style.background = "#EBF2FC"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}
-              >
-                Fachkräfte finden
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <Footer />
 
       <style>{`
