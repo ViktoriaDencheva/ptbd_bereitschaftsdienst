@@ -459,7 +459,7 @@ export default function StandortePage() {
           .st-bc-wrap { padding: 20px 16px 16px !important; }
           .st-w { padding-left: 16px !important; padding-right: 16px !important; }
           .st-h1 { font-size: 32px !important; }
-          .st-hero-grid { grid-template-columns: 1fr !important; gap: 0 !important; flex-direction: column-reverse; display: flex !important; }
+          .st-hero-grid { grid-template-columns: 1fr !important; gap: 0 !important; flex-direction: column !important; display: flex !important; }
           .st-hero-img-wrap { min-height: 220px !important; padding-bottom: 20px !important; order: -1; }
           .st-hero-content { padding-bottom: 32px !important; }
           .st-grid { grid-template-columns: 1fr !important; }
