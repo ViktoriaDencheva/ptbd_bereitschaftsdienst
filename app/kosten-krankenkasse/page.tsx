@@ -96,7 +96,7 @@ export default function KostenPage() {
               <h1 className="kk-h1" style={{ fontFamily: F, fontWeight: 800, color: "#1A1A1A", lineHeight: 1.15, margin: 0 }}>
                 Was kostet psycho&shy;soziale Unterstützung?
               </h1>
-              <p style={{ fontFamily: F, fontSize: 17, color: "#555", lineHeight: 1.7, maxWidth: 480, margin: 0 }}>
+              <p style={{ fontFamily: F, fontSize: 17, color: "#555", lineHeight: 1.7, margin: 0 }}>
                 Psychosoziale Unterstützung muss nicht teuer sein. Wir erklären dir, welche Leistungen kostenlos sind, was die Krankenkasse übernimmt — und welche Optionen es für jeden Budget gibt.
               </p>
             </div>
