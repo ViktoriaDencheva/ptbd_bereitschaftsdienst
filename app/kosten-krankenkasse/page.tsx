@@ -184,19 +184,20 @@ export default function KostenPage() {
             <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>
               Wir sind für dich da — kostenlos, unverbindlich und vertraulich.
             </p>
-            <div style={{ display: "flex", gap: 12, marginTop: 8, flexWrap: "wrap", justifyContent: "center" }}>
+            <div style={{ display: "flex", flexDirection: "row", gap: 12, marginTop: 8, flexWrap: "wrap", justifyContent: "center" }}>
               <a href="/vorgespraech"
-                style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 36px 0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", whiteSpace: "nowrap" }}
+                style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", whiteSpace: "nowrap" }}
                 onMouseEnter={e => (e.currentTarget.style.background = "#1e4270")}
                 onMouseLeave={e => (e.currentTarget.style.background = CTA)}>
                 Kostenloses Orientierungsgespräch
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ filter: "brightness(0) invert(1)" }} />
               </a>
               <a href="/orientierungstest"
-                style={{ display: "inline-flex", alignItems: "center", height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid ${CTA}`, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", background: "white", whiteSpace: "nowrap" }}
+                style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid ${CTA}`, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", background: "white", whiteSpace: "nowrap" }}
                 onMouseEnter={e => (e.currentTarget.style.background = "#EEF4FC")}
                 onMouseLeave={e => (e.currentTarget.style.background = "white")}>
                 Orientierungstest starten
+                <img src="/icons/arrow-right.svg" width={16} height={16} alt="" />
               </a>
             </div>
           </div>
