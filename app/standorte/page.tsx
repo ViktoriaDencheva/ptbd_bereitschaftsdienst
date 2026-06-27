@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Plus, Minus, MapPin, Phone, Clock, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import AustriaMap from "@/components/AustriaMap";
 
 const F = "'Poppins', sans-serif";
 const CTA_HEX = "#2D5B8D";
@@ -122,198 +123,21 @@ const FAQS = [
   },
 ];
 
-// ─── Austria interactive map ─────────────────────────────────────────────────
-
-const PROVINCES: { id: string; label: string; paths: string[] }[] = [
-  {
-    id: "Vorarlberg",
-    label: "V",
-    paths: [
-      "M8,225 L55,200 L72,222 L67,292 L30,310 L10,272 Z",
-    ],
-  },
-  {
-    id: "Tirol",
-    label: "T",
-    paths: [
-      // Nordtirol
-      "M55,200 L242,148 L298,150 L312,198 L282,232 L228,252 L152,268 L67,258 L72,222 Z",
-      // Osttirol
-      "M272,262 L322,275 L370,270 L390,258 L364,242 L322,256 L282,250 Z",
-    ],
-  },
-  {
-    id: "Salzburg",
-    label: "S",
-    paths: [
-      "M242,148 L350,122 L388,150 L390,212 L364,242 L322,256 L282,250 L282,232 L298,178 L260,158 Z",
-    ],
-  },
-  {
-    id: "Oberösterreich",
-    label: "OÖ",
-    paths: [
-      "M350,122 L480,102 L514,136 L508,172 L478,198 L430,210 L388,202 L388,150 Z",
-    ],
-  },
-  {
-    id: "Niederösterreich",
-    label: "NÖ",
-    paths: [
-      "M480,102 L648,82 L688,108 L702,152 L698,208 L670,222 L640,232 L592,218 L542,206 L512,192 L508,172 L514,136 Z",
-    ],
-  },
-  {
-    id: "Wien",
-    label: "W",
-    paths: [
-      "M690,152 L712,148 L718,172 L694,174 L690,162 Z",
-    ],
-  },
-  {
-    id: "Burgenland",
-    label: "B",
-    paths: [
-      "M698,208 L720,202 L730,238 L722,292 L706,334 L686,348 L666,338 L656,308 L672,250 L698,228 Z",
-    ],
-  },
-  {
-    id: "Steiermark",
-    label: "Stmk",
-    paths: [
-      "M390,212 L478,198 L512,192 L542,206 L592,218 L640,232 L656,308 L630,342 L576,368 L506,370 L452,350 L422,312 L390,282 L370,258 L390,232 Z",
-    ],
-  },
-  {
-    id: "Kärnten",
-    label: "K",
-    paths: [
-      "M282,250 L322,256 L364,242 L390,258 L390,282 L422,312 L390,368 L330,380 L282,370 L252,340 L244,300 L257,270 L272,262 Z",
-    ],
-  },
-];
-
-function AustriaMap({
-  activeBL,
-  hasStandort,
-  onSelect,
-}: {
-  activeBL: string;
-  hasStandort: (bl: string) => boolean;
-  onSelect: (bl: string) => void;
-}) {
-  const [hovered, setHovered] = useState<string | null>(null);
-
-  return (
-    <div style={{ position: "relative", width: "100%", maxWidth: 740 }}>
-      <svg
-        viewBox="0 0 740 400"
-        style={{ width: "100%", height: "auto", display: "block", filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.08))" }}
-        aria-label="Österreich Karte – Bundesländer"
-      >
-        {/* Background */}
-        <rect x="0" y="0" width="740" height="400" fill="#EEF3FA" rx="12" />
-
-        {PROVINCES.map(({ id, label, paths }) => {
-          const active = activeBL === id;
-          const hover = hovered === id;
-          const hasLocation = hasStandort(id);
-          const fill = active
-            ? CTA_HEX
-            : hover && hasLocation
-            ? "#C5D8F0"
-            : hasLocation
-            ? "#D8E8F7"
-            : "#E4EAF2";
-          const stroke = active ? "#1e3f66" : hover ? "#9BBAD8" : "#B8CEDE";
-          const cursor = hasLocation ? "pointer" : "default";
-
-          return (
-            <g
-              key={id}
-              style={{ cursor }}
-              onClick={() => hasLocation && onSelect(id)}
-              onMouseEnter={() => hasLocation && setHovered(id)}
-              onMouseLeave={() => setHovered(null)}
-              aria-label={id}
-            >
-              {paths.map((d, i) => (
-                <path
-                  key={i}
-                  d={d}
-                  fill={fill}
-                  stroke={stroke}
-                  strokeWidth={active ? 1.5 : 1}
-                  style={{ transition: "fill 0.18s, stroke 0.18s" }}
-                />
-              ))}
-              {/* Label — skip Wien (too small) */}
-              {id !== "Wien" && id !== "Tirol" && (() => {
-                // Compute rough centroid from first path
-                const pts = paths[0].replace(/[MLZ]/g, " ").trim().split(/\s+/).reduce<number[][]>((acc, _, i, arr) => {
-                  if (i % 2 === 0 && arr[i + 1]) acc.push([parseFloat(arr[i]), parseFloat(arr[i + 1])]);
-                  return acc;
-                }, []);
-                const cx = pts.reduce((s, p) => s + p[0], 0) / pts.length;
-                const cy = pts.reduce((s, p) => s + p[1], 0) / pts.length;
-                return (
-                  <text
-                    x={cx} y={cy}
-                    textAnchor="middle" dominantBaseline="middle"
-                    fontSize={id === "Niederösterreich" || id === "Steiermark" ? 13 : 11}
-                    fontWeight={active ? 700 : 500}
-                    fill={active ? "white" : "#4A6A8A"}
-                    style={{ pointerEvents: "none", userSelect: "none", fontFamily: "Poppins, sans-serif" }}
-                  >
-                    {label}
-                  </text>
-                );
-              })()}
-            </g>
-          );
-        })}
-
-        {/* Wien label separately (tiny province) */}
-        <text x={704} y={162} textAnchor="middle" fontSize={8} fontWeight={500}
-          fill={activeBL === "Wien" ? "white" : "#4A6A8A"}
-          style={{ pointerEvents: "none", userSelect: "none", fontFamily: "Poppins, sans-serif" }}
-        >W</text>
-        {/* Tirol label in main body */}
-        <text x={170} y={222} textAnchor="middle" fontSize={13} fontWeight={activeBL === "Tirol" ? 700 : 500}
-          fill={activeBL === "Tirol" ? "white" : "#4A6A8A"}
-          style={{ pointerEvents: "none", userSelect: "none", fontFamily: "Poppins, sans-serif" }}
-        >T</text>
-      </svg>
-
-      {/* Tooltip */}
-      {hovered && (
-        <div style={{
-          position: "absolute", bottom: 12, left: "50%", transform: "translateX(-50%)",
-          background: "#1A1A1A", color: "white", fontFamily: F, fontSize: 13, fontWeight: 500,
-          padding: "5px 14px", borderRadius: 999, pointerEvents: "none", whiteSpace: "nowrap",
-        }}>
-          {hovered}
-        </div>
-      )}
-
-      {/* Legend */}
-      <div style={{ display: "flex", gap: 18, marginTop: 14, flexWrap: "wrap" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 12, color: "#666" }}>
-          <span style={{ width: 14, height: 14, borderRadius: 3, background: "#D8E8F7", display: "inline-block", border: "1px solid #B8CEDE" }} />
-          Standort vorhanden
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 12, color: "#666" }}>
-          <span style={{ width: 14, height: 14, borderRadius: 3, background: CTA_HEX, display: "inline-block" }} />
-          Ausgewählt
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 12, color: "#666" }}>
-          <span style={{ width: 14, height: 14, borderRadius: 3, background: "#E4EAF2", display: "inline-block", border: "1px solid #B8CEDE" }} />
-          Online / kein Standort
-        </div>
-      </div>
-    </div>
-  );
-}
+// Mapping from Bundesland display name → ProvinceId used by AustriaMap
+const BL_TO_ID: Record<string, string> = {
+  "Wien": "wien",
+  "Niederösterreich": "niederoesterreich",
+  "Oberösterreich": "oberoesterreich",
+  "Steiermark": "steiermark",
+  "Tirol": "tirol",
+  "Salzburg": "salzburg",
+  "Kärnten": "kaernten",
+  "Vorarlberg": "vorarlberg",
+  "Burgenland": "burgenland",
+};
+const ID_TO_BL: Record<string, string> = Object.fromEntries(
+  Object.entries(BL_TO_ID).map(([k, v]) => [v, k])
+);
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
@@ -491,11 +315,13 @@ export default function StandortePage() {
           <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 8 }}>Wo findest du uns?</h2>
           <p style={{ fontFamily: F, fontSize: 14.5, color: "#888", marginBottom: 36 }}>Klicke auf ein Bundesland, um direkt zu den Standorten zu springen.</p>
           <AustriaMap
-            activeBL={activeBL}
-            hasStandort={(bl) => STANDORTE.some(s => s.bundesland === bl)}
-            onSelect={(bl) => {
-              setActiveBL(bl);
-              document.getElementById("standortliste")?.scrollIntoView({ behavior: "smooth", block: "start" });
+            activeId={activeBL !== "Alle" ? (BL_TO_ID[activeBL] as any) : null}
+            onSelect={(id) => {
+              const bl = ID_TO_BL[id];
+              if (bl) {
+                setActiveBL(bl);
+                document.getElementById("standortliste")?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }
             }}
           />
         </div>
