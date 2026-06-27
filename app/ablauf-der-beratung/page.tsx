@@ -170,13 +170,7 @@ export default function AblaufPage() {
           <div className="adb-faq-grid">
             <div>
               <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 28, color: "#1A1A1A", marginBottom: 8 }}>Häufige Fragen</h2>
-              <p style={{ fontFamily: F, fontSize: 15, color: "#888", marginBottom: 24 }}>Noch Fragen zum Ablauf?</p>
-              <a href="/faq" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 14, fontWeight: 600, color: CTA, textDecoration: "none" }}
-                onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
-                onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
-              >
-                Alle Fragen ansehen →
-              </a>
+              <p style={{ fontFamily: F, fontSize: 15, color: "#888" }}>Noch Fragen zum Ablauf?</p>
             </div>
             <div style={{ padding: "0 4px" }}>
               {FAQS.map((f, i) => <FaqItem key={i} q={f.q} a={f.a} />)}
