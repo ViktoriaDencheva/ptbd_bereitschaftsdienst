@@ -93,9 +93,6 @@ export default function KostenPage() {
         <div style={W} className="kk-w">
           <div className="kk-hero-grid">
             <div style={{ display: "flex", flexDirection: "column", gap: 20, paddingBottom: 64 }} className="kk-hero-content">
-              <span style={{ display: "inline-flex", alignItems: "center", fontFamily: F, fontSize: 12, fontWeight: 700, color: CTA, letterSpacing: "0.08em", background: "#EBF2FC", borderRadius: 999, padding: "5px 14px", width: "fit-content" }}>
-                KOSTEN & KRANKENKASSE
-              </span>
               <h1 className="kk-h1" style={{ fontFamily: F, fontWeight: 800, color: "#1A1A1A", lineHeight: 1.15, margin: 0 }}>
                 Was kostet psycho&shy;soziale Unterstützung?
               </h1>
@@ -134,19 +131,20 @@ export default function KostenPage() {
         </div>
       </section>
 
-      {/* Krankenkasse Schritt für Schritt */}
+      {/* Krankenkasse Schritt für Schritt — horizontal */}
       <section style={{ background: "white", padding: "72px 0" }}>
         <div style={W} className="kk-w">
           <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 28, color: "#1A1A1A", marginBottom: 8 }}>Krankenkasse Schritt für Schritt</h2>
           <p style={{ fontFamily: F, fontSize: 15, color: "#888", marginBottom: 40 }}>So nutzt du deine Versicherungsleistungen.</p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 0, maxWidth: 680 }}>
+          <div className="kk-steps" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 0, position: "relative" }}>
             {KK_STEPS.map((step, i) => (
-              <div key={i} style={{ display: "flex", gap: 20, alignItems: "flex-start", paddingBottom: i < KK_STEPS.length - 1 ? 32 : 0 }}>
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: "50%", background: CTA, color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F, fontWeight: 800, fontSize: 16, flexShrink: 0 }}>{step.num}</div>
-                  {i < KK_STEPS.length - 1 && <div style={{ width: 2, flex: 1, minHeight: 32, background: "#D8E8F7", marginTop: 4 }} />}
-                </div>
-                <p style={{ fontFamily: F, fontSize: 15, color: "#333", lineHeight: 1.7, margin: "10px 0 0", paddingBottom: i < KK_STEPS.length - 1 ? 0 : 0 }}>{step.text}</p>
+              <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 16, padding: "0 16px", position: "relative" }}>
+                {/* connector line */}
+                {i < KK_STEPS.length - 1 && (
+                  <div style={{ position: "absolute", top: 20, left: "50%", width: "100%", height: 2, background: "#D8E8F7", zIndex: 0 }} />
+                )}
+                <div style={{ width: 40, height: 40, borderRadius: "50%", background: CTA, color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F, fontWeight: 800, fontSize: 16, flexShrink: 0, position: "relative", zIndex: 1 }}>{step.num}</div>
+                <p style={{ fontFamily: F, fontSize: 14, color: "#333", lineHeight: 1.6, margin: 0 }}>{step.text}</p>
               </div>
             ))}
           </div>
@@ -167,13 +165,32 @@ export default function KostenPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ background: CTA, padding: "64px 0" }}>
+      {/* CTA — Über uns style */}
+      <section style={{ background: "#F5F9FD", padding: "72px 0" }}>
         <div style={{ ...W, textAlign: "center" }} className="kk-w">
-          <h2 style={{ fontFamily: F, fontWeight: 800, fontSize: 32, color: "white", margin: "0 0 12px" }}>Finde die passende Fachkraft</h2>
-          <p style={{ fontFamily: F, fontSize: 16, color: "rgba(255,255,255,0.8)", margin: "0 0 32px" }}>Mit und ohne Kassenvertrag — wir zeigen dir alle Möglichkeiten.</p>
-          <a href="/fachkraefte" style={{ display: "inline-flex", alignItems: "center", height: 52, padding: "0 36px", borderRadius: 9999, background: "white", color: CTA, fontFamily: F, fontWeight: 700, fontSize: 16, textDecoration: "none" }}>
-            Fachkräfte ansehen
-          </a>
+          <div style={{ maxWidth: 560, margin: "0 auto", display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 32, color: "var(--black)", margin: 0, lineHeight: 1.3 }}>
+              Bereit, den ersten Schritt zu machen?
+            </h2>
+            <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>
+              Wir sind für dich da — kostenlos, unverbindlich und vertraulich.
+            </p>
+            <div style={{ display: "flex", gap: 12, marginTop: 8, flexWrap: "wrap", justifyContent: "center" }}>
+              <a href="/vorgespraech"
+                style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 36px 0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", whiteSpace: "nowrap" }}
+                onMouseEnter={e => (e.currentTarget.style.background = "#1e4270")}
+                onMouseLeave={e => (e.currentTarget.style.background = CTA)}>
+                Kostenloses Orientierungsgespräch
+                <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ filter: "brightness(0) invert(1)" }} />
+              </a>
+              <a href="/fachkraefte"
+                style={{ display: "inline-flex", alignItems: "center", height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid ${CTA}`, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", background: "white", whiteSpace: "nowrap" }}
+                onMouseEnter={e => (e.currentTarget.style.background = "#EEF4FC")}
+                onMouseLeave={e => (e.currentTarget.style.background = "white")}>
+                Therapeut*in finden
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -195,6 +212,7 @@ export default function KostenPage() {
           .kk-hero-content { padding-bottom: 32px !important; }
           .kk-cards { grid-template-columns: 1fr !important; }
           .kk-faq-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+          .kk-steps { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
           section { padding-top: 40px !important; padding-bottom: 40px !important; }
         }
       `}</style>
