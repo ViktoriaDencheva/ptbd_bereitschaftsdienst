@@ -461,6 +461,7 @@ export default function StandortePage() {
           .st-h1 { font-size: 32px !important; }
           .st-hero-grid { grid-template-columns: 1fr !important; gap: 0 !important; flex-direction: column !important; display: flex !important; }
           .st-hero-img-wrap { min-height: 200px !important; padding-bottom: 0 !important; order: -1; margin-bottom: 0; }
+          .st-hero-img-wrap img { inset: 0 !important; height: 100% !important; }
           .st-hero-content { padding-bottom: 32px !important; }
           .st-hero-section { padding-top: 4px !important; padding-bottom: 0 !important; }
           .st-grid { grid-template-columns: 1fr !important; }
