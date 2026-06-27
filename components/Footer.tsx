@@ -15,6 +15,7 @@ const footerCols = [
       { label: "Orientierungsgespräch",    href: "/gespraech" },
       { label: "Termin buchen",            href: "/buchen" },
       { label: "So funktioniert es",       href: "/#wie-es-funktioniert" },
+      { label: "Standorte",                 href: "/standorte" },
       { label: "Häufige Fragen",           href: "/faq" },
     ],
   },
