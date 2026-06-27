@@ -254,7 +254,7 @@ export default function StandortePage() {
       </div>
 
       {/* ── HERO ── */}
-      <section style={{ background: "white", padding: "64px 0 0", overflow: "hidden" }}>
+      <section style={{ background: "white", padding: "20px 0 0", overflow: "hidden" }}>
         <div className="st-w" style={W}>
           <div className="st-hero-grid">
             {/* Left */}
