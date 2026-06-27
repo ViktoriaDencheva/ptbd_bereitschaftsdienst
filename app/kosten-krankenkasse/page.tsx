@@ -177,7 +177,7 @@ export default function KostenPage() {
       {/* CTA — Über uns style */}
       <section style={{ background: "#F5F9FD", padding: "72px 0" }}>
         <div style={{ ...W, textAlign: "center" }} className="kk-w">
-          <div style={{ maxWidth: 560, margin: "0 auto", display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+          <div style={{ maxWidth: 800, margin: "0 auto", display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 32, color: "var(--black)", margin: 0, lineHeight: 1.3 }}>
               Bereit, den ersten Schritt zu machen?
             </h2>
