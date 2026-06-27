@@ -152,14 +152,28 @@ export default function KostenPage() {
       </section>
 
       {/* FAQ */}
-      <section style={{ background: "#F7F9FC", padding: "72px 0" }}>
+      <section style={{ background: "white", padding: "72px 0" }}>
         <div style={W} className="kk-w">
           <div className="kk-faq-grid">
             <div>
               <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 28, color: "#1A1A1A", marginBottom: 8 }}>Häufige Fragen</h2>
               <p style={{ fontFamily: F, fontSize: 15, color: "#888" }}>Alles zu Kosten und Abrechnung.</p>
             </div>
-            <div>{FAQS.map((f, i) => <FaqItem key={i} q={f.q} a={f.a} />)}</div>
+            <div>
+              {FAQS.map((f, i) => <FaqItem key={i} q={f.q} a={f.a} />)}
+              <div style={{ paddingTop: 24, display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap", fontFamily: F, fontSize: 14, color: "#888" }}>
+                Deine Frage ist nicht dabei?{" "}
+                <a href="/faq" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
+                  onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
+                  onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
+                >Alle Fragen ansehen</a>
+                {" "}oder{" "}
+                <a href="mailto:info@ptbd.at" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
+                  onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
+                  onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
+                >schreib uns direkt</a>.
+              </div>
+            </div>
           </div>
         </div>
       </section>
