@@ -48,7 +48,7 @@ export default function Steps() {
   };
 
   return (
-    <section style={{ background: "white" }}>
+    <section id="wie-es-funktioniert" style={{ background: "white" }}>
       {/* ===== DESKTOP ===== */}
       <div className="steps-desktop" style={{ padding: "48px 80px 32px", maxWidth: 1440, margin: "0 auto" }}>
         <div style={{ maxWidth: "var(--max-width)", margin: "0 auto" }}>

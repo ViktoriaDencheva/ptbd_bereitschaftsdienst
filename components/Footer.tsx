@@ -21,7 +21,7 @@ const footerCols = [
   {
     title: "Wichtige Informationen",
     links: [
-      { label: "So funktioniert es",           href: "/so-funktioniert-es" },
+      { label: "So funktioniert es",           href: "/#wie-es-funktioniert" },
       { label: "Ablauf der Beratung",          href: "/ablauf-der-beratung" },
       { label: "Kosten & Krankenkasse",        href: "/kosten-krankenkasse" },
       { label: "Termin absagen & verschieben", href: "/termin-absagen" },
