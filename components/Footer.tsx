@@ -11,21 +11,21 @@ const footerCols = [
   {
     title: "Plattform",
     links: [
-      { label: "Fachkräfte finden",       href: "/fachkraefte" },
-      { label: "Orientierungsgespräch",    href: "/gespraech" },
-      { label: "Termin buchen",            href: "/buchen" },
-      { label: "So funktioniert es",       href: "/#wie-es-funktioniert" },
-      { label: "Standorte",                 href: "/standorte" },
-      { label: "Häufige Fragen",           href: "/faq" },
+      { label: "Fachkräfte finden",    href: "/fachkraefte" },
+      { label: "Orientierungsgespräch", href: "/orientierungsgespraech" },
+      { label: "Unterschiede",          href: "/unterschied" },
+      { label: "Standorte",             href: "/standorte" },
+      { label: "Häufige Fragen",        href: "/faq" },
     ],
   },
   {
     title: "Wichtige Informationen",
     links: [
-      { label: "Kosten & Krankenkasse",         href: "#" },
-      { label: "Termin absagen & verschieben",   href: "/termin-verschieben" },
-      { label: "Ablauf der Beratung",            href: "#" },
-      { label: "Krisenhilfe",                   href: "#" },
+      { label: "So funktioniert es",           href: "/so-funktioniert-es" },
+      { label: "Ablauf der Beratung",          href: "/ablauf-der-beratung" },
+      { label: "Kosten & Krankenkasse",        href: "/kosten-krankenkasse" },
+      { label: "Termin absagen & verschieben", href: "/termin-absagen" },
+      { label: "Krisenhilfe",                  href: "/krisenhilfe" },
     ],
   },
   {
