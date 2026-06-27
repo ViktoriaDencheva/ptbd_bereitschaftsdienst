@@ -41,7 +41,7 @@ const STANDORTE: Standort[] = [
     zeiten: "Mo–Fr · 9:00–18:00",
     info: "U-Bahn: Burgring, Karlsplatz, Museumsquartier, Volkstheater. Parkgarage Robert-Stolz-Platz in der Nähe.",
     online: true,
-    image: "/standort-wien.jpg",
+    image: "/standort-wien.jpeg",
     mapsUrl: "https://maps.google.com/?q=Nibelungengasse+11+1010+Wien",
   },
   {
@@ -54,7 +54,7 @@ const STANDORTE: Standort[] = [
     zeiten: "Mo–Fr · 9:00–18:00",
     info: "Ca. 10 Minuten vom Hauptbahnhof. Bushaltestellen Donau Karl-Wiser-Straße. Kurzparkzone Bockgasse.",
     online: true,
-    image: "/standort-linz.jpg",
+    image: "/standort-linz.jpeg",
     mapsUrl: "https://maps.google.com/?q=Bockgasse+3+4020+Linz",
   },
   {
@@ -67,7 +67,7 @@ const STANDORTE: Standort[] = [
     zeiten: "Mo–Fr · 9:00–18:00",
     info: "Haltestellen Mirabellplatz oder Makartplatz. Parkgaragen in der Linzer Gasse.",
     online: true,
-    image: "/standort-salzburg.jpg",
+    image: "/standort-salzburg.jpeg",
     mapsUrl: "https://maps.google.com/?q=Bergstraße+22+5020+Salzburg",
   },
   {
@@ -80,7 +80,7 @@ const STANDORTE: Standort[] = [
     zeiten: "Mo–Fr · 9:00–18:00",
     info: "Haltestellen Jakominiplatz und Wielandgasse. Blaue Zone Parken verfügbar.",
     online: true,
-    image: "/standort-graz.jpg",
+    image: "/standort-graz.jpeg",
     mapsUrl: "https://maps.google.com/?q=Kaiserfeldgasse+17+8010+Graz",
   },
   {
@@ -93,7 +93,7 @@ const STANDORTE: Standort[] = [
     zeiten: "Mo–Fr · 9:00–18:00",
     info: "Ca. 8 Minuten vom Hauptbahnhof. Haltestellen Triumphpforte/Casino oder Maximilianstraße.",
     online: true,
-    image: "/standort-innsbruck.jpg",
+    image: "/standort-innsbruck.jpeg",
     mapsUrl: "https://maps.google.com/?q=Maximilianstraße+2+6020+Innsbruck",
   },
   {
@@ -106,7 +106,7 @@ const STANDORTE: Standort[] = [
     zeiten: "Mo–Fr · 9:00–18:00",
     info: "Mehrere Haltestellen im Umkreis von 10 Gehminuten erreichbar.",
     online: true,
-    image: "/standort-klagenfurt.jpg",
+    image: "/standort-klagenfurt.jpeg",
     mapsUrl: "https://maps.google.com/?q=Mozartstraße+90+9020+Klagenfurt",
   },
 ];
