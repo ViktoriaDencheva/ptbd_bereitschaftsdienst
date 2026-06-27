@@ -179,10 +179,10 @@ export default function KostenPage() {
         <div style={{ ...W, textAlign: "center" }} className="kk-w">
           <div style={{ maxWidth: 560, margin: "0 auto", display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 32, color: "var(--black)", margin: 0, lineHeight: 1.3 }}>
-              Noch unsicher, wer zu dir passt?
+              Bereit, den ersten Schritt zu machen?
             </h2>
             <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>
-              Kein Problem — dafür sind wir da. Mach einfach unseren kurzen Orientierungstest oder buch ein kostenloses Gespräch, und wir helfen dir persönlich weiter.
+              Wir sind für dich da — kostenlos, unverbindlich und vertraulich.
             </p>
             <div style={{ display: "flex", gap: 12, marginTop: 8, flexWrap: "wrap", justifyContent: "center" }}>
               <a href="/vorgespraech"
