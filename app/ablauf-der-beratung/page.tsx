@@ -120,7 +120,7 @@ export default function AblaufPage() {
           <div className="adb-phases" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20 }}>
             {PHASES.map((phase, i) => (
               <div key={i} style={{ background: "white", borderRadius: 16, padding: "36px 32px 28px", border: "1.5px solid #E8EFF8", display: "flex", flexDirection: "column", gap: 12, position: "relative", overflow: "hidden", transition: "box-shadow 0.2s, border-color 0.2s", cursor: "default" }}
-                onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 6px 24px rgba(45,91,141,0.10)"; e.currentTarget.style.borderColor = "#C5D8F0"; e.currentTarget.style.transform = "scale(1.02)"; }}
+                onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 4px 16px rgba(45,91,141,0.08)"; e.currentTarget.style.borderColor = "#C5D8F0"; e.currentTarget.style.transform = "scale(1.008)"; }}
                 onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.borderColor = "#E8EFF8"; e.currentTarget.style.transform = "scale(1)"; }}
               >
                 {/* Watermark number — darker blue */}
@@ -180,6 +180,18 @@ export default function AblaufPage() {
             </div>
             <div style={{ padding: "0 4px" }}>
               {FAQS.map((f, i) => <FaqItem key={i} q={f.q} a={f.a} />)}
+              <div style={{ paddingTop: 24, display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap", fontFamily: F, fontSize: 14, color: "#888" }}>
+                Deine Frage ist nicht dabei?{" "}
+                <a href="/faq" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
+                  onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
+                  onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
+                >Alle Fragen ansehen</a>
+                {" "}oder{" "}
+                <a href="mailto:info@ptbd.at" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
+                  onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
+                  onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
+                >schreib uns direkt</a>.
+              </div>
             </div>
           </div>
         </div>
