@@ -375,7 +375,7 @@ export default function StandortePage() {
           {/* Grid */}
           {filtered.length === 0 ? (
             <div style={{ textAlign: "center", padding: "48px 0", fontFamily: F, color: "#888", fontSize: 15 }}>
-              Keine Standorte gefunden. <button onClick={() => { setActiveBL("Alle"); setOnlineOnly(false); }} style={{ background: "none", border: "none", color: CTA_HEX, cursor: "pointer", fontFamily: F, fontSize: 15 }}>Filter zurücksetzen</button>
+              Keine Standorte gefunden. <button onClick={() => { setActiveBL("Alle"); }} style={{ background: "none", border: "none", color: CTA_HEX, cursor: "pointer", fontFamily: F, fontSize: 15 }}>Filter zurücksetzen</button>
             </div>
           ) : (
             <div className="st-grid">
