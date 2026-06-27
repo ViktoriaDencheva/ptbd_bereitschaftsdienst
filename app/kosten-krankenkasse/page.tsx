@@ -92,7 +92,7 @@ export default function KostenPage() {
       <section style={{ background: "white", padding: "20px 0 0" }}>
         <div style={W} className="kk-w">
           <div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 20, paddingBottom: 64, maxWidth: 640 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 20, paddingBottom: 64 }}>
               <h1 className="kk-h1" style={{ fontFamily: F, fontWeight: 800, color: "#1A1A1A", lineHeight: 1.15, margin: 0 }}>
                 Was kostet psycho&shy;soziale Unterstützung?
               </h1>
