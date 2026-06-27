@@ -12,7 +12,7 @@ const footerCols = [
     title: "Plattform",
     links: [
       { label: "Fachkräfte finden",    href: "/fachkraefte" },
-      { label: "Orientierungsgespräch", href: "/orientierungsgespraech" },
+      { label: "Orientierungsgespräch", href: "/vorgespraech" },
       { label: "Unterschiede",          href: "/unterschied" },
       { label: "Standorte",             href: "/standorte" },
       { label: "Häufige Fragen",        href: "/faq" },
