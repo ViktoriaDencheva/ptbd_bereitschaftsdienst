@@ -120,8 +120,8 @@ export default function AblaufPage() {
           <div className="adb-phases" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20 }}>
             {PHASES.map((phase, i) => (
               <div key={i} style={{ background: "white", borderRadius: 16, padding: "36px 32px 28px", border: "1.5px solid #E8EFF8", display: "flex", flexDirection: "column", gap: 12, position: "relative", overflow: "hidden", transition: "box-shadow 0.2s, border-color 0.2s", cursor: "default" }}
-                onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 6px 24px rgba(45,91,141,0.10)"; e.currentTarget.style.borderColor = "#C5D8F0"; }}
-                onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.borderColor = "#E8EFF8"; }}
+                onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 6px 24px rgba(45,91,141,0.10)"; e.currentTarget.style.borderColor = "#C5D8F0"; e.currentTarget.style.transform = "scale(1.02)"; }}
+                onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.borderColor = "#E8EFF8"; e.currentTarget.style.transform = "scale(1)"; }}
               >
                 {/* Watermark number — darker blue */}
                 <span style={{ position: "absolute", top: -4, right: 14, fontFamily: F, fontWeight: 900, fontSize: 88, color: "#2D5B8D", opacity: 0.08, lineHeight: 1, userSelect: "none", pointerEvents: "none" }}>{i + 1}</span>
