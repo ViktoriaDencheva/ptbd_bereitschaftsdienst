@@ -26,6 +26,7 @@ type Standort = {
   zeiten: string;
   info: string;
   online: boolean;
+  image?: string;
   mapsUrl: string;
 };
 
@@ -40,6 +41,7 @@ const STANDORTE: Standort[] = [
     zeiten: "Mo–Fr · 9:00–18:00",
     info: "U-Bahn: Burgring, Karlsplatz, Museumsquartier, Volkstheater. Parkgarage Robert-Stolz-Platz in der Nähe.",
     online: true,
+    image: "/standort-wien.jpg",
     mapsUrl: "https://maps.google.com/?q=Nibelungengasse+11+1010+Wien",
   },
   {
@@ -52,6 +54,7 @@ const STANDORTE: Standort[] = [
     zeiten: "Mo–Fr · 9:00–18:00",
     info: "Ca. 10 Minuten vom Hauptbahnhof. Bushaltestellen Donau Karl-Wiser-Straße. Kurzparkzone Bockgasse.",
     online: true,
+    image: "/standort-linz.jpg",
     mapsUrl: "https://maps.google.com/?q=Bockgasse+3+4020+Linz",
   },
   {
@@ -64,6 +67,7 @@ const STANDORTE: Standort[] = [
     zeiten: "Mo–Fr · 9:00–18:00",
     info: "Haltestellen Mirabellplatz oder Makartplatz. Parkgaragen in der Linzer Gasse.",
     online: true,
+    image: "/standort-salzburg.jpg",
     mapsUrl: "https://maps.google.com/?q=Bergstraße+22+5020+Salzburg",
   },
   {
@@ -76,6 +80,7 @@ const STANDORTE: Standort[] = [
     zeiten: "Mo–Fr · 9:00–18:00",
     info: "Haltestellen Jakominiplatz und Wielandgasse. Blaue Zone Parken verfügbar.",
     online: true,
+    image: "/standort-graz.jpg",
     mapsUrl: "https://maps.google.com/?q=Kaiserfeldgasse+17+8010+Graz",
   },
   {
@@ -88,6 +93,7 @@ const STANDORTE: Standort[] = [
     zeiten: "Mo–Fr · 9:00–18:00",
     info: "Ca. 8 Minuten vom Hauptbahnhof. Haltestellen Triumphpforte/Casino oder Maximilianstraße.",
     online: true,
+    image: "/standort-innsbruck.jpg",
     mapsUrl: "https://maps.google.com/?q=Maximilianstraße+2+6020+Innsbruck",
   },
   {
@@ -100,6 +106,7 @@ const STANDORTE: Standort[] = [
     zeiten: "Mo–Fr · 9:00–18:00",
     info: "Mehrere Haltestellen im Umkreis von 10 Gehminuten erreichbar.",
     online: true,
+    image: "/standort-klagenfurt.jpg",
     mapsUrl: "https://maps.google.com/?q=Mozartstraße+90+9020+Klagenfurt",
   },
 ];
@@ -164,11 +171,31 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 }
 
 function StandortCard({ s }: { s: Standort }) {
+  const [imgError, setImgError] = useState(false);
+
   return (
-    <div style={{ background: "white", borderRadius: 14, border: "1.5px solid #E8EFF8", padding: "24px", display: "flex", flexDirection: "column", gap: 16, transition: "box-shadow 0.2s, border-color 0.2s" }}
+    <div style={{ background: "white", borderRadius: 14, border: "1.5px solid #E8EFF8", overflow: "hidden", display: "flex", flexDirection: "column", gap: 0, transition: "box-shadow 0.2s, border-color 0.2s" }}
       onMouseEnter={e => { const el = e.currentTarget; el.style.boxShadow = "0 6px 24px rgba(45,91,141,0.10)"; el.style.borderColor = "#C5D8F0"; }}
       onMouseLeave={e => { const el = e.currentTarget; el.style.boxShadow = "none"; el.style.borderColor = "#E8EFF8"; }}
     >
+      {/* Image */}
+      <div style={{ position: "relative", height: 180, background: "linear-gradient(135deg, #D8E8F7 0%, #EBF2FC 100%)", flexShrink: 0 }}>
+        {s.image && !imgError ? (
+          <img
+            src={s.image}
+            alt={s.name}
+            onError={() => setImgError(true)}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          />
+        ) : (
+          <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ fontFamily: F, fontSize: 48, fontWeight: 800, color: CTA_HEX, opacity: 0.18 }}>{s.stadt[0]}</span>
+          </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <div style={{ padding: 24, display: "flex", flexDirection: "column", gap: 16, flex: 1 }}>
       {/* Header */}
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}>
         <div>
@@ -217,6 +244,7 @@ function StandortCard({ s }: { s: Standort }) {
         >
           Termin vereinbaren
         </a>
+      </div>
       </div>
     </div>
   );
