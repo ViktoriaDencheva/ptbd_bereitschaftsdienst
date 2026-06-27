@@ -91,17 +91,14 @@ export default function KostenPage() {
       {/* Hero */}
       <section style={{ background: "white", padding: "20px 0 0" }}>
         <div style={W} className="kk-w">
-          <div className="kk-hero-grid">
-            <div style={{ display: "flex", flexDirection: "column", gap: 20, paddingBottom: 64 }} className="kk-hero-content">
+          <div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 20, paddingBottom: 64, maxWidth: 640 }}>
               <h1 className="kk-h1" style={{ fontFamily: F, fontWeight: 800, color: "#1A1A1A", lineHeight: 1.15, margin: 0 }}>
                 Was kostet psycho&shy;soziale Unterstützung?
               </h1>
               <p style={{ fontFamily: F, fontSize: 17, color: "#555", lineHeight: 1.7, maxWidth: 480, margin: 0 }}>
                 Psychosoziale Unterstützung muss nicht teuer sein. Wir erklären dir, welche Leistungen kostenlos sind, was die Krankenkasse übernimmt — und welche Optionen es für jeden Budget gibt.
               </p>
-            </div>
-            <div className="kk-hero-img" style={{ position: "relative", minHeight: 360, paddingBottom: 40 }}>
-              <div style={{ position: "absolute", inset: "0 0 40px 0", background: "linear-gradient(135deg, #D8E8F7 0%, #EBF2FC 100%)", borderRadius: 20 }} />
             </div>
           </div>
         </div>
