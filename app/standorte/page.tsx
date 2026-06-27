@@ -292,11 +292,11 @@ export default function StandortePage() {
               </div>
             </div>
             {/* Right — image */}
-            <div className="st-hero-img-wrap" style={{ position: "relative", alignSelf: "stretch", minHeight: 360 }}>
+            <div className="st-hero-img-wrap" style={{ position: "relative", alignSelf: "stretch", minHeight: 360, paddingBottom: 40 }}>
               <img
                 src="/PTBD-Standort.png"
                 alt="PTBD Standort"
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", borderRadius: "20px 20px 0 0" }}
+                style={{ position: "absolute", inset: "0 0 40px 0", width: "100%", height: "calc(100% - 40px)", objectFit: "cover", borderRadius: 20 }}
               />
             </div>
           </div>
