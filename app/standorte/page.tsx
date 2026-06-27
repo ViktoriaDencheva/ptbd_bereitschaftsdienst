@@ -174,9 +174,6 @@ function StandortCard({ s }: { s: Standort }) {
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
             <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA_HEX, background: "#EBF2FC", borderRadius: 999, padding: "2px 10px" }}>{s.bundesland}</span>
-            {s.online && (
-              <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: "#2D7A3A", background: "#F0FAF2", borderRadius: 999, padding: "2px 10px" }}>Online verfügbar</span>
-            )}
           </div>
           <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 17, color: "#1A1A1A", lineHeight: 1.3, margin: 0 }}>{s.name}</h3>
         </div>
@@ -229,11 +226,8 @@ function StandortCard({ s }: { s: Standort }) {
 
 export default function StandortePage() {
   const [activeBL, setActiveBL] = useState("Alle");
-  const [onlineOnly, setOnlineOnly] = useState(false);
-
   const filtered = STANDORTE.filter(s => {
     if (activeBL !== "Alle" && s.bundesland !== activeBL) return false;
-    if (onlineOnly && !s.online) return false;
     return true;
   });
 
@@ -365,13 +359,6 @@ export default function StandortePage() {
         <div className="st-w" style={W}>
           {/* Filter bar */}
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 36, flexWrap: "wrap" }}>
-            <span style={{ fontFamily: F, fontSize: 14, color: "#666" }}>Filter:</span>
-            <button
-              onClick={() => setOnlineOnly(o => !o)}
-              style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 36, padding: "0 14px", borderRadius: 9999, border: onlineOnly ? `1.5px solid #2D7A3A` : "1.5px solid #DDE8F5", background: onlineOnly ? "#F0FAF2" : "white", color: onlineOnly ? "#2D7A3A" : "#555", fontFamily: F, fontWeight: 500, fontSize: 13, cursor: "pointer", transition: "all 0.2s" }}
-            >
-              ✓ Online verfügbar
-            </button>
             {activeBL !== "Alle" && (
               <button
                 onClick={() => setActiveBL("Alle")}
