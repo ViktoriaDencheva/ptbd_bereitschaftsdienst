@@ -187,7 +187,7 @@ export default function AblaufPage() {
                   onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
                 >Alle Fragen ansehen</a>
                 {" "}oder{" "}
-                <a href="mailto:info@ptbd.at" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
+                <a href="/kontakt" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
                   onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
                   onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
                 >schreib uns direkt</a>.
