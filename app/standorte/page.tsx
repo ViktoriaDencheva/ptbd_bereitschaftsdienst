@@ -300,8 +300,8 @@ export default function StandortePage() {
             {/* Right — image */}
             <div className="st-hero-img-wrap" style={{ position: "relative", alignSelf: "stretch", minHeight: 360 }}>
               <img
-                src="/kontakt-banner.png"
-                alt="Beratungszimmer"
+                src="/PTBD-Standort.png"
+                alt="PTBD Standort"
                 style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", borderRadius: "20px 20px 0 0" }}
               />
             </div>
