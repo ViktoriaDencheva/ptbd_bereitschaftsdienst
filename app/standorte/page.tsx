@@ -310,7 +310,7 @@ export default function StandortePage() {
           <p style={{ fontFamily: F, fontSize: 14.5, color: "#888", marginBottom: 36 }}>Klicke auf ein Bundesland, um direkt zu den Standorten zu springen.</p>
           <div className="st-map-layout">
             {/* Map */}
-            <div style={{ flex: "0 0 auto", width: 380 }}>
+            <div style={{ flex: "0 0 60%" }}>
               <AustriaMap
                 activeId={activeBL !== "Alle" ? (BL_TO_ID[activeBL] as any) : null}
                 onSelect={(id) => {
