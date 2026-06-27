@@ -314,16 +314,49 @@ export default function StandortePage() {
         <div className="st-w" style={W}>
           <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 8 }}>Wo findest du uns?</h2>
           <p style={{ fontFamily: F, fontSize: 14.5, color: "#888", marginBottom: 36 }}>Klicke auf ein Bundesland, um direkt zu den Standorten zu springen.</p>
-          <AustriaMap
-            activeId={activeBL !== "Alle" ? (BL_TO_ID[activeBL] as any) : null}
-            onSelect={(id) => {
-              const bl = ID_TO_BL[id];
-              if (bl) {
-                setActiveBL(bl);
-                document.getElementById("standortliste")?.scrollIntoView({ behavior: "smooth", block: "start" });
-              }
-            }}
-          />
+          <div className="st-map-layout">
+            {/* Map */}
+            <div style={{ flex: "0 0 auto", width: 380 }}>
+              <AustriaMap
+                activeId={activeBL !== "Alle" ? (BL_TO_ID[activeBL] as any) : null}
+                onSelect={(id) => {
+                  const bl = ID_TO_BL[id];
+                  if (bl) {
+                    setActiveBL(bl);
+                    document.getElementById("standortliste")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }}
+              />
+            </div>
+            {/* Pills + info */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p style={{ fontFamily: F, fontSize: 13, color: "#888", marginBottom: 16 }}>Bundesland wählen:</p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+                {BUNDESLAENDER.map(bl => {
+                  const count = bl === "Alle" ? STANDORTE.length : STANDORTE.filter(s => s.bundesland === bl).length;
+                  const isActive = activeBL === bl;
+                  return (
+                    <button
+                      key={bl}
+                      onClick={() => {
+                        setActiveBL(bl);
+                        document.getElementById("standortliste")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                      }}
+                      style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 36, padding: "0 14px", borderRadius: 9999, border: isActive ? `1.5px solid ${CTA_HEX}` : "1.5px solid #DDE8F5", background: isActive ? CTA_HEX : "white", color: isActive ? "white" : "#333", fontFamily: F, fontWeight: 500, fontSize: 13, cursor: count === 0 ? "default" : "pointer", opacity: count === 0 ? 0.4 : 1, transition: "all 0.2s" }}
+                    >
+                      {bl}
+                      {count > 0 && bl !== "Alle" && (
+                        <span style={{ fontFamily: F, fontSize: 11, background: isActive ? "rgba(255,255,255,0.25)" : "#EBF2FC", color: isActive ? "white" : CTA_HEX, borderRadius: 999, padding: "1px 7px", fontWeight: 600 }}>{count}</span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+              <p style={{ fontFamily: F, fontSize: 13, color: "#aaa", marginTop: 20 }}>
+                {filtered.length} Standort{filtered.length !== 1 ? "e" : ""} {activeBL !== "Alle" ? `in ${activeBL}` : "österreichweit"}
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -422,6 +455,11 @@ export default function StandortePage() {
           grid-template-columns: repeat(3, 1fr);
           gap: 20px;
         }
+        .st-map-layout {
+          display: flex;
+          gap: 48px;
+          align-items: flex-start;
+        }
         .st-faq-layout {
           display: grid;
           grid-template-columns: 1fr 1.6fr;
@@ -435,6 +473,8 @@ export default function StandortePage() {
           .st-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
           .st-hero-img-wrap { min-height: 240px !important; }
           .st-grid { grid-template-columns: 1fr !important; }
+          .st-map-layout { flex-direction: column !important; gap: 24px !important; }
+          .st-map-layout > div:first-child { width: 100% !important; }
           .st-faq-layout { grid-template-columns: 1fr !important; gap: 24px !important; }
         }
         @media (max-width: 1200px) and (min-width: 1071px) {
