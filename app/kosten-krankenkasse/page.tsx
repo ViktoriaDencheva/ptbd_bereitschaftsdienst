@@ -101,9 +101,7 @@ export default function KostenPage() {
               </p>
             </div>
             <div className="kk-hero-img" style={{ position: "relative", minHeight: 360, paddingBottom: 40 }}>
-              <div style={{ position: "absolute", inset: "0 0 40px 0", background: "linear-gradient(135deg, #D8E8F7 0%, #EBF2FC 100%)", borderRadius: 20, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <span style={{ fontFamily: F, fontSize: 80, opacity: 0.15 }}>💳</span>
-              </div>
+              <div style={{ position: "absolute", inset: "0 0 40px 0", background: "linear-gradient(135deg, #D8E8F7 0%, #EBF2FC 100%)", borderRadius: 20 }} />
             </div>
           </div>
         </div>
@@ -168,7 +166,7 @@ export default function KostenPage() {
                   onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
                 >Alle Fragen ansehen</a>
                 {" "}oder{" "}
-                <a href="mailto:info@ptbd.at" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
+                <a href="/kontakt" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
                   onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
                   onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
                 >schreib uns direkt</a>.
