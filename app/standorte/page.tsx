@@ -276,7 +276,7 @@ export default function StandortePage() {
       </div>
 
       {/* ── HERO ── */}
-      <section style={{ background: "white", padding: "20px 0 0", overflow: "hidden" }}>
+      <section className="st-hero-section" style={{ background: "white", padding: "20px 0 0", overflow: "hidden" }}>
         <div className="st-w" style={W}>
           <div className="st-hero-grid">
             {/* Left */}
@@ -456,12 +456,13 @@ export default function StandortePage() {
           align-items: start;
         }
         @media (max-width: 1070px) {
-          .st-bc-wrap { padding: 20px 16px 16px !important; }
+          .st-bc-wrap { padding: 16px 16px 0 !important; }
           .st-w { padding-left: 16px !important; padding-right: 16px !important; }
           .st-h1 { font-size: 32px !important; }
           .st-hero-grid { grid-template-columns: 1fr !important; gap: 0 !important; flex-direction: column !important; display: flex !important; }
-          .st-hero-img-wrap { min-height: 220px !important; padding-bottom: 20px !important; order: -1; }
+          .st-hero-img-wrap { min-height: 200px !important; padding-bottom: 0 !important; order: -1; margin-bottom: 24px; }
           .st-hero-content { padding-bottom: 32px !important; }
+          .st-hero-section { padding-top: 8px !important; }
           .st-grid { grid-template-columns: 1fr !important; }
           .st-map-layout { flex-direction: column !important; gap: 24px !important; }
           .st-map-layout > div:first-child { width: 100% !important; }
