@@ -66,10 +66,10 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   return (
     <div style={{ borderBottom: "1px solid #E8EFF8", padding: "18px 0" }}>
       <button onClick={() => setOpen(!open)} style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center", background: "none", border: "none", cursor: "pointer", gap: 16, textAlign: "left" }}>
-        <span style={{ fontFamily: F, fontWeight: 600, fontSize: 15, color: "#1A1A1A" }}>{q}</span>
+        <span style={{ fontFamily: F, fontWeight: 600, fontSize: 16, color: "#1A1A1A" }}>{q}</span>
         <span style={{ fontFamily: F, fontSize: 22, color: CTA, flexShrink: 0, lineHeight: 1 }}>{open ? "−" : "+"}</span>
       </button>
-      {open && <p style={{ fontFamily: F, fontSize: 14.5, color: "#555", lineHeight: 1.7, margin: "12px 0 0" }}>{a}</p>}
+      {open && <p style={{ fontFamily: F, fontSize: 15.5, color: "#555", lineHeight: 1.7, margin: "12px 0 0" }}>{a}</p>}
     </div>
   );
 }
@@ -115,7 +115,7 @@ export default function KostenPage() {
                 <div style={{ fontFamily: F, fontWeight: 700, fontSize: 16, color: card.color, background: "white", borderRadius: 999, padding: "4px 14px", width: "fit-content", border: `1px solid ${card.border}` }}>{card.label}</div>
                 <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
                   {card.items.map(item => (
-                    <li key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, fontFamily: F, fontSize: 14, color: "#444", lineHeight: 1.5 }}>
+                    <li key={item} style={{ display: "flex", alignItems: "flex-start", gap: 8, fontFamily: F, fontSize: 15, color: "#444", lineHeight: 1.5 }}>
                       <span style={{ color: card.color, fontWeight: 700, flexShrink: 0 }}>✓</span>{item}
                     </li>
                   ))}
@@ -139,7 +139,7 @@ export default function KostenPage() {
                   <div style={{ position: "absolute", top: 20, left: "50%", width: "100%", height: 2, background: "#D8E8F7", zIndex: 0 }} />
                 )}
                 <div style={{ width: 40, height: 40, borderRadius: "50%", background: CTA, color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F, fontWeight: 800, fontSize: 16, flexShrink: 0, position: "relative", zIndex: 1 }}>{step.num}</div>
-                <p style={{ fontFamily: F, fontSize: 14, color: "#333", lineHeight: 1.6, margin: 0 }}>{step.text}</p>
+                <p style={{ fontFamily: F, fontSize: 15, color: "#333", lineHeight: 1.6, margin: 0 }}>{step.text}</p>
               </div>
             ))}
           </div>
