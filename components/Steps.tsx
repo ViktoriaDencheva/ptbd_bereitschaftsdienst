@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useRef, useState } from "react";
 
 
@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 
 
 const steps = [
-  { num: "01", img: "/steps/step1-desktop.jpg", imgMob: "/steps/step1-mobile.jpg", title: "Vorgespräch oder Test wählen", desc: "Wir helfen Dir, die passende Fachkraft zu finden - abgestimmt auf deine Bedürfnisse und Wünsche." },
+  { num: "01", img: "/steps/step1-desktop.jpg", imgMob: "/steps/step1-mobile.jpg", title: "Erstgespräch oder Test wählen", desc: "Wir helfen Dir, die passende Fachkraft zu finden - abgestimmt auf deine Bedürfnisse und Wünsche." },
   { num: "02", img: "/steps/step2-desktop.jpg", imgMob: "/steps/step2-mobile.jpg", title: "Passende Spezialist*innen erhalten", desc: "Auf Basis Deiner Angaben schlagen wir Dir geeignete Fachkräfte vor." },
   { num: "03", img: "/steps/step3-desktop.jpg", imgMob: "/steps/step4-mobile.jpg", title: "Termin online oder vor Ort buchen", desc: "Buche online oder vor Ort - so, wie es am besten in deinen Alltag passt." },
   { num: "04", img: "/steps/step4-desktop.jpg", imgMob: "/steps/step3-mobile.jpg", title: "Beratung direkt über die Plattform starten", desc: "Starte deine Unterstützung und erhalte genau die Begleitung, die Du brauchst – direkt hier auf der Plattform." },

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useRef } from "react";
 import { Plus, Minus, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -19,7 +19,7 @@ const INFO_CARDS = [
 ];
 
 const THEMEN = [
-  "Allgemeine Frage", "Therapeut*in finden", "Orientierungsgespräch",
+  "Allgemeine Frage", "Therapeut*in finden", "Erstgespräch",
   "Kosten & Krankenkasse", "Technisches Problem", "Feedback & Anregungen", "Sonstiges",
 ];
 
@@ -32,7 +32,7 @@ const TIMELINE = [
 
 const FAQS = [
   { q: "Wie schnell erhalte ich eine Antwort auf meine Nachricht?", a: "Wir bemühen uns, alle Anfragen innerhalb von 24 Werktags-Stunden zu beantworten. Bei dringenden Anliegen empfehlen wir, uns telefonisch zu kontaktieren." },
-  { q: "Ist das Orientierungsgespräch wirklich kostenlos?", a: "Ja, das Orientierungsgespräch ist vollständig kostenlos und unverbindlich. Es dauert ca. 20 Minuten und hilft dir herauszufinden, welche Unterstützung am besten zu dir passt." },
+  { q: "Ist das Erstgespräch wirklich kostenlos?", a: "Ja, das Erstgespräch ist vollständig kostenlos und unverbindlich. Es dauert ca. 20 Minuten und hilft dir herauszufinden, welche Unterstützung am besten zu dir passt." },
   { q: "Kann ich anonym Kontakt aufnehmen?", a: "Ja, du kannst uns auch anonym kontaktieren. Wenn du einen Rückruf oder eine direkte Antwort möchtest, benötigen wir natürlich deine Kontaktdaten." },
   { q: "Was tue ich, wenn ich mich in einer akuten Krise befinde?", a: "Bei akuter Selbst- oder Fremdgefährdung ruf bitte sofort den Notruf 112 oder die Telefonseelsorge unter 142 an. Unsere Plattform ist nicht für Notfallsituationen ausgelegt." },
 ];

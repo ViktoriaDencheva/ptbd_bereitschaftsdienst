@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { Plus, Minus, MapPin, Phone, Clock, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -126,7 +126,7 @@ const FAQS = [
   },
   {
     q: "Wie finde ich den richtigen Standort?",
-    a: "Nutze unsere Filterfunktion nach Bundesland oder Stadt. Wenn du unsicher bist, empfehlen wir zuerst ein kostenloses Orientierungsgespräch – das geht auch online.",
+    a: "Nutze unsere Filterfunktion nach Bundesland oder Stadt. Wenn du unsicher bist, empfehlen wir zuerst ein Kostenloses Erstgespräch – das geht auch online.",
   },
 ];
 

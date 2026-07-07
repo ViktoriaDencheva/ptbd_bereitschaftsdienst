@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -104,7 +104,7 @@ const DECISION_TREE = [
   { q: "Ich brauche Medikamente oder eine ärztliche Diagnose.", answer: "psychiater", answerLabel: "Psychiater*in" },
   { q: "Ich leide unter Depressionen, Angststörungen oder Trauma.", answer: "psychotherapeut", answerLabel: "Psychotherapeut*in" },
   { q: "Ich suche Beratung oder möchte mich orientieren.", answer: "psychologe", answerLabel: "Psycholog*in" },
-  { q: "Ich weiß noch nicht, was ich brauche.", answer: "gespräch", answerLabel: "Orientierungsgespräch" },
+  { q: "Ich weiß noch nicht, was ich brauche.", answer: "gespräch", answerLabel: "Erstgespräch" },
 ];
 
 
@@ -112,7 +112,7 @@ const EXAMPLES = [
   { name: "Anna, 27", situation: "Ich habe seit Monaten Panikattacken und traue mich kaum noch aus dem Haus.", result: "psychotherapeut", resultLabel: "Psychotherapeut*in", color: "#E07878", bg: "#FFF0F0" },
   { name: "Markus, 42", situation: "Mein Arzt vermutet eine schwere Depression. Ich brauche Medikamente und Unterstützung.", result: "psychiater", resultLabel: "Psychiater*in", color: "#5BAA6E", bg: "#F0FAF2" },
   { name: "Lisa, 24", situation: "Ich bin unsicher, was ich mit meinem Leben anfangen soll. Kein konkretes Problem, aber ich fühle mich verloren.", result: "psychologe", resultLabel: "Psycholog*in", color: "#4A90D9", bg: "#EBF4FF" },
-  { name: "Felix, 33", situation: "Ich weiß nicht, ob meine Probleme \"schlimm genug\" für Therapie sind. Ich brauche erstmal eine Einschätzung.", result: "gespräch", resultLabel: "Orientierungsgespräch", color: CTA_HEX, bg: "#ECF5FF" },
+  { name: "Felix, 33", situation: "Ich weiß nicht, ob meine Probleme \"schlimm genug\" für Therapie sind. Ich brauche erstmal eine Einschätzung.", result: "gespräch", resultLabel: "Erstgespräch", color: CTA_HEX, bg: "#ECF5FF" },
 ];
 
 type SpecKey = keyof typeof SPECS;
@@ -467,7 +467,7 @@ export default function UnterschiedPage() {
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 36px 0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", transition: "background 0.2s", whiteSpace: "nowrap" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                Kostenloses Orientierungsgespräch
+                Kostenloses Erstgespräch
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
               </a>
               <a href="/orientierungstest"

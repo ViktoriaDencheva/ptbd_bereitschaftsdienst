@@ -1,17 +1,17 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 
 const faqs = [
   {
     q: "Wie läuft die Beratung ab?",
-    a: "Nach der Anmeldung wählst du zwischen einem persönlichen Vorgespräch oder einem kurzen Online-Test. Basierend darauf empfehlen wir dir passende Fachkräfte. Du buchst dann einen Termin – online per Videochat oder vor Ort in einer Praxis.",
+    a: "Nach der Anmeldung wählst du zwischen einem persönlichen Erstgespräch oder einem kurzen Online-Test. Basierend darauf empfehlen wir dir passende Fachkräfte. Du buchst dann einen Termin – online per Videochat oder vor Ort in einer Praxis.",
   },
   { q: "Sind die Fachkräfte geprüft?", a: "Ja, alle Fachkräfte auf unserer Plattform sind staatlich anerkannte Psycholog*innen, Psychotherapeut*innen oder Psychiater*innen mit nachgewiesener Ausbildung und Berufserfahrung." },
   { q: "Wie schnell bekomme ich Unterstützung?", a: "In der Regel kannst du innerhalb von 24-72 Stunden einen Termin erhalten. Bei akuten Krisen versuchen wir schnellstmöglich zu vermitteln." },
   { q: "Was kostet die Beratung?", a: "Das Erstgespräch ist kostenlos und unverbindlich. Die weiteren Kosten hängen von der Fachkraft ab. Viele Krankenkassen übernehmen einen Teil der Kosten." },
   { q: "Wie werden meine Daten geschützt?", a: "Wir verarbeiten alle Daten DSGVO-konform. Gespräche sind Ende-zu-Ende verschlüsselt." },
-  { q: "Muss ich sofort wissen, welche Unterstützung ich brauche?", a: "Nein. Du kannst zuerst unser kostenloses Orientierungsgespräch nutzen oder den Online-Test machen. Wir helfen dir, die richtige Unterstützung zu finden." },
+  { q: "Muss ich sofort wissen, welche Unterstützung ich brauche?", a: "Nein. Du kannst zuerst unser Kostenloses Erstgespräch nutzen oder den Online-Test machen. Wir helfen dir, die richtige Unterstützung zu finden." },
 ];
 
 export default function MiniFAQ() {

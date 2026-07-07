@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useRef } from "react";
 import { Plus, Minus } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -19,7 +19,7 @@ const IconGlobe   = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const CATEGORIES = [
-  { id: "orientierung", Icon: IconChat,     label: "Orientierungsgespräch" },
+  { id: "orientierung", Icon: IconChat,     label: "Erstgespräch" },
   { id: "fachkraefte", Icon: IconUsers,    label: "Fachkräfte" },
   { id: "termine",     Icon: IconCalendar, label: "Termine" },
   { id: "kosten",      Icon: IconCoin,     label: "Kosten" },
@@ -28,8 +28,8 @@ const CATEGORIES = [
 ];
 
 const FAQ_DATA: { cat: string; q: string; a: string }[] = [
-  { cat: "orientierung", q: "Ist das Orientierungsgespräch kostenlos?", a: "Ja, das Orientierungsgespräch ist vollständig kostenlos und unverbindlich. Du trägst keinerlei Kosten, egal ob du dich danach für eine Weitervermittlung entscheidest oder nicht." },
-  { cat: "orientierung", q: "Wie lange dauert das Orientierungsgespräch?", a: "Das Gespräch dauert in der Regel zwischen 20 und 30 Minuten. Wir nehmen uns Zeit für deine Situation, ohne dich zu hetzen." },
+  { cat: "orientierung", q: "Ist das Erstgespräch kostenlos?", a: "Ja, das Erstgespräch ist vollständig kostenlos und unverbindlich. Du trägst keinerlei Kosten, egal ob du dich danach für eine Weitervermittlung entscheidest oder nicht." },
+  { cat: "orientierung", q: "Wie lange dauert das Erstgespräch?", a: "Das Gespräch dauert in der Regel zwischen 20 und 30 Minuten. Wir nehmen uns Zeit für deine Situation, ohne dich zu hetzen." },
   { cat: "orientierung", q: "Wer führt das Gespräch?", a: "Das Gespräch wird von ausgebildeten Fachkräften aus dem psychosozialen Bereich geführt — keine Laien, keine KI." },
   { cat: "orientierung", q: "Muss ich mich vorbereiten?", a: "Nein. Du musst nichts vorbereiten. Komm einfach so, wie du bist. Wir führen dich durch das Gespräch." },
   { cat: "orientierung", q: "Was passiert nach dem Gespräch?", a: "Nach dem Gespräch erhältst du konkrete Empfehlungen — passende Fachkräfte, nächste Schritte und bei Bedarf weitere Ressourcen." },
@@ -39,27 +39,27 @@ const FAQ_DATA: { cat: string; q: string; a: string }[] = [
   { cat: "fachkraefte", q: "Kann ich eine Fachkraft nach Sprache oder Methode wählen?", a: "Ja. Du kannst Präferenzen nach Therapiemethode, Sprache, Geschlecht oder Region angeben. Wir versuchen, die passendste Fachkraft für dich zu finden." },
   { cat: "fachkraefte", q: "Was passiert, wenn ich mit der Fachkraft nicht zufrieden bin?", a: "Kein Problem. Du kannst uns jederzeit kontaktieren und wir suchen gemeinsam nach einer besseren Alternative. Die Qualität deiner Unterstützung steht an erster Stelle." },
   { cat: "fachkraefte", q: "Gibt es Fachkräfte in allen Bundesländern?", a: "Ja. Wir sind österreichweit tätig — in allen 9 Bundesländern. Auch in ländlicheren Regionen versuchen wir, passende Fachkräfte zu vermitteln." },
-  { cat: "fachkraefte", q: "Bieten die Fachkräfte auch Online-Termine an?", a: "Viele Fachkräfte im Netzwerk bieten sowohl Präsenz- als auch Online-Termine an. Das erfährst du im Orientierungsgespräch." },
+  { cat: "fachkraefte", q: "Bieten die Fachkräfte auch Online-Termine an?", a: "Viele Fachkräfte im Netzwerk bieten sowohl Präsenz- als auch Online-Termine an. Das erfährst du im Erstgespräch." },
 
   { cat: "termine", q: "Wie schnell bekomme ich einen Termin?", a: "In der Regel innerhalb von 1–2 Wochen. Bei dringendem Bedarf versuchen wir, noch schneller zu reagieren." },
   { cat: "termine", q: "Kann ich Termine online buchen?", a: "Ja, nach der Vermittlung kannst du Termine direkt über unsere Plattform buchen und verwalten." },
   { cat: "termine", q: "Was, wenn ich einen Termin absagen muss?", a: "Termine können bis zu 24 Stunden vorher kostenlos storniert werden. Bitte informiere uns rechtzeitig, damit die Zeit für andere genutzt werden kann." },
   { cat: "termine", q: "Sind Abendtermine oder Wochenendtermine möglich?", a: "Ja, viele Fachkräfte im Netzwerk bieten flexible Zeiten an, darunter auch Abend- und Wochenendtermine." },
 
-  { cat: "kosten", q: "Wer übernimmt die Kosten?", a: "Das hängt von der Art der Leistung ab. Das Orientierungsgespräch ist kostenlos. Die Therapiekosten werden je nach Fachkraft und Kassenvertrag unterschiedlich abgerechnet — wir klären das gemeinsam mit dir." },
+  { cat: "kosten", q: "Wer übernimmt die Kosten?", a: "Das hängt von der Art der Leistung ab. Das Erstgespräch ist kostenlos. Die Therapiekosten werden je nach Fachkraft und Kassenvertrag unterschiedlich abgerechnet — wir klären das gemeinsam mit dir." },
   { cat: "kosten", q: "Übernimmt die Krankenkasse die Kosten?", a: "Bei Fachkräften mit Kassenvertrag werden die Kosten ganz oder teilweise von der Krankenkasse übernommen. Wir informieren dich über alle Optionen in deiner Region." },
-  { cat: "kosten", q: "Was kostet eine Therapiestunde?", a: "Die Kosten variieren je nach Fachkraft, Methode und Region. Im Orientierungsgespräch geben wir dir eine realistische Einschätzung für deine Situation." },
+  { cat: "kosten", q: "Was kostet eine Therapiestunde?", a: "Die Kosten variieren je nach Fachkraft, Methode und Region. Im Erstgespräch geben wir dir eine realistische Einschätzung für deine Situation." },
   { cat: "kosten", q: "Gibt es finanzielle Unterstützung für Betroffene ohne Mittel?", a: "Ja. Es gibt verschiedene Fördermöglichkeiten und Institutionen in Österreich, die psychotherapeutische Unterstützung zu reduzierten Kosten anbieten. Wir helfen dir, die passende Lösung zu finden." },
   { cat: "kosten", q: "Entstehen Kosten für die Vermittlung selbst?", a: "Nein. Unsere Vermittlungsleistung ist für Ratsuchende kostenlos." },
 
   { cat: "datenschutz", q: "Wie werden meine Daten verwendet?", a: "Deine Daten werden ausschließlich zur Bearbeitung deiner Anfrage und Vermittlung verwendet. Wir geben keine Daten an Dritte weiter — außer mit deiner ausdrücklichen Zustimmung." },
-  { cat: "datenschutz", q: "Wird mein Gespräch aufgezeichnet?", a: "Nein. Das Orientierungsgespräch wird nicht aufgezeichnet. Vertraulichkeit ist für uns Grundlage — nicht Option." },
+  { cat: "datenschutz", q: "Wird mein Gespräch aufgezeichnet?", a: "Nein. Das Erstgespräch wird nicht aufgezeichnet. Vertraulichkeit ist für uns Grundlage — nicht Option." },
   { cat: "datenschutz", q: "Wie lange werden meine Daten gespeichert?", a: "Wir speichern Daten nur so lange wie gesetzlich notwendig und löschen sie auf Anfrage. Details findest du in unserer Datenschutzerklärung." },
 
-  { cat: "plattform", q: "Ist die Plattform für alle zugänglich?", a: "Ja. Die Plattform ist für alle Menschen in Österreich zugänglich — ohne Alterseinschränkung, ohne Warteliste für das Orientierungsgespräch." },
+  { cat: "plattform", q: "Ist die Plattform für alle zugänglich?", a: "Ja. Die Plattform ist für alle Menschen in Österreich zugänglich — ohne Alterseinschränkung, ohne Warteliste für das Erstgespräch." },
   { cat: "plattform", q: "Gibt es eine App?", a: "Aktuell ist die Plattform als Webseite verfügbar, die auch auf Mobilgeräten optimal funktioniert. Eine native App ist in Planung." },
   { cat: "plattform", q: "In welchen Sprachen ist die Plattform verfügbar?", a: "Die Plattform ist auf Deutsch verfügbar. Gespräche können auf Anfrage auch in anderen Sprachen geführt werden — je nach Verfügbarkeit der Fachkräfte." },
-  { cat: "plattform", q: "Kann ich die Plattform auch für Angehörige nutzen?", a: "Ja. Du kannst das Orientierungsgespräch auch im Auftrag einer nahestehenden Person buchen — etwa für Kinder, Partner*innen oder Eltern." },
+  { cat: "plattform", q: "Kann ich die Plattform auch für Angehörige nutzen?", a: "Ja. Du kannst das Erstgespräch auch im Auftrag einer nahestehenden Person buchen — etwa für Kinder, Partner*innen oder Eltern." },
 ];
 
 const FAQ_BY_CAT = CATEGORIES.map(cat => ({

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useState } from "react";
 
 const imgWoman = "/fachkraefte/specialist-howtostart.jpg";
@@ -17,7 +17,7 @@ const IconArrow = () => (
 );
 
 const tabs = [
-  { id: "vorgespräch", label: "Vorgespräch vereinbaren", labelMobile: "Vorgespräch", Icon: IconVorgespraech },
+  { id: "Erstgespräch", label: "Erstgespräch vereinbaren", labelMobile: "Erstgespräch", Icon: IconVorgespraech },
   { id: "test",        label: "Orientierungstest",       labelMobile: "Orientierungstest", Icon: IconTest },
 ];
 
@@ -25,8 +25,8 @@ const bulletsV = ["Kostenlos & unverbindlich", "Individiell & vertraulich", "Mit
 const bulletsT = ["Kostenlos & anonym", "Nur 5 Minuten", "Sofortige Empfehlung", "Ohne Registrierung"];
 
 export default function HowToStart() {
-  const [activeTab, setActiveTab] = useState("vorgespräch");
-  const isV = activeTab === "vorgespräch";
+  const [activeTab, setActiveTab] = useState("Erstgespräch");
+  const isV = activeTab === "Erstgespräch";
   const bullets = isV ? bulletsV : bulletsT;
 
   const tabContent = (

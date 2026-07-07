@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -20,8 +20,8 @@ const STEPS = [
   },
   {
     num: "3",
-    title: "Orientierungsgespräch buchen",
-    desc: "Buche ein kostenloses Orientierungsgespräch (ca. 15–20 Minuten). Kein Druck, keine Verpflichtung — einfach kennenlernen und offene Fragen klären.",
+    title: "Erstgespräch buchen",
+    desc: "Buche ein Kostenloses Erstgespräch (ca. 15–20 Minuten). Kein Druck, keine Verpflichtung — einfach kennenlernen und offene Fragen klären.",
   },
   {
     num: "4",
@@ -43,11 +43,11 @@ const AFTER = [
 ];
 
 const FAQS = [
-  { q: "Muss ich mich sofort für eine Therapie entscheiden?", a: "Nein. Das Orientierungsgespräch ist unverbindlich. Du kannst dir Zeit lassen und erst dann entscheiden, ob du weitermachen möchtest." },
-  { q: "Was kostet das Orientierungsgespräch?", a: "Das Orientierungsgespräch ist kostenlos und unverbindlich. Erst wenn du eine Begleitung startest, entstehen Kosten." },
+  { q: "Muss ich mich sofort für eine Therapie entscheiden?", a: "Nein. Das Erstgespräch ist unverbindlich. Du kannst dir Zeit lassen und erst dann entscheiden, ob du weitermachen möchtest." },
+  { q: "Was kostet das Erstgespräch?", a: "Das Erstgespräch ist kostenlos und unverbindlich. Erst wenn du eine Begleitung startest, entstehen Kosten." },
   { q: "Wie schnell bekomme ich einen Termin?", a: "Die meisten Fachkräfte haben innerhalb weniger Tage freie Termine. Bei dringendem Bedarf gibt es oft auch kurzfristige Möglichkeiten." },
   { q: "Kann ich die Fachkraft wechseln?", a: "Ja, jederzeit. Wenn die Chemie nicht stimmt, helfen wir dir, eine andere passende Fachkraft zu finden." },
-  { q: "Was, wenn ich nicht weiß, welche Art von Unterstützung ich brauche?", a: "Genau dafür ist das Orientierungsgespräch da. Die Fachkraft hilft dir, deinen Bedarf zu klären." },
+  { q: "Was, wenn ich nicht weiß, welche Art von Unterstützung ich brauche?", a: "Genau dafür ist das Erstgespräch da. Die Fachkraft hilft dir, deinen Bedarf zu klären." },
 ];
 
 function FaqItem({ q, a }: { q: string; a: string }) {
@@ -169,9 +169,9 @@ export default function SoFunktioniertEsPage() {
       <section style={{ background: CTA, padding: "64px 0" }}>
         <div style={{ ...W, textAlign: "center" }} className="sfb-w">
           <h2 style={{ fontFamily: F, fontWeight: 800, fontSize: 32, color: "white", margin: "0 0 12px" }}>Bereit für den ersten Schritt?</h2>
-          <p style={{ fontFamily: F, fontSize: 16, color: "rgba(255,255,255,0.8)", margin: "0 0 32px" }}>Buche jetzt dein kostenloses Orientierungsgespräch.</p>
+          <p style={{ fontFamily: F, fontSize: 16, color: "rgba(255,255,255,0.8)", margin: "0 0 32px" }}>Buche jetzt dein Kostenloses Erstgespräch.</p>
           <a href="/orientierungsgespraech" style={{ display: "inline-flex", alignItems: "center", height: 52, padding: "0 36px", borderRadius: 9999, background: "white", color: CTA, fontFamily: F, fontWeight: 700, fontSize: 16, textDecoration: "none" }}>
-            Orientierungsgespräch buchen
+            Erstgespräch buchen
           </a>
         </div>
       </section>

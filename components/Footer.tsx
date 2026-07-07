@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 const imgTelephones = null;
 
@@ -12,7 +12,7 @@ const footerCols = [
     title: "Plattform",
     links: [
       { label: "Fachkräfte finden",    href: "/fachkraefte" },
-      { label: "Orientierungsgespräch", href: "/vorgespraech" },
+      { label: "Erstgespräch", href: "/vorgespraech" },
       { label: "Unterschiede",          href: "/unterschied" },
       { label: "Standorte",             href: "/standorte" },
       { label: "Häufige Fragen",        href: "/faq" },

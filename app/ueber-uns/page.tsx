@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect, useRef } from "react";
 import { Plus, Minus } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -30,7 +30,7 @@ const STATS = [
 
 const STEPS = [
   { icon: "/icons/icon-vorgespraech.svg", title: "Hilfe suchen", desc: "Du erkennst, dass du Unterstützung brauchst — das ist der mutigste Schritt.", bg: "var(--blue-ultra-light)" },
-  { icon: "/icons/icon-orientierung.svg", title: "Orientierungsgespräch", desc: "In einem kostenlosen Gespräch klären wir gemeinsam, was du brauchst.", bg: "var(--yellow-light)" },
+  { icon: "/icons/icon-orientierung.svg", title: "Erstgespräch", desc: "In einem kostenlosen Gespräch klären wir gemeinsam, was du brauchst.", bg: "var(--yellow-light)" },
   { icon: "/icons/icon-test.svg", title: "Passende Empfehlung", desc: "Wir empfehlen dir gezielt die Fachkraft, die am besten zu deiner Situation passt.", bg: "var(--green-light)" },
   { icon: "/icons/icon-fachkraefte-warum.svg", title: "Therapeut*in finden", desc: "Direkter Kontakt zu einer qualifizierten Fachkraft — ohne lange Wartezeiten.", bg: "var(--blue-ultra-light)" },
   { icon: "/icons/icon-unterstuetzung.svg", title: "Unterstützung erhalten", desc: "Du bist nicht allein. Wir bleiben an deiner Seite, auch nach der Vermittlung.", bg: "var(--yellow-light)" },
@@ -72,10 +72,10 @@ const TRUST = [
 
 const FAQ = [
   { q: "Warum wurde PTBD gegründet?", a: "Der Psychotherapeutische Bereitschaftsdienst entstand aus dem Bedürfnis heraus, psychotherapeutische Hilfe schnell und ohne bürokratische Hürden zugänglich zu machen. Oft vergehen Monate, bis Menschen einen Therapieplatz finden — das wollten wir ändern." },
-  { q: "Wie funktioniert die Vermittlung?", a: "In einem kostenlosen Orientierungsgespräch klären wir gemeinsam, was du brauchst. Danach empfehlen wir dir passende Fachkräfte aus unserem Netzwerk — persönlich, nicht algorithmisch." },
-  { q: "Ist PTBD kostenlos?", a: "Das Orientierungsgespräch und die Vermittlung sind kostenlos. Die Kosten für Therapiesitzungen hängen von der jeweiligen Fachkraft und der Kassenerstattung ab." },
+  { q: "Wie funktioniert die Vermittlung?", a: "In einem kostenlosen Erstgespräch klären wir gemeinsam, was du brauchst. Danach empfehlen wir dir passende Fachkräfte aus unserem Netzwerk — persönlich, nicht algorithmisch." },
+  { q: "Ist PTBD kostenlos?", a: "Das Erstgespräch und die Vermittlung sind kostenlos. Die Kosten für Therapiesitzungen hängen von der jeweiligen Fachkraft und der Kassenerstattung ab." },
   { q: "Wer steckt hinter PTBD?", a: "Wir sind ein gemeinnütziger Verein aus erfahrenen Psycholog*innen, Organisationstalenten und Menschen, die selbst erlebt haben, wie schwer der erste Schritt sein kann." },
-  { q: "Warum gibt es ein Orientierungsgespräch?", a: "Weil der Weg zur richtigen Unterstützung nicht immer offensichtlich ist. Das Gespräch hilft dir zu verstehen, welche Art von Hilfe zu deiner Situation passt — und nimmt die Unsicherheit aus dem ersten Schritt." },
+  { q: "Warum gibt es ein Erstgespräch?", a: "Weil der Weg zur richtigen Unterstützung nicht immer offensichtlich ist. Das Gespräch hilft dir zu verstehen, welche Art von Hilfe zu deiner Situation passt — und nimmt die Unsicherheit aus dem ersten Schritt." },
 ];
 
 export default function UeberUnsPage() {
@@ -478,7 +478,7 @@ export default function UeberUnsPage() {
                 style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, height: 50, padding: "0 36px 0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", whiteSpace: "nowrap" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                Kostenloses Orientierungsgespräch
+                Kostenloses Erstgespräch
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ filter: "brightness(0) invert(1)" }} />
               </a>
               <a href="/fachkraefte"

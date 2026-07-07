@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -14,7 +14,7 @@ const COST_CARDS = [
     bg: "#F0FAF4",
     border: "#B7E5CC",
     items: [
-      "Orientierungsgespräch (15–20 Min.)",
+      "Erstgespräch (15–20 Min.)",
       "Erstberatung bei Kriseneinrichtungen",
       "Sozialberatung in vielen Fällen",
       "Telefonische Krisenhotlines",
@@ -189,7 +189,7 @@ export default function KostenPage() {
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", whiteSpace: "nowrap" }}
                 onMouseEnter={e => (e.currentTarget.style.background = "#1e4270")}
                 onMouseLeave={e => (e.currentTarget.style.background = CTA)}>
-                Kostenloses Orientierungsgespräch
+                Kostenloses Erstgespräch
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ filter: "brightness(0) invert(1)" }} />
               </a>
               <a href="/orientierungstest"
