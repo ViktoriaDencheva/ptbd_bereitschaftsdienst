@@ -4,7 +4,7 @@ import { useEffect } from "react";
 export default function TestTermin() {
   useEffect(() => {
     const now = new Date();
-    const appt = new Date(now.getTime() + 2 * 60 * 1000);
+    const appt = new Date(now.getTime() + 30 * 1000);
     const days = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
     const months = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
     const dateStr = `${days[appt.getDay()]}, ${appt.getDate()}. ${months[appt.getMonth()]} ${appt.getFullYear()}`;

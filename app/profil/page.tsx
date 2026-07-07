@@ -150,9 +150,9 @@ function AnimatedJoinButton({ msUntil, canJoin, href, height = 40, fontSize = 14
 
   if (canJoin) {
     return (
-      <a href={href} style={{ ...pillStyle, cursor: "pointer", animation: unlockPop ? "join-unlock 0.6s cubic-bezier(0.34,1.56,0.64,1) both" : undefined }}
-        onMouseEnter={e => (e.currentTarget.style.background = "#1e4270")}
-        onMouseLeave={e => (e.currentTarget.style.background = bgColor)}
+      <a href={href} style={{ ...pillStyle, background: "var(--cta)", color: "white", border: "none", cursor: "pointer", transition: "background 0.8s ease, box-shadow 1s", animation: unlockPop ? "join-unlock 0.6s cubic-bezier(0.34,1.56,0.64,1) both" : undefined }}
+        onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
+        onMouseLeave={e => (e.currentTarget.style.background = "var(--cta)")}
       >
         {iconEl}{textEl}
       </a>
