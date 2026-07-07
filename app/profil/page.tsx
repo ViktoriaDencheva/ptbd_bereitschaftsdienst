@@ -111,10 +111,11 @@ function AnimatedJoinButton({ msUntil, canJoin, href, height = 40, fontSize = 14
   const hasGlow = canJoin && msUntil <= 30_000 && msUntil > -10_000;
 
   const iconEl = (
-    <span style={{ position: "relative", width: 24, height: 24, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+    <span style={{ position: "relative", width: 24, height: 24, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+      animation: canJoin ? "ring-glow 2s ease-in-out infinite" : undefined }}>
       <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: "absolute", inset: 0, transform: "rotate(-90deg)" }}>
         <circle cx="12" cy="12" r={r} fill="none" stroke="#D1D5DB" strokeWidth="1.5" />
-        <circle cx="12" cy="12" r={r} fill="none" stroke="#6B7280" strokeWidth="1.5"
+        <circle cx="12" cy="12" r={r} fill="none" stroke="#2D5B8D" strokeWidth="1.5"
           strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={dashOffset}
           style={{ transition: "stroke-dashoffset 1s ease" }} />
       </svg>
@@ -1348,6 +1349,10 @@ ${isRechnung ? `
           0%   { transform: scale(0.94); opacity: 0.6; }
           60%  { transform: scale(1.04); }
           100% { transform: scale(1);    opacity: 1;   }
+        }
+        @keyframes ring-glow {
+          0%, 100% { filter: drop-shadow(0 0 0px rgba(45,91,141,0)); }
+          50%       { filter: drop-shadow(0 0 5px rgba(45,91,141,0.55)); }
         }
 
 
