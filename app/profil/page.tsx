@@ -79,11 +79,10 @@ function AnimatedJoinButton({ msUntil, canJoin, href, height = 40, fontSize = 14
 }) {
   const prevCanJoin = useRef(canJoin);
   const [unlockPop, setUnlockPop] = useState(false);
-
   useEffect(() => {
     if (canJoin && !prevCanJoin.current) {
       setUnlockPop(true);
-      const t = setTimeout(() => setUnlockPop(false), 600);
+      const t = setTimeout(() => setUnlockPop(false), 700);
       return () => clearTimeout(t);
     }
     prevCanJoin.current = canJoin;
@@ -97,64 +96,75 @@ function AnimatedJoinButton({ msUntil, canJoin, href, height = 40, fontSize = 14
     return `noch ${min}min ${sec}s`;
   }
 
-  // Progress ring — fills over last 30 min before meeting
+  // Color morph: gray → blue over last 10 min before meeting
+  const MORPH_WINDOW = 10 * 60 * 1000;
+  const mp = Math.max(0, Math.min(1, 1 - Math.max(0, msUntil) / MORPH_WINDOW));
+  function lerp(a: number, b: number) { return Math.round(a + (b - a) * mp); }
+  const bgColor    = `rgb(${lerp(243,45)},${lerp(244,91)},${lerp(246,141)})`;
+  const fgColor    = `rgb(${lerp(156,255)},${lerp(163,255)},${lerp(175,255)})`;
+  const borderAlpha = (1 - mp).toFixed(2);
+  const borderColor = `rgba(${lerp(229,45)},${lerp(231,91)},${lerp(235,141)},${borderAlpha})`;
+
+  // Progress ring — fills over last 30 min
   const RING_WINDOW = 30 * 60 * 1000;
   const r = 10, circ = 2 * Math.PI * r;
-  const prog = Math.max(0, Math.min(1, 1 - msUntil / RING_WINDOW));
-  const dashOffset = circ * (1 - prog);
+  const ringProg  = Math.max(0, Math.min(1, 1 - msUntil / RING_WINDOW));
+  const dashOffset = circ * (1 - ringProg);
 
-  // Ambient glow: 30s before meeting
+  // Ambient glow: 30s before
   const hasGlow = canJoin && msUntil <= 30_000 && msUntil > -10_000;
+
+  const iconEl = (
+    <span style={{ position: "relative", width: 24, height: 24, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+      <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: "absolute", inset: 0, transform: "rotate(-90deg)" }}>
+        <circle cx="12" cy="12" r={r} fill="none" stroke="currentColor" strokeWidth="1.5" opacity={0.2} />
+        <circle cx="12" cy="12" r={r} fill="none" stroke="currentColor" strokeWidth="1.5"
+          strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={dashOffset}
+          opacity={0.5} style={{ transition: "stroke-dashoffset 1s ease" }} />
+      </svg>
+      <VideoIcon />
+    </span>
+  );
+
+  // Text morph: countdown slides out, join text slides in via max-width
+  const textEl = (
+    <span style={{ display: "inline-flex", overflow: "hidden" }}>
+      <span style={{ maxWidth: canJoin ? 0 : "200px", overflow: "hidden", opacity: canJoin ? 0 : 1, transition: "max-width 0.5s ease, opacity 0.3s", whiteSpace: "nowrap" }}>
+        {fmt(msUntil)}
+      </span>
+      <span style={{ maxWidth: canJoin ? "220px" : 0, overflow: "hidden", opacity: canJoin ? 1 : 0, transition: "max-width 0.5s ease, opacity 0.3s 0.15s", whiteSpace: "nowrap" }}>
+        Zum Gespräch beitreten
+      </span>
+    </span>
+  );
+
+  const pillStyle: React.CSSProperties = {
+    height, padding: "0 16px", borderRadius: 9999,
+    background: bgColor, color: fgColor,
+    border: `1.5px solid ${borderColor}`,
+    fontFamily: F, fontWeight: 500, fontSize,
+    display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none",
+    transition: "box-shadow 1s",
+    boxShadow: hasGlow ? "0 0 0 4px rgba(45,91,141,0.12), 0 0 24px rgba(45,91,141,0.22)" : "none",
+  };
 
   if (canJoin) {
     return (
-      <a href={href} style={{
-        height, padding: "0 16px", borderRadius: 9999,
-        background: "#2D5B8D", color: "white", border: "none",
-        fontFamily: F, fontWeight: 500, fontSize, cursor: "pointer",
-        display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none",
-        transition: "background 0.2s, box-shadow 1s",
-        boxShadow: hasGlow ? "0 0 0 4px rgba(45,91,141,0.12), 0 0 24px rgba(45,91,141,0.22)" : "none",
-        animation: unlockPop ? "join-unlock 0.5s cubic-bezier(0.34,1.56,0.64,1) both" : undefined,
-      }}
+      <a href={href} style={{ ...pillStyle, cursor: "pointer", animation: unlockPop ? "join-unlock 0.6s cubic-bezier(0.34,1.56,0.64,1) both" : undefined }}
         onMouseEnter={e => (e.currentTarget.style.background = "#1e4270")}
-        onMouseLeave={e => (e.currentTarget.style.background = "#2D5B8D")}
+        onMouseLeave={e => (e.currentTarget.style.background = bgColor)}
       >
-        <VideoIcon /> Zum Gespräch beitreten
+        {iconEl}{textEl}
       </a>
     );
   }
 
   return (
     <div style={{ position: "relative" }} className="tooltip-wrap">
-      <div style={{
-        height, padding: "0 16px", borderRadius: 9999,
-        background: "#F3F4F6", color: "#9CA3AF",
-        fontFamily: F, fontWeight: 500, fontSize,
-        display: "inline-flex", alignItems: "center", gap: 6,
-        userSelect: "none" as const, cursor: "not-allowed",
-        border: "1.5px solid #E5E7EB",
-        animation: "breathe 5.5s ease-in-out infinite",
-      }}>
-        <span style={{ position: "relative", width: 24, height: 24, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: "absolute", inset: 0, transform: "rotate(-90deg)" }}>
-            <circle cx="12" cy="12" r={r} fill="none" stroke="#E5E7EB" strokeWidth="1.5" />
-            <circle cx="12" cy="12" r={r} fill="none" stroke="#2D5B8D" strokeWidth="1.5"
-              strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={dashOffset}
-              opacity={0.45} style={{ transition: "stroke-dashoffset 1s ease" }} />
-          </svg>
-          <VideoIcon />
-        </span>
-        {fmt(msUntil)}
+      <div style={{ ...pillStyle, cursor: "not-allowed", userSelect: "none", animation: "breathe 5.5s ease-in-out infinite" }}>
+        {iconEl}{textEl}
       </div>
-      <div className="tooltip-box" style={{
-        position: "absolute", top: "calc(100% + 8px)", left: 0,
-        background: "#F9FAFB", color: "#111827", fontFamily: F, fontSize: 13,
-        lineHeight: 1.6, padding: "10px 14px", borderRadius: 10,
-        whiteSpace: "normal" as const, pointerEvents: "none",
-        opacity: 0, transition: "opacity 0.15s", zIndex: 20,
-        width: 280, boxShadow: "0 4px 16px rgba(0,0,0,0.10)", border: "1px solid #E5E7EB",
-      }}>
+      <div className="tooltip-box" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, background: "#F9FAFB", color: "#111827", fontFamily: F, fontSize: 13, lineHeight: 1.6, padding: "10px 14px", borderRadius: 10, whiteSpace: "normal" as const, pointerEvents: "none", opacity: 0, transition: "opacity 0.15s", zIndex: 20, width: 280, boxShadow: "0 4px 16px rgba(0,0,0,0.10)", border: "1px solid #E5E7EB" }}>
         Der Beitritts-Link wird kurz vor Beginn Ihrer Sitzung aktiv. Bitte haben Sie noch etwas Geduld.
         <div style={{ position: "absolute", top: -6, left: 20, width: 10, height: 10, background: "#F9FAFB", border: "1px solid #E5E7EB", borderBottom: "none", borderRight: "none", transform: "rotate(45deg)" }} />
       </div>
