@@ -73,6 +73,95 @@ function ChevronRight() {
   return <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>;
 }
 
+/* ── AnimatedJoinButton ─────────────────────────────────────────────── */
+function AnimatedJoinButton({ msUntil, canJoin, href, height = 40, fontSize = 14 }: {
+  msUntil: number; canJoin: boolean; href: string; height?: number; fontSize?: number;
+}) {
+  const prevCanJoin = useRef(canJoin);
+  const [unlockPop, setUnlockPop] = useState(false);
+
+  useEffect(() => {
+    if (canJoin && !prevCanJoin.current) {
+      setUnlockPop(true);
+      const t = setTimeout(() => setUnlockPop(false), 600);
+      return () => clearTimeout(t);
+    }
+    prevCanJoin.current = canJoin;
+  }, [canJoin]);
+
+  function fmt(ms: number) {
+    const s = Math.floor(Math.max(0, ms) / 1000);
+    const d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600), min = Math.floor((s % 3600) / 60), sec = s % 60;
+    if (d > 0) return `noch ${d}T ${h}h ${min}min`;
+    if (h > 0) return `noch ${h}h ${min}min ${sec}s`;
+    return `noch ${min}min ${sec}s`;
+  }
+
+  // Progress ring — fills over last 30 min before meeting
+  const RING_WINDOW = 30 * 60 * 1000;
+  const r = 10, circ = 2 * Math.PI * r;
+  const prog = Math.max(0, Math.min(1, 1 - msUntil / RING_WINDOW));
+  const dashOffset = circ * (1 - prog);
+
+  // Ambient glow: 30s before meeting
+  const hasGlow = canJoin && msUntil <= 30_000 && msUntil > -10_000;
+
+  if (canJoin) {
+    return (
+      <a href={href} style={{
+        height, padding: "0 16px", borderRadius: 9999,
+        background: "#2D5B8D", color: "white", border: "none",
+        fontFamily: F, fontWeight: 500, fontSize, cursor: "pointer",
+        display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none",
+        transition: "background 0.2s, box-shadow 1s",
+        boxShadow: hasGlow ? "0 0 0 4px rgba(45,91,141,0.12), 0 0 24px rgba(45,91,141,0.22)" : "none",
+        animation: unlockPop ? "join-unlock 0.5s cubic-bezier(0.34,1.56,0.64,1) both" : undefined,
+      }}
+        onMouseEnter={e => (e.currentTarget.style.background = "#1e4270")}
+        onMouseLeave={e => (e.currentTarget.style.background = "#2D5B8D")}
+      >
+        <VideoIcon /> Zum Gespräch beitreten
+      </a>
+    );
+  }
+
+  return (
+    <div style={{ position: "relative" }} className="tooltip-wrap">
+      <div style={{
+        height, padding: "0 16px", borderRadius: 9999,
+        background: "#F3F4F6", color: "#9CA3AF",
+        fontFamily: F, fontWeight: 500, fontSize,
+        display: "inline-flex", alignItems: "center", gap: 6,
+        userSelect: "none" as const, cursor: "not-allowed",
+        border: "1.5px solid #E5E7EB",
+        animation: "breathe 5.5s ease-in-out infinite",
+      }}>
+        <span style={{ position: "relative", width: 24, height: 24, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: "absolute", inset: 0, transform: "rotate(-90deg)" }}>
+            <circle cx="12" cy="12" r={r} fill="none" stroke="#E5E7EB" strokeWidth="1.5" />
+            <circle cx="12" cy="12" r={r} fill="none" stroke="#2D5B8D" strokeWidth="1.5"
+              strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={dashOffset}
+              opacity={0.45} style={{ transition: "stroke-dashoffset 1s ease" }} />
+          </svg>
+          <VideoIcon />
+        </span>
+        {fmt(msUntil)}
+      </div>
+      <div className="tooltip-box" style={{
+        position: "absolute", top: "calc(100% + 8px)", left: 0,
+        background: "#F9FAFB", color: "#111827", fontFamily: F, fontSize: 13,
+        lineHeight: 1.6, padding: "10px 14px", borderRadius: 10,
+        whiteSpace: "normal" as const, pointerEvents: "none",
+        opacity: 0, transition: "opacity 0.15s", zIndex: 20,
+        width: 280, boxShadow: "0 4px 16px rgba(0,0,0,0.10)", border: "1px solid #E5E7EB",
+      }}>
+        Der Beitritts-Link wird kurz vor Beginn Ihrer Sitzung aktiv. Bitte haben Sie noch etwas Geduld.
+        <div style={{ position: "absolute", top: -6, left: 20, width: 10, height: 10, background: "#F9FAFB", border: "1px solid #E5E7EB", borderBottom: "none", borderRight: "none", transform: "rotate(45deg)" }} />
+      </div>
+    </div>
+  );
+}
+
 /* ── Avatar ─────────────────────────────────────────────────────────── */
 function Avatar({ name, src, size = 44 }: { name: string; src?: string; size?: number }) {
   const initials = name.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
@@ -217,20 +306,8 @@ function BookingCard({ b, past, onCancel, onOpenChat }: { b: Booking; past?: boo
                   <DirectionsIcon /> Route anzeigen
                 </a>
               ) : null
-            ) : canJoin ? (
-              <a href={`/gespraech/${b.id}`} style={{ height: 36, padding: "0 14px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 500, fontSize: 13, display: "inline-flex", alignItems: "center", gap: 5, textDecoration: "none" }}>
-                <VideoIcon /> Zum Gespräch beitreten
-              </a>
             ) : (
-              <div className="tooltip-wrap" style={{ position: "relative" }}>
-                <div style={{ height: 36, padding: "0 14px", borderRadius: 9999, background: "#F3F4F6", color: "#9CA3AF", fontFamily: F, fontSize: 13, display: "flex", alignItems: "center", gap: 5, cursor: "not-allowed", border: "1.5px solid #E5E7EB", userSelect: "none" }}>
-                  <VideoIcon /> {fmtCountdown(msUntil)}
-                </div>
-                <div className="tooltip-box" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, background: "#F9FAFB", color: "#111827", fontFamily: F, fontSize: 12, lineHeight: 1.6, padding: "9px 12px", borderRadius: 10, whiteSpace: "normal" as const, pointerEvents: "none", opacity: 0, transition: "opacity 0.15s", zIndex: 20, width: 260, boxShadow: "0 4px 16px rgba(0,0,0,0.10)", border: "1px solid #E5E7EB" }}>
-                  Der Beitritts-Link wird kurz vor Beginn Ihrer Sitzung aktiv. Bitte haben Sie noch etwas Geduld.
-                  <div style={{ position: "absolute", top: -6, left: 16, width: 10, height: 10, background: "#F9FAFB", border: "1px solid #E5E7EB", borderBottom: "none", borderRight: "none", transform: "rotate(45deg)" }} />
-                </div>
-              </div>
+              <AnimatedJoinButton msUntil={msUntil} canJoin={canJoin} href={`/gespraech/${b.id}`} height={36} fontSize={13} />
             )}
 
             {/* Termin verschieben — nur > 24h */}
@@ -913,24 +990,7 @@ ${isRechnung ? `
 
                             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                               {/* Video button */}
-                              {canJoin ? (
-                                <a href={`/gespraech/${next.id}`} style={{ height: 40, padding: "0 16px", borderRadius: 9999, background: CTA, color: "white", border: "none", fontFamily: F, fontWeight: 500, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", gap: 6, textDecoration: "none", transition: "background 0.2s" }}
-                                  onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
-                                  onMouseLeave={e => (e.currentTarget.style.background = CTA)}
-                                >
-                                  <VideoIcon /> Zum Gespräch beitreten
-                                </a>
-                              ) : (
-                                <div style={{ position: "relative" }} className="tooltip-wrap">
-                                  <div style={{ height: 40, padding: "0 16px", borderRadius: 9999, background: "#F3F4F6", color: "#9CA3AF", fontFamily: F, fontWeight: 500, fontSize: 14, display: "flex", alignItems: "center", gap: 6, userSelect: "none", cursor: "not-allowed", border: "1.5px solid #E5E7EB" }}>
-                                    <VideoIcon /> {formatCountdown(msUntil)}
-                                  </div>
-                                  <div className="tooltip-box" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, background: "#F9FAFB", color: "#111827", fontFamily: F, fontSize: 13, lineHeight: 1.6, padding: "10px 14px", borderRadius: 10, whiteSpace: "normal" as const, pointerEvents: "none", opacity: 0, transition: "opacity 0.15s", zIndex: 20, width: 300, boxShadow: "0 4px 16px rgba(0,0,0,0.10)", border: "1px solid #E5E7EB" }}>
-                                    Der Beitritts-Link wird kurz vor Beginn Ihrer Sitzung aktiv. Bitte haben Sie noch etwas Geduld.
-                                    <div style={{ position: "absolute", top: -6, left: 20, width: 10, height: 10, background: "#F9FAFB", border: "1px solid #E5E7EB", borderBottom: "none", borderRight: "none", transform: "rotate(45deg)" }} />
-                                  </div>
-                                </div>
-                              )}
+                              <AnimatedJoinButton msUntil={msUntil} canJoin={canJoin} href={`/gespraech/${next.id}`} height={40} fontSize={14} />
 
                               {/* Termin verschieben — nur wenn > 24h */}
                               {canCancel && (
@@ -1273,6 +1333,16 @@ ${isRechnung ? `
       <Footer />
       <style>{`
         .tooltip-wrap:hover .tooltip-box { opacity: 1 !important; }
+
+        @keyframes breathe {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.008); }
+        }
+        @keyframes join-unlock {
+          0%   { transform: scale(0.94); opacity: 0.6; }
+          60%  { transform: scale(1.04); }
+          100% { transform: scale(1);    opacity: 1;   }
+        }
 
 
         @media (max-width: 900px) {
