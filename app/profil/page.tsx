@@ -96,14 +96,10 @@ function AnimatedJoinButton({ msUntil, canJoin, href, height = 40, fontSize = 14
     return `noch ${min}min ${sec}s`;
   }
 
-  // Color morph: gray → blue over last 10 min before meeting
-  const MORPH_WINDOW = 10 * 60 * 1000;
-  const mp = Math.max(0, Math.min(1, 1 - Math.max(0, msUntil) / MORPH_WINDOW));
-  function lerp(a: number, b: number) { return Math.round(a + (b - a) * mp); }
-  const bgColor    = `rgb(${lerp(243,45)},${lerp(244,91)},${lerp(246,141)})`;
-  const fgColor    = `rgb(${lerp(156,255)},${lerp(163,255)},${lerp(175,255)})`;
-  const borderAlpha = (1 - mp).toFixed(2);
-  const borderColor = `rgba(${lerp(229,45)},${lerp(231,91)},${lerp(235,141)},${borderAlpha})`;
+  // Static gray colors while disabled — no color morph on the pill itself
+  const bgColor    = "#F3F4F6";
+  const fgColor    = "#9CA3AF";
+  const borderColor = "#E5E7EB";
 
   // Progress ring — fills over last 30 min
   const RING_WINDOW = 30 * 60 * 1000;
@@ -117,10 +113,10 @@ function AnimatedJoinButton({ msUntil, canJoin, href, height = 40, fontSize = 14
   const iconEl = (
     <span style={{ position: "relative", width: 24, height: 24, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
       <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: "absolute", inset: 0, transform: "rotate(-90deg)" }}>
-        <circle cx="12" cy="12" r={r} fill="none" stroke="currentColor" strokeWidth="1.5" opacity={0.2} />
-        <circle cx="12" cy="12" r={r} fill="none" stroke="currentColor" strokeWidth="1.5"
+        <circle cx="12" cy="12" r={r} fill="none" stroke="#D1D5DB" strokeWidth="1.5" />
+        <circle cx="12" cy="12" r={r} fill="none" stroke="#6B7280" strokeWidth="1.5"
           strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={dashOffset}
-          opacity={0.5} style={{ transition: "stroke-dashoffset 1s ease" }} />
+          style={{ transition: "stroke-dashoffset 1s ease" }} />
       </svg>
       <VideoIcon />
     </span>
