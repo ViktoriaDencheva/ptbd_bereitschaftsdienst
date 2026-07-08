@@ -114,14 +114,15 @@ function AnimatedJoinButton({ msUntil, canJoin, href, bookedAt, height = 40, fon
   const hasGlow = canJoin && msUntil <= 30_000 && msUntil > -10_000;
 
   const iconEl = (
-    <span style={{ position: "relative", width: 24, height: 24, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
-      animation: canJoin ? "ring-glow 2s ease-in-out infinite" : undefined }}>
-      <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: "absolute", inset: 0, transform: "rotate(-90deg)" }}>
-        <circle cx="12" cy="12" r={r} fill="none" stroke="#D1D5DB" strokeWidth="1.5" />
-        <circle cx="12" cy="12" r={r} fill="none" stroke="#2D5B8D" strokeWidth="1.5"
-          strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={dashOffset}
-          style={{ transition: "stroke-dashoffset 1s ease" }} />
-      </svg>
+    <span style={{ position: "relative", width: 24, height: 24, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+      {!canJoin && (
+        <svg width="24" height="24" viewBox="0 0 24 24" style={{ position: "absolute", inset: 0, transform: "rotate(-90deg)" }}>
+          <circle cx="12" cy="12" r={r} fill="none" stroke="#D1D5DB" strokeWidth="1.5" />
+          <circle cx="12" cy="12" r={r} fill="none" stroke="#2D5B8D" strokeWidth="1.5"
+            strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={dashOffset}
+            style={{ transition: "stroke-dashoffset 1s ease" }} />
+        </svg>
+      )}
       <VideoIcon />
     </span>
   );
@@ -149,10 +150,19 @@ function AnimatedJoinButton({ msUntil, canJoin, href, bookedAt, height = 40, fon
   };
 
   if (canJoin) {
+    const activeAnim = unlockPop
+      ? "join-unlock 0.6s cubic-bezier(0.34,1.56,0.64,1) both"
+      : "btn-shimmer 2.8s ease-in-out infinite, btn-float 2.2s ease-in-out infinite";
     return (
-      <a href={href} style={{ ...pillStyle, background: "var(--cta)", color: "white", border: "none", cursor: "pointer", transition: "background 0.8s ease, box-shadow 1s", animation: unlockPop ? "join-unlock 0.6s cubic-bezier(0.34,1.56,0.64,1) both" : undefined }}
-        onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
-        onMouseLeave={e => (e.currentTarget.style.background = "var(--cta)")}
+      <a href={href} style={{
+        ...pillStyle,
+        background: "linear-gradient(105deg, #2D5B8D 0%, #2D5B8D 30%, rgba(255,255,255,0.14) 50%, #2D5B8D 70%, #2D5B8D 100%)",
+        backgroundSize: "300% 100%",
+        color: "white", border: "none", cursor: "pointer",
+        animation: activeAnim,
+      }}
+        onMouseEnter={e => { e.currentTarget.style.backgroundImage = "none"; e.currentTarget.style.background = "#1e4270"; }}
+        onMouseLeave={e => { e.currentTarget.style.background = "linear-gradient(105deg, #2D5B8D 0%, #2D5B8D 30%, rgba(255,255,255,0.14) 50%, #2D5B8D 70%, #2D5B8D 100%)"; e.currentTarget.style.backgroundSize = "300% 100%"; }}
       >
         {iconEl}{textEl}
       </a>
@@ -1353,9 +1363,13 @@ ${isRechnung ? `
           60%  { transform: scale(1.04); }
           100% { transform: scale(1);    opacity: 1;   }
         }
-        @keyframes ring-glow {
-          0%, 100% { filter: drop-shadow(0 0 0px rgba(45,91,141,0)); }
-          50%       { filter: drop-shadow(0 0 5px rgba(45,91,141,0.55)); }
+        @keyframes btn-shimmer {
+          0%   { background-position: 100% center; }
+          100% { background-position: -100% center; }
+        }
+        @keyframes btn-float {
+          0%, 100% { transform: translateY(0px); }
+          50%       { transform: translateY(-2px); }
         }
 
 
