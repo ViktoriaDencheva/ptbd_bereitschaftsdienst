@@ -156,13 +156,13 @@ function AnimatedJoinButton({ msUntil, canJoin, href, bookedAt, height = 40, fon
     return (
       <a href={href} style={{
         ...pillStyle,
-        background: "linear-gradient(105deg, #2D5B8D 0%, #2D5B8D 30%, rgba(255,255,255,0.14) 50%, #2D5B8D 70%, #2D5B8D 100%)",
+        background: "linear-gradient(105deg, #2D5B8D 0%, #2D5B8D 30%, rgba(255,255,255,0.07) 50%, #2D5B8D 70%, #2D5B8D 100%)",
         backgroundSize: "300% 100%",
         color: "white", border: "none", cursor: "pointer",
         animation: activeAnim,
       }}
         onMouseEnter={e => { e.currentTarget.style.backgroundImage = "none"; e.currentTarget.style.background = "#1e4270"; }}
-        onMouseLeave={e => { e.currentTarget.style.background = "linear-gradient(105deg, #2D5B8D 0%, #2D5B8D 30%, rgba(255,255,255,0.14) 50%, #2D5B8D 70%, #2D5B8D 100%)"; e.currentTarget.style.backgroundSize = "300% 100%"; }}
+        onMouseLeave={e => { e.currentTarget.style.background = "linear-gradient(105deg, #2D5B8D 0%, #2D5B8D 30%, rgba(255,255,255,0.07) 50%, #2D5B8D 70%, #2D5B8D 100%)"; e.currentTarget.style.backgroundSize = "300% 100%"; }}
       >
         {iconEl}{textEl}
       </a>
