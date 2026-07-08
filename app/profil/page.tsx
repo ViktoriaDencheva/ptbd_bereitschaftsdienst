@@ -74,8 +74,8 @@ function ChevronRight() {
 }
 
 /* ── AnimatedJoinButton ─────────────────────────────────────────────── */
-function AnimatedJoinButton({ msUntil, canJoin, href, height = 40, fontSize = 14 }: {
-  msUntil: number; canJoin: boolean; href: string; height?: number; fontSize?: number;
+function AnimatedJoinButton({ msUntil, canJoin, href, bookedAt, height = 40, fontSize = 14 }: {
+  msUntil: number; canJoin: boolean; href: string; bookedAt?: string; height?: number; fontSize?: number;
 }) {
   const prevCanJoin = useRef(canJoin);
   const [unlockPop, setUnlockPop] = useState(false);
@@ -101,10 +101,13 @@ function AnimatedJoinButton({ msUntil, canJoin, href, height = 40, fontSize = 14
   const fgColor    = "#9CA3AF";
   const borderColor = "#E5E7EB";
 
-  // Progress ring — fills over last 30 min
-  const RING_WINDOW = 30 * 60 * 1000;
+  // Progress ring — fills from booking time to meeting time
   const r = 10, circ = 2 * Math.PI * r;
-  const ringProg  = Math.max(0, Math.min(1, 1 - msUntil / RING_WINDOW));
+  const meetingMs = Date.now() + msUntil;
+  const bookedMs  = bookedAt ? new Date(bookedAt).getTime() : meetingMs - 24 * 60 * 60 * 1000;
+  const totalWait = meetingMs - bookedMs;
+  const elapsed   = Date.now() - bookedMs;
+  const ringProg  = totalWait > 0 ? Math.max(0, Math.min(1, elapsed / totalWait)) : 1;
   const dashOffset = circ * (1 - ringProg);
 
   // Ambient glow: 30s before
@@ -314,7 +317,7 @@ function BookingCard({ b, past, onCancel, onOpenChat }: { b: Booking; past?: boo
                 </a>
               ) : null
             ) : (
-              <AnimatedJoinButton msUntil={msUntil} canJoin={canJoin} href={`/gespraech/${b.id}`} height={36} fontSize={13} />
+              <AnimatedJoinButton msUntil={msUntil} canJoin={canJoin} href={`/gespraech/${b.id}`} bookedAt={b.bookedAt} height={36} fontSize={13} />
             )}
 
             {/* Termin verschieben — nur > 24h */}
@@ -997,7 +1000,7 @@ ${isRechnung ? `
 
                             <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                               {/* Video button */}
-                              <AnimatedJoinButton msUntil={msUntil} canJoin={canJoin} href={`/gespraech/${next.id}`} height={40} fontSize={14} />
+                              <AnimatedJoinButton msUntil={msUntil} canJoin={canJoin} href={`/gespraech/${next.id}`} bookedAt={next.bookedAt} height={40} fontSize={14} />
 
                               {/* Termin verschieben — nur wenn > 24h */}
                               {canCancel && (
