@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useLang } from "@/lib/lang";
 
 function useWinW() {
   const [w, setW] = useState(0);
@@ -18,104 +19,34 @@ const F = "'Poppins', sans-serif";
 const CTA = "var(--cta)";
 const CTA_HEX = "#2D5B8D";
 
-// ── Data ──────────────────────────────────────────────────────────────────────
-const SPECS = {
-  psychologe: {
-    label: "Psycholog*in",
-    color: "#4A90D9",
-    lightBg: "#EBF4FF",
-    icon: "/icons/role-brain.svg",
-    image: "/icons/image-psychologist.svg",
-    tagline: "Beratung, Diagnostik & Orientierung",
-    desc: "Psycholog*innen bieten psychologische Diagnostik, Beratung und Unterstützung. Ideal bei Lebenskrisen, Orientierungsbedarf und präventiver Begleitung — ohne zwingend eine Diagnose zu stellen.",
-    details: [
-      { icon: "🎓", label: "Ausbildung", value: "5-jähriges Psychologiestudium (Master oder Diplom) — kein Arzt, keine Approbation als Therapeut*in" },
-      { icon: "❤️", label: "Hilft bei", value: "Lebenskrisen, Stress, Burnout-Prävention, Orientierung, Persönlichkeitsentwicklung, psychologische Diagnostik" },
-      { icon: "💬", label: "Methoden", value: "Psychologische Gespräche, standardisierte Tests, Diagnostik, Beratung — keine Psychotherapie im Kassensystem" },
-      { icon: "💊", label: "Medikamente?", value: "Nein — Psycholog*innen dürfen keine Medikamente verschreiben" },
-      { icon: "📅", label: "Wann sinnvoll?", value: "Wenn du eine psychologische Einschätzung brauchst, dich orientieren möchtest oder präventiv arbeiten willst — ohne langen Wartezeiten" },
-      { icon: "⏱", label: "Dauer", value: "Meist wenige bis 10 Sitzungen — flexibel, oft privat oder selbstzahlend (60–120 €/Sitzung)" },
-    ],
-  },
-  psychotherapeut: {
-    label: "Psychotherapeut*in",
-    color: "#E07878",
-    lightBg: "#FFF0F0",
-    icon: "/icons/role-hilfe.svg",
-    image: "/icons/image-psychotherapeut.svg",
-    tagline: "Langfristige Therapie psychischer Erkrankungen",
-    desc: "Psychotherapeut*innen sind spezialisiert auf die langfristige Behandlung von psychischen Erkrankungen. Ihre Methoden helfen, Gedankenmuster zu verstehen und nachhaltig zu verändern.",
-    details: [
-      { icon: "🎓", label: "Ausbildung", value: "Psychologiestudium + staatlich anerkannte Approbation als Psychotherapeut*in (3–5 Jahre Weiterbildung)" },
-      { icon: "❤️", label: "Hilft bei", value: "Depression, Angststörungen, Trauma, Burnout, Essstörungen, Zwangsstörungen, PTBS" },
-      { icon: "💬", label: "Methoden", value: "Verhaltenstherapie (KVT), tiefenpsychologische Verfahren, EMDR, Schematherapie — je nach Ausbildungsschwerpunkt" },
-      { icon: "💊", label: "Medikamente?", value: "Nein — bei Bedarf Überweisung zum Psychiater*in" },
-      { icon: "📅", label: "Wann sinnvoll?", value: "Bei anhaltenden psychischen Belastungen oder Erkrankungen — Kassentherapie möglich, aber Wartezeit oft 3–6 Monate" },
-      { icon: "⏱", label: "Dauer", value: "Kurzzeittherapie: 12–24 Sitzungen. Langzeittherapie: bis zu 80 Sitzungen über 1–2 Jahre. Kassensitz oder Privatpraxis (80–150 €/Std.)" },
-    ],
-  },
-  psychiater: {
-    label: "Psychiater*in",
-    color: "#5BAA6E",
-    lightBg: "#F0FAF2",
-    icon: "/icons/role-herz.svg",
-    image: "/icons/image-psychiater.svg",
-    tagline: "Medizinische Behandlung & Medikamente",
-    desc: "Psychiater*innen sind Ärzt*innen mit Spezialisierung auf psychische Erkrankungen. Sie können sowohl Psychotherapie durchführen als auch Medikamente verschreiben.",
-    details: [
-      { icon: "🎓", label: "Ausbildung", value: "Vollständiges Medizinstudium (6 Jahre) + Facharztausbildung Psychiatrie & Psychotherapie (5 Jahre)" },
-      { icon: "❤️", label: "Hilft bei", value: "Schwere Depression, Schizophrenie, Bipolare Störung, akute Psychosen, ADHS, Suchterkrankungen, Krisen mit Fremdgefährdung" },
-      { icon: "💬", label: "Methoden", value: "Medikamentöse Therapie, psychiatrische Gespräche, Krisenintervention — manche bieten zusätzlich Psychotherapie an" },
-      { icon: "💊", label: "Medikamente?", value: "Ja — als einzige Berufsgruppe mit vollem Verschreibungsrecht für Psychopharmaka (Antidepressiva, Antipsychotika u.a.)" },
-      { icon: "📅", label: "Wann sinnvoll?", value: "Bei schweren oder akuten Erkrankungen, wenn Medikamente nötig sind oder andere Behandlungen nicht ausreichen" },
-      { icon: "⏱", label: "Dauer", value: "Langfristige Begleitung — ambulant (Facharztpraxis) oder stationär (Klinik). Kassenabrechnung möglich, Wartezeit je nach Region" },
-    ],
-  },
-  sozialberater: {
-    label: "Sozialberater*in",
-    color: "#B07D3A",
-    lightBg: "#FFF8EE",
-    icon: "/icon_sozialberater.svg",
-    image: "/sozialberater.png",
-    tagline: "Lebensberatung & Orientierung",
-    desc: "Soziale Lebensberater*innen begleiten Menschen in schwierigen Lebenssituationen — ohne Diagnose, ohne lange Wartezeiten. Ideal bei Krisen, Orientierungsbedarf und alltäglichen Belastungen.",
-    details: [
-      { icon: "🎓", label: "Ausbildung", value: "Ausbildung in sozialer Beratung, systemischem Coaching oder Lebensberatung — kein Studium oder Approbation erforderlich" },
-      { icon: "🤝", label: "Hilft bei", value: "Lebenskrisen, Orientierungslosigkeit, Stress, Beziehungsfragen, berufliche Veränderungen, Trauer, Erschöpfung ohne klinischen Befund" },
-      { icon: "💬", label: "Methoden", value: "Lösungsorientierte Gesprächsführung, Coaching, systemische Beratung — niedrigschwellig und ohne Diagnose" },
-      { icon: "💊", label: "Medikamente?", value: "Nein — keine medizinischen Befugnisse. Bei Verdacht auf Erkrankung: Weiterempfehlung an Fachärzt*innen" },
-      { icon: "📅", label: "Wann sinnvoll?", value: "Wenn du Unterstützung brauchst, aber keine klinische Diagnose vorliegt — kurzfristige Termine, oft online verfügbar" },
-      { icon: "⏱", label: "Dauer", value: "Meist 3–8 Gespräche, flexibel buchbar. Keine Kassenerstattung — Kosten variieren, oft 50–90 €/Sitzung" },
-    ],
-  },
+// ── Static non-translatable spec data ──────────────────────────────────────
+const SPEC_STATIC = {
+  psychologe: { color: "#4A90D9", lightBg: "#EBF4FF", icon: "/icons/role-brain.svg", image: "/icons/image-psychologist.svg" },
+  psychotherapeut: { color: "#E07878", lightBg: "#FFF0F0", icon: "/icons/role-hilfe.svg", image: "/icons/image-psychotherapeut.svg" },
+  psychiater: { color: "#5BAA6E", lightBg: "#F0FAF2", icon: "/icons/role-herz.svg", image: "/icons/image-psychiater.svg" },
+  sozialberater: { color: "#B07D3A", lightBg: "#FFF8EE", icon: "/icon_sozialberater.svg", image: "/sozialberater.png" },
 };
 
 type CellVal = boolean | "partial";
-const QUICK_ROWS: { label: string; psychologe: CellVal; psychotherapeut: CellVal; psychiater: CellVal; sozialberater: CellVal }[] = [
-  { label: "Gespräche / Beratung", psychologe: true,      psychotherapeut: true,      psychiater: true,      sozialberater: true },
-  { label: "Diagnostik / Tests",   psychologe: true,      psychotherapeut: true,      psychiater: true,      sozialberater: false },
-  { label: "Psychotherapie",        psychologe: false,     psychotherapeut: true,      psychiater: "partial", sozialberater: false },
-  { label: "Medikamente",           psychologe: false,     psychotherapeut: false,     psychiater: true,      sozialberater: false },
-  { label: "Kassenerstattung",      psychologe: "partial", psychotherapeut: true,      psychiater: true,      sozialberater: false },
-  { label: "Diagnose nötig",         psychologe: false,     psychotherapeut: false,     psychiater: true,      sozialberater: false },
+const QUICK_ROW_VALS: { psychologe: CellVal; psychotherapeut: CellVal; psychiater: CellVal; sozialberater: CellVal }[] = [
+  { psychologe: true,      psychotherapeut: true,      psychiater: true,      sozialberater: true },
+  { psychologe: true,      psychotherapeut: true,      psychiater: true,      sozialberater: false },
+  { psychologe: false,     psychotherapeut: true,      psychiater: "partial", sozialberater: false },
+  { psychologe: false,     psychotherapeut: false,     psychiater: true,      sozialberater: false },
+  { psychologe: "partial", psychotherapeut: true,      psychiater: true,      sozialberater: false },
+  { psychologe: false,     psychotherapeut: false,     psychiater: true,      sozialberater: false },
 ];
 
-const DECISION_TREE = [
-  { q: "Ich brauche Medikamente oder eine ärztliche Diagnose.", answer: "psychiater", answerLabel: "Psychiater*in" },
-  { q: "Ich leide unter Depressionen, Angststörungen oder Trauma.", answer: "psychotherapeut", answerLabel: "Psychotherapeut*in" },
-  { q: "Ich suche Beratung oder möchte mich orientieren.", answer: "psychologe", answerLabel: "Psycholog*in" },
-  { q: "Ich weiß noch nicht, was ich brauche.", answer: "gespräch", answerLabel: "Erstgespräch" },
+const DECISION_TREE_ANSWERS = ["psychiater", "psychotherapeut", "psychologe", "gespräch"] as const;
+
+const EXAMPLE_STATIC = [
+  { name: "Anna, 27",    result: "psychotherapeut", color: "#E07878", bg: "#FFF0F0" },
+  { name: "Markus, 42",  result: "psychiater",      color: "#5BAA6E", bg: "#F0FAF2" },
+  { name: "Lisa, 24",    result: "psychologe",       color: "#4A90D9", bg: "#EBF4FF" },
+  { name: "Felix, 33",   result: "gespräch",         color: CTA_HEX,   bg: "#ECF5FF" },
 ];
 
-
-const EXAMPLES = [
-  { name: "Anna, 27", situation: "Ich habe seit Monaten Panikattacken und traue mich kaum noch aus dem Haus.", result: "psychotherapeut", resultLabel: "Psychotherapeut*in", color: "#E07878", bg: "#FFF0F0" },
-  { name: "Markus, 42", situation: "Mein Arzt vermutet eine schwere Depression. Ich brauche Medikamente und Unterstützung.", result: "psychiater", resultLabel: "Psychiater*in", color: "#5BAA6E", bg: "#F0FAF2" },
-  { name: "Lisa, 24", situation: "Ich bin unsicher, was ich mit meinem Leben anfangen soll. Kein konkretes Problem, aber ich fühle mich verloren.", result: "psychologe", resultLabel: "Psycholog*in", color: "#4A90D9", bg: "#EBF4FF" },
-  { name: "Felix, 33", situation: "Ich weiß nicht, ob meine Probleme \"schlimm genug\" für Therapie sind. Ich brauche erstmal eine Einschätzung.", result: "gespräch", resultLabel: "Erstgespräch", color: CTA_HEX, bg: "#ECF5FF" },
-];
-
-type SpecKey = keyof typeof SPECS;
+type SpecKey = keyof typeof SPEC_STATIC;
 
 const blueFilter = "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)";
 // Outline icons for detail rows — same stroke style as platform icons
@@ -128,10 +59,10 @@ const DETAIL_ICONS = [
   <svg key="5" width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ display: "block" }}><circle cx="12" cy="12" r="10" stroke="var(--cta)" strokeWidth="1.8"/><path d="M12 6v6l4 2" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
 ];
 
-function CheckCell({ val }: { val: boolean | "partial" }) {
+function CheckCell({ val, yes, no }: { val: boolean | "partial"; yes: string; no: string }) {
   if (val === true) return (
     <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 32, height: 32, borderRadius: "50%", background: "#D4F0C8" }}>
-      <img src="/icon_check.svg" width={18} height={18} alt="Ja" style={{ objectFit: "contain" }} />
+      <img src="/icon_check.svg" width={18} height={18} alt={yes} style={{ objectFit: "contain" }} />
     </span>
   );
   if (val === "partial") return (
@@ -141,12 +72,13 @@ function CheckCell({ val }: { val: boolean | "partial" }) {
   );
   return (
     <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 32, height: 32, borderRadius: "50%", background: "#FFD0D0" }}>
-      <img src="/icon_cancel.svg" width={18} height={18} alt="Nein" style={{ objectFit: "contain" }} />
+      <img src="/icon_cancel.svg" width={18} height={18} alt={no} style={{ objectFit: "contain" }} />
     </span>
   );
 }
 
 export default function UnterschiedPage() {
+  const { T } = useLang();
   const winW = useWinW();
   const isMobile = winW > 0 && winW < 1071;
   const wrap = { maxWidth: 1440, margin: "0 auto", padding: isMobile ? "0 16px" : "0 40px" } as const;
@@ -156,9 +88,32 @@ export default function UnterschiedPage() {
   const [compareB, setCompareB] = useState<SpecKey | null>(null);
   const [selectedDecision, setSelectedDecision] = useState<number | null>(null);
   const [hoveredCol, setHoveredCol] = useState<string | null>(null);
-  const specKeys = Object.keys(SPECS) as SpecKey[];
+  const specKeys = Object.keys(SPEC_STATIC) as SpecKey[];
 
-  const spec = SPECS[activeSpec];
+  // Build translated SPECS by merging static (colors/icons) + translated text
+  const SPECS = {
+    psychologe:      { ...SPEC_STATIC.psychologe,      ...T.unterschied.specs.psychologe },
+    psychotherapeut: { ...SPEC_STATIC.psychotherapeut, ...T.unterschied.specs.psychotherapeut },
+    psychiater:      { ...SPEC_STATIC.psychiater,      ...T.unterschied.specs.psychiater },
+    sozialberater:   { ...SPEC_STATIC.sozialberater,   ...T.unterschied.specs.sozialberater },
+  } as const;
+
+  // Build translated QUICK_ROWS
+  const QUICK_ROWS = T.unterschied.quick_rows.map((r, i) => ({ label: r.label, ...QUICK_ROW_VALS[i] }));
+
+  // Build translated DECISION_TREE
+  const DECISION_TREE = T.unterschied.decision_tree.map((d, i) => ({
+    q: d.q,
+    answer: DECISION_TREE_ANSWERS[i],
+    answerLabel: d.answerLabel,
+  }));
+
+  // Build translated EXAMPLES
+  const EXAMPLES = T.unterschied.examples.map((e, i) => ({
+    ...EXAMPLE_STATIC[i],
+    situation: e.situation,
+    resultLabel: e.resultLabel,
+  }));
 
   return (
     <main style={{ background: "white", minHeight: "100vh" }}>
@@ -170,15 +125,15 @@ export default function UnterschiedPage() {
           <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 1fr", gap: isMobile ? 24 : 64, alignItems: "center" }}>
             {/* Left */}
             <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 14px" }}>Die Unterschiede im Überblick</p>
+              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 14px" }}>{T.unterschied.hero_label}</p>
               <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 26 : 38, lineHeight: 1.2, color: "var(--black)", margin: "0 0 16px" }}>
-                Wer kann dir helfen?
+                {T.unterschied.hero_h1}
               </h1>
               <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 16, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 24px" }}>
-                Wir erklären dir einfach, wer dir wann helfen kann — damit du die richtige Entscheidung triffst.
+                {T.unterschied.hero_desc}
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
-                {["Einfach erklärt", "Schnell verständlich", "Für die richtige Entscheidung"].map((t, i) => (
+                {T.unterschied.hero_bullets.map((t, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <img src="/icons/icon-check.svg" width={18} height={18} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
                     <span style={{ fontFamily: F, fontSize: 15, color: "var(--black)", fontWeight: 500 }}>{t}</span>
@@ -189,7 +144,7 @@ export default function UnterschiedPage() {
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", transition: "background 0.2s", alignSelf: "flex-start" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                Jetzt herausfinden
+                {T.unterschied.hero_cta}
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
               </a>
             </div>
@@ -218,14 +173,14 @@ export default function UnterschiedPage() {
       {/* ── QUICK COMPARISON TABLE ───────────────────────────── */}
       <section style={{ background: "#F4F9FF", padding: isMobile ? "40px 0" : "56px 0" }}>
         <div style={{ ...wrap }}>
-          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Auf einen Blick</p>
-          <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 6px" }}>Schnellübersicht</h2>
-          <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px", lineHeight: 1.6 }}>Die wichtigsten Unterschiede auf einen Blick.</p>
+          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>{T.unterschied.quick_label}</p>
+          <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 6px" }}>{T.unterschied.quick_h2}</h2>
+          <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px", lineHeight: 1.6 }}>{T.unterschied.quick_desc}</p>
           <div style={{ overflowX: "auto", borderRadius: 16, boxShadow: "0 2px 16px rgba(45,91,141,0.07)", background: "white" }}>
             <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 560 }}>
               <thead>
                 <tr style={{ background: "white" }}>
-                  <th style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: "var(--grey-text)", textAlign: "left", padding: "18px 20px", borderBottom: "1px solid #E8F0FA" }}>Kriterium</th>
+                  <th style={{ fontFamily: F, fontSize: 13, fontWeight: 600, color: "var(--grey-text)", textAlign: "left", padding: "18px 20px", borderBottom: "1px solid #E8F0FA" }}>{T.unterschied.quick_criterion}</th>
                   {(["psychologe", "psychotherapeut", "psychiater"] as SpecKey[]).map(k => (
                     <th key={k}
                       onMouseEnter={() => setHoveredCol(k)}
@@ -257,14 +212,14 @@ export default function UnterschiedPage() {
                         onMouseEnter={() => setHoveredCol(k)}
                         onMouseLeave={() => setHoveredCol(null)}
                         style={{ textAlign: "center", padding: "16px 16px", borderBottom: i < QUICK_ROWS.length - 1 ? "1px solid #EEF3FA" : "none", background: hoveredCol === k ? "rgba(45,91,141,0.06)" : i % 2 === 0 ? "white" : "rgba(236,245,255,0.45)", transition: "background 0.18s" }}>
-                        <CheckCell val={row[k]} />
+                        <CheckCell val={row[k]} yes={T.unterschied.cell_yes} no={T.unterschied.cell_no} />
                       </td>
                     ))}
                     <td
                       onMouseEnter={() => setHoveredCol("sozialberater")}
                       onMouseLeave={() => setHoveredCol(null)}
                       style={{ textAlign: "center", padding: "16px 16px", borderBottom: i < QUICK_ROWS.length - 1 ? "1px solid #EEF3FA" : "none", background: hoveredCol === "sozialberater" ? "rgba(45,91,141,0.06)" : i % 2 === 0 ? "white" : "rgba(236,245,255,0.45)", transition: "background 0.18s" }}>
-                      <CheckCell val={row.sozialberater} />
+                      <CheckCell val={row.sozialberater} yes={T.unterschied.cell_yes} no={T.unterschied.cell_no} />
                     </td>
                   </tr>
                 ))}
@@ -277,9 +232,9 @@ export default function UnterschiedPage() {
       {/* ── SIDE-BY-SIDE COMPARISON ──────────────────────────── */}
       <section id="vergleich" style={{ background: "white", padding: isMobile ? "40px 0" : "56px 0" }}>
         <div style={{ ...wrap }}>
-          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Im Detail</p>
-          <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 22 : 32, lineHeight: 1.3, color: "var(--black)", margin: "0 0 6px" }}>Vergleiche Berufsgruppen</h2>
-          <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px", lineHeight: 1.6 }}>Wähle eine oder zwei Berufsgruppen aus.</p>
+          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>{T.unterschied.detail_label}</p>
+          <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 22 : 32, lineHeight: 1.3, color: "var(--black)", margin: "0 0 6px" }}>{T.unterschied.detail_h2}</h2>
+          <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px", lineHeight: 1.6 }}>{T.unterschied.detail_desc}</p>
 
           <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "280px 1fr", gap: isMobile ? 20 : 24, alignItems: "start" }}>
 
@@ -406,7 +361,7 @@ export default function UnterschiedPage() {
             );
           })() : (
             <div style={{ textAlign: "center", padding: "48px 0", color: "var(--grey-text)", fontFamily: F, fontSize: 15 }}>
-              Wähle eine Berufsgruppe aus.
+              {T.unterschied.detail_empty}
             </div>
           )}
           </div>{/* end right col */}
@@ -418,9 +373,9 @@ export default function UnterschiedPage() {
       {/* ── REAL EXAMPLES ────────────────────────────────────── */}
       <section style={{ background: "#F8FAFE", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
-          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Erkennst du dich?</p>
-          <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 8px" }}>Beispiele aus dem Alltag</h2>
-          <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 32px", lineHeight: 1.6 }}>Reale Situationen — und welche Fachkraft dort am sinnvollsten ist.</p>
+          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 11, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>{T.unterschied.examples_label}</p>
+          <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 8px" }}>{T.unterschied.examples_h2}</h2>
+          <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 32px", lineHeight: 1.6 }}>{T.unterschied.examples_desc}</p>
           <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(2, 1fr)", gap: 16, width: "100%", minWidth: 0 }}>
             {EXAMPLES.map((ex, i) => (
               <div key={i}
@@ -431,17 +386,17 @@ export default function UnterschiedPage() {
                 <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7, fontStyle: "italic", flex: 1 }}>„{ex.situation}"</p>
                 <div style={{ paddingTop: 12, borderTop: "1px solid #EEF3FA", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 6, minWidth: 0, overflow: "hidden" }}>
-                    {!isMobile && <span style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", flexShrink: 0 }}>Empfehlung:</span>}
+                    {!isMobile && <span style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", flexShrink: 0 }}>{T.unterschied.examples_rec}</span>}
                     <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 12 : 13, color: ex.color, background: ex.bg, borderRadius: 9999, padding: isMobile ? "2px 8px" : "2px 12px", border: `1px solid ${ex.color}30`, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{ex.resultLabel}</span>
                   </div>
                   {ex.result !== "gespräch" ? (
                     <a href={`/fachkraefte?fach=${ex.result}`} style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 34, padding: isMobile ? "0 12px" : "0 16px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: isMobile ? 12 : 13, textDecoration: "none", flexShrink: 0, whiteSpace: "nowrap" }}>
-                      Jetzt suchen
+                      {T.unterschied.examples_search}
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </a>
                   ) : (
                     <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 34, padding: isMobile ? "0 12px" : "0 16px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: isMobile ? 12 : 13, textDecoration: "none", flexShrink: 0, whiteSpace: "nowrap" }}>
-                      Gespräch buchen
+                      {T.unterschied.examples_book}
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </a>
                   )}
@@ -457,24 +412,24 @@ export default function UnterschiedPage() {
         <div style={{ ...wrap }}>
           <div style={{ textAlign: "center", maxWidth: 560, margin: "0 auto", display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 28, color: "var(--black)", margin: 0, lineHeight: 1.3 }}>
-              Noch unsicher, wer zu dir passt?
+              {T.unterschied.cta_h2}
             </h2>
             <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>
-              Kein Problem — dafür sind wir da. Mach einfach unseren kurzen Orientierungstest oder buch ein kostenloses Gespräch, und wir helfen dir persönlich weiter.
+              {T.unterschied.cta_desc}
             </p>
             <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 12, marginTop: 8 }}>
               <a href="/vorgespraech"
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 36px 0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", transition: "background 0.2s", whiteSpace: "nowrap" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                Kostenloses Erstgespräch
+                {T.unterschied.cta_primary}
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
               </a>
               <a href="/orientierungstest"
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid ${CTA}`, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", background: "white", transition: "background 0.2s, color 0.2s", whiteSpace: "nowrap" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#EEF4FC"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "white"}>
-                Orientierungstest starten
+                {T.unterschied.cta_secondary}
               </a>
             </div>
           </div>

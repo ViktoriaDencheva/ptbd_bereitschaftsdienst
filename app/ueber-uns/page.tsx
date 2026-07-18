@@ -4,6 +4,7 @@ import { Plus, Minus } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AustriaMap, { PROVINCES } from "@/components/AustriaMap";
+import { useLang } from "@/lib/lang";
 type ProvinceId = typeof PROVINCES[number]["id"];
 
 const F = "'Poppins', sans-serif";
@@ -21,64 +22,37 @@ function useWindowWidth() {
   return w;
 }
 
-const STATS = [
-  { value: "1 Woche", label: "bis zum ersten Gespräch", sub: "Kein monatelanges Warten." },
-  { value: "1.000+", label: "Fachkräfte im Netzwerk", sub: "Psychotherapeut*innen, Psycholog*innen & Psychiater*innen." },
-  { value: "10+", label: "Jahre Erfahrung", sub: "Seit 2014 verbinden wir Menschen mit Unterstützung." },
-  { value: "9", label: "Bundesländer österreichweit", sub: "Österreichweit verfügbar — in jeder Region." },
+const STATS_VALUES = ["1 Woche", "1.000+", "10+", "9"] as const;
+
+const STEPS_STATIC = [
+  { icon: "/icons/icon-vorgespraech.svg", bg: "var(--blue-ultra-light)" },
+  { icon: "/icons/icon-orientierung.svg", bg: "var(--yellow-light)" },
+  { icon: "/icons/icon-test.svg", bg: "var(--green-light)" },
+  { icon: "/icons/icon-fachkraefte-warum.svg", bg: "var(--blue-ultra-light)" },
+  { icon: "/icons/icon-unterstuetzung.svg", bg: "var(--yellow-light)" },
 ];
 
-const STEPS = [
-  { icon: "/icons/icon-vorgespraech.svg", title: "Hilfe suchen", desc: "Du erkennst, dass du Unterstützung brauchst — das ist der mutigste Schritt.", bg: "var(--blue-ultra-light)" },
-  { icon: "/icons/icon-orientierung.svg", title: "Erstgespräch", desc: "In einem kostenlosen Gespräch klären wir gemeinsam, was du brauchst.", bg: "var(--yellow-light)" },
-  { icon: "/icons/icon-test.svg", title: "Passende Empfehlung", desc: "Wir empfehlen dir gezielt die Fachkraft, die am besten zu deiner Situation passt.", bg: "var(--green-light)" },
-  { icon: "/icons/icon-fachkraefte-warum.svg", title: "Therapeut*in finden", desc: "Direkter Kontakt zu einer qualifizierten Fachkraft — ohne lange Wartezeiten.", bg: "var(--blue-ultra-light)" },
-  { icon: "/icons/icon-unterstuetzung.svg", title: "Unterstützung erhalten", desc: "Du bist nicht allein. Wir bleiben an deiner Seite, auch nach der Vermittlung.", bg: "var(--yellow-light)" },
-];
-
-const WERTE = [
+const WERTE_STATIC = [
   {
     color: "#E07878", bg: "#FFF0F0",
     icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="#E07878" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-    title: "Menschen im Mittelpunkt",
-    desc: "Wir hören zu, nehmen uns Zeit und begegnen jedem Menschen auf Augenhöhe — ohne Urteile.",
   },
   {
     color: "#4A90D9", bg: "#EBF4FF",
     icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="#4A90D9" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-    title: "Persönliche Begleitung",
-    desc: "Keine Algorithmen, kein anonymes Matching. Jede Empfehlung kommt von echten Menschen.",
   },
   {
     color: "#5BAA6E", bg: "#F0FAF2",
     icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#5BAA6E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="#5BAA6E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-    title: "Vertrauen & Diskretion",
-    desc: "Datenschutz und Vertraulichkeit sind keine Selbstverständlichkeit — für uns sind sie Grundlage.",
   },
   {
     color: "#B07D3A", bg: "#FFF8EE",
     icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#B07D3A" strokeWidth="1.8"/><path d="M12 6v6l4 2" stroke="#B07D3A" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
-    title: "Schneller Zugang",
-    desc: "Weil Hilfe nicht warten sollte. Wir verkürzen den Weg zwischen Bedarf und Unterstützung.",
   },
 ];
 
-const TRUST = [
-  { year: "2013", text: "Gründung des Vereins mit dem Ziel, psychotherapeutische Hilfe niedrigschwellig zugänglich zu machen." },
-  { year: "Heute", text: "Über 1.000 qualifizierte Therapeut*innen, Psycholog*innen und Psychiater*innen in ganz Österreich." },
-  { year: "Österreichweit", text: "Präsenz in allen 9 Bundesländern — damit niemand auf Unterstützung verzichten muss." },
-  { year: "Gemeinnützig", text: "Wir sind ein gemeinnütziger Verein — nicht auf Profit ausgerichtet, sondern auf Menschen." },
-];
-
-const FAQ = [
-  { q: "Warum wurde PTBD gegründet?", a: "Der Psychotherapeutische Bereitschaftsdienst entstand aus dem Bedürfnis heraus, psychotherapeutische Hilfe schnell und ohne bürokratische Hürden zugänglich zu machen. Oft vergehen Monate, bis Menschen einen Therapieplatz finden — das wollten wir ändern." },
-  { q: "Wie funktioniert die Vermittlung?", a: "In einem kostenlosen Erstgespräch klären wir gemeinsam, was du brauchst. Danach empfehlen wir dir passende Fachkräfte aus unserem Netzwerk — persönlich, nicht algorithmisch." },
-  { q: "Ist PTBD kostenlos?", a: "Das Erstgespräch und die Vermittlung sind kostenlos. Die Kosten für Therapiesitzungen hängen von der jeweiligen Fachkraft und der Kassenerstattung ab." },
-  { q: "Wer steckt hinter PTBD?", a: "Wir sind ein gemeinnütziger Verein aus erfahrenen Psycholog*innen, Organisationstalenten und Menschen, die selbst erlebt haben, wie schwer der erste Schritt sein kann." },
-  { q: "Warum gibt es ein Erstgespräch?", a: "Weil der Weg zur richtigen Unterstützung nicht immer offensichtlich ist. Das Gespräch hilft dir zu verstehen, welche Art von Hilfe zu deiner Situation passt — und nimmt die Unsicherheit aus dem ersten Schritt." },
-];
-
 export default function UeberUnsPage() {
+  const { T } = useLang();
   const winW = useWindowWidth();
   const isMobile = winW > 0 && winW < 1071;
   const wrap = { maxWidth: 1440, margin: "0 auto", padding: isMobile ? "0 16px" : "0 40px" } as const;
@@ -92,6 +66,13 @@ export default function UeberUnsPage() {
   const stepsSliderRef = useRef<HTMLDivElement>(null);
   const activeProvince = PROVINCES.find(p => p.id === selectedProvince) ?? null;
 
+  // Merge static (icons/bg) with translated text
+  const STATS = T.ueberUns.stats.map((s, i) => ({ value: STATS_VALUES[i], label: s.label, sub: s.sub }));
+  const STEPS = T.ueberUns.steps.map((s, i) => ({ ...STEPS_STATIC[i], title: s.title, desc: s.desc }));
+  const WERTE = T.ueberUns.werte.map((w, i) => ({ ...WERTE_STATIC[i], title: w.title, desc: w.desc }));
+  const TRUST = T.ueberUns.trust;
+  const FAQ = T.ueberUns.faq;
+
   return (
     <main style={{ background: "white", minHeight: "100vh" }}>
       <Navbar />
@@ -103,9 +84,9 @@ export default function UeberUnsPage() {
           <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13 }}>
             <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = CTA}
-              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>Startseite</a>
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>{T.nav.home}</a>
             <span style={{ color: "#C3C3C3" }}>›</span>
-            <span style={{ color: "var(--black)", fontWeight: 500 }}>Über uns</span>
+            <span style={{ color: "var(--black)", fontWeight: 500 }}>{T.ueberUns.breadcrumb_current}</span>
           </div>
         </div>
 
@@ -131,13 +112,13 @@ export default function UeberUnsPage() {
             <div style={{ maxWidth: 1440, margin: "0 auto", padding: isMobile ? "0 20px 60px" : "0 40px", width: "100%" }}>
               <div style={{ maxWidth: isMobile ? "100%" : 560 }}>
                 <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 26 : 44, lineHeight: 1.2, color: "var(--black)", margin: "0 0 16px" }}>
-                  Psychotherapie sollte einfach erreichbar sein.
+                  {T.ueberUns.hero_h1}
                 </h1>
                 <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 16, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 28px" }}>
-                  Seit über 10 Jahren verbinden wir Menschen mit qualifizierter psychotherapeutischer Unterstützung — schnell, persönlich und österreichweit.
+                  {T.ueberUns.hero_desc}
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 32 }}>
-                  {["Über 10 Jahre Erfahrung", "Rund 1.000 Therapeut*innen", "Österreichweit verfügbar"].map((t, i) => (
+                  {T.ueberUns.hero_bullets.map((t, i) => (
                     <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
                       <img src="/icons/icon-check.svg" width={18} height={18} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
                       <span style={{ fontFamily: F, fontSize: 15, color: "var(--black)", fontWeight: 500 }}>{t}</span>
@@ -148,7 +129,7 @@ export default function UeberUnsPage() {
                   style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 36px 0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", alignSelf: "flex-start", whiteSpace: "nowrap" }}
                   onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = CTA; }}>
-                  Unser Angebot entdecken
+                  {T.ueberUns.hero_cta}
                   <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ filter: "brightness(0) invert(1)" }} />
                 </a>
               </div>
@@ -163,27 +144,27 @@ export default function UeberUnsPage() {
           {/* Mission quote */}
           {isMobile ? (
             <div style={{ display: "flex", flexDirection: "column", gap: 0, marginBottom: 40 }}>
-              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 20px" }}>Unsere Mission & Werte</p>
+              <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 20px" }}>{T.ueberUns.mission_label}</p>
               <p style={{ fontFamily: F, fontWeight: 700, fontSize: 20, lineHeight: 1.45, margin: 0, color: "var(--black)" }}>
-                „<span style={{ color: "#CD1719" }}>Niemand</span> sollte <span style={{ color: "#CD1719" }}>monatelang</span> auf psychotherapeutische <span style={{ color: "#CD1719" }}>Hilfe</span> warten müssen."
+                {T.ueberUns.mission_quote}
               </p>
               <div style={{ height: 1, background: "#E2EBF5", margin: "24px 0" }} />
               <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", lineHeight: 1.8, margin: 0 }}>
-                Der Psychotherapeutische Bereitschaftsdienst wurde gegründet, um psychologische Hilfe schneller, einfacher und persönlicher zugänglich zu machen — als gemeinnütziger Verein, der Menschen in den Mittelpunkt stellt.
+                {T.ueberUns.mission_desc_mobile}
               </p>
             </div>
           ) : (
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1px 1fr", gap: "0 48px", alignItems: "center", marginBottom: 56 }}>
               <div style={{ paddingRight: 8 }}>
-                <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 20px" }}>Unsere Mission & Werte</p>
+                <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.14em", textTransform: "uppercase", margin: "0 0 20px" }}>{T.ueberUns.mission_label}</p>
                 <p style={{ fontFamily: F, fontWeight: 700, fontSize: 26, lineHeight: 1.45, margin: 0, color: "var(--black)" }}>
-                  „<span style={{ color: "#CD1719" }}>Niemand</span> sollte <span style={{ color: "#CD1719" }}>monatelang</span> auf psychotherapeutische <span style={{ color: "#CD1719" }}>Hilfe</span> warten müssen."
+                  {T.ueberUns.mission_quote}
                 </p>
               </div>
               <div style={{ width: 1, alignSelf: "stretch", background: "#E2EBF5" }} />
               <div style={{ paddingLeft: 8 }}>
                 <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", lineHeight: 1.85, margin: 0 }}>
-                  Der Psychotherapeutische Bereitschaftsdienst wurde gegründet, um psychologische Hilfe schneller, einfacher und persönlicher zugänglich zu machen — als gemeinnütziger Verein, der Menschen in den Mittelpunkt stellt. Für alle, unabhängig von Kassenstatus oder Wohnort.
+                  {T.ueberUns.mission_desc_desktop}
                 </p>
               </div>
             </div>
@@ -229,8 +210,8 @@ export default function UeberUnsPage() {
       <section style={{ background: "#F5F9FD", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
           <div style={{ textAlign: "center", marginBottom: isMobile ? 32 : 48 }}>
-            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unsere Wirkung</p>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: 0 }}>Zahlen, die für sich sprechen.</h2>
+            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>{T.ueberUns.wirkung_label}</p>
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: 0 }}>{T.ueberUns.wirkung_h2}</h2>
           </div>
 
           {isMobile ? (
@@ -276,9 +257,9 @@ export default function UeberUnsPage() {
       <section style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
           <div style={{ marginBottom: isMobile ? 32 : 48 }}>
-            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Wie wir Menschen begleiten</p>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: "0 0 8px" }}>Vom ersten Gedanken bis zur Unterstützung.</h2>
-            <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>Wir begleiten dich durch jeden Schritt — klar, persönlich und ohne Umwege.</p>
+            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>{T.ueberUns.wie_label}</p>
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: "0 0 8px" }}>{T.ueberUns.wie_h2}</h2>
+            <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{T.ueberUns.wie_desc}</p>
           </div>
           {isMobile ? (
             <div>
@@ -324,10 +305,10 @@ export default function UeberUnsPage() {
       <section style={{ background: "#F5F9FD", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
           <div style={{ marginBottom: isMobile ? 28 : 40, textAlign: isMobile ? "center" : "left" }}>
-            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Unser Netzwerk</p>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: "0 0 8px" }}>Österreichweit für dich da.</h2>
+            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>{T.ueberUns.netzwerk_label}</p>
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: "0 0 8px" }}>{T.ueberUns.netzwerk_h2}</h2>
             <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", lineHeight: 1.7, margin: 0 }}>
-              Klicke auf ein Bundesland, um die verfügbaren Fachkräfte zu sehen.
+              {T.ueberUns.netzwerk_desc}
             </p>
           </div>
           <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: "5fr 2fr", gap: isMobile ? 24 : 48, alignItems: "start" }}>
@@ -340,43 +321,43 @@ export default function UeberUnsPage() {
               {activeProvince ? (
                 <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                   <div>
-                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>Ausgewähltes Bundesland</p>
+                    <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 6px" }}>{T.ueberUns.netzwerk_selected_label}</p>
                     <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 26, color: "var(--black)", margin: 0 }}>{activeProvince.name}</h3>
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                     <div>
                       <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 48 : 56, color: "#CD1719", lineHeight: 1 }}>{activeProvince.count}</span>
-                      <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "6px 0 0", lineHeight: 1.4 }}>Fachkräfte verfügbar in {activeProvince.name}</p>
+                      <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "6px 0 0", lineHeight: 1.4 }}>{T.ueberUns.netzwerk_count_desc.replace("{name}", activeProvince.name)}</p>
                     </div>
                     <div style={{ width: 40, height: 3, background: "#CD1719", borderRadius: 2 }} />
                     <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
-                      {["Persönliche Vermittlung", "Verschiedene Fachrichtungen", "Kassenplätze & Privatpraxis"].map((t, i) => (
+                      {T.ueberUns.netzwerk_chips_selected.map((t, i) => (
                         <span key={i} style={{ fontFamily: F, fontSize: 13, fontWeight: 500, color: CTA_HEX, border: `1.5px solid ${CTA_HEX}`, borderRadius: 9999, padding: "6px 14px", display: "inline-block" }}>{t}</span>
                       ))}
                     </div>
                   </div>
                   <a href={`/fachkraefte?bundesland=${activeProvince.id}`}
                     style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 44, padding: "0 22px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", alignSelf: "flex-start", whiteSpace: "nowrap" }}>
-                    Fachkräfte in {activeProvince.name} finden
+                    {T.ueberUns.netzwerk_cta_selected.replace("{name}", activeProvince.name)}
                     <img src="/icons/arrow-right.svg" width={13} height={13} alt="" style={{ filter: "brightness(0) invert(1)" }} />
                   </a>
                 </div>
               ) : (
                 <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                   <div>
-                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 8px" }}>1.000+ Fachkräfte österreichweit</h3>
+                    <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 8px" }}>{T.ueberUns.netzwerk_default_h3}</h3>
                     <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.7, margin: 0 }}>
-                      Klicke auf ein Bundesland auf der Karte, um die Fachkräfte in deiner Region zu entdecken.
+                      {T.ueberUns.netzwerk_default_desc}
                     </p>
                   </div>
                   <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
-                    {["Alle 9 Bundesländer Österreichs", "Persönliche Vermittlung — kein Algorithmus", "Kassenplätze & Privatpraxis", "Unterschiedliche Schwerpunkte"].map((t, i) => (
+                    {T.ueberUns.netzwerk_chips_default.map((t, i) => (
                       <span key={i} style={{ fontFamily: F, fontSize: 13, fontWeight: 500, color: CTA_HEX, border: `1.5px solid ${CTA_HEX}`, borderRadius: 9999, padding: "6px 14px", display: "inline-block" }}>{t}</span>
                     ))}
                   </div>
                   <a href="/fachkraefte"
                     style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 44, padding: "0 22px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", alignSelf: "flex-start", whiteSpace: "nowrap" }}>
-                    Alle Fachkräfte entdecken
+                    {T.ueberUns.netzwerk_cta_default}
                     <img src="/icons/arrow-right.svg" width={13} height={13} alt="" style={{ filter: "brightness(0) invert(1)" }} />
                   </a>
                 </div>
@@ -390,8 +371,8 @@ export default function UeberUnsPage() {
       <section style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
           <div style={{ marginBottom: isMobile ? 32 : 48 }}>
-            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>Warum Menschen uns vertrauen</p>
-            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: 0 }}>Unsere Geschichte, kurz erzählt.</h2>
+            <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: "0 0 8px" }}>{T.ueberUns.vertrauen_label}</p>
+            <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: 0 }}>{T.ueberUns.vertrauen_h2}</h2>
           </div>
           {/* Desktop: horizontal timeline */}
           {!isMobile ? (
@@ -433,9 +414,9 @@ export default function UeberUnsPage() {
       <section style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
         <div style={{ ...wrap }}>
           <div style={{ textAlign: "center", marginBottom: isMobile ? 28 : 48, display: "flex", flexDirection: "column", gap: 12 }}>
-            <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 28 : 40, lineHeight: "1.3", color: "var(--black)", margin: 0 }}>Häufige Fragen</h2>
+            <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 28 : 40, lineHeight: "1.3", color: "var(--black)", margin: 0 }}>{T.ueberUns.faq_h2}</h2>
             <p style={{ fontFamily: F, fontWeight: 400, fontSize: isMobile ? 15 : 18, lineHeight: 1.5, color: "var(--grey-text)", margin: 0 }}>
-              Hier findest du Antworten auf die wichtigsten Fragen rund um PTBD.
+              {T.ueberUns.faq_desc}
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 0, maxWidth: 864, margin: "0 auto" }}>
@@ -468,24 +449,24 @@ export default function UeberUnsPage() {
         <div style={{ ...wrap }}>
           <div style={{ textAlign: "center", maxWidth: 560, margin: "0 auto", display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 24 : 32, color: "var(--black)", margin: 0, lineHeight: 1.3 }}>
-              Bereit, den ersten Schritt zu machen?
+              {T.ueberUns.cta_h2}
             </h2>
             <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.7 }}>
-              Wir sind für dich da — kostenlos, unverbindlich und vertraulich.
+              {T.ueberUns.cta_desc}
             </p>
             <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 12, marginTop: 8, width: isMobile ? "100%" : "auto" }}>
               <a href="/vorgespraech"
                 style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, height: 50, padding: "0 36px 0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", whiteSpace: "nowrap" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                Kostenloses Erstgespräch
+                {T.ueberUns.cta_primary}
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ filter: "brightness(0) invert(1)" }} />
               </a>
               <a href="/fachkraefte"
                 style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid ${CTA}`, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", background: "white", whiteSpace: "nowrap" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#EEF4FC"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "white"}>
-                Therapeut*in finden
+                {T.ueberUns.cta_secondary}
               </a>
             </div>
           </div>
