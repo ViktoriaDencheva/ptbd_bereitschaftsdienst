@@ -1,5 +1,6 @@
 ﻿"use client";
 import React, { useState } from "react";
+import { useLang } from "@/lib/lang";
 
 const imgWoman = "/fachkraefte/specialist-howtostart.jpg";
 const imgCheckmark = "/icons/icon-check.svg";
@@ -16,27 +17,26 @@ const IconArrow = () => (
   </svg>
 );
 
-const tabs = [
-  { id: "Erstgespräch", label: "Erstgespräch vereinbaren", labelMobile: "Erstgespräch", Icon: IconVorgespraech },
-  { id: "test",        label: "Orientierungstest",       labelMobile: "Orientierungstest", Icon: IconTest },
-];
-
-const bulletsV = ["Kostenlos & unverbindlich", "Individiell & vertraulich", "Mit erfahrenen Fachkräften", "Online oder in deiner Nähe"];
-const bulletsT = ["Kostenlos & anonym", "Nur 5 Minuten", "Sofortige Empfehlung", "Ohne Registrierung"];
-
 export default function HowToStart() {
-  const [activeTab, setActiveTab] = useState("Erstgespräch");
-  const isV = activeTab === "Erstgespräch";
-  const bullets = isV ? bulletsV : bulletsT;
+  const [activeTabId, setActiveTabId] = useState<"v" | "t">("v");
+  const { T } = useLang();
+  const isV = activeTabId === "v";
+
+  const tabs = [
+    { id: "v" as const, label: T.howToStart.tab_conversation, labelMobile: T.howToStart.tab_conversation_mobile, Icon: IconVorgespraech },
+    { id: "t" as const, label: T.howToStart.tab_test, labelMobile: T.howToStart.tab_test, Icon: IconTest },
+  ];
+
+  const bullets = isV ? T.howToStart.bullets_conversation : T.howToStart.bullets_test;
 
   const tabContent = (
     <div>
       {/* Tab headers — опростени */}
       <div style={{ display: "flex", gap: 4 }}>
         {tabs.map(({ id, label, Icon }) => {
-          const active = activeTab === id;
+          const active = activeTabId === id;
           return (
-            <button key={id} onClick={() => setActiveTab(id)} style={{
+            <button key={id} onClick={() => setActiveTabId(id)} style={{
               display: "flex", alignItems: "center", gap: 8,
               padding: "10px 20px",
               background: active ? "var(--blue-ultra-light)" : "transparent",
@@ -72,12 +72,10 @@ export default function HowToStart() {
           </div>
           <div>
             <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 22, lineHeight: 1.3, color: "var(--black)", margin: "0 0 8px" }}>
-              {isV ? "Persönliches Gespräch" : "Online-Test machen"}
+              {isV ? T.howToStart.title_conversation : T.howToStart.title_test}
             </h3>
             <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 16, lineHeight: 1.6, color: "var(--grey-text)", margin: 0, maxWidth: 420 }}>
-              {isV
-                ? "Kostenlos, unverbindlich und vertraulich. Wir helfen Dir, die passende Fachkraft zu finden."
-                : "In nur 5 Minuten. Anonym, kostenlos und ohne Registrierung."}
+              {isV ? T.howToStart.desc_conversation : T.howToStart.desc_test}
             </p>
           </div>
         </div>
@@ -99,7 +97,7 @@ export default function HowToStart() {
           onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
           onMouseLeave={e => (e.currentTarget.style.background = "var(--cta)")}
         >
-          {isV ? "Kostenloses Erstgespräch" : "Test beginnen"}
+          {isV ? T.howToStart.cta_conversation : T.howToStart.cta_test}
           <IconArrow />
         </a>
       </div>
@@ -119,13 +117,13 @@ export default function HowToStart() {
           <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               <span style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 14, color: "var(--cta-brand)", textTransform: "uppercase" as const, letterSpacing: "0.08em" }}>
-                SO KÖNNEN WIR HELFEN
+                {T.howToStart.label}
               </span>
               <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 40, lineHeight: 1.3, color: "var(--black)" }}>
-                Wie möchtest du starten?
+                {T.howToStart.title}
               </h2>
               <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.5, color: "var(--grey-text)" }}>
-                Wähle den Weg, der sich für dich im Moment richtig anfühlt. Beides ist kostenlos, vertraulich und unverbindlich.
+                {T.howToStart.subtitle}
               </p>
             </div>
             {tabContent}
@@ -138,10 +136,10 @@ export default function HowToStart() {
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           {/* Titles */}
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <span style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 16, color: "var(--cta-brand)", textTransform: "uppercase" as const }}>SO KÖNNEN WIR HELFEN</span>
-            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 32, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>Wie möchtest du starten?</h2>
+            <span style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 16, color: "var(--cta-brand)", textTransform: "uppercase" as const }}>{T.howToStart.label}</span>
+            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 32, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>{T.howToStart.title}</h2>
             <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.5, color: "var(--grey-text)", margin: 0 }}>
-              Wähle den Weg, der sich für dich im Moment richtig anfühlt. Beides ist kostenlos, vertraulich und unverbindlich.
+              {T.howToStart.subtitle}
             </p>
           </div>
 
@@ -155,13 +153,13 @@ export default function HowToStart() {
             {/* Pill tab switcher */}
             <div style={{ display: "flex", background: "white", borderRadius: 9999, height: 48, padding: 2, boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
               {tabs.map(({ id, labelMobile, Icon }) => {
-                const active = activeTab === id;
+                const active = activeTabId === id;
                 return (
                   <button
                     key={id}
                     type="button"
-                    onClick={() => setActiveTab(id)}
-                    onPointerDown={() => setActiveTab(id)}
+                    onClick={() => setActiveTabId(id)}
+                    onPointerDown={() => setActiveTabId(id)}
                     className="how-tab-btn"
                     style={{
                       flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
@@ -201,15 +199,13 @@ export default function HowToStart() {
                   {isV ? <IconVorgespraech size={28} /> : <IconTest size={28} />}
                 </div>
                 <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 24, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>
-                  {isV ? "Persönliches Gespräch" : "Online-Test machen"}
+                  {isV ? T.howToStart.title_conversation : T.howToStart.title_test}
                 </h3>
               </div>
 
               {/* Description */}
               <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 16, lineHeight: 1.6, color: "var(--grey-text)", margin: 0 }}>
-                {isV
-                  ? "Kostenlos, unverbindlich und vertraulich. Wir helfen Dir, die passende Fachkraft zu finden."
-                  : "In nur 5 Minuten. Anonym, kostenlos und ohne Registrierung."}
+                {isV ? T.howToStart.desc_conversation : T.howToStart.desc_test}
               </p>
 
               {/* Bullets + Button */}
@@ -229,7 +225,7 @@ export default function HowToStart() {
                   cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
                   textDecoration: "none", boxSizing: "border-box",
                 }}>
-                  {isV ? "Kostenloses Erstgespräch" : "Test beginnen"}
+                  {isV ? T.howToStart.cta_conversation : T.howToStart.cta_test}
                   <IconArrow />
                 </a>
               </div>

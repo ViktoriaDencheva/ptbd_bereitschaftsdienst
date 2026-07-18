@@ -1,4 +1,5 @@
 ﻿"use client";
+import { useLang } from "@/lib/lang";
 const imgHeroDesktop = "/heroImage.png";
 const imgHeroMobile = "/heroImage-mob.png";
 
@@ -40,15 +41,11 @@ const IconShield = () => (
   </svg>
 );
 
-const trustItems = [
-  { Icon: IconVerifiziert, title: "Verifizierte Fachkräfte", sub: "Qualifiziert & geprüft" },
-  { Icon: IconKrankenkasse, title: "Krankenkassen anerkannt", sub: "Teilrefundierung möglich" },
-  { Icon: IconPin, title: "Österreichweit", sub: "In ganz Österreich" },
-  { Icon: IconLock, title: "Vertraulich", sub: "Schutz deiner Angaben" },
-  { Icon: IconShield, title: "DSGVO-Konform", sub: "Datenschutz garantiert" },
-];
+const trustIcons = [IconVerifiziert, IconKrankenkasse, IconPin, IconLock, IconShield];
 
 export default function Hero() {
+  const { T } = useLang();
+  const trustItems = T.hero.trust.map((item, i) => ({ Icon: trustIcons[i], ...item }));
   return (
     <section>
       {/* ===== DESKTOP HERO ===== */}
@@ -59,10 +56,10 @@ export default function Hero() {
           <div style={{ width: "50%", display: "flex", flexDirection: "column", gap: 32 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <h1 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 64, lineHeight: 1.3, color: "var(--black)" }}>
-                <span style={{ display: "block" }}>Du musst da</span><span style={{ display: "block" }}><span style={{ color: "var(--cta-brand)" }}>nicht alleine</span> durch</span>
+                <span style={{ display: "block" }}>{T.hero.title1}</span><span style={{ display: "block" }}><span style={{ color: "var(--cta-brand)" }}>{T.hero.title_highlight}</span>{T.hero.title2 ? " " + T.hero.title2 : ""}</span>
               </h1>
               <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.5, color: "var(--black)" }}>
-                Professionelle Hilfe ist nur einen Klick entfernt. Unser<br />engagiertes Team begleitet dich dabei
+                {T.hero.subtitle.split("\n").map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}
               </p>
             </div>
             <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
@@ -71,13 +68,13 @@ export default function Hero() {
                 style={{ background: "var(--cta)", color: "white", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", padding: "0 24px", height: 48, fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", whiteSpace: "nowrap", transition: "all var(--duration-base) var(--ease-standard)", display: "inline-flex", alignItems: "center", textDecoration: "none" }}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--cta-hover)"; el.style.borderColor = "var(--cta-hover)"; }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--cta)"; el.style.borderColor = "var(--cta)"; }}
-              >Erstgespräch</a>
+              >{T.hero.cta_primary}</a>
               {/* Secondary button */}
               <a href="/fachkraefte"
                 style={{ background: "transparent", color: "var(--cta)", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", padding: "0 24px", height: 48, fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", whiteSpace: "nowrap", transition: "all var(--duration-base) var(--ease-standard)", display: "inline-flex", alignItems: "center", textDecoration: "none" }}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--blue-ultra-light)"; el.style.borderColor = "var(--cta)"; }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "transparent"; el.style.borderColor = "var(--cta)"; }}
-              >Fachkräfte entdecken</a>
+              >{T.hero.cta_secondary}</a>
             </div>
           </div>
         </div>
@@ -102,19 +99,19 @@ export default function Hero() {
         <div style={{ position: "relative", zIndex: 2, padding: "0 20px 120px", display: "flex", flexDirection: "column", gap: 16 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <h1 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 700, fontSize: 32, lineHeight: 1.2, color: "var(--black)", margin: 0 }}>
-              Du musst da<br />
-              <span style={{ color: "var(--cta-brand)" }}>nicht alleine</span> durch
+              {T.hero.title1}<br />
+              <span style={{ color: "var(--cta-brand)" }}>{T.hero.title_highlight}</span>{T.hero.title2 ? " " + T.hero.title2 : ""}
             </h1>
             <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 15, lineHeight: 1.5, color: "var(--black)", margin: 0 }}>
-              Professionelle Hilfe ist nur einen Klick entfernt. Unser engagiertes Team begleitet dich dabei.
+              {T.hero.subtitle.replace("\n", " ")}
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <a href="/vorgespraech" style={{ background: "var(--cta)", color: "white", border: "none", borderRadius: "var(--radius-circle)", minHeight: 52, padding: "12px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 16, cursor: "pointer", textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              Erstgespräch
+              {T.hero.cta_primary}
             </a>
             <a href="/fachkraefte" style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(8px)", color: "var(--cta)", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", minHeight: 52, padding: "12px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              Fachkräfte entdecken
+              {T.hero.cta_secondary}
             </a>
           </div>
         </div>

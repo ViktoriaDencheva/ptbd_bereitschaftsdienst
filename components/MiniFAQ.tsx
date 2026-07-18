@@ -1,21 +1,12 @@
 ﻿"use client";
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
-
-const faqs = [
-  {
-    q: "Wie läuft die Beratung ab?",
-    a: "Nach der Anmeldung wählst du zwischen einem persönlichen Erstgespräch oder einem kurzen Online-Test. Basierend darauf empfehlen wir dir passende Fachkräfte. Du buchst dann einen Termin – online per Videochat oder vor Ort in einer Praxis.",
-  },
-  { q: "Sind die Fachkräfte geprüft?", a: "Ja, alle Fachkräfte auf unserer Plattform sind staatlich anerkannte Psycholog*innen, Psychotherapeut*innen oder Psychiater*innen mit nachgewiesener Ausbildung und Berufserfahrung." },
-  { q: "Wie schnell bekomme ich Unterstützung?", a: "In der Regel kannst du innerhalb von 24-72 Stunden einen Termin erhalten. Bei akuten Krisen versuchen wir schnellstmöglich zu vermitteln." },
-  { q: "Was kostet die Beratung?", a: "Das Erstgespräch ist kostenlos und unverbindlich. Die weiteren Kosten hängen von der Fachkraft ab. Viele Krankenkassen übernehmen einen Teil der Kosten." },
-  { q: "Wie werden meine Daten geschützt?", a: "Wir verarbeiten alle Daten DSGVO-konform. Gespräche sind Ende-zu-Ende verschlüsselt." },
-  { q: "Muss ich sofort wissen, welche Unterstützung ich brauche?", a: "Nein. Du kannst zuerst unser Kostenloses Erstgespräch nutzen oder den Online-Test machen. Wir helfen dir, die richtige Unterstützung zu finden." },
-];
+import { useLang } from "@/lib/lang";
 
 export default function MiniFAQ() {
   const [open, setOpen] = useState<number | null>(null);
+  const { T } = useLang();
+  const faqs = T.miniFaq.items;
 
   return (
     <section className="minifaq-section" style={{ background: "white", padding: 0 }}>
@@ -26,14 +17,14 @@ export default function MiniFAQ() {
             fontFamily: "'Poppins', sans-serif",
             fontWeight: 600, fontSize: 40,
             lineHeight: "52px", color: "var(--black)",
-          }}>Häufige Fragen</h2>
+          }}>{T.miniFaq.title}</h2>
           <p style={{
             fontFamily: "'Poppins', sans-serif",
             fontWeight: 400, fontSize: 18,
             lineHeight: 1.5, color: "var(--grey)",
           }}>
-            Hier findest Du Antworten auf die wichtigsten Fragen. Nicht das Richtige dabei?{" "}
-            <a href="/faq" style={{ color: "#0B72B2", textDecoration: "underline" }}>Alle häufigen Fragen ansehen →</a>
+            {T.miniFaq.subtitle_pre}{" "}
+            <a href="/faq" style={{ color: "#0B72B2", textDecoration: "underline" }}>{T.miniFaq.subtitle_link}</a>
           </p>
         </div>
 

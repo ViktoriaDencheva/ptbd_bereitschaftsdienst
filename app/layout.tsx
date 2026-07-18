@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import GoogleProvider from "@/components/GoogleProvider";
 import ScrollToTop from "@/components/ScrollToTop";
+import { LangProvider } from "@/lib/lang";
 
 export const metadata: Metadata = {
   title: "Psychotherapeutischer Bereitschaftsdienst",
@@ -18,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="de">
       <head />
       <body suppressHydrationWarning>
-        <GoogleProvider><ScrollToTop />{children}</GoogleProvider>
+        <GoogleProvider><LangProvider><ScrollToTop />{children}</LangProvider></GoogleProvider>
       </body>
     </html>
   );

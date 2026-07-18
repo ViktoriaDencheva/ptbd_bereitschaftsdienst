@@ -3,23 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X, User, Phone } from "lucide-react";
 import { getStoredUser, clearUser, getFirstName, type AuthUser } from "@/lib/auth";
-
-const navLinks = [
-  { label: "Startseite",   href: "/" },
-  { label: "Fachkräfte",  href: "/fachkraefte" },
-  { label: "Unterschiede", href: "/unterschied" },
-  { label: "Über uns",    href: "/ueber-uns" },
-  { label: "Kontakt",     href: "/kontakt" },
-];
-
-const menuLinks = [
-  { label: "Startseite",   href: "/" },
-  { label: "Fachkräfte",  href: "/fachkraefte" },
-  { label: "Unterschiede", href: "/unterschied" },
-  { label: "Über uns",    href: "/ueber-uns" },
-  { label: "FAQ",          href: "/faq" },
-  { label: "Kontakt",     href: "/kontakt" },
-];
+import { useLang } from "@/lib/lang";
 
 const ArrowIcon = ({ color = "white" }: { color?: string }) => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -32,12 +16,30 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<AuthUser | null>(null);
   const headerRef = useRef<HTMLElement>(null);
+  const { lang, setLang, T } = useLang();
 
-  const active = pathname === "/" ? "Startseite"
-    : pathname === "/fachkraefte" ? "Fachkräfte"
-    : pathname === "/unterschied" ? "Unterschiede"
-    : pathname === "/ueber-uns" ? "Über uns"
-    : pathname === "/kontakt" ? "Kontakt"
+  const navLinks = [
+    { label: T.nav.home,          href: "/" },
+    { label: T.nav.professionals, href: "/fachkraefte" },
+    { label: T.nav.differences,   href: "/unterschied" },
+    { label: T.nav.about,         href: "/ueber-uns" },
+    { label: T.nav.contact,       href: "/kontakt" },
+  ];
+
+  const menuLinks = [
+    { label: T.nav.home,          href: "/" },
+    { label: T.nav.professionals, href: "/fachkraefte" },
+    { label: T.nav.differences,   href: "/unterschied" },
+    { label: T.nav.about,         href: "/ueber-uns" },
+    { label: T.nav.faq,           href: "/faq" },
+    { label: T.nav.contact,       href: "/kontakt" },
+  ];
+
+  const active = pathname === "/" ? T.nav.home
+    : pathname === "/fachkraefte" ? T.nav.professionals
+    : pathname === "/unterschied" ? T.nav.differences
+    : pathname === "/ueber-uns" ? T.nav.about
+    : pathname === "/kontakt" ? T.nav.contact
     : null;
   const [headerBottom, setHeaderBottom] = useState(108);
 
@@ -96,8 +98,24 @@ export default function Navbar() {
       onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--cta)"; e.currentTarget.style.color = "var(--cta)"; }}
       onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--grey-bg)"; e.currentTarget.style.color = "var(--black)"; }}
     >
-      <User size={15} /> Anmelden
+      <User size={15} /> {T.nav.login}
     </a>
+  );
+
+  const LangToggle = (
+    <div style={{ display: "flex", alignItems: "center", gap: 2, border: "1.5px solid var(--grey-bg)", borderRadius: 9999, padding: "2px 3px", height: 40, flexShrink: 0 }}>
+      {(["de", "en"] as const).map(l => (
+        <button key={l} onClick={() => setLang(l)} style={{
+          background: lang === l ? "var(--cta)" : "transparent",
+          color: lang === l ? "white" : "var(--grey-text)",
+          border: "none", borderRadius: 9999, width: 34, height: 34,
+          fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 13,
+          cursor: "pointer", transition: "background 0.2s, color 0.2s", textTransform: "uppercase",
+        }}>
+          {l}
+        </button>
+      ))}
+    </div>
   );
 
   const MobileUserButton = user ? (
@@ -165,7 +183,8 @@ export default function Navbar() {
             })}
           </nav>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
+            {LangToggle}
             {UserButton}
             <a href="/vorgespraech" style={{
               display: "flex", alignItems: "center", gap: 6,
@@ -179,7 +198,7 @@ export default function Navbar() {
               onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
               onMouseLeave={e => (e.currentTarget.style.background = "var(--cta)")}
             >
-              Erstgespräch vereinbaren <ArrowIcon />
+              {T.nav.cta} <ArrowIcon />
             </a>
           </div>
         </div>
@@ -223,9 +242,24 @@ export default function Navbar() {
               cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
               textDecoration: "none",
             }}>
-              Erstgespräch vereinbaren <ArrowIcon />
+              {T.nav.cta} <ArrowIcon />
             </a>
             <div style={{ height: 1, background: "#f0f0f0", margin: "16px 0 8px" }} />
+            {/* Language toggle in mobile menu */}
+            <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 0" }}>
+              {(["de", "en"] as const).map(l => (
+                <button key={l} onClick={() => { setLang(l); setOpen(false); }} style={{
+                  background: lang === l ? "var(--cta)" : "var(--grey-bg)",
+                  color: lang === l ? "white" : "var(--grey-text)",
+                  border: "none", borderRadius: 9999, padding: "6px 18px",
+                  fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 14,
+                  cursor: "pointer", textTransform: "uppercase",
+                }}>
+                  {l}
+                </button>
+              ))}
+            </div>
+            <div style={{ height: 1, background: "#f0f0f0", margin: "4px 0 8px" }} />
             {menuLinks.map(l => (
               <a key={l.label} href={l.href}
                 onClick={e => { if (l.href === "#") e.preventDefault(); setOpen(false); }}
@@ -247,15 +281,15 @@ export default function Navbar() {
               <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 4 }}>
                 <a href="/profil" style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, color: "var(--cta)", textDecoration: "none" }}>
                   <div style={{ position: "relative" }}><User size={20} /><span style={{ position: "absolute", bottom: -1, right: -2, width: 8, height: 8, borderRadius: "50%", background: "#5BA882", border: "1.5px solid white" }} /></div>
-                  Mein Konto ({getFirstName(user)})
+                  {T.nav.myAccount} ({getFirstName(user)})
                 </a>
                 <button onClick={handleLogout} style={{ background: "none", border: "none", padding: "8px 0", fontFamily: "'Poppins', sans-serif", fontSize: 14, color: "#9CA3AF", cursor: "pointer", textAlign: "left" }}>
-                  Abmelden
+                  {T.nav.logout}
                 </button>
               </div>
             ) : (
               <a href="/anmelden" style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 16, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, color: "var(--cta)", textDecoration: "none" }}>
-                <User size={20} /> Anmelden
+                <User size={20} /> {T.nav.login}
               </a>
             )}
           </div>
@@ -265,7 +299,7 @@ export default function Navbar() {
       {/* ── FLOATING SOFORTIGE HILFE ── */}
       <button
         className="floating-hilfe"
-        title="Notfallhilfe: 142"
+        title={`${T.nav.emergency}: 142`}
         style={{
           position: "fixed", bottom: 28, right: 24, zIndex: 200,
           borderRadius: 9999,
@@ -282,7 +316,7 @@ export default function Navbar() {
         onMouseLeave={e => { const el = e.currentTarget; el.style.transform = "scale(1)"; el.style.boxShadow = "0 4px 20px rgba(205,23,25,0.4)"; }}
       >
         <Phone size={18} />
-        <span className="floating-hilfe-label">Notfallhilfe: 142</span>
+        <span className="floating-hilfe-label">{T.nav.emergency}: 142</span>
       </button>
 
       <style>{`

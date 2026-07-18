@@ -1,15 +1,13 @@
 ﻿"use client";
 import { useRef, useState } from "react";
+import { useLang } from "@/lib/lang";
 
 
-
-
-
-const steps = [
-  { num: "01", img: "/steps/step1-desktop.jpg", imgMob: "/steps/step1-mobile.jpg", title: "Erstgespräch oder Test wählen", desc: "Wir helfen Dir, die passende Fachkraft zu finden - abgestimmt auf deine Bedürfnisse und Wünsche." },
-  { num: "02", img: "/steps/step2-desktop.jpg", imgMob: "/steps/step2-mobile.jpg", title: "Passende Spezialist*innen erhalten", desc: "Auf Basis Deiner Angaben schlagen wir Dir geeignete Fachkräfte vor." },
-  { num: "03", img: "/steps/step3-desktop.jpg", imgMob: "/steps/step4-mobile.jpg", title: "Termin online oder vor Ort buchen", desc: "Buche online oder vor Ort - so, wie es am besten in deinen Alltag passt." },
-  { num: "04", img: "/steps/step4-desktop.jpg", imgMob: "/steps/step3-mobile.jpg", title: "Beratung direkt über die Plattform starten", desc: "Starte deine Unterstützung und erhalte genau die Begleitung, die Du brauchst – direkt hier auf der Plattform." },
+const stepImages = [
+  { num: "01", img: "/steps/step1-desktop.jpg", imgMob: "/steps/step1-mobile.jpg" },
+  { num: "02", img: "/steps/step2-desktop.jpg", imgMob: "/steps/step2-mobile.jpg" },
+  { num: "03", img: "/steps/step3-desktop.jpg", imgMob: "/steps/step4-mobile.jpg" },
+  { num: "04", img: "/steps/step4-desktop.jpg", imgMob: "/steps/step3-mobile.jpg" },
 ];
 
 function StepCard({ step, mobile = false }: { step: typeof steps[0] & { imgMob: string }; mobile?: boolean }) {
@@ -39,6 +37,8 @@ function StepCard({ step, mobile = false }: { step: typeof steps[0] & { imgMob: 
 export default function Steps() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const { T } = useLang();
+  const steps = stepImages.map((s, i) => ({ ...s, ...T.steps.items[i] }));
 
   const handleScroll = () => {
     const el = sliderRef.current;
@@ -54,10 +54,9 @@ export default function Steps() {
         <div style={{ maxWidth: "var(--max-width)", margin: "0 auto" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 24, marginBottom: 32 }}>
             <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 40, lineHeight: 1.3, color: "var(--black)", width: "50%" }}>
-              <span style={{ display: "block" }}>So einfach kommst Du zu</span>
-              <span style={{ display: "block" }}>passender Unterstützung</span>
+              {T.steps.title.map((line, i) => <span key={i} style={{ display: "block" }}>{line}</span>)}
             </h2>
-            <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.5, color: "var(--grey-text)", width: "40%", textAlign: "right", alignSelf: "center" }}>In vier einfachen Schritten begleiten wir Dich auf dem Weg zu mehr Wohlbefinden.</p>
+            <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.5, color: "var(--grey-text)", width: "40%", textAlign: "right", alignSelf: "center" }}>{T.steps.subtitle}</p>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
             {steps.map(s => <StepCard key={s.num} step={s} />)}
@@ -70,10 +69,10 @@ export default function Steps() {
         {/* Title */}
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 24 }}>
           <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 28, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>
-            So einfach kommst Du zu passender Unterstützung
+            {T.steps.title_mobile}
           </h2>
           <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.5, color: "var(--grey-text)", margin: 0 }}>
-            In vier einfachen Schritten begleiten wir Dich auf dem Weg zu mehr Wohlbefinden.
+            {T.steps.subtitle}
           </p>
         </div>
         {/* Cards — хоризонтален скрол */}

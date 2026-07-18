@@ -1,5 +1,6 @@
 ﻿"use client";
 import { useState } from "react";
+import { useLang } from "@/lib/lang";
 const imgTelephones = null;
 
 
@@ -7,44 +8,11 @@ const PhoneIcon = () => (<svg width="32" height="32" viewBox="0 0 32 32" fill="n
 const FacebookIcon = () => (<svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.1" fillRule="evenodd" clipRule="evenodd" d="M20.75 40.75C31.7957 40.75 40.75 31.7957 40.75 20.75C40.75 9.70431 31.7957 0.75 20.75 0.75C9.70431 0.75 0.75 9.70431 0.75 20.75C0.75 31.7957 9.70431 40.75 20.75 40.75Z" stroke="#0B72B2" strokeWidth="1.5"/><path d="M22.5708 15.6308H24.4089C24.5781 15.6308 24.7153 15.5014 24.7153 15.3421V13.61C24.7153 13.4506 24.5781 13.3213 24.4089 13.3213H22.5708C20.713 13.3213 19.2009 14.7457 19.2009 16.4968V18.5176H17.0564C16.8872 18.5176 16.75 18.6469 16.75 18.8063V20.5384C16.75 20.6977 16.8872 20.8271 17.0564 20.8271H19.2009V26.8894C19.2009 27.0488 19.3381 27.1781 19.5072 27.1781H21.3454C21.5145 27.1781 21.6517 27.0488 21.6517 26.8894V20.8271H23.7962C23.928 20.8271 24.045 20.7474 24.0873 20.6296L24.7 18.8975C24.7312 18.8097 24.7153 18.7127 24.6577 18.6371C24.5995 18.562 24.5076 18.5176 24.4089 18.5176H21.6517V16.4968C21.6517 16.0193 22.0641 15.6308 22.5708 15.6308Z" fill="#0B72B2"/></svg>);
 const LinkedinIcon = () => (<svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.1" fillRule="evenodd" clipRule="evenodd" d="M20.75 40.75C31.7957 40.75 40.75 31.7957 40.75 20.75C40.75 9.70431 31.7957 0.75 20.75 0.75C9.70431 0.75 0.75 9.70431 0.75 20.75C0.75 31.7957 9.70431 40.75 20.75 40.75Z" stroke="#0B72B2" strokeWidth="1.5"/><path d="M16.1597 16.7113C17.0961 16.7113 17.8552 15.9522 17.8552 15.0158C17.8552 14.0794 17.0961 13.3203 16.1597 13.3203C15.2233 13.3203 14.4642 14.0794 14.4642 15.0158C14.4642 15.9522 15.2233 16.7113 16.1597 16.7113Z" fill="#0B72B2"/><path d="M17.5726 17.8428H14.7468C14.5908 17.8428 14.4642 17.9694 14.4642 18.1254V26.6028C14.4642 26.7588 14.5908 26.8854 14.7468 26.8854H17.5726C17.7286 26.8854 17.8552 26.7588 17.8552 26.6028V18.1254C17.8552 17.9694 17.7286 17.8428 17.5726 17.8428Z" fill="#0B72B2"/><path d="M25.9934 17.3736C24.7857 16.9599 23.275 17.3233 22.369 17.9749C22.3379 17.8534 22.2272 17.7629 22.0955 17.7629H19.2697C19.1137 17.7629 18.9871 17.8895 18.9871 18.0455V26.523C18.9871 26.6789 19.1137 26.8055 19.2697 26.8055H22.0955C22.2515 26.8055 22.3781 26.6789 22.3781 26.523V20.4305C22.8347 20.0372 23.423 19.9117 23.9046 20.1163C24.3714 20.3135 24.6387 20.795 24.6387 21.4365V26.523C24.6387 26.6789 24.7653 26.8055 24.9213 26.8055H27.7471C27.9031 26.8055 28.0297 26.6789 28.0297 26.523V20.8674C27.9975 18.5451 26.905 17.6855 25.9934 17.3736Z" fill="#0B72B2"/></svg>);
 
-const footerCols = [
-  {
-    title: "Plattform",
-    links: [
-      { label: "Fachkräfte finden",    href: "/fachkraefte" },
-      { label: "Erstgespräch", href: "/vorgespraech" },
-      { label: "Unterschiede",          href: "/unterschied" },
-      { label: "Standorte",             href: "/standorte" },
-      { label: "Häufige Fragen",        href: "/faq" },
-    ],
-  },
-  {
-    title: "Wichtige Informationen",
-    links: [
-      { label: "So funktioniert es",           href: "/#wie-es-funktioniert" },
-      { label: "Ablauf der Beratung",          href: "/ablauf-der-beratung" },
-      { label: "Kosten & Krankenkasse",        href: "/kosten-krankenkasse" },
-      { label: "Termin absagen & verschieben", href: "/termin-absagen" },
-      { label: "Krisenhilfe",                  href: "/krisenhilfe" },
-    ],
-  },
-  {
-    title: "Rechtliches",
-    links: [
-      { label: "Datenschutz",          href: "#" },
-      { label: "AGB",                  href: "#" },
-      { label: "Impressum",            href: "#" },
-      { label: "Nutzungsbedingungen",  href: "#" },
-      { label: "Cookie-Einstellungen", href: "#" },
-    ],
-  },
-];
-
-const contactItems = [
-  { icon: "/icons/icon-mail.svg",         label: "info@ptbd.at",             href: "mailto:info@ptbd.at" },
-  { icon: "/icons/icon-phone-contact.svg",label: "+43 1 123 45 67",          href: "tel:+4311234567" },
-  { icon: "/icons/icon-clock.svg",        label: "Mo–Fr · 9:00–17:00",       href: "#" },
-  { icon: "/icons/icon-pin.svg",          label: "Österreichweit verfügbar", href: "#" },
+const contactIcons = [
+  { icon: "/icons/icon-mail.svg",          href: "mailto:info@ptbd.at" },
+  { icon: "/icons/icon-phone-contact.svg", href: "tel:+4311234567" },
+  { icon: "/icons/icon-clock.svg",         href: "#" },
+  { icon: "/icons/icon-pin.svg",           href: "#" },
 ];
 
 const paymentIcons = [
@@ -82,6 +50,22 @@ function AccordionCol({ title, links }: { title: string; links: { label: string;
 }
 
 export default function Footer() {
+  const { T } = useLang();
+  const F = T.footer;
+
+  const footerCols = [
+    { title: F.col_platform, links: F.links_platform },
+    { title: F.col_info, links: F.links_info },
+    { title: F.col_legal, links: F.links_legal },
+  ];
+
+  const contactItems = [
+    { ...contactIcons[0], label: "info@ptbd.at" },
+    { ...contactIcons[1], label: "+43 1 123 45 67" },
+    { ...contactIcons[2], label: F.contact_hours },
+    { ...contactIcons[3], label: F.contact_location },
+  ];
+
   return (
     <footer>
       {/* Crisis section */}
@@ -108,12 +92,12 @@ export default function Footer() {
               fontWeight: 500,
               fontSize: "clamp(20px, 2.5vw, 28px)",
               lineHeight: 1.3, color: "var(--black)",
-            }}>Brauchst Du sofort Hilfe?</h3>
+            }}>{F.crisis_title}</h3>
             <p style={{
               fontFamily: "'Poppins', sans-serif",
               fontWeight: 400, fontSize: 18,
               lineHeight: 1.5, color: "var(--grey)",
-            }}>Wenn Du Dich in einer akuten Krise befindest, findest Du hier wichtige Anlaufstellen.</p>
+            }}>{F.crisis_subtitle}</p>
           </div>
 
           {/* Main phone card */}
@@ -139,7 +123,7 @@ export default function Footer() {
                   fontFamily: "'Poppins', sans-serif",
                   fontWeight: 500, fontSize: 20,
                   lineHeight: 1.4, color: "var(--black)",
-                }}>Telefonseelsorge</span>
+                }}>{F.crisis_phone_label}</span>
                 <a href="tel:142" style={{
                   fontFamily: "'Poppins', sans-serif",
                   fontWeight: 500, fontSize: 28,
@@ -152,7 +136,7 @@ export default function Footer() {
               fontFamily: "'Poppins', sans-serif",
               fontWeight: 400, fontSize: 16,
               lineHeight: 1.5, color: "var(--black)",
-            }}>24/7 - vertraulich & kostenlos</p>
+            }}>{F.crisis_phone_info}</p>
           </div>
 
           {/* Additional numbers */}
@@ -165,7 +149,7 @@ export default function Footer() {
               fontFamily: "'Poppins', sans-serif",
               fontWeight: 500, fontSize: 20,
               lineHeight: 1.4, color: "var(--black)",
-            }}>Weitere Hilfsangebote:</h4>
+            }}>{F.crisis_more}</h4>
             <div className="crisis-numbers-list" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {[
                 { label: "Ö3-Kummernummer:", num: "116 123" },
@@ -214,7 +198,7 @@ export default function Footer() {
                 fontWeight: 400, fontSize: 16,
                 lineHeight: 1.5, color: "var(--grey)",
               }}>
-                Wir verbinden Menschen mit qualifizierter psychosozialer Unterstützung - diskret, sicher und unkompliziert.
+                {F.brand_desc}
               </p>
               <div className="social-icons" style={{ display: "flex", gap: 12 }}>
                 <FacebookIcon />
@@ -239,7 +223,7 @@ export default function Footer() {
 
             {/* Kontakt col */}
             <div className="footer-link-col" style={{ display: "flex", flexDirection: "column", gap: 8, minWidth: 200 }}>
-              <div style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, lineHeight: 1.5, color: "var(--black)" }}>Kontakt</div>
+              <div style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, lineHeight: 1.5, color: "var(--black)" }}>{F.col_contact}</div>
               <div className="contact-items" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {contactItems.map((item) => (
                   <a key={item.label} href={item.href} style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 14, lineHeight: 1.5, color: "var(--grey-text)", textDecoration: "none", transition: "color 0.2s" }}
@@ -273,7 +257,7 @@ export default function Footer() {
               lineHeight: 1.5, color: "var(--grey)",
               whiteSpace: "nowrap",
             }}>
-              © 2026 Psychotherapeutischer Bereitschaftsdienst. Alle Rechte vorbehalten.
+              {F.copyright}
             </p>
           </div>
         </div>
@@ -288,8 +272,8 @@ export default function Footer() {
           <div style={{ position: "absolute", inset: 0, background: "rgba(255,255,255,0.15)" }} />
           <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: 24 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 28, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>Brauchst Du sofort Hilfe?</h3>
-              <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 16, lineHeight: 1.5, color: "var(--grey-text)", margin: 0 }}>Wenn Du Dich in einer akuten Krise befindest, findest Du hier wichtige Anlaufstellen.</p>
+              <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 28, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>{F.crisis_title}</h3>
+              <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 16, lineHeight: 1.5, color: "var(--grey-text)", margin: 0 }}>{F.crisis_subtitle}</p>
             </div>
             {/* Phone card */}
             <div style={{ background: "white", borderRadius: 16, padding: 16, boxShadow: "4px 8px 5px rgba(0,0,0,0.05)", display: "flex", flexDirection: "column", gap: 12 }}>
@@ -298,15 +282,15 @@ export default function Footer() {
                   <PhoneIcon />
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                  <span style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 20, lineHeight: 1.4, color: "var(--black)" }}>Telefonseelsorge</span>
+                  <span style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 20, lineHeight: 1.4, color: "var(--black)" }}>{F.crisis_phone_label}</span>
                   <a href="tel:142" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 28, color: "var(--red-soft)", textDecoration: "underline" }}>142</a>
                 </div>
               </div>
-              <p style={{ fontFamily: "'Poppins', sans-serif", fontSize: 16, lineHeight: 1.5, color: "var(--black)", margin: 0 }}>24/7 - vertraulich & kostenlos</p>
+              <p style={{ fontFamily: "'Poppins', sans-serif", fontSize: 16, lineHeight: 1.5, color: "var(--black)", margin: 0 }}>{F.crisis_phone_info}</p>
             </div>
             {/* More numbers */}
             <div style={{ backdropFilter: "blur(3px)", background: "rgba(254,244,240,0.5)", display: "flex", flexDirection: "column", gap: 8 }}>
-              <h4 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 20, lineHeight: 1.4, color: "var(--black)", margin: 0 }}>Weitere Hilfsangebote:</h4>
+              <h4 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 20, lineHeight: 1.4, color: "var(--black)", margin: 0 }}>{F.crisis_more}</h4>
               {[
                 { label: "Ö3-Kummernummer:", num: "116 123" },
                 { label: "Psychosozialer Dienst Wien:", num: "+43 1 313 30" },
@@ -326,7 +310,7 @@ export default function Footer() {
           <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 24 }}>
             <img src="/logo.svg" alt="Logo" style={{ width: 190, height: 44, objectFit: "contain" }} />
             <p style={{ fontFamily: "'Poppins', sans-serif", fontSize: 15, lineHeight: 1.5, color: "var(--grey-text)", margin: 0 }}>
-              Wir verbinden Menschen mit qualifizierter psychosozialer Unterstützung – diskret, sicher und unkompliziert.
+              {F.brand_desc}
             </p>
             <div style={{ display: "flex", gap: 12 }}>
               <FacebookIcon />
@@ -343,7 +327,7 @@ export default function Footer() {
 
           {/* Kontakt */}
           <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
-            <div style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, color: "var(--black)" }}>Kontakt</div>
+            <div style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, color: "var(--black)" }}>{F.col_contact}</div>
             {contactItems.map(item => (
               <a key={item.label} href={item.href} style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: "'Poppins', sans-serif", fontSize: 15, color: "var(--grey-text)", textDecoration: "none" }}>
                 <img src={item.icon} width={20} height={20} alt="" style={{ flexShrink: 0 }} />
@@ -362,7 +346,7 @@ export default function Footer() {
           {/* Copyright */}
           <div style={{ borderTop: "1px solid var(--grey-border)", paddingTop: 16 }}>
             <p style={{ fontFamily: "'Poppins', sans-serif", fontSize: 13, lineHeight: 1.5, color: "var(--grey-text)", margin: 0 }}>
-              © 2026 Psychotherapeutischer Bereitschaftsdienst. Alle Rechte vorbehalten.
+              {F.copyright}
             </p>
           </div>
         </div>

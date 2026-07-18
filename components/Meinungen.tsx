@@ -1,5 +1,6 @@
 ﻿"use client";
 import { useRef, useState } from "react";
+import { useLang } from "@/lib/lang";
 const imgQuote = "/icons/icon-quote-review.svg";
 const imgStarFull = "/icons/icon-star-review.svg";
 const imgStarEmpty = "/icons/icon-star-empty.svg";
@@ -60,6 +61,7 @@ function ReviewCard({ r, width = 366 }: { r: typeof reviews[0]; width?: number }
 export default function Meinungen() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const { T } = useLang();
   const totalItems = reviews.length + 1; // +1 за ProvenExpert
 
   const handleScroll = () => {
@@ -76,8 +78,8 @@ export default function Meinungen() {
       <div className="mein-desktop" style={{ padding: "32px 80px 48px", maxWidth: 1440, margin: "0 auto" }}>
         <div style={{ maxWidth: "var(--max-width)", margin: "0 auto" }}>
           <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap", marginBottom: 48 }}>
-            <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 40, lineHeight: 1.3, color: "var(--black)", flex: "0 0 auto", maxWidth: 663 }}>Das sagen unsere Nutzer*innen</h2>
-            <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.5, color: "var(--grey)", flex: 1 }}>Echte Menschen. Echte Geschichte. Entdecke, wie unsere Plattform Unterstützung bietet und wirklich einen Unterschied macht.</p>
+            <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 40, lineHeight: 1.3, color: "var(--black)", flex: "0 0 auto", maxWidth: 663 }}>{T.meinungen.title}</h2>
+            <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.5, color: "var(--grey)", flex: 1 }}>{T.meinungen.subtitle}</p>
           </div>
           <div style={{ display: "flex", gap: 24, alignItems: "stretch" }}>
             {/* ProvenExpert — square, not circle */}
@@ -95,8 +97,8 @@ export default function Meinungen() {
 
       {/* ===== MOBILE ===== */}
       <div className="mein-mobile" style={{ display: "none", padding: "32px 16px" }}>
-        <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 28, lineHeight: 1.3, color: "var(--black)", marginBottom: 12 }}>Das sagen unsere Nutzer*innen</h2>
-        <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 16, lineHeight: 1.5, color: "var(--grey)", marginBottom: 24 }}>Echte Menschen. Echte Geschichte. Entdecke, wie unsere Plattform Unterstützung bietet.</p>
+        <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 28, lineHeight: 1.3, color: "var(--black)", marginBottom: 12 }}>{T.meinungen.title}</h2>
+        <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 16, lineHeight: 1.5, color: "var(--grey)", marginBottom: 24 }}>{T.meinungen.subtitle_mobile}</p>
         <div
           ref={sliderRef}
           onScroll={handleScroll}
