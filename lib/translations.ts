@@ -73,6 +73,12 @@ const de = {
     title: "Das sagen unsere Nutzer*innen",
     subtitle: "Echte Menschen. Echte Geschichte. Entdecke, wie unsere Plattform Unterstützung bietet und wirklich einen Unterschied macht.",
     subtitle_mobile: "Echte Menschen. Echte Geschichte. Entdecke, wie unsere Plattform Unterstützung bietet.",
+    reviews: [
+      { text: "Ich habe mich sofort gut aufgehoben gefühlt. Die Kommunikation war einfühlsam, und es war schön zu wissen, dass alle Fachkräfte geprüft und verifiziert sind.", name: "Elia Hahn", date: "05.04.2024", initial: "E", stars: 5 },
+      { text: "Ich hatte zuerst Hemmungen, online Hilfe zu suchen. Aber die Plattform hat mir den Einstieg unglaublich leicht gemacht. Alles wirkt ruhig, klar und professionell.", name: "Maria Hrtl", date: "12.04.2024", initial: "M", stars: 5 },
+      { text: "Sehr übersichtliche Plattform. Auch wenn ich emotional überfordert war, habe ich mich gut durch die Schritte geführt gefühlt. Klare Sprache, klare Struktur.", name: "Nikola Schmidt", date: "25.03.2024", initial: "N", stars: 5 },
+      { text: "Die Terminbuchung ging viel schneller als erwartet. Besonders gut fand ich das Erstgespräch – endlich wusste ich, welche Fachrichtung wirklich zu meinem Problem passt.", name: "Lukas Tober", date: "25.06.2024", initial: "L", stars: 5 },
+    ],
   },
   footer: {
     crisis_title: "Brauchst Du sofort Hilfe?",
@@ -109,6 +115,11 @@ const de = {
     ],
     contact_hours: "Mo–Fr · 9:00–17:00",
     contact_location: "Österreichweit verfügbar",
+    crisis_numbers: [
+      { label: "Ö3-Kummernummer:", num: "116 123" },
+      { label: "Psychosozialer Dienst Wien:", num: "+43 1 313 30" },
+      { label: "Kriseninterventionszentrum Wien:", num: "+43 1 406 95 95" },
+    ],
   },
   kosten: {
     breadcrumb_home: "Startseite",
@@ -308,6 +319,12 @@ const en: typeof de = {
     title: "What our users say",
     subtitle: "Real people. Real stories. Discover how our platform provides support and truly makes a difference.",
     subtitle_mobile: "Real people. Real stories. Discover how our platform provides support.",
+    reviews: [
+      { text: "I felt well taken care of from the start. The communication was empathetic, and it was reassuring to know that all professionals are checked and verified.", name: "Elia Hahn", date: "05.04.2024", initial: "E", stars: 5 },
+      { text: "I was initially hesitant to seek help online. But the platform made getting started incredibly easy. Everything feels calm, clear and professional.", name: "Maria Hrtl", date: "12.04.2024", initial: "M", stars: 5 },
+      { text: "A very well-organised platform. Even when I was emotionally overwhelmed, I felt well guided through the steps. Clear language, clear structure.", name: "Nikola Schmidt", date: "25.03.2024", initial: "N", stars: 5 },
+      { text: "The appointment booking was much faster than expected. I especially appreciated the initial consultation — I finally knew which specialty truly fit my situation.", name: "Lukas Tober", date: "25.06.2024", initial: "L", stars: 5 },
+    ],
   },
   footer: {
     crisis_title: "Do you need immediate help?",
@@ -344,6 +361,11 @@ const en: typeof de = {
     ],
     contact_hours: "Mon–Fri · 9:00–17:00",
     contact_location: "Available nationwide",
+    crisis_numbers: [
+      { label: "Ö3 Hotline:", num: "116 123" },
+      { label: "Psychosocial Service Vienna:", num: "+43 1 313 30" },
+      { label: "Crisis Intervention Centre Vienna:", num: "+43 1 406 95 95" },
+    ],
   },
   kosten: {
     breadcrumb_home: "Home",

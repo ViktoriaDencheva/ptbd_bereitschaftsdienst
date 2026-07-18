@@ -8,14 +8,9 @@ const imgCardBg: string | null = null;
 // ProvenExpert — square image, not circle
 const imgProvenExpert = "/icons/ProvenExpert.svg";
 
-const reviews = [
-  { text: "Ich habe mich sofort gut aufgehoben gefühlt. Die Kommunikation war einfühlsam, und es war schön zu wissen, dass alle Fachkräfte geprüft und verifiziert sind.", name: "Elia Hahn", date: "05.04.2024", initial: "E", stars: 5 },
-  { text: "Ich hatte zuerst Hemmungen, online Hilfe zu suchen. Aber die Plattform hat mir den Einstieg unglaublich leicht gemacht. Alles wirkt ruhig, klar und professionell.", name: "Maria Hrtl", date: "12.04.2024", initial: "M", stars: 5 },
-  { text: "Sehr übersichtliche Plattform. Auch wenn ich emotional überfordert war, habe ich mich gut durch die Schritte geführt gefühlt. Klare Sprache, klare Struktur.", name: "Nikola Schmidt", date: "25.03.2024", initial: "N", stars: 5 },
-  { text: "Die Terminbuchung ging viel schneller als erwartet. Besonders gut fand ich das Erstgespräch – endlich wusste ich, welche Fachrichtung wirklich zu meinem Problem passt.", name: "Lukas Tober", date: "25.06.2024", initial: "L", stars: 5 },
-];
 
-function ReviewCard({ r, width = 366 }: { r: typeof reviews[0]; width?: number }) {
+type ReviewItem = { text: string; name: string; date: string; initial: string; stars: number };
+function ReviewCard({ r, width = 366 }: { r: ReviewItem; width?: number }) {
   return (
     <div style={{
       position: "relative", borderRadius: 16, overflow: "hidden",
@@ -62,6 +57,7 @@ export default function Meinungen() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const { T } = useLang();
+  const reviews = T.meinungen.reviews;
   const totalItems = reviews.length + 1; // +1 за ProvenExpert
 
   const handleScroll = () => {

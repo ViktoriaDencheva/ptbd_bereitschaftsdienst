@@ -151,11 +151,7 @@ export default function Footer() {
               lineHeight: 1.4, color: "var(--black)",
             }}>{F.crisis_more}</h4>
             <div className="crisis-numbers-list" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {[
-                { label: "Ö3-Kummernummer:", num: "116 123" },
-                { label: "Psychosozialer Dienst Wien:", num: "+43 1 313 30" },
-                { label: "Kriseninterventionszentrum Wien:", num: "+43 1 406 95 95" },
-              ].map((item, i) => (
+              {F.crisis_numbers.map((item, i) => (
                 <p key={i} style={{
                   fontFamily: "'Poppins', sans-serif",
                   fontWeight: 400, fontSize: 18,
@@ -291,11 +287,7 @@ export default function Footer() {
             {/* More numbers */}
             <div style={{ backdropFilter: "blur(3px)", background: "rgba(254,244,240,0.5)", display: "flex", flexDirection: "column", gap: 8 }}>
               <h4 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 20, lineHeight: 1.4, color: "var(--black)", margin: 0 }}>{F.crisis_more}</h4>
-              {[
-                { label: "Ö3-Kummernummer:", num: "116 123" },
-                { label: "Psychosozialer Dienst Wien:", num: "+43 1 313 30" },
-                { label: "Kriseninterventionszentrum Wien:", num: "+43 1 406 95 95" },
-              ].map((item, i) => (
+              {F.crisis_numbers.map((item, i) => (
                 <p key={i} style={{ fontFamily: "'Poppins', sans-serif", fontSize: 16, lineHeight: 1.5, color: "var(--black)", margin: 0 }}>
                   {item.label} <a href="#" style={{ fontWeight: 500, color: "var(--red-soft)", textDecoration: "underline" }}>{item.num}</a>
                 </p>
