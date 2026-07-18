@@ -78,7 +78,7 @@ export default function TherapistDetailPage() {
     );
   }
 
-  const avail = availColors[t.availability] ?? availColors.later;
+  const avail = availColors[t.availability as keyof typeof availColors] ?? availColors.later;
 
   return (
     <main style={{ background: "white", minHeight: "100vh" }}>
@@ -453,7 +453,7 @@ export default function TherapistDetailPage() {
                       </div>
                       <div style={{ borderTop: "1px solid var(--grey-bg)", padding: "8px 14px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 14, color: "var(--black)", whiteSpace: "nowrap" }}>€{s.price} <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 11, color: "var(--grey-text)" }}>{T.fachkraefteDetail.per_session_short}</span></span>
-                        <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 11, color: availColors[s.availability]?.text ?? "var(--grey-border)", fontWeight: 500, textAlign: "right" as const }}>{availColors[s.availability]?.label ?? ""}</span>
+                        <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 11, color: availColors[s.availability as keyof typeof availColors]?.text ?? "var(--grey-border)", fontWeight: 500, textAlign: "right" as const }}>{availColors[s.availability as keyof typeof availColors]?.label ?? ""}</span>
                       </div>
                     </a>
                   ))}
@@ -481,7 +481,7 @@ export default function TherapistDetailPage() {
                       </div>
                       <div style={{ borderTop: "1px solid var(--grey-bg)", padding: "10px 16px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 16, color: "var(--black)" }}>€{s.price} <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 12, color: "var(--grey-text)" }}>{T.fachkraefteDetail.per_session}</span></span>
-                        <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: availColors[s.availability]?.text ?? "var(--grey-border)", fontWeight: 500 }}>{availColors[s.availability]?.label ?? ""}</span>
+                        <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: availColors[s.availability as keyof typeof availColors]?.text ?? "var(--grey-border)", fontWeight: 500 }}>{availColors[s.availability as keyof typeof availColors]?.label ?? ""}</span>
                       </div>
                     </a>
                   ))}
@@ -504,6 +504,12 @@ export default function TherapistDetailPage() {
 
 // ── Mobile content sections ──
 function MobileContentSections({ t, similar }: { t: NonNullable<ReturnType<typeof therapists.find>>; similar: typeof therapists }) {
+  const { T } = useLang();
+  const availColors = {
+    today:    { dot: "#2DB36A", text: "var(--cta)", label: T.fachkraefteDetail.avail_today },
+    thisweek: { dot: "#F59E0B", text: "var(--cta)", label: T.fachkraefteDetail.avail_thisweek },
+    later:    { dot: "var(--grey-border)", text: "var(--grey-text)", label: T.fachkraefteDetail.avail_later },
+  };
   return (
     <>
       {/* Kann ich helfen */}
@@ -602,7 +608,7 @@ function MobileContentSections({ t, similar }: { t: NonNullable<ReturnType<typeo
         </div>
         <div style={{ display: "flex", gap: 12, overflowX: "auto", paddingLeft: 16, paddingRight: 16, paddingBottom: 4, scrollbarWidth: "none" as const }}>
           {similar.map(s => {
-            const sAvail = availColors[s.availability] ?? availColors.later;
+            const sAvail = availColors[s.availability as keyof typeof availColors] ?? availColors.later;
             return (
               <a key={s.id} href={`/fachkraefte/${s.id}`} style={{ textDecoration: "none", display: "block", background: "white", border: "1px solid var(--grey-bg)", borderRadius: 14, overflow: "hidden", flexShrink: 0, width: 190 }}>
                 {/* Photo */}
