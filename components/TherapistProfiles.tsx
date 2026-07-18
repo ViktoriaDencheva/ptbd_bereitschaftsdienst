@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useLang } from "@/lib/lang";
 
 const imgBg = "/TherapistProfile_bg.jpg";
 const imgBgOverlay: string | null = null;
@@ -57,6 +58,8 @@ const therapists = [
 export default function TherapistProfiles() {
   const [current, setCurrent] = useState(0);
   const t = therapists[current];
+  const { T } = useLang();
+  const TP = T.therapistProfiles;
 
   const prev = () => setCurrent((current - 1 + therapists.length) % therapists.length);
   const next = () => setCurrent((current + 1) % therapists.length);
@@ -69,12 +72,12 @@ export default function TherapistProfiles() {
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 24, marginBottom: 32 }}>
           {/* h2 — flex: 1, расте */}
           <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 32, lineHeight: 1.3, color: "var(--black)", flex: 1, minWidth: 220 }}>
-            Erfahrene Fachkräfte, die{" "}
-            <span style={{ color: "var(--cta-brand)" }}>für Dich</span>{" "}da sind
+            {TP.title1}{" "}
+            <span style={{ color: "var(--cta-brand)" }}>{TP.title_highlight}</span>{TP.title2 ? " " + TP.title2 : ""}
           </h2>
           {/* p — flex: 1, расте */}
           <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.5, color: "var(--grey-text)", flex: 1, minWidth: 220 }}>
-            Jede Fachkraft bringt Expertise und Empathie mit – für eine Begleitung, die wirklich zu Dir passt.
+            {TP.subtitle}
           </p>
           {/* Бутон — фиксиран, винаги вдясно */}
           <a href="/fachkraefte"
@@ -82,7 +85,7 @@ export default function TherapistProfiles() {
             onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
             onMouseLeave={e => (e.currentTarget.style.background = "var(--cta)")}
           >
-            Alle Fachkräfte ansehen
+            {TP.cta}
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="white"/></svg>
           </a>
         </div>
@@ -131,7 +134,7 @@ export default function TherapistProfiles() {
                 {t.kassenerstattung && (
                   <div style={{ background: "var(--green-light)", border: "1px solid var(--green)", borderRadius: 9999, padding: "4px 12px", display: "flex", alignItems: "center", gap: 6 }}>
                     <img src={imgKrankenkasse} alt="" style={{ width: 20, height: 20, objectFit: "contain", flexShrink: 0 }} />
-                    <span style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 14, color: "var(--black)", whiteSpace: "nowrap" }}>Kassenrückerstattung möglich</span>
+                    <span style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 14, color: "var(--black)", whiteSpace: "nowrap" }}>{TP.kassenerstattung}</span>
                   </div>
                 )}
               </div>
@@ -161,7 +164,7 @@ export default function TherapistProfiles() {
               {/* Mehr über mich — синя линия, малка стрелка */}
               <div style={{ display: "inline-flex", flexDirection: "column", gap: 4, width: "fit-content" }} onClick={e => e.stopPropagation()}>
                 <a href={`/fachkraefte/${t.id}`} style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 8, padding: 0, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, color: "var(--black)", textDecoration: "none" }}>
-                  Mehr über mich
+                  {TP.mehr}
                   <img src="/icons/arrow-after.svg" alt="" style={{ width: 24, height: 24, flexShrink: 0 }} />
                 </a>
                 {/* Синя линия */}
@@ -199,15 +202,15 @@ export default function TherapistProfiles() {
         {/* Header + бутон */}
         <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 20 }}>
           <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 26, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>
-            Erfahrene Fachkräfte, die{" "}
-            <span style={{ color: "var(--cta-brand)" }}>für Dich</span> da sind
+            {TP.title1}{" "}
+            <span style={{ color: "var(--cta-brand)" }}>{TP.title_highlight}</span>{TP.title2 ? " " + TP.title2 : ""}
           </h2>
           <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 15, lineHeight: 1.5, color: "var(--grey-text)", margin: 0 }}>
-            Jede Fachkraft bringt Expertise und Empathie mit – für eine Begleitung, die wirklich zu Dir passt.
+            {TP.subtitle}
           </p>
           {/* CTA бутон под subtitle */}
           <a href="/fachkraefte" style={{ width: "100%", background: "var(--cta)", color: "white", border: "none", borderRadius: 9999, height: 48, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none" }}>
-            Alle Fachkräfte ansehen
+            {TP.cta}
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="white"/></svg>
           </a>
         </div>
@@ -260,7 +263,7 @@ export default function TherapistProfiles() {
                       </div>
                       {th.kassenerstattung && (
                         <div style={{ background: "var(--green-light)", border: "1px solid var(--green)", borderRadius: 9999, padding: "4px 12px", alignSelf: "flex-start" }}>
-                          <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: 12, color: "var(--black)", whiteSpace: "nowrap" }}>Kassenrückerstattung möglich</span>
+                          <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: 12, color: "var(--black)", whiteSpace: "nowrap" }}>{TP.kassenerstattung}</span>
                         </div>
                       )}
                     </div>

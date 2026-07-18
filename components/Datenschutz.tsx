@@ -1,4 +1,6 @@
+"use client";
 import React from "react";
+import { useLang } from "@/lib/lang";
 const IconDSGVO = () => (
   <img src="/icons/dsgvo-konform.svg" width={48} height={48} alt="" style={{ flexShrink: 0 }} />
 );
@@ -48,13 +50,12 @@ function DatenCard({ bg, Icon, title, desc, mobile = false }: { bg: string; Icon
   );
 }
 
-const cards = [
-  { bg: "var(--red-light-system)", Icon: IconDSGVO,      title: "DSGVO - konform",           desc: "Alle Daten werden nach den höchsten Datenschutzstandards verarbeitet." },
-  { bg: "var(--blue-ultra-light)", Icon: IconLock,        title: "Vertrauliche Kommunikation",desc: "Gespräche und Informationen bleiben geschützt und privat." },
-  { bg: "var(--green-light)",      Icon: IconVerbindung,  title: "Sichere Verbindung",        desc: "Alle Inhalte werden verschlüsselt übertragen." },
-];
+const cardBgs = ["var(--red-light-system)", "var(--blue-ultra-light)", "var(--green-light)"];
+const cardIcons = [IconDSGVO, IconLock, IconVerbindung];
 
 export default function Datenschutz() {
+  const { T } = useLang();
+  const cards = T.datenschutz.cards.map((c, i) => ({ ...c, bg: cardBgs[i], Icon: cardIcons[i] }));
   return (
     <section style={{ background: "white" }}>
       {/* ===== DESKTOP ===== */}
@@ -65,10 +66,10 @@ export default function Datenschutz() {
           <div style={{ display: "flex", flexDirection: "column", gap: 16, height: "100%" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 40, lineHeight: 1.3, color: "var(--black)" }}>
-                Deine Privatsphäre steht an erster Stelle
+                {T.datenschutz.title}
               </h2>
               <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.5, color: "var(--grey-text)" }}>
-                Deine Privatsphäre und Sicherheit stehen bei jeder Unterstützung an erster Stelle.
+                {T.datenschutz.subtitle}
               </p>
             </div>
             <div style={{ flex: 1, borderRadius: 20, overflow: "hidden", minHeight: 0 }}>
@@ -104,10 +105,10 @@ export default function Datenschutz() {
         {/* Title */}
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
           <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 24, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>
-            Deine Privatsphäre steht an erster Stelle
+            {T.datenschutz.title}
           </h2>
           <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 15, lineHeight: 1.5, color: "var(--grey-text)", margin: 0 }}>
-            Deine Privatsphäre und Sicherheit stehen bei jeder Unterstützung an erster Stelle.
+            {T.datenschutz.subtitle}
           </p>
         </div>
         {/* Top 2 карти */}

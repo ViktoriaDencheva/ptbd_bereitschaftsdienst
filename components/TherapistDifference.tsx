@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useLang } from "@/lib/lang";
 
 /* ── Tab икони ── */
 const TabIconBrain = () => <img src="/icons/role-brain.svg" width={24} height={24} alt="" style={{ flexShrink: 0 }} />;
@@ -23,57 +24,23 @@ const IconCalendar = () => (
   </svg>
 );
 
-/* ── Данни ── */
-const tabs = [
-  {
-    label: "Psycholog*in",
-    Icon: TabIconBrain,
-    bg: "#FEF5F0",
-    tagBg: "#FDDDD0",
-    tag: "Fokus auf Diagnostik & Beratung",
-    title: "Psycholog*in",
-    desc: "Psychologinnen und Psychologen sind Expertinnen für das menschliche Erleben und Verhalten. Sie diagnostizieren und beraten – ohne Medikamente zu verschreiben.",
-    ausbildung: "Studium Psychologie (5 Jahre), Fokus auf Forschung, Diagnostik & Beratung",
-    hilft: "Angststörungen, Depressionen, Burnout, Trauma, Lebens- und Beziehungsprobleme",
-    wann: "Bei psychischen Beschwerden ohne Medikamentenbedarf – zur Diagnostik, Beratung und Begleitung",
-    image: "/icons/image-psychologist.svg",
-  },
-  {
-    label: "Psychotherapeut*in",
-    Icon: TabIconHerz,
-    bg: "#EFF6FF",
-    tagBg: "#D6EBFF",
-    tag: "Fokus auf Therapie & Heilung",
-    title: "Psychotherapeut*in",
-    desc: "Psychotherapeutinnen sind ausgebildet in anerkannten Therapieverfahren und begleiten Menschen bei der Verarbeitung von Belastungen und der Förderung psychischer Gesundheit.",
-    ausbildung: "Psychologiestudium + mehrjährige Therapieausbildung (z.B. Verhaltenstherapie, Psychoanalyse)",
-    hilft: "Depressionen, Angststörungen, Trauma, Essstörungen, Persönlichkeitsstörungen",
-    wann: "Wenn eine tiefgehende Bearbeitung von Problemen gewünscht wird und Veränderung nachhaltig sein soll",
-    image: "/icons/image-psychotherapeut.svg",
-  },
-  {
-    label: "Psychiater*in",
-    Icon: TabIconPlant,
-    bg: "#EDFAEB",
-    tagBg: "#C8F0C4",
-    tag: "Fokus auf Diagnose & Medikation",
-    title: "Psychiater*in",
-    desc: "Psychiaterinnen sind Fachärztinnen für psychische Erkrankungen. Sie können Medikamente verschreiben und kombinieren Beratung mit medizinischer Behandlung.",
-    ausbildung: "Medizinstudium + Facharztausbildung Psychiatrie (ca. 12 Jahre Gesamtausbildung)",
-    hilft: "Schwere Depressionen, Schizophrenie, Bipolare Störungen, ADHS, schwere Angststörungen",
-    wann: "Bei schweren psychischen Erkrankungen, die medikamentöse Behandlung erfordern",
-    image: "/icons/image-psychiater.svg",
-  },
+const tabStatic = [
+  { Icon: TabIconBrain,  bg: "#FEF5F0", tagBg: "#FDDDD0", image: "/icons/image-psychologist.svg" },
+  { Icon: TabIconHerz,   bg: "#EFF6FF", tagBg: "#D6EBFF", image: "/icons/image-psychotherapeut.svg" },
+  { Icon: TabIconPlant,  bg: "#EDFAEB", tagBg: "#C8F0C4", image: "/icons/image-psychiater.svg" },
 ];
 
 export default function TherapistDifference() {
   const [active, setActive] = useState(0);
+  const { T } = useLang();
+  const TD = T.therapistDifference;
+  const tabs = TD.tabs.map((tab, i) => ({ ...tab, ...tabStatic[i] }));
   const t = tabs[active];
 
   const infoRows = [
-    { Icon: IconGraduation, label: "Ausbildung",     text: t.ausbildung },
-    { Icon: IconPerson,     label: "Hilft bei",      text: t.hilft },
-    { Icon: IconCalendar,   label: "Wann sinnvoll?", text: t.wann },
+    { Icon: IconGraduation, label: TD.label_ausbildung, text: t.ausbildung },
+    { Icon: IconPerson,     label: TD.label_hilft,      text: t.hilft },
+    { Icon: IconCalendar,   label: TD.label_wann,       text: t.wann },
   ];
 
   return (
@@ -83,10 +50,10 @@ export default function TherapistDifference() {
         {/* ── Header ── */}
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 24, marginBottom: 40 }}>
           <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 32, lineHeight: 1.3, color: "var(--black)", flexShrink: 0 }}>
-            Wer hilft wobei?
+            {TD.title}
           </h2>
           <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.5, color: "var(--grey-text)", flex: 1, minWidth: 220 }}>
-            Psychologe, Psychotherapeute, Psychiater*in – drei Berufsgruppen, unterschiedliche Schwerpunkte. Wir erklären Dir die Unterschiede – einfach und verständlich.
+            {TD.subtitle}
           </p>
           <a
             href="/unterschied"
@@ -94,7 +61,7 @@ export default function TherapistDifference() {
             onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
             onMouseLeave={e => (e.currentTarget.style.background = "var(--cta)")}
           >
-            Unterschiede im Detail ansehen
+            {TD.cta}
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="white"/></svg>
           </a>
         </div>
@@ -212,10 +179,10 @@ export default function TherapistDifference() {
         {/* Header */}
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
           <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 26, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>
-            Wer hilft wobei?
+            {TD.title}
           </h2>
           <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 15, lineHeight: 1.5, color: "var(--grey-text)", margin: 0 }}>
-            Drei Berufsgruppen, unterschiedliche Schwerpunkte – einfach erklärt.
+            {TD.subtitle_mobile}
           </p>
         </div>
 
@@ -286,7 +253,7 @@ export default function TherapistDifference() {
 
           {/* CTA */}
           <a href="/unterschied" style={{ width: "100%", background: "var(--cta)", color: "white", border: "none", borderRadius: 9999, height: 48, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 15, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, marginTop: 4, textDecoration: "none" }}>
-            Unterschiede im Detail ansehen
+            {TD.cta}
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="white"/></svg>
           </a>
         </div>

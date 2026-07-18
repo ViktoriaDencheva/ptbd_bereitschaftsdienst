@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
+import { useLang } from "@/lib/lang";
 const imgBg: string | null = null;
 const imgIcon1 = "/icons/icon-fachkraefte-warum.svg";
 const imgIcon2 = "/icons/icon-orientierung.svg";
@@ -8,13 +9,11 @@ const imgIcon3 = "/icons/icon-unterstuetzung.svg";
 // Autoplay video URL — replace with real video when available
 const VIDEO_URL = "/video-warum-uns.mp4";
 
-const benefits = [
-  { img: imgIcon1, title: "Qualifizierte Fachkräfte", desc: "Alle Spezialist*innen sind geprüft, erfahren und transparent dargestellt." },
-  { img: imgIcon2, title: "Orientierung, wenn Du sie brauchst", desc: "Wir begleiten Dich Schritt für Schritt – transparent und verständlich." },
-  { img: imgIcon3, title: "Unterstützung ohne Druck", desc: "Du entscheidest in Deinem Tempo – ohne Druck oder Verpflichtung." },
-];
+const benefitImgs = [imgIcon1, imgIcon2, imgIcon3];
 
 export default function WarumUns() {
+  const { T } = useLang();
+  const benefits = T.warumUns.benefits.map((b, i) => ({ ...b, img: benefitImgs[i] }));
   const videoDesktopRef = useRef<HTMLVideoElement>(null);
   const videoMobileRef = useRef<HTMLVideoElement>(null);
 
@@ -38,8 +37,8 @@ export default function WarumUns() {
       <div className="warum-desktop" style={{ padding: "64px 80px", maxWidth: 1440, margin: "0 auto", position: "relative" }}>
         <div style={{ maxWidth: "var(--max-width)", margin: "0 auto" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 48 }}>
-            <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 40, lineHeight: 1.3, color: "var(--black)", maxWidth: 560 }}>Warum Menschen sich für uns entscheiden</h2>
-            <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 20, lineHeight: 1.6, color: "var(--grey-text)", maxWidth: 560 }}>Orientierung. Vertrauen. Unterstützung — genau dann, wenn Du sie brauchst.</p>
+            <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 40, lineHeight: 1.3, color: "var(--black)", maxWidth: 560 }}>{T.warumUns.title}</h2>
+            <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 20, lineHeight: 1.6, color: "var(--grey-text)", maxWidth: 560 }}>{T.warumUns.subtitle}</p>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 32, alignItems: "center" }}>
             {/* Benefits */}
@@ -86,8 +85,8 @@ export default function WarumUns() {
 
       {/* ===== MOBILE ===== */}
       <div className="warum-mobile" style={{ display: "none", padding: "32px 16px", position: "relative" }}>
-        <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 28, lineHeight: 1.3, color: "var(--black)", marginBottom: 8 }}>Warum Menschen sich für uns entscheiden</h2>
-        <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.6, color: "var(--grey-text)", marginBottom: 24 }}>Orientierung. Vertrauen. Unterstützung — genau dann, wenn Du sie brauchst.</p>
+        <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 28, lineHeight: 1.3, color: "var(--black)", marginBottom: 8 }}>{T.warumUns.title}</h2>
+        <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.6, color: "var(--grey-text)", marginBottom: 24 }}>{T.warumUns.subtitle}</p>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {benefits.map((b, i) => (
             <div key={i} style={{ background: "white", borderLeft: "3px solid var(--cta-hover)", borderRadius: 12, padding: 16, display: "flex", gap: 12, alignItems: "center", boxShadow: "0 2px 12px rgba(0,0,0,0.05)" }}>
