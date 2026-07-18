@@ -10,7 +10,9 @@ const stepImages = [
   { num: "04", img: "/steps/step4-desktop.jpg", imgMob: "/steps/step3-mobile.jpg" },
 ];
 
-function StepCard({ step, mobile = false }: { step: typeof steps[0] & { imgMob: string }; mobile?: boolean }) {
+type StepItem = typeof stepImages[0] & { title: string; desc: string };
+
+function StepCard({ step, mobile = false }: { step: StepItem; mobile?: boolean }) {
   return (
     <div className="step-card" style={{ background: "var(--red-bg)", borderRadius: 16, overflow: "hidden", display: "flex", alignItems: "stretch", minHeight: mobile ? "auto" : 254, border: "1px solid transparent", transition: "all var(--duration-base) var(--ease-standard)", cursor: "pointer" }}>
       {/* Text — number not clipped, shows fully */}
