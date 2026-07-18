@@ -75,7 +75,7 @@ export default function WarumUns() {
                   <div style={{ width: 64, height: 64, borderRadius: "50%", background: "var(--blue-dark)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <span style={{ color: "white", fontSize: 24, marginLeft: 4 }}>▶</span>
                   </div>
-                  <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 16, color: "var(--grey)" }}>Video wird hinzugefügt</p>
+                  <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 16, color: "var(--grey)" }}>{T.warumUns.video_placeholder}</p>
                 </div>
               )}
             </div>

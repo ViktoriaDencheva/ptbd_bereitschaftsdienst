@@ -2,6 +2,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useLang } from "@/lib/lang";
+import { TAG_EN } from "@/lib/therapists";
 
 function useWindowWidth() {
   const [width, setWidth] = useState(0); // 0 = mobile-first (filters hidden until hydration)
@@ -776,12 +777,14 @@ function FilterSidebar({ suche, setSuche, fachrichtung, setFachrichtung, angebot
 // â"€â"€â"€ Therapist Card â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 function TherapistCard({ t, isMobile = false, winW = 1440 }: { t: typeof therapists[0]; isMobile?: boolean; winW?: number }) {
   const [hovered, setHovered] = useState(false);
-  const { T } = useLang();
+  const { T, lang } = useLang();
+  const isEN = lang === 'en';
   const avail = availColors[t.availability] ?? availColors.later;
   const narrowDesktop = !isMobile && winW < 1400;
-  const LIMIT = narrowDesktop ? 2 : t.tags.length;
-  const visibleTags = t.tags.slice(0, LIMIT);
-  const extraTags = t.tags.length > LIMIT ? t.tags.length - LIMIT : 0;
+  const displayTags = isEN ? t.tags.map(tag => TAG_EN[tag] ?? tag) : t.tags;
+  const LIMIT = narrowDesktop ? 2 : displayTags.length;
+  const visibleTags = displayTags.slice(0, LIMIT);
+  const extraTags = displayTags.length > LIMIT ? displayTags.length - LIMIT : 0;
 
 
   if (isMobile) {

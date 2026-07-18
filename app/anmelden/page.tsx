@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { storeUser } from "@/lib/auth";
 import { GoogleLogin } from "@react-oauth/google";
+import { useLang } from "@/lib/lang";
 
 const F = "'Poppins', sans-serif";
 
@@ -81,18 +82,30 @@ const GoogleIcon = () => (
   </svg>
 );
 
-const LOGIN_BULLETS = [
+const LOGIN_BULLETS_DE = [
   "Termine buchen & verwalten",
   "Online-Sitzungen starten",
   "Dokumente herunterladen",
   "Sicher & DSGVO-konform",
 ];
+const LOGIN_BULLETS_EN = [
+  "Book & manage appointments",
+  "Start online sessions",
+  "Download documents",
+  "Secure & GDPR-compliant",
+];
 
-const REGISTER_BULLETS = [
+const REGISTER_BULLETS_DE = [
   "Bereits registriert? Einfach anmelden",
   "Deine Daten sind sicher verschlüsselt",
   "Zugang zu über 120+ Fachkräften",
   "Kassenrückerstattung möglich",
+];
+const REGISTER_BULLETS_EN = [
+  "Already registered? Simply sign in",
+  "Your data is securely encrypted",
+  "Access to 120+ specialists",
+  "Insurance reimbursement possible",
 ];
 
 function GoogleButton({ label }: { label: string }) {
@@ -148,17 +161,19 @@ function GoogleButton({ label }: { label: string }) {
   );
 }
 
-function Divider() {
+function Divider({ label = "or" }: { label?: string }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
       <div style={{ flex: 1, height: 1, background: "#E5E7EB" }} />
-      <span style={{ fontFamily: F, fontSize: 12, color: "#9CA3AF" }}>oder</span>
+      <span style={{ fontFamily: F, fontSize: 12, color: "#9CA3AF" }}>{label}</span>
       <div style={{ flex: 1, height: 1, background: "#E5E7EB" }} />
     </div>
   );
 }
 
 export default function AnmeldenPage() {
+  const { lang } = useLang();
+  const isEN = lang === 'en';
   const [mode, setMode] = useState<"login" | "register">("login");
 
   // Login state
@@ -182,11 +197,13 @@ export default function AnmeldenPage() {
 
   const pwStrength = rPassword.length === 0 ? 0 : rPassword.length < 6 ? 1 : rPassword.length < 10 ? 2 : 3;
   const strengthColor = ["transparent", "#EF4444", "#F59E0B", "#16A34A"][pwStrength];
-  const strengthLabel = ["", "Schwach", "Mittel", "Stark"][pwStrength];
+  const strengthLabel = isEN
+    ? ["", "Weak", "Medium", "Strong"][pwStrength]
+    : ["", "Schwach", "Mittel", "Stark"][pwStrength];
 
   function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    if (!email || !password) { setLoginError("Bitte fülle alle Pflichtfelder aus."); return; }
+    if (!email || !password) { setLoginError(isEN ? "Please fill in all required fields." : "Bitte fülle alle Pflichtfelder aus."); return; }
     setLoginError(""); setLoginLoading(true);
     setTimeout(() => {
       const name = email.split("@")[0].replace(/[._]/g, " ").replace(/\b\w/g, c => c.toUpperCase());
@@ -197,9 +214,9 @@ export default function AnmeldenPage() {
 
   function handleRegister(e: React.FormEvent) {
     e.preventDefault();
-    if (!rVorname || !rNachname || !rEmail || !rPhone || !rPassword) { setRegError("Bitte fülle alle Pflichtfelder aus."); return; }
-    if (!agb) { setRegError("Bitte akzeptiere die AGB und Datenschutzerklärung."); return; }
-    if (rPassword.length < 6) { setRegError("Das Passwort muss mindestens 6 Zeichen lang sein."); return; }
+    if (!rVorname || !rNachname || !rEmail || !rPhone || !rPassword) { setRegError(isEN ? "Please fill in all required fields." : "Bitte fülle alle Pflichtfelder aus."); return; }
+    if (!agb) { setRegError(isEN ? "Please accept the Terms & Conditions and Privacy Policy." : "Bitte akzeptiere die AGB und Datenschutzerklärung."); return; }
+    if (rPassword.length < 6) { setRegError(isEN ? "The password must be at least 6 characters long." : "Das Passwort muss mindestens 6 Zeichen lang sein."); return; }
     setRegError(""); setRegLoading(true);
     setTimeout(() => {
       storeUser({ name: `${rVorname} ${rNachname}`, email: rEmail, provider: "email" });
@@ -209,55 +226,55 @@ export default function AnmeldenPage() {
 
   const LoginForm = (
     <div>
-      <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 26, color: "var(--black)", margin: "0 0 8px" }}>Willkommen zurück</h2>
+      <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 26, color: "var(--black)", margin: "0 0 8px" }}>{isEN ? "Welcome back" : "Willkommen zurück"}</h2>
       <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px", lineHeight: 1.6 }}>
-        Melde Dich an, um Deine Termine, Online-Sitzungen und Nachrichten zu verwalten.
+        {isEN ? "Sign in to manage your appointments, online sessions and messages." : "Melde Dich an, um Deine Termine, Online-Sitzungen und Nachrichten zu verwalten."}
       </p>
       <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        <InputField label="E-Mail-Adresse" type="email" value={email} onChange={setEmail} placeholder="Deine E-Mail-Adresse" icon={<MailIcon />} />
-        <InputField label="Passwort" type={showPw ? "text" : "password"} value={password} onChange={setPassword} placeholder="Dein Passwort" icon={<LockIcon />}
+        <InputField label={isEN ? "Email address" : "E-Mail-Adresse"} type="email" value={email} onChange={setEmail} placeholder={isEN ? "Your email address" : "Deine E-Mail-Adresse"} icon={<MailIcon />} />
+        <InputField label={isEN ? "Password" : "Passwort"} type={showPw ? "text" : "password"} value={password} onChange={setPassword} placeholder={isEN ? "Your password" : "Dein Passwort"} icon={<LockIcon />}
           rightElement={<button type="button" onClick={() => setShowPw(v => !v)} style={{ background: "none", border: "none", cursor: "pointer", color: "#9CA3AF", display: "flex", padding: 0 }}><EyeIcon open={showPw} /></button>}
         />
         <div className="login-checkbox-row" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <a href="/passwort-vergessen" style={{ fontFamily: F, fontSize: 14, color: "var(--cta)", textDecoration: "none", fontWeight: 500 }}
             onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
             onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
-          >Passwort vergessen?</a>
+          >{isEN ? "Forgot password?" : "Passwort vergessen?"}</a>
           <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}>
             <div onClick={() => setRemember(v => !v)} style={{ width: 16, height: 16, borderRadius: 3, border: remember ? "2px solid var(--cta)" : "2px solid #9CA3AF", background: remember ? "var(--cta)" : "white", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.15s", flexShrink: 0 }}>
               {remember && <svg width="9" height="9" fill="none" viewBox="0 0 24 24"><path stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>}
             </div>
-            <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>Angemeldet bleiben</span>
+            <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>{isEN ? "Stay signed in" : "Angemeldet bleiben"}</span>
           </label>
         </div>
         {loginError && <div style={{ background: "#FEF2F2", border: "1px solid #FECACA", borderRadius: 8, padding: "10px 14px", fontFamily: F, fontSize: 13, color: "#991B1B" }}>{loginError}</div>}
         <button type="submit" disabled={loginLoading} style={{ width: "100%", height: 50, borderRadius: 9999, background: loginLoading ? "#93B8D8" : "var(--cta)", color: "white", border: "none", fontFamily: F, fontWeight: 600, fontSize: 15, cursor: loginLoading ? "not-allowed" : "pointer", transition: "background 0.2s" }}
           onMouseEnter={e => { if (!loginLoading) e.currentTarget.style.background = "var(--cta-hover)"; }}
           onMouseLeave={e => { if (!loginLoading) e.currentTarget.style.background = "var(--cta)"; }}
-        >{loginLoading ? "Anmelden …" : "Anmelden"}</button>
-        <Divider />
-        <GoogleButton label="Mit Google anmelden" />
+        >{loginLoading ? (isEN ? "Signing in …" : "Anmelden …") : (isEN ? "Sign in" : "Anmelden")}</button>
+        <Divider label={isEN ? "or" : "oder"} />
+        <GoogleButton label={isEN ? "Sign in with Google" : "Mit Google anmelden"} />
       </form>
     </div>
   );
 
   const RegisterForm = (
     <div>
-      <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 26, color: "var(--black)", margin: "0 0 8px" }}>Konto erstellen</h2>
+      <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 26, color: "var(--black)", margin: "0 0 8px" }}>{isEN ? "Create account" : "Konto erstellen"}</h2>
       <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px", lineHeight: 1.6 }}>
-        Verwalte Termine, Online-Sitzungen und Dokumente an einem Ort.
+        {isEN ? "Manage appointments, online sessions and documents in one place." : "Verwalte Termine, Online-Sitzungen und Dokumente an einem Ort."}
       </p>
       <form onSubmit={handleRegister} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         <div className="name-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-          <InputField label="Vorname" value={rVorname} onChange={setRVorname} placeholder="Dein Vorname" />
-          <InputField label="Nachname" value={rNachname} onChange={setRNachname} placeholder="Dein Nachname" />
+          <InputField label={isEN ? "First name" : "Vorname"} value={rVorname} onChange={setRVorname} placeholder={isEN ? "Your first name" : "Dein Vorname"} />
+          <InputField label={isEN ? "Last name" : "Nachname"} value={rNachname} onChange={setRNachname} placeholder={isEN ? "Your last name" : "Dein Nachname"} />
         </div>
-        <InputField label="E-Mail-Adresse" type="email" value={rEmail} onChange={setREmail} placeholder="Deine E-Mail-Adresse" icon={<MailIcon />} />
-        <InputField label="Telefonnummer" type="tel" value={rPhone} onChange={setRPhone} placeholder="+43 123 456 789"
+        <InputField label={isEN ? "Email address" : "E-Mail-Adresse"} type="email" value={rEmail} onChange={setREmail} placeholder={isEN ? "Your email address" : "Deine E-Mail-Adresse"} icon={<MailIcon />} />
+        <InputField label={isEN ? "Phone number" : "Telefonnummer"} type="tel" value={rPhone} onChange={setRPhone} placeholder="+43 123 456 789"
           icon={<svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
         />
         <div>
-          <InputField label="Passwort" type={showRPw ? "text" : "password"} value={rPassword} onChange={setRPassword} placeholder="Mindestens 6 Zeichen" icon={<LockIcon />}
+          <InputField label={isEN ? "Password" : "Passwort"} type={showRPw ? "text" : "password"} value={rPassword} onChange={setRPassword} placeholder={isEN ? "At least 6 characters" : "Mindestens 6 Zeichen"} icon={<LockIcon />}
             rightElement={<button type="button" onClick={() => setShowRPw(v => !v)} style={{ background: "none", border: "none", cursor: "pointer", color: "#9CA3AF", display: "flex", padding: 0 }}><EyeIcon open={showRPw} /></button>}
           />
           {rPassword.length > 0 && (
@@ -274,28 +291,30 @@ export default function AnmeldenPage() {
             {agb && <svg width="9" height="9" fill="none" viewBox="0 0 24 24"><path stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>}
           </div>
           <span style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.5 }}>
-            Ich akzeptiere die <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>AGB</a> und die <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Datenschutzerklärung</a>.
+            {isEN
+              ? <>I accept the <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Terms & Conditions</a> and the <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Privacy Policy</a>.</>
+              : <>Ich akzeptiere die <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>AGB</a> und die <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Datenschutzerklärung</a>.</>}
           </span>
         </label>
         {regError && <div style={{ background: "#FEF2F2", border: "1px solid #FECACA", borderRadius: 8, padding: "10px 14px", fontFamily: F, fontSize: 13, color: "#991B1B" }}>{regError}</div>}
         <button type="submit" disabled={regLoading} style={{ width: "100%", height: 50, borderRadius: 9999, background: regLoading ? "#93B8D8" : "var(--cta)", color: "white", border: "none", fontFamily: F, fontWeight: 600, fontSize: 15, cursor: regLoading ? "not-allowed" : "pointer", transition: "background 0.2s", marginTop: 4 }}
           onMouseEnter={e => { if (!regLoading) e.currentTarget.style.background = "var(--cta-hover)"; }}
           onMouseLeave={e => { if (!regLoading) e.currentTarget.style.background = "var(--cta)"; }}
-        >{regLoading ? "Konto wird erstellt …" : "Konto erstellen"}</button>
-        <Divider />
-        <GoogleButton label="Mit Google registrieren" />
+        >{regLoading ? (isEN ? "Creating account …" : "Konto wird erstellt …") : (isEN ? "Create account" : "Konto erstellen")}</button>
+        <Divider label={isEN ? "or" : "oder"} />
+        <GoogleButton label={isEN ? "Sign up with Google" : "Mit Google registrieren"} />
       </form>
     </div>
   );
 
   const LoginPromo = (
     <div>
-      <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: 20, color: "var(--black)", margin: "0 0 8px" }}>Bereits registriert?</h2>
+      <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: 20, color: "var(--black)", margin: "0 0 8px" }}>{isEN ? "Already have an account?" : "Bereits registriert?"}</h2>
       <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 24px", lineHeight: 1.6 }}>
-        Melde Dich an und greife auf Deine Termine, Sitzungen und Dokumente zu.
+        {isEN ? "Sign in and access your appointments, sessions and documents." : "Melde Dich an und greife auf Deine Termine, Sitzungen und Dokumente zu."}
       </p>
       <ul style={{ listStyle: "none", padding: 0, margin: "0 0 32px", display: "flex", flexDirection: "column", gap: 10 }}>
-        {REGISTER_BULLETS.map((b, i) => (
+        {(isEN ? REGISTER_BULLETS_EN : REGISTER_BULLETS_DE).map((b, i) => (
           <li key={i} style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--cta)", flexShrink: 0, display: "inline-block" }} />
             {b}
@@ -306,19 +325,19 @@ export default function AnmeldenPage() {
         onMouseEnter={e => (e.currentTarget.style.background = "var(--blue-ultra-light)")}
         onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
       >
-        Anmelden
+        {isEN ? "Sign in" : "Anmelden"}
       </button>
     </div>
   );
 
   const RegisterPromo = (
     <div>
-      <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: 20, color: "var(--black)", margin: "0 0 8px" }}>Noch kein Konto?</h2>
+      <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: 20, color: "var(--black)", margin: "0 0 8px" }}>{isEN ? "No account yet?" : "Noch kein Konto?"}</h2>
       <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 24px", lineHeight: 1.6 }}>
-        Erstelle kostenlos ein Konto und profitiere von allen Vorteilen der Plattform.
+        {isEN ? "Create a free account and benefit from all the platform's features." : "Erstelle kostenlos ein Konto und profitiere von allen Vorteilen der Plattform."}
       </p>
       <ul style={{ listStyle: "none", padding: 0, margin: "0 0 32px", display: "flex", flexDirection: "column", gap: 10 }}>
-        {LOGIN_BULLETS.map((b, i) => (
+        {(isEN ? LOGIN_BULLETS_EN : LOGIN_BULLETS_DE).map((b, i) => (
           <li key={i} style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>
             <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--cta)", flexShrink: 0, display: "inline-block" }} />
             {b}
@@ -329,9 +348,9 @@ export default function AnmeldenPage() {
         onMouseEnter={e => (e.currentTarget.style.background = "var(--blue-ultra-light)")}
         onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
       >
-        Registrieren
+        {isEN ? "Register" : "Registrieren"}
       </button>
-      <p style={{ fontFamily: F, fontSize: 13, color: "#9CA3AF", textAlign: "center", marginTop: 12 }}>Es dauert nur eine Minute.</p>
+      <p style={{ fontFamily: F, fontSize: 13, color: "#9CA3AF", textAlign: "center", marginTop: 12 }}>{isEN ? "It only takes a minute." : "Es dauert nur eine Minute."}</p>
     </div>
   );
 
@@ -344,9 +363,9 @@ export default function AnmeldenPage() {
         <a href="/" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}
           onMouseEnter={e => (e.currentTarget.style.color = "var(--cta)")}
           onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-        >Startseite</a>
+        >{isEN ? "Home" : "Startseite"}</a>
         <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="#D1D5DB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        <span style={{ fontFamily: F, fontSize: 13, color: "var(--cta)", fontWeight: 500 }}>{mode === "login" ? "Anmelden" : "Registrieren"}</span>
+        <span style={{ fontFamily: F, fontSize: 13, color: "var(--cta)", fontWeight: 500 }}>{mode === "login" ? (isEN ? "Sign in" : "Anmelden") : (isEN ? "Register" : "Registrieren")}</span>
       </div>
 
       {/* ── Banner ── */}
@@ -358,7 +377,7 @@ export default function AnmeldenPage() {
         }}>
           <div className="banner-inner" style={{ position: "relative", zIndex: 1, height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 48px" }}>
             <h1 className="banner-title" style={{ fontFamily: F, fontWeight: 700, fontSize: 36, color: "#111827", margin: 0, lineHeight: 1.2 }}>
-              Deine Unterstützung,<br />wenn Du sie brauchst.
+              {isEN ? <>Your support,<br />when you need it.</> : <>Deine Unterstützung,<br />wenn Du sie brauchst.</>}
             </h1>
           </div>
         </div>

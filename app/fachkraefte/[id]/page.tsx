@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
-import { therapists } from "@/lib/therapists";
+import { therapists, TAG_EN } from "@/lib/therapists";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLang } from "@/lib/lang";
@@ -30,7 +30,8 @@ const ArrowIcon = () => (
 );
 
 export default function TherapistDetailPage() {
-  const { T } = useLang();
+  const { T, lang } = useLang();
+  const isEN = lang === 'en';
   const availColors = {
     today:    { dot: "#2DB36A", text: "var(--cta)", label: T.fachkraefteDetail.avail_today },
     thisweek: { dot: "#F59E0B", text: "var(--cta)", label: T.fachkraefteDetail.avail_thisweek },
@@ -167,7 +168,7 @@ export default function TherapistDetailPage() {
             <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
               <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)", fontWeight: 500 }}>{T.fachkraefteDetail.helps_with}</span>
               {t.tags.map(tag => (
-                <span key={tag} style={{ background: "var(--blue-ultra-light)", border: "1px solid var(--grey-border)", borderRadius: 9999, padding: "6px 14px", fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--black)" }}>{tag}</span>
+                <span key={tag} style={{ background: "var(--blue-ultra-light)", border: "1px solid var(--grey-border)", borderRadius: 9999, padding: "6px 14px", fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--black)" }}>{isEN ? (TAG_EN[tag] ?? tag) : tag}</span>
               ))}
             </div>
 
@@ -266,7 +267,7 @@ export default function TherapistDetailPage() {
                 <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center", marginBottom: t.address && t.angebot !== "online" ? 28 : 0 }}>
                   <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--grey-text)", fontWeight: 500, flexShrink: 0 }}>{T.fachkraefteDetail.helps_with}</span>
                   {t.tags.map(tag => (
-                    <span key={tag} style={{ background: "var(--blue-ultra-light)", border: "1px solid var(--grey-border)", borderRadius: 9999, padding: "6px 14px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--black)" }}>{tag}</span>
+                    <span key={tag} style={{ background: "var(--blue-ultra-light)", border: "1px solid var(--grey-border)", borderRadius: 9999, padding: "6px 14px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--black)" }}>{isEN ? (TAG_EN[tag] ?? tag) : tag}</span>
                   ))}
                 </div>
 
@@ -285,14 +286,14 @@ export default function TherapistDetailPage() {
                   iconEl={<svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6.40095 6.49999C6.15928 6.08048 6.02273 5.60872 6.00295 5.12499C5.98511 4.72542 6.04735 4.32631 6.186 3.95114C6.32466 3.57597 6.53694 3.23232 6.81035 2.94039C7.08377 2.64847 7.4128 2.41416 7.77809 2.25126C8.14338 2.08835 8.53756 2.00014 8.93745 1.9918C9.33733 1.98347 9.73485 2.05518 10.1066 2.20272C10.4784 2.35026 10.8169 2.57065 11.1022 2.85093C11.3876 3.13122 11.614 3.46572 11.7681 3.83479C11.9223 4.20385 12.0011 4.60002 12 4.99999M12 4.99999V18M17.599 6.49999C17.841 6.08057 17.9769 5.60881 17.997 5.12499C18.0148 4.72542 17.9526 4.32631 17.8139 3.95114C17.6752 3.57597 17.463 3.23232 17.1896 2.94039C16.9161 2.64847 16.5871 2.41416 16.2218 2.25126C15.8565 2.08835 15.4623 2.00014 15.0625 1.9918C14.6626 1.98347 14.2651 2.05518 13.8933 2.20272C13.5215 2.35026 13.183 2.57065 12.8977 2.85093C12.6123 3.13122 12.3859 3.46572 12.2318 3.83479C12.0776 4.20385 11.9988 4.60002 12 4.99999M6.00295 5.12499C5.41515 5.27613 4.86945 5.55904 4.40718 5.9523C3.94491 6.34556 3.57819 6.83886 3.3348 7.39484C3.0914 7.95081 2.97771 8.55488 3.00234 9.1613C3.02697 9.76772 3.18927 10.3606 3.47695 10.895M4.06195 10.5C3.85565 10.6145 3.65989 10.746 3.47695 10.895C2.97113 11.3059 2.57338 11.8342 2.31829 12.4339C2.0632 13.0336 1.95851 13.6866 2.01332 14.336C2.06812 14.9854 2.28077 15.6115 2.63276 16.16C2.98475 16.7085 3.46542 17.1626 4.03295 17.483M4.03295 17.483C3.96287 18.0252 4.00469 18.5761 4.15584 19.1015C4.30699 19.627 4.56425 20.1158 4.91174 20.5379C5.25923 20.9601 5.68956 21.3065 6.17617 21.5557C6.66278 21.805 7.19533 21.9519 7.74093 21.9873C8.28653 22.0227 8.83359 21.9459 9.34834 21.7616C9.86309 21.5773 10.3346 21.2894 10.7337 20.9157C11.1328 20.5421 11.4511 20.0906 11.6689 19.5891C11.8867 19.0876 11.9994 18.5467 12 18M4.03295 17.483C4.63322 17.8216 5.31078 18.0003 5.99995 18M12 18C12.0005 18.5467 12.1132 19.0876 12.331 19.5891C12.5488 20.0906 12.8671 20.5421 13.2662 20.9157C13.6653 21.2894 14.1368 21.5773 14.6516 21.7616C15.1663 21.9459 15.7134 22.0227 16.259 21.9873C16.8046 21.9519 17.3371 21.805 17.8237 21.5557C18.3103 21.3065 18.7407 20.9601 19.0882 20.5379C19.4357 20.1158 19.6929 19.627 19.8441 19.1015C19.9952 18.5761 20.037 18.0252 19.967 17.483M17.997 5.12499C18.5848 5.27613 19.1305 5.55904 19.5927 5.9523C20.055 6.34556 20.4217 6.83886 20.6651 7.39484C20.9085 7.95081 21.0222 8.55488 20.9976 9.1613C20.9729 9.76772 20.8106 10.3606 20.523 10.895M19.938 10.5C20.1442 10.6145 20.34 10.746 20.523 10.895C21.0288 11.3059 21.4265 11.8342 21.6816 12.4339C21.9367 13.0336 22.0414 13.6866 21.9866 14.336C21.9318 14.9854 21.7191 15.6115 21.3671 16.16C21.0152 16.7085 20.5345 17.1626 19.967 17.483M19.967 17.483C19.3667 17.8216 18.6891 18.0003 18 18M15 13C14.1604 12.7046 13.4273 12.167 12.8933 11.455C12.3593 10.743 12.0484 9.88866 12 8.99999C11.9515 9.88866 11.6406 10.743 11.1066 11.455C10.5726 12.167 9.83951 12.7046 8.99995 13" stroke="#2D5B8D" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                   iconBg="var(--blue-ultra-light)"
                   title={T.fachkraefteDetail.info_helps_with}
-                  items={t.tags.map(tag => ({ bold: tag, detail: (T.fachkraefteDetail.tag_details as Record<string, string>)[tag] ?? T.fachkraefteDetail.tag_detail_default }))}
+                  items={t.tags.map(tag => ({ bold: isEN ? (TAG_EN[tag] ?? tag) : tag, detail: (T.fachkraefteDetail.tag_details as Record<string, string>)[tag] ?? T.fachkraefteDetail.tag_detail_default }))}
                   maxVisible={999}
                 />
                 <InfoCard
                   iconEl={<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="#B07000" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" d="M12 2a7 7 0 0 0-7 7c0 2.49 1.3 4.68 3.25 5.93V17a1 1 0 0 0 1 1h5.5a1 1 0 0 0 1-1v-2.07A7 7 0 0 0 12 2z"/><path stroke="#B07000" strokeWidth="1.6" strokeLinecap="round" d="M9 21h6"/><path stroke="#B07000" strokeWidth="1.4" strokeLinecap="round" d="M9.5 18.5v2.5M14.5 18.5v2.5"/></svg>}
                   iconBg="var(--yellow-light)"
                   title={T.fachkraefteDetail.info_arbeitsweise}
-                  items={(t.arbeitsweise ?? ["Empathisch", "Strukturiert", "Lösungsorientiert"]).map(w => ({ bold: w, detail: (T.fachkraefteDetail.arb_details as Record<string,string>)[w] ?? T.fachkraefteDetail.arb_detail_default }))}
+                  items={(t.arbeitsweise ?? (isEN ? ["Empathetic", "Structured", "Solution-focused"] : ["Empathisch", "Strukturiert", "Lösungsorientiert"])).map(w => ({ bold: w, detail: (T.fachkraefteDetail.arb_details as Record<string,string>)[w] ?? T.fachkraefteDetail.arb_detail_default }))}
                   maxVisible={999}
                 />
                 <InfoCard
@@ -817,13 +818,13 @@ function MobileAccordionSection({ t }: { t: NonNullable<ReturnType<typeof therap
       iconEl: <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6.40095 6.49999C6.15928 6.08048 6.02273 5.60872 6.00295 5.12499C5.98511 4.72542 6.04735 4.32631 6.186 3.95114C6.32466 3.57597 6.53694 3.23232 6.81035 2.94039C7.08377 2.64847 7.4128 2.41416 7.77809 2.25126C8.14338 2.08835 8.53756 2.00014 8.93745 1.9918C9.33733 1.98347 9.73485 2.05518 10.1066 2.20272C10.4784 2.35026 10.8169 2.57065 11.1022 2.85093C11.3876 3.13122 11.614 3.46572 11.7681 3.83479C11.9223 4.20385 12.0011 4.60002 12 4.99999M12 4.99999V18M17.599 6.49999C17.841 6.08057 17.9769 5.60881 17.997 5.12499C18.0148 4.72542 17.9526 4.32631 17.8139 3.95114C17.6752 3.57597 17.463 3.23232 17.1896 2.94039C16.9161 2.64847 16.5871 2.41416 16.2218 2.25126C15.8565 2.08835 15.4623 2.00014 15.0625 1.9918C14.6626 1.98347 14.2651 2.05518 13.8933 2.20272C13.5215 2.35026 13.183 2.57065 12.8977 2.85093C12.6123 3.13122 12.3859 3.46572 12.2318 3.83479C12.0776 4.20385 11.9988 4.60002 12 4.99999M6.00295 5.12499C5.41515 5.27613 4.86945 5.55904 4.40718 5.9523C3.94491 6.34556 3.57819 6.83886 3.3348 7.39484C3.0914 7.95081 2.97771 8.55488 3.00234 9.1613C3.02697 9.76772 3.18927 10.3606 3.47695 10.895M4.06195 10.5C3.85565 10.6145 3.65989 10.746 3.47695 10.895C2.97113 11.3059 2.57338 11.8342 2.31829 12.4339C2.0632 13.0336 1.95851 13.6866 2.01332 14.336C2.06812 14.9854 2.28077 15.6115 2.63276 16.16C2.98475 16.7085 3.46542 17.1626 4.03295 17.483M4.03295 17.483C3.96287 18.0252 4.00469 18.5761 4.15584 19.1015C4.30699 19.627 4.56425 20.1158 4.91174 20.5379C5.25923 20.9601 5.68956 21.3065 6.17617 21.5557C6.66278 21.805 7.19533 21.9519 7.74093 21.9873C8.28653 22.0227 8.83359 21.9459 9.34834 21.7616C9.86309 21.5773 10.3346 21.2894 10.7337 20.9157C11.1328 20.5421 11.4511 20.0906 11.6689 19.5891C11.8867 19.0876 11.9994 18.5467 12 18M4.03295 17.483C4.63322 17.8216 5.31078 18.0003 5.99995 18M12 18C12.0005 18.5467 12.1132 19.0876 12.331 19.5891C12.5488 20.0906 12.8671 20.5421 13.2662 20.9157C13.6653 21.2894 14.1368 21.5773 14.6516 21.7616C15.1663 21.9459 15.7134 22.0227 16.259 21.9873C16.8046 21.9519 17.3371 21.805 17.8237 21.5557C18.3103 21.3065 18.7407 20.9601 19.0882 20.5379C19.4357 20.1158 19.6929 19.627 19.8441 19.1015C19.9952 18.5761 20.037 18.0252 19.967 17.483M17.997 5.12499C18.5848 5.27613 19.1305 5.55904 19.5927 5.9523C20.055 6.34556 20.4217 6.83886 20.6651 7.39484C20.9085 7.95081 21.0222 8.55488 20.9976 9.1613C20.9729 9.76772 20.8106 10.3606 20.523 10.895M19.938 10.5C20.1442 10.6145 20.34 10.746 20.523 10.895C21.0288 11.3059 21.4265 11.8342 21.6816 12.4339C21.9367 13.0336 22.0414 13.6866 21.9866 14.336C21.9318 14.9854 21.7191 15.6115 21.3671 16.16C21.0152 16.7085 20.5345 17.1626 19.967 17.483M19.967 17.483C19.3667 17.8216 18.6891 18.0003 18 18M15 13C14.1604 12.7046 13.4273 12.167 12.8933 11.455C12.3593 10.743 12.0484 9.88866 12 8.99999C11.9515 9.88866 11.6406 10.743 11.1066 11.455C10.5726 12.167 9.83951 12.7046 8.99995 13" stroke="#2D5B8D" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
       iconBg: "var(--blue-ultra-light)",
       title: T.fachkraefteDetail.info_helps_with,
-      items: t.tags.map(tag => ({ bold: tag, detail: (T.fachkraefteDetail.tag_details as Record<string,string>)[tag] ?? T.fachkraefteDetail.tag_detail_default })),
+      items: t.tags.map(tag => ({ bold: isEN ? (TAG_EN[tag] ?? tag) : tag, detail: (T.fachkraefteDetail.tag_details as Record<string,string>)[tag] ?? T.fachkraefteDetail.tag_detail_default })),
     },
     {
       iconEl: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="#B07000" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" d="M12 2a7 7 0 0 0-7 7c0 2.49 1.3 4.68 3.25 5.93V17a1 1 0 0 0 1 1h5.5a1 1 0 0 0 1-1v-2.07A7 7 0 0 0 12 2z"/><path stroke="#B07000" strokeWidth="1.6" strokeLinecap="round" d="M9 21h6"/><path stroke="#B07000" strokeWidth="1.4" strokeLinecap="round" d="M9.5 18.5v2.5M14.5 18.5v2.5"/></svg>,
       iconBg: "var(--yellow-light)",
       title: T.fachkraefteDetail.info_arbeitsweise,
-      items: (t.arbeitsweise ?? ["Empathisch", "Strukturiert", "Lösungsorientiert"]).map(w => ({ bold: w, detail: (T.fachkraefteDetail.arb_details as Record<string,string>)[w] ?? T.fachkraefteDetail.arb_detail_default })),
+      items: (t.arbeitsweise ?? (isEN ? ["Empathetic", "Structured", "Solution-focused"] : ["Empathisch", "Strukturiert", "Lösungsorientiert"])).map(w => ({ bold: w, detail: (T.fachkraefteDetail.arb_details as Record<string,string>)[w] ?? T.fachkraefteDetail.arb_detail_default })),
     },
     {
       iconEl: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" stroke="var(--green)" strokeWidth="1.6"/><path stroke="var(--green)" strokeWidth="1.6" strokeLinecap="round" d="M8 21h8M12 17v4"/></svg>,

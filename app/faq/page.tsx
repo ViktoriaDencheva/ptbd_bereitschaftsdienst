@@ -1,77 +1,18 @@
-﻿"use client";
+"use client";
 import { useState, useRef } from "react";
 import { Plus, Minus } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useLang } from "@/lib/lang";
 
 const F = "'Poppins', sans-serif";
 const CTA_HEX = "#2D5B8D";
 const W = { maxWidth: 1440, margin: "0 auto", padding: "0 40px" } as const;
 
-// ─── Icons ───────────────────────────────────────────────────────────────────
-
-const IconChat    = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
-const IconUsers   = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
-const IconCalendar= () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M16 2v4M8 2v4M3 10h18" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
-const IconCoin    = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke={CTA_HEX} strokeWidth="1.8"/><path d="M12 7v10M9.5 9.5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5c0 2.5-5 2.5-5 5 0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round"/></svg>;
-const IconLock    = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M7 11V7a5 5 0 0110 0v4" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
-const IconGlobe   = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke={CTA_HEX} strokeWidth="1.8"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" stroke={CTA_HEX} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>;
-// ─── Data ────────────────────────────────────────────────────────────────────
-
-const CATEGORIES = [
-  { id: "orientierung", Icon: IconChat,     label: "Erstgespräch" },
-  { id: "fachkraefte", Icon: IconUsers,    label: "Fachkräfte" },
-  { id: "termine",     Icon: IconCalendar, label: "Termine" },
-  { id: "kosten",      Icon: IconCoin,     label: "Kosten" },
-  { id: "datenschutz", Icon: IconLock,     label: "Datenschutz" },
-  { id: "plattform",   Icon: IconGlobe,    label: "Plattform" },
-];
-
-const FAQ_DATA: { cat: string; q: string; a: string }[] = [
-  { cat: "orientierung", q: "Ist das Erstgespräch kostenlos?", a: "Ja, das Erstgespräch ist vollständig kostenlos und unverbindlich. Du trägst keinerlei Kosten, egal ob du dich danach für eine Weitervermittlung entscheidest oder nicht." },
-  { cat: "orientierung", q: "Wie lange dauert das Erstgespräch?", a: "Das Gespräch dauert in der Regel zwischen 20 und 30 Minuten. Wir nehmen uns Zeit für deine Situation, ohne dich zu hetzen." },
-  { cat: "orientierung", q: "Wer führt das Gespräch?", a: "Das Gespräch wird von ausgebildeten Fachkräften aus dem psychosozialen Bereich geführt — keine Laien, keine KI." },
-  { cat: "orientierung", q: "Muss ich mich vorbereiten?", a: "Nein. Du musst nichts vorbereiten. Komm einfach so, wie du bist. Wir führen dich durch das Gespräch." },
-  { cat: "orientierung", q: "Was passiert nach dem Gespräch?", a: "Nach dem Gespräch erhältst du konkrete Empfehlungen — passende Fachkräfte, nächste Schritte und bei Bedarf weitere Ressourcen." },
-
-  { cat: "fachkraefte", q: "Was ist der Unterschied zwischen Psychologe und Psychotherapeut?", a: "Psycholog*innen diagnostizieren und beraten auf wissenschaftlicher Basis. Psychotherapeut*innen behandeln psychische Erkrankungen mit anerkannten Therapiemethoden. Oft arbeiten beide eng zusammen — wir helfen dir herauszufinden, wer für dich der richtige ist." },
-  { cat: "fachkraefte", q: "Wie werden die Fachkräfte ausgewählt?", a: "Alle Fachkräfte im Netzwerk sind staatlich anerkannt, haben abgeschlossene Ausbildungen und werden regelmäßig überprüft. Qualität ist kein Zufall — wir arbeiten nur mit verifizierten Expert*innen." },
-  { cat: "fachkraefte", q: "Kann ich eine Fachkraft nach Sprache oder Methode wählen?", a: "Ja. Du kannst Präferenzen nach Therapiemethode, Sprache, Geschlecht oder Region angeben. Wir versuchen, die passendste Fachkraft für dich zu finden." },
-  { cat: "fachkraefte", q: "Was passiert, wenn ich mit der Fachkraft nicht zufrieden bin?", a: "Kein Problem. Du kannst uns jederzeit kontaktieren und wir suchen gemeinsam nach einer besseren Alternative. Die Qualität deiner Unterstützung steht an erster Stelle." },
-  { cat: "fachkraefte", q: "Gibt es Fachkräfte in allen Bundesländern?", a: "Ja. Wir sind österreichweit tätig — in allen 9 Bundesländern. Auch in ländlicheren Regionen versuchen wir, passende Fachkräfte zu vermitteln." },
-  { cat: "fachkraefte", q: "Bieten die Fachkräfte auch Online-Termine an?", a: "Viele Fachkräfte im Netzwerk bieten sowohl Präsenz- als auch Online-Termine an. Das erfährst du im Erstgespräch." },
-
-  { cat: "termine", q: "Wie schnell bekomme ich einen Termin?", a: "In der Regel innerhalb von 1–2 Wochen. Bei dringendem Bedarf versuchen wir, noch schneller zu reagieren." },
-  { cat: "termine", q: "Kann ich Termine online buchen?", a: "Ja, nach der Vermittlung kannst du Termine direkt über unsere Plattform buchen und verwalten." },
-  { cat: "termine", q: "Was, wenn ich einen Termin absagen muss?", a: "Termine können bis zu 24 Stunden vorher kostenlos storniert werden. Bitte informiere uns rechtzeitig, damit die Zeit für andere genutzt werden kann." },
-  { cat: "termine", q: "Sind Abendtermine oder Wochenendtermine möglich?", a: "Ja, viele Fachkräfte im Netzwerk bieten flexible Zeiten an, darunter auch Abend- und Wochenendtermine." },
-
-  { cat: "kosten", q: "Wer übernimmt die Kosten?", a: "Das hängt von der Art der Leistung ab. Das Erstgespräch ist kostenlos. Die Therapiekosten werden je nach Fachkraft und Kassenvertrag unterschiedlich abgerechnet — wir klären das gemeinsam mit dir." },
-  { cat: "kosten", q: "Übernimmt die Krankenkasse die Kosten?", a: "Bei Fachkräften mit Kassenvertrag werden die Kosten ganz oder teilweise von der Krankenkasse übernommen. Wir informieren dich über alle Optionen in deiner Region." },
-  { cat: "kosten", q: "Was kostet eine Therapiestunde?", a: "Die Kosten variieren je nach Fachkraft, Methode und Region. Im Erstgespräch geben wir dir eine realistische Einschätzung für deine Situation." },
-  { cat: "kosten", q: "Gibt es finanzielle Unterstützung für Betroffene ohne Mittel?", a: "Ja. Es gibt verschiedene Fördermöglichkeiten und Institutionen in Österreich, die psychotherapeutische Unterstützung zu reduzierten Kosten anbieten. Wir helfen dir, die passende Lösung zu finden." },
-  { cat: "kosten", q: "Entstehen Kosten für die Vermittlung selbst?", a: "Nein. Unsere Vermittlungsleistung ist für Ratsuchende kostenlos." },
-
-  { cat: "datenschutz", q: "Wie werden meine Daten verwendet?", a: "Deine Daten werden ausschließlich zur Bearbeitung deiner Anfrage und Vermittlung verwendet. Wir geben keine Daten an Dritte weiter — außer mit deiner ausdrücklichen Zustimmung." },
-  { cat: "datenschutz", q: "Wird mein Gespräch aufgezeichnet?", a: "Nein. Das Erstgespräch wird nicht aufgezeichnet. Vertraulichkeit ist für uns Grundlage — nicht Option." },
-  { cat: "datenschutz", q: "Wie lange werden meine Daten gespeichert?", a: "Wir speichern Daten nur so lange wie gesetzlich notwendig und löschen sie auf Anfrage. Details findest du in unserer Datenschutzerklärung." },
-
-  { cat: "plattform", q: "Ist die Plattform für alle zugänglich?", a: "Ja. Die Plattform ist für alle Menschen in Österreich zugänglich — ohne Alterseinschränkung, ohne Warteliste für das Erstgespräch." },
-  { cat: "plattform", q: "Gibt es eine App?", a: "Aktuell ist die Plattform als Webseite verfügbar, die auch auf Mobilgeräten optimal funktioniert. Eine native App ist in Planung." },
-  { cat: "plattform", q: "In welchen Sprachen ist die Plattform verfügbar?", a: "Die Plattform ist auf Deutsch verfügbar. Gespräche können auf Anfrage auch in anderen Sprachen geführt werden — je nach Verfügbarkeit der Fachkräfte." },
-  { cat: "plattform", q: "Kann ich die Plattform auch für Angehörige nutzen?", a: "Ja. Du kannst das Erstgespräch auch im Auftrag einer nahestehenden Person buchen — etwa für Kinder, Partner*innen oder Eltern." },
-];
-
-const FAQ_BY_CAT = CATEGORIES.map(cat => ({
-  ...cat,
-  items: FAQ_DATA.filter(f => f.cat === cat.id),
-}));
-
 // ─── Subcomponents ────────────────────────────────────────────────────────────
 
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
-
   return (
     <div>
       <button
@@ -98,34 +39,11 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   );
 }
 
-function CategoryAccordion({ cat, open, onToggle }: { cat: typeof FAQ_BY_CAT[number]; open: boolean; onToggle: () => void }) {
-  const { Icon } = cat;
-  return (
-    <div style={{ borderRadius: 8, background: open ? "#EBF2FC" : "#F2F2F4", overflow: "hidden", transition: "background 0.2s" }}>
-      <button
-        onClick={onToggle}
-        style={{ width: "100%", background: "none", border: "none", cursor: "pointer", padding: "18px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <Icon />
-          <span style={{ fontFamily: F, fontWeight: 700, fontSize: 16, color: open ? CTA_HEX : "#1A1A1A", transition: "color 0.2s" }}>{cat.label}</span>
-        </div>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, transition: "transform 0.2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }}>
-          <path d="M3 6l5 5 5-5" stroke={open ? CTA_HEX : "#888"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </button>
-      {open && (
-        <div style={{ background: "white" }}>
-          {cat.items.map((item, i) => <FaqItem key={i} q={item.q} a={item.a} />)}
-        </div>
-      )}
-    </div>
-  );
-}
-
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function FaqPage() {
+  const { T } = useLang();
+  const FAQ = T.faq;
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [openCat, setOpenCat] = useState<string | null>(null);
@@ -141,8 +59,13 @@ export default function FaqPage() {
   };
 
   const filteredFaq = query.trim()
-    ? FAQ_DATA.filter(f => f.q.toLowerCase().includes(query.toLowerCase()) || f.a.toLowerCase().includes(query.toLowerCase()))
+    ? FAQ.items.filter(f => f.q.toLowerCase().includes(query.toLowerCase()) || f.a.toLowerCase().includes(query.toLowerCase()))
     : null;
+
+  const faqByCat = FAQ.categories.map(cat => ({
+    ...cat,
+    items: FAQ.items.filter(f => f.cat === cat.id),
+  }));
 
   return (
     <>
@@ -153,7 +76,7 @@ export default function FaqPage() {
         <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13 }}>
           <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
             onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = CTA_HEX}
-            onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>Startseite</a>
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>{T.nav.home}</a>
           <span style={{ color: "#C3C3C3" }}>›</span>
           <span style={{ color: "var(--black)", fontWeight: 500 }}>FAQ</span>
         </div>
@@ -163,12 +86,11 @@ export default function FaqPage() {
       <section style={{ backgroundImage: "url('/FAQ-banner.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", minHeight: 320, padding: "72px 0 64px", width: "100%" }}>
         <div className="faq-w" style={{ ...W, position: "relative" }}>
           <h1 className="faq-h1" style={{ fontFamily: F, fontWeight: 800, color: "#1A1A1A", lineHeight: 1.2, marginBottom: 16 }}>
-            Wie können wir dir helfen?
+            {FAQ.page_title}
           </h1>
           <p style={{ fontFamily: F, fontSize: 17, color: "#555", lineHeight: 1.7, maxWidth: 520, marginBottom: 36 }}>
-            Hier findest du Antworten auf die häufigsten Fragen rund um unsere Plattform und psychotherapeutische Unterstützung.
+            {FAQ.page_sub}
           </p>
-
           <div style={{ position: "relative", maxWidth: 560 }}>
             <svg style={{ position: "absolute", left: 20, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} width="20" height="20" viewBox="0 0 24 24" fill="none">
               <circle cx="11" cy="11" r="8" stroke="#999" strokeWidth="2"/>
@@ -177,7 +99,7 @@ export default function FaqPage() {
             <input
               value={query}
               onChange={e => setQuery(e.target.value)}
-              placeholder="Suche nach einer Frage..."
+              placeholder={FAQ.search_placeholder}
               className="faq-search-input"
               style={{ width: "100%", boxSizing: "border-box", paddingLeft: 52, paddingRight: 20, height: 56, borderRadius: 10, border: "1.5px solid #DDE8F5", fontFamily: F, fontSize: 15.5, color: "#1A1A1A", outline: "none", boxShadow: "0 4px 24px rgba(45,91,141,0.10)", background: "white", transition: "border-color 0.2s, box-shadow 0.2s" }}
             />
@@ -190,10 +112,10 @@ export default function FaqPage() {
         <section style={{ background: "white", padding: "48px 0" }}>
           <div className="faq-w" style={W}>
             <p style={{ fontFamily: F, fontSize: 13.5, color: "#888", marginBottom: 16 }}>
-              {filteredFaq.length} Ergebnis{filteredFaq.length !== 1 ? "se" : ""} für „{query}"
+              {filteredFaq.length} result{filteredFaq.length !== 1 ? "s" : ""} for „{query}"
             </p>
             {filteredFaq.length === 0 ? (
-              <p style={{ fontFamily: F, fontSize: 15, color: "#555" }}>Keine Fragen gefunden. Versuch ein anderes Stichwort oder <a href="/kontakt" style={{ color: CTA_HEX }}>kontaktiere uns direkt</a>.</p>
+              <p style={{ fontFamily: F, fontSize: 15, color: "#555" }}>{FAQ.no_results}</p>
             ) : (
               <div style={{ background: "white", borderRadius: 16, border: "1.5px solid #DDE8F5", padding: "0 24px" }}>
                 {filteredFaq.map((item, i) => <FaqItem key={i} q={item.q} a={item.a} />)}
@@ -205,13 +127,11 @@ export default function FaqPage() {
 
       {!filteredFaq && (
         <>
-          {/* ── KATEGORIEN ── */}
+          {/* ── CATEGORIES ── */}
           <section className="faq-section-kategorien" style={{ background: "white", padding: "64px 0 0" }}>
             <div className="faq-w" style={W}>
-              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 8 }}>Was beschäftigt dich?</h2>
-              <p style={{ fontFamily: F, fontSize: 14.5, color: "#888", marginBottom: 28 }}>Wähle ein Thema und finde die passende Antwort.</p>
               <div className="faq-cat-grid">
-                {CATEGORIES.map(({ id, Icon, label }) => (
+                {FAQ.categories.map(({ id, label }) => (
                   <button
                     key={id}
                     onClick={() => scrollToCategory(id)}
@@ -242,16 +162,24 @@ export default function FaqPage() {
           {/* ── FAQ ACCORDION ── */}
           <section ref={faqRef} className="faq-section-accordion" style={{ background: "white", padding: "64px 0 0" }}>
             <div className="faq-w" style={W}>
-              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 8 }}>Alle Fragen</h2>
-              <p style={{ fontFamily: F, fontSize: 14.5, color: "#888", marginBottom: 32 }}>Wähle eine Kategorie und finde schnell die passende Antwort.</p>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 32 }}>{FAQ.all_label}</h2>
               <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                {FAQ_BY_CAT.map(cat => (
-                  <div key={cat.id} id={`cat-${cat.id}`}>
-                    <CategoryAccordion
-                      cat={cat}
-                      open={openCat === cat.id}
-                      onToggle={() => setOpenCat(openCat === cat.id ? null : cat.id)}
-                    />
+                {faqByCat.map(cat => (
+                  <div key={cat.id} id={`cat-${cat.id}`} style={{ borderRadius: 8, background: openCat === cat.id ? "#EBF2FC" : "#F2F2F4", overflow: "hidden", transition: "background 0.2s" }}>
+                    <button
+                      onClick={() => setOpenCat(openCat === cat.id ? null : cat.id)}
+                      style={{ width: "100%", background: "none", border: "none", cursor: "pointer", padding: "18px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}
+                    >
+                      <span style={{ fontFamily: F, fontWeight: 700, fontSize: 16, color: openCat === cat.id ? CTA_HEX : "#1A1A1A" }}>{cat.label}</span>
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, transition: "transform 0.2s", transform: openCat === cat.id ? "rotate(180deg)" : "rotate(0deg)" }}>
+                        <path d="M3 6l5 5 5-5" stroke={openCat === cat.id ? CTA_HEX : "#888"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
+                    {openCat === cat.id && (
+                      <div style={{ background: "white" }}>
+                        {cat.items.map((item, i) => <FaqItem key={i} q={item.q} a={item.a} />)}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -260,22 +188,20 @@ export default function FaqPage() {
         </>
       )}
 
-      {/* ── NOCH FRAGEN ── */}
+      {/* ── CTA ── */}
       <section className="faq-section-cta" style={{ background: "white", padding: "80px 0 96px" }}>
         <div className="faq-w" style={W}>
           <div className="faq-cta-wrap" style={{ borderRadius: 20, overflow: "hidden", display: "flex", background: "white", boxShadow: "0 1px 8px rgba(0,0,0,0.06)", border: "1px solid #F0F0F0" }}>
             <img src="/vorgespraech-banner.png" alt="" aria-hidden={true} className="faq-cta-img" style={{ width: "45%", objectFit: "cover", flexShrink: 0, display: "block" }} />
             <div className="faq-cta-text" style={{ flex: 1, padding: "52px 48px", display: "flex", flexDirection: "column", justifyContent: "center", background: "white" }}>
-              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 28, color: "#1A1A1A", marginBottom: 14, lineHeight: 1.25 }}>Hast du noch offene Fragen?</h2>
-              <p style={{ fontFamily: F, fontSize: 16, color: "#555", lineHeight: 1.7, marginBottom: 32 }}>
-                Du musst das nicht alleine herausfinden. Wir sind für dich da und helfen dir persönlich weiter — ganz ohne Wartezeit.
-              </p>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 28, color: "#1A1A1A", marginBottom: 14, lineHeight: 1.25 }}>{FAQ.page_title}</h2>
+              <p style={{ fontFamily: F, fontSize: 16, color: "#555", lineHeight: 1.7, marginBottom: 32 }}>{FAQ.page_sub}</p>
               <div>
                 <a
                   href="/kontakt"
                   style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 32px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.22)" }}
                 >
-                  Zum Kontaktformular
+                  {FAQ.contact_cta}
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </a>
               </div>
@@ -291,22 +217,12 @@ export default function FaqPage() {
         .faq-h1 { font-size: 42px; }
         .faq-search-input:focus { border-color: #2D5B8D !important; box-shadow: 0 0 0 3px rgba(45,91,141,0.15), 0 4px 24px rgba(45,91,141,0.10) !important; }
         .faq-cat-card:hover { border-color: #2D5B8D !important; box-shadow: 0 4px 16px rgba(45,91,141,0.12); transform: translateY(-2px); }
-        .faq-cat-grid {
-          display: grid;
-          grid-template-columns: repeat(6, 1fr);
-          gap: 12px;
-        }
-        .faq-popular-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 14px;
-        }
+        .faq-cat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
         @media (max-width: 1070px) {
           .faq-w { padding-left: 16px !important; padding-right: 16px !important; }
           .faq-bc-wrap { padding: 20px 16px 16px !important; }
           .faq-h1 { font-size: 30px !important; }
           .faq-cat-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .faq-popular-grid { grid-template-columns: 1fr !important; }
           .faq-section-kategorien { padding: 32px 0 0 !important; }
           .faq-section-accordion { padding: 24px 0 0 !important; }
           .faq-section-cta { padding: 32px 0 40px !important; }

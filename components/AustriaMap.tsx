@@ -1,5 +1,15 @@
 "use client";
 import { useState } from "react";
+import { useLang } from "@/lib/lang";
+
+const LABEL_EN: Record<string, string> = {
+  "Tirol": "Tyrol",
+  "Kärnten": "Carinthia",
+  "Steiermark": "Styria",
+  "Oberösterreich": "Upper Austria",
+  "Niederösterreich": "Lower Austria",
+  "Wien": "Vienna",
+};
 
 const F = "'Poppins', sans-serif";
 const CTA_HEX = "#CD1719";
@@ -34,6 +44,9 @@ type Props = {
 
 export default function AustriaMap({ activeId, onSelect }: Props) {
   const [hoveredId, setHoveredId] = useState<ProvinceId | null>(null);
+  const { lang } = useLang();
+  const isEN = lang === 'en';
+  function L(de: string) { return isEN ? (LABEL_EN[de] ?? de) : de; }
 
   function getFill(id: ProvinceId) {
     if (id === activeId) return CTA_HEX;
@@ -64,7 +77,7 @@ export default function AustriaMap({ activeId, onSelect }: Props) {
           fill={LABEL_COLOR} stroke="white" strokeWidth={8} paintOrder="stroke fill"
           style={{ pointerEvents: "none" }}
         >
-          {"Vorarlberg"}
+          {L("Vorarlberg")}
         </text>
       </g>
       {/* Tirol */}
@@ -80,7 +93,7 @@ export default function AustriaMap({ activeId, onSelect }: Props) {
           fill={LABEL_COLOR} stroke="white" strokeWidth={8} paintOrder="stroke fill"
           style={{ pointerEvents: "none" }}
         >
-          {"Tirol"}
+          {L("Tirol")}
         </text>
       </g>
       {/* Salzburg */}
@@ -96,7 +109,7 @@ export default function AustriaMap({ activeId, onSelect }: Props) {
           fill={LABEL_COLOR} stroke="white" strokeWidth={8} paintOrder="stroke fill"
           style={{ pointerEvents: "none" }}
         >
-          {"Salzburg"}
+          {L("Salzburg")}
         </text>
       </g>
       {/* Kärnten */}
@@ -112,7 +125,7 @@ export default function AustriaMap({ activeId, onSelect }: Props) {
           fill={LABEL_COLOR} stroke="white" strokeWidth={8} paintOrder="stroke fill"
           style={{ pointerEvents: "none" }}
         >
-          {"Kärnten"}
+          {L("Kärnten")}
         </text>
       </g>
       {/* Steiermark */}
@@ -128,7 +141,7 @@ export default function AustriaMap({ activeId, onSelect }: Props) {
           fill={LABEL_COLOR} stroke="white" strokeWidth={8} paintOrder="stroke fill"
           style={{ pointerEvents: "none" }}
         >
-          {"Steiermark"}
+          {L("Steiermark")}
         </text>
       </g>
       {/* Oberösterreich */}
@@ -144,7 +157,7 @@ export default function AustriaMap({ activeId, onSelect }: Props) {
           fill={LABEL_COLOR} stroke="white" strokeWidth={8} paintOrder="stroke fill"
           style={{ pointerEvents: "none" }}
         >
-          {"Oberösterreich"}
+          {L("Oberösterreich")}
         </text>
       </g>
       {/* Burgenland */}
@@ -160,7 +173,7 @@ export default function AustriaMap({ activeId, onSelect }: Props) {
           fill={LABEL_COLOR} stroke="white" strokeWidth={8} paintOrder="stroke fill"
           style={{ pointerEvents: "none" }}
         >
-          {"Burgenland"}
+          {L("Burgenland")}
         </text>
       </g>
       {/* Niederösterreich */}
@@ -176,7 +189,7 @@ export default function AustriaMap({ activeId, onSelect }: Props) {
           fill={LABEL_COLOR} stroke="white" strokeWidth={8} paintOrder="stroke fill"
           style={{ pointerEvents: "none" }}
         >
-          {"Niederösterreich"}
+          {L("Niederösterreich")}
         </text>
       </g>
       {/* Wien */}
@@ -192,7 +205,7 @@ export default function AustriaMap({ activeId, onSelect }: Props) {
           fill={LABEL_COLOR} stroke="white" strokeWidth={8} paintOrder="stroke fill"
           style={{ pointerEvents: "none" }}
         >
-          {"Wien"}
+          {L("Wien")}
         </text>
       </g>
     </svg>

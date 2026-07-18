@@ -4,6 +4,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { storeUser } from "@/lib/auth";
+import { useLang } from "@/lib/lang";
 
 const F = "'Poppins', sans-serif";
 
@@ -11,7 +12,7 @@ function GoogleIcon() {
   return <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.6 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.5 16.1 18.9 13 24 13c3.1 0 5.8 1.1 8 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.4 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.3 35.3 26.8 36 24 36c-5.1 0-9.5-3.3-11.1-8l-6.5 5C9.6 39.5 16.3 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.3 4.1-4.2 5.4l6.2 5.2C37 38.1 44 33 44 24c0-1.2-.1-2.4-.4-3.5z"/></svg>;
 }
 
-function GoogleRegisterButton() {
+function GoogleRegisterButton({ label }: { label: string }) {
   const hasClientId = !!process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
   const isMobile = typeof window !== "undefined" && /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
@@ -21,24 +22,24 @@ function GoogleRegisterButton() {
         const payload = JSON.parse(atob(credentialResponse.credential.split(".")[1]));
         storeUser({ name: payload.name ?? payload.email, email: payload.email, avatar: payload.picture, provider: "google" });
       } else {
-        storeUser({ name: "Google Nutzer", email: "nutzer@gmail.com", provider: "google" });
+        storeUser({ name: "Google User", email: "user@gmail.com", provider: "google" });
       }
       window.location.href = "/profil";
     } catch {
-      storeUser({ name: "Google Nutzer", email: "nutzer@gmail.com", provider: "google" });
+      storeUser({ name: "Google User", email: "user@gmail.com", provider: "google" });
       window.location.href = "/profil";
     }
   }
 
   const mockLogin = () => {
-    storeUser({ name: "Google Nutzer", email: "nutzer@gmail.com", provider: "google" });
+    storeUser({ name: "Google User", email: "user@gmail.com", provider: "google" });
     window.location.href = "/profil";
   };
 
   if (!hasClientId || isMobile) {
     return (
       <button type="button" onClick={mockLogin} style={{ width: "100%", height: 48, borderRadius: 9999, background: "white", border: "1.5px solid #E5E7EB", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, fontFamily: F, fontWeight: 500, fontSize: 14, color: "var(--black)", cursor: "pointer" }}>
-        <GoogleIcon /> Mit Google registrieren
+        <GoogleIcon /> {label}
       </button>
     );
   }
@@ -115,14 +116,23 @@ function InputField({
   );
 }
 
-const FEATURES = [
+const FEATURES_DE = [
   { icon: "/icons/icon-vorgespraech.svg",          title: "Kostenlos & unverbindlich",        desc: "Die Registrierung ist kostenlos und ohne Verpflichtung." },
   { icon: "/icons/vertrauliche-kommunikation.svg",  title: "Termine buchen & verwalten",       desc: "Buche, ändere oder storniere Termine ganz einfach." },
   { icon: "/icons/dsgvo-konform.svg",               title: "Honorarnoten herunterladen",       desc: "Alle wichtigen Unterlagen sicher an einem Ort." },
   { icon: "/icons/sichere-verbindung.svg",           title: "Sicher & DSGVO-konform",           desc: "Deine Daten sind verschlüsselt und sicher bei uns." },
 ];
+const FEATURES_EN = [
+  { icon: "/icons/icon-vorgespraech.svg",          title: "Free & non-binding",               desc: "Registration is free and without any commitment." },
+  { icon: "/icons/vertrauliche-kommunikation.svg",  title: "Book & manage appointments",       desc: "Book, change or cancel appointments with ease." },
+  { icon: "/icons/dsgvo-konform.svg",               title: "Download fee notes",               desc: "All important documents securely in one place." },
+  { icon: "/icons/sichere-verbindung.svg",           title: "Secure & GDPR-compliant",         desc: "Your data is encrypted and safe with us." },
+];
 
 export default function RegistrierenPage() {
+  const { lang } = useLang();
+  const isEN = lang === 'en';
+
   const [vorname, setVorname] = useState("");
   const [nachname, setNachname] = useState("");
   const [email, setEmail] = useState("");
@@ -134,13 +144,26 @@ export default function RegistrierenPage() {
 
   const pwStrength = password.length === 0 ? 0 : password.length < 6 ? 1 : password.length < 10 ? 2 : 3;
   const strengthColor = ["transparent", "#EF4444", "#F59E0B", "#16A34A"][pwStrength];
-  const strengthLabel = ["", "Schwach", "Mittel", "Stark"][pwStrength];
+  const strengthLabel = isEN
+    ? ["", "Weak", "Medium", "Strong"][pwStrength]
+    : ["", "Schwach", "Mittel", "Stark"][pwStrength];
+
+  const FEATURES = isEN ? FEATURES_EN : FEATURES_DE;
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!vorname || !nachname || !email || !password) { setError("Bitte fülle alle Pflichtfelder aus."); return; }
-    if (!agb) { setError("Bitte akzeptiere die AGB und Datenschutzerklärung."); return; }
-    if (password.length < 6) { setError("Das Passwort muss mindestens 6 Zeichen lang sein."); return; }
+    if (!vorname || !nachname || !email || !password) {
+      setError(isEN ? "Please fill in all required fields." : "Bitte fülle alle Pflichtfelder aus.");
+      return;
+    }
+    if (!agb) {
+      setError(isEN ? "Please accept the Terms & Conditions and Privacy Policy." : "Bitte akzeptiere die AGB und Datenschutzerklärung.");
+      return;
+    }
+    if (password.length < 6) {
+      setError(isEN ? "The password must be at least 6 characters long." : "Das Passwort muss mindestens 6 Zeichen lang sein.");
+      return;
+    }
     setError("");
     setLoading(true);
     setTimeout(() => { window.location.href = "/profil"; }, 1200);
@@ -155,9 +178,9 @@ export default function RegistrierenPage() {
         <a href="/" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}
           onMouseEnter={e => (e.currentTarget.style.color = "var(--cta)")}
           onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-        >Startseite</a>
+        >{isEN ? "Home" : "Startseite"}</a>
         <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="#D1D5DB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        <span style={{ fontFamily: F, fontSize: 13, color: "var(--cta)", fontWeight: 500 }}>Registrieren</span>
+        <span style={{ fontFamily: F, fontSize: 13, color: "var(--cta)", fontWeight: 500 }}>{isEN ? "Register" : "Registrieren"}</span>
       </div>
 
       {/* ── Banner ── */}
@@ -170,10 +193,10 @@ export default function RegistrierenPage() {
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.3) 50%, transparent 100%)" }} />
           <div style={{ position: "relative", zIndex: 1, height: "100%", display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 56px", maxWidth: 520 }}>
             <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: 36, color: "#111827", margin: "0 0 12px", lineHeight: 1.2 }}>
-              Dein persönlicher<br />Bereich wartet.
+              {isEN ? <>Your personal<br />area awaits.</> : <>Dein persönlicher<br />Bereich wartet.</>}
             </h1>
             <p style={{ fontFamily: F, fontSize: 15, color: "#374151", margin: 0, lineHeight: 1.6 }}>
-              Erstelle Dein Konto in einer Minute und<br />starte Deine Therapiebegleitung.
+              {isEN ? <>Create your account in a minute and<br />start your therapy journey.</> : <>Erstelle Dein Konto in einer Minute und<br />starte Deine Therapiebegleitung.</>}
             </p>
           </div>
         </div>
@@ -186,27 +209,27 @@ export default function RegistrierenPage() {
 
             {/* ── LEFT: Register form ── */}
             <div>
-              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 26, color: "var(--black)", margin: "0 0 8px" }}>Konto erstellen</h2>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 26, color: "var(--black)", margin: "0 0 8px" }}>{isEN ? "Create account" : "Konto erstellen"}</h2>
               <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 32px", lineHeight: 1.6 }}>
-                Verwalte Termine, Online-Sitzungen und Dokumente an einem Ort.
+                {isEN ? "Manage appointments, online sessions and documents in one place." : "Verwalte Termine, Online-Sitzungen und Dokumente an einem Ort."}
               </p>
 
               <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                  <InputField label="Vorname" value={vorname} onChange={setVorname} placeholder="Dein Vorname" />
-                  <InputField label="Nachname" value={nachname} onChange={setNachname} placeholder="Dein Nachname" />
+                  <InputField label={isEN ? "First name" : "Vorname"} value={vorname} onChange={setVorname} placeholder={isEN ? "Your first name" : "Dein Vorname"} />
+                  <InputField label={isEN ? "Last name" : "Nachname"} value={nachname} onChange={setNachname} placeholder={isEN ? "Your last name" : "Dein Nachname"} />
                 </div>
 
                 <InputField
-                  label="E-Mail-Adresse" type="email" value={email} onChange={setEmail}
-                  placeholder="Deine E-Mail-Adresse"
+                  label={isEN ? "Email address" : "E-Mail-Adresse"} type="email" value={email} onChange={setEmail}
+                  placeholder={isEN ? "Your email address" : "Deine E-Mail-Adresse"}
                   icon={<svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" strokeWidth="1.5"/><polyline points="22,6 12,13 2,6" stroke="currentColor" strokeWidth="1.5"/></svg>}
                 />
 
                 <div>
                   <InputField
-                    label="Passwort" type={showPw ? "text" : "password"}
-                    value={password} onChange={setPassword} placeholder="Mindestens 6 Zeichen"
+                    label={isEN ? "Password" : "Passwort"} type={showPw ? "text" : "password"}
+                    value={password} onChange={setPassword} placeholder={isEN ? "At least 6 characters" : "Mindestens 6 Zeichen"}
                     icon={<svg width="16" height="16" fill="none" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke="currentColor" strokeWidth="1.5"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" strokeWidth="1.5"/></svg>}
                     rightElement={
                       <button type="button" onClick={() => setShowPw(v => !v)}
@@ -234,10 +257,9 @@ export default function RegistrierenPage() {
                     {agb && <svg width="9" height="9" fill="none" viewBox="0 0 24 24"><path stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>}
                   </div>
                   <span style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.5 }}>
-                    Ich akzeptiere die{" "}
-                    <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>AGB</a>
-                    {" "}und die{" "}
-                    <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Datenschutzerklärung</a>.
+                    {isEN
+                      ? <>I accept the <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Terms & Conditions</a> and the <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Privacy Policy</a>.</>
+                      : <>Ich akzeptiere die{" "}<a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>AGB</a>{" "}und die{" "}<a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Datenschutzerklärung</a>.</>}
                   </span>
                 </label>
 
@@ -253,23 +275,23 @@ export default function RegistrierenPage() {
                   onMouseEnter={e => { if (!loading) e.currentTarget.style.background = "var(--cta-hover)"; }}
                   onMouseLeave={e => { if (!loading) e.currentTarget.style.background = "var(--cta)"; }}
                 >
-                  {loading ? "Konto wird erstellt …" : "Konto erstellen"}
+                  {loading ? (isEN ? "Creating account …" : "Konto wird erstellt …") : (isEN ? "Create account" : "Konto erstellen")}
                 </button>
 
                 <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                   <div style={{ flex: 1, height: 1, background: "#E5E7EB" }} />
-                  <span style={{ fontFamily: F, fontSize: 12, color: "#9CA3AF" }}>oder</span>
+                  <span style={{ fontFamily: F, fontSize: 12, color: "#9CA3AF" }}>{isEN ? "or" : "oder"}</span>
                   <div style={{ flex: 1, height: 1, background: "#E5E7EB" }} />
                 </div>
 
-                <GoogleRegisterButton />
+                <GoogleRegisterButton label={isEN ? "Sign up with Google" : "Mit Google registrieren"} />
 
                 <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textAlign: "center", margin: 0 }}>
-                  Bereits registriert?{" "}
+                  {isEN ? "Already registered?" : "Bereits registriert?"}{" "}
                   <a href="/anmelden" style={{ color: "var(--cta)", fontWeight: 600, textDecoration: "none" }}
                     onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
                     onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
-                  >Anmelden</a>
+                  >{isEN ? "Sign in" : "Anmelden"}</a>
                 </p>
               </form>
             </div>
@@ -279,9 +301,9 @@ export default function RegistrierenPage() {
 
             {/* ── RIGHT: Benefits ── */}
             <div>
-              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 26, color: "var(--black)", margin: "0 0 8px" }}>Deine Vorteile</h2>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 26, color: "var(--black)", margin: "0 0 8px" }}>{isEN ? "Your benefits" : "Deine Vorteile"}</h2>
               <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 32px", lineHeight: 1.6 }}>
-                Alles, was Du für Deine Therapiebegleitung brauchst, an einem Ort.
+                {isEN ? "Everything you need for your therapy journey, in one place." : "Alles, was Du für Deine Therapiebegleitung brauchst, an einem Ort."}
               </p>
 
               <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>

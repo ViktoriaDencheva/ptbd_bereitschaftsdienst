@@ -3,14 +3,16 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { getBookings, type Booking } from "@/lib/bookings";
 import { sendTherapistMessage } from "@/lib/messages";
+import { useLang } from "@/lib/lang";
 
 const F = "'Poppins', sans-serif";
 const CTA = "var(--cta)";
 
 /* ── therapist speech lines (spoken aloud via SpeechSynthesis) ───────── */
-const GREETING = "Guten Tag! Schön, dass Sie heute dabei sind. Entschuldigen Sie bitte, ich bin leider ohne Kamera heute. Aber ich freue mich sehr, Ihnen helfen zu können. Wie geht es Ihnen?";
+const GREETING_DE = "Guten Tag! Schön, dass Sie heute dabei sind. Entschuldigen Sie bitte, ich bin leider ohne Kamera heute. Aber ich freue mich sehr, Ihnen helfen zu können. Wie geht es Ihnen?";
+const GREETING_EN = "Hello! Wonderful to have you here today. I apologise — I'm without camera today. But I'm very glad to be able to help you. How are you doing?";
 
-const SPOKEN_REPLIES = [
+const SPOKEN_REPLIES_DE = [
   "Das klingt sehr verständlich. Erzählen Sie mir bitte mehr davon.",
   "Wie lange begleitet Sie dieses Gefühl schon?",
   "Was hat sich in letzter Zeit in Ihrem Alltag verändert?",
@@ -19,6 +21,17 @@ const SPOKEN_REPLIES = [
   "Wie reagiert Ihr Körper, wenn Sie in solchen Situationen sind?",
   "Ich verstehe. Das klingt wirklich herausfordernd für Sie.",
   "Was würde Ihnen in dieser Situation am meisten helfen?",
+];
+
+const SPOKEN_REPLIES_EN = [
+  "That sounds very understandable. Please tell me more about that.",
+  "How long have you been experiencing this feeling?",
+  "What has changed in your everyday life recently?",
+  "It's an important step that you're able to talk about this.",
+  "Is there someone in your life you can talk to about these things?",
+  "How does your body react when you're in those situations?",
+  "I understand. That sounds truly challenging for you.",
+  "What would help you most in this situation?",
 ];
 
 /* ── icons ─────────────────────────────────────────────────────────── */
@@ -52,8 +65,11 @@ function ChatIcon({ unread }: { unread?: boolean }) {
 /* ── chat types ─────────────────────────────────────────────────────── */
 interface Msg { from: "you" | "them"; text: string; time: string }
 
-const INITIAL_MSGS: Msg[] = [
+const INITIAL_MSGS_DE: Msg[] = [
   { from: "them", text: "Guten Tag! Schön, dass Sie heute dabei sind. Entschuldigen Sie bitte, ich bin ohne Kamera heute. Wie geht es Ihnen?", time: "10:01" },
+];
+const INITIAL_MSGS_EN: Msg[] = [
+  { from: "them", text: "Hello! Wonderful to have you here today. I apologise — I'm without camera today. How are you doing?", time: "10:01" },
 ];
 
 function nowStr() {
@@ -114,13 +130,18 @@ export default function GespraechPage() {
   const params = useParams();
   const router = useRouter();
   const id = params?.id as string;
+  const { lang } = useLang();
+  const isEN = lang === 'en';
+
+  const GREETING = isEN ? GREETING_EN : GREETING_DE;
+  const SPOKEN_REPLIES = isEN ? SPOKEN_REPLIES_EN : SPOKEN_REPLIES_DE;
 
   const [booking, setBooking] = useState<Booking | null>(null);
   const [micOn, setMicOn] = useState(true);
   const [camOn, setCamOn] = useState(false);         // starts off — user grants on demand
   const [sharing, setSharing] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
-  const [msgs, setMsgs] = useState<Msg[]>(INITIAL_MSGS);
+  const [msgs, setMsgs] = useState<Msg[]>(isEN ? INITIAL_MSGS_EN : INITIAL_MSGS_DE);
   const [draft, setDraft] = useState("");
   const [unread, setUnread] = useState(false);
   const [ended, setEnded] = useState(false);
@@ -172,7 +193,7 @@ export default function GespraechPage() {
       }
       setCamOn(true);
     } catch {
-      setCamError("Kamerazugriff verweigert");
+      setCamError(isEN ? "Camera access denied" : "Kamerazugriff verweigert");
       setCamOn(false);
     }
   }, []);
@@ -229,7 +250,7 @@ export default function GespraechPage() {
     setTimeout(() => inputRef.current?.focus(), 100);
   }
 
-  const therapistName = booking?.therapistName ?? "Fachkraft";
+  const therapistName = booking?.therapistName ?? (isEN ? "Specialist" : "Fachkraft");
   const therapistPhoto = booking?.therapistPhoto;
 
   /* ── ended screen ─────────────────────────────────────────────────── */
@@ -240,15 +261,15 @@ export default function GespraechPage() {
           <svg width="36" height="36" fill="none" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke="#4ade80" strokeWidth="1.8" strokeLinecap="round"/><path d="M22 4L12 14.01l-3-3" stroke="#4ade80" strokeWidth="1.8" strokeLinecap="round"/></svg>
         </div>
         <div style={{ textAlign: "center" }}>
-          <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: 24, color: "white", margin: "0 0 8px" }}>Gespräch beendet</h1>
-          <p style={{ fontFamily: F, fontSize: 14, color: "#94a3b8", margin: 0 }}>Dauer: {timer}</p>
+          <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: 24, color: "white", margin: "0 0 8px" }}>{isEN ? "Session ended" : "Gespräch beendet"}</h1>
+          <p style={{ fontFamily: F, fontSize: 14, color: "#94a3b8", margin: 0 }}>{isEN ? "Duration:" : "Dauer:"} {timer}</p>
         </div>
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
           <button onClick={() => router.push("/profil")} style={{ height: 44, padding: "0 24px", borderRadius: 9999, background: CTA, color: "white", border: "none", fontFamily: F, fontWeight: 500, fontSize: 14, cursor: "pointer" }}>
-            Zum Profil
+            {isEN ? "Go to profile" : "Zum Profil"}
           </button>
           <button onClick={() => router.push("/fachkraefte")} style={{ height: 44, padding: "0 24px", borderRadius: 9999, background: "#1e293b", color: "#94a3b8", border: "1px solid #334155", fontFamily: F, fontSize: 14, cursor: "pointer" }}>
-            Neue Fachkraft
+            {isEN ? "Find a specialist" : "Neue Fachkraft"}
           </button>
         </div>
       </div>
@@ -269,10 +290,10 @@ export default function GespraechPage() {
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           {sharing && (
             <span style={{ fontFamily: F, fontSize: 12, color: "#fbbf24", background: "rgba(251,191,36,0.12)", borderRadius: 9999, padding: "3px 10px" }}>
-              Bildschirm wird geteilt
+              {isEN ? "Screen sharing" : "Bildschirm wird geteilt"}
             </span>
           )}
-          <span style={{ fontFamily: F, fontSize: 12, color: "#475569" }}>Online-Sitzung · Verschlüsselt</span>
+          <span style={{ fontFamily: F, fontSize: 12, color: "#475569" }}>{isEN ? "Online session · Encrypted" : "Online-Sitzung · Verschlüsselt"}</span>
           <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#4ade80" strokeWidth="1.5"/></svg>
         </div>
       </div>
@@ -290,7 +311,7 @@ export default function GespraechPage() {
               <div style={{ textAlign: "center" }}>
                 <p style={{ fontFamily: F, fontWeight: 600, fontSize: 16, color: "white", margin: "0 0 4px" }}>{therapistName}</p>
                 <p style={{ fontFamily: F, fontSize: 12, color: "#64748b", margin: 0 }}>
-                  {therapistSpeaking ? "spricht gerade…" : "Kamera nicht verfügbar · Audio aktiv"}
+                  {therapistSpeaking ? (isEN ? "speaking…" : "spricht gerade…") : (isEN ? "Camera unavailable · Audio active" : "Kamera nicht verfügbar · Audio aktiv")}
                 </p>
               </div>
               {/* Audio bars — animate when speaking */}
@@ -327,17 +348,17 @@ export default function GespraechPage() {
             {!camOn && (
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6, zIndex: 1 }}>
                 <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#1e293b", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "#64748b" }}>Du</span>
+                  <span style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "#64748b" }}>{isEN ? "You" : "Du"}</span>
                 </div>
                 <span style={{ fontFamily: F, fontSize: 10, color: "#64748b" }}>
-                  {camError || "Kamera aus"}
+                  {camError || (isEN ? "Camera off" : "Kamera aus")}
                 </span>
               </div>
             )}
             {/* "Du" label */}
             {camOn && (
               <div style={{ position: "absolute", bottom: 6, left: 8, zIndex: 2 }}>
-                <span style={{ fontFamily: F, fontSize: 10, color: "rgba(255,255,255,0.8)" }}>Du</span>
+                <span style={{ fontFamily: F, fontSize: 10, color: "rgba(255,255,255,0.8)" }}>{isEN ? "You" : "Du"}</span>
               </div>
             )}
           </div>
@@ -364,7 +385,7 @@ export default function GespraechPage() {
             <div style={{ padding: "10px 12px", borderTop: "1px solid #334155", display: "flex", gap: 8 }}>
               <input ref={inputRef} value={draft} onChange={e => setDraft(e.target.value)}
                 onKeyDown={e => e.key === "Enter" && sendMessage()}
-                placeholder="Nachricht…"
+                placeholder={isEN ? "Message…" : "Nachricht…"}
                 style={{ flex: 1, height: 38, borderRadius: 9999, background: "#0f172a", border: "1px solid #334155", color: "white", fontFamily: F, fontSize: 13, padding: "0 14px", outline: "none" }} />
               <button onClick={sendMessage} style={{ width: 38, height: 38, borderRadius: "50%", background: CTA, border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
@@ -376,15 +397,15 @@ export default function GespraechPage() {
 
       {/* Bottom controls */}
       <div style={{ height: 80, borderTop: "1px solid #1e293b", display: "flex", alignItems: "center", justifyContent: "center", gap: 12, flexShrink: 0 }}>
-        <ControlBtn active={micOn} onClick={() => setMicOn(v => !v)} label={micOn ? "Stummschalten" : "Stummschaltung aufheben"}>
+        <ControlBtn active={micOn} onClick={() => setMicOn(v => !v)} label={micOn ? (isEN ? "Mute" : "Stummschalten") : (isEN ? "Unmute" : "Stummschaltung aufheben")}>
           {micOn ? <MicOnIcon /> : <MicOffIcon />}
         </ControlBtn>
 
-        <ControlBtn active={camOn} onClick={toggleCam} label={camOn ? "Kamera aus" : "Kamera ein"}>
+        <ControlBtn active={camOn} onClick={toggleCam} label={camOn ? (isEN ? "Camera off" : "Kamera aus") : (isEN ? "Camera on" : "Kamera ein")}>
           {camOn ? <CamOnIcon /> : <CamOffIcon />}
         </ControlBtn>
 
-        <ControlBtn active={sharing} onClick={() => setSharing(v => !v)} label={sharing ? "Teilen stoppen" : "Bildschirm teilen"}>
+        <ControlBtn active={sharing} onClick={() => setSharing(v => !v)} label={sharing ? (isEN ? "Stop sharing" : "Teilen stoppen") : (isEN ? "Share screen" : "Bildschirm teilen")}>
           <ScreenIcon />
         </ControlBtn>
 
@@ -397,7 +418,9 @@ export default function GespraechPage() {
           stopCamera();
           // send session summary from therapist to patient chat
           if (booking) {
-            const summary = `Vielen Dank für unser heutiges Gespräch! 😊\n\n**Zusammenfassung unserer Sitzung:**\nWir haben heute über Ihre aktuellen Belastungen gesprochen und erste Schritte erarbeitet.\n\n**Meine Empfehlungen für die nächsten Tage:**\n• Versuchen Sie täglich 10 Minuten Atemübungen einzuplanen\n• Führen Sie ein kurzes Stimmungstagebuch – nur 2–3 Sätze pro Tag\n• Achten Sie auf ausreichend Schlaf und Bewegung\n\nBei Fragen oder wenn Sie zwischen unseren Terminen Unterstützung brauchen, können Sie mir hier jederzeit schreiben. Bis zum nächsten Gespräch! 💙`;
+            const summary = isEN
+              ? `Thank you for our session today! 😊\n\n**Session summary:**\nWe talked about your current challenges and worked out some first steps together.\n\n**My recommendations for the coming days:**\n• Try to schedule 10 minutes of breathing exercises each day\n• Keep a short mood journal — just 2–3 sentences per day\n• Make sure you get enough sleep and exercise\n\nIf you have questions or need support between our appointments, feel free to message me here at any time. See you at our next session! 💙`
+              : `Vielen Dank für unser heutiges Gespräch! 😊\n\n**Zusammenfassung unserer Sitzung:**\nWir haben heute über Ihre aktuellen Belastungen gesprochen und erste Schritte erarbeitet.\n\n**Meine Empfehlungen für die nächsten Tage:**\n• Versuchen Sie täglich 10 Minuten Atemübungen einzuplanen\n• Führen Sie ein kurzes Stimmungstagebuch – nur 2–3 Sätze pro Tag\n• Achten Sie auf ausreichend Schlaf und Bewegung\n\nBei Fragen oder wenn Sie zwischen unseren Terminen Unterstützung brauchen, können Sie mir hier jederzeit schreiben. Bis zum nächsten Gespräch! 💙`;
             sendTherapistMessage(
               booking.therapistId,
               booking.therapistName,
@@ -407,7 +430,7 @@ export default function GespraechPage() {
             );
           }
           setEnded(true);
-        }} title="Gespräch beenden"
+        }} title={isEN ? "End session" : "Gespräch beenden"}
           style={{ width: 52, height: 52, borderRadius: "50%", background: "#dc2626", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "white", transition: "background 0.2s", marginLeft: 12 }}
           onMouseEnter={e => (e.currentTarget.style.background = "#b91c1c")}
           onMouseLeave={e => (e.currentTarget.style.background = "#dc2626")}

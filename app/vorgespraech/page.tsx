@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useLang } from "@/lib/lang";
 
 const F = "'Poppins', sans-serif";
 const CTA = "var(--cta)";
@@ -19,6 +20,8 @@ function useWindowWidth() {
 
 
 export default function VorgespraechPage() {
+  const { lang } = useLang();
+  const isEN = lang === 'en';
   const winW = useWindowWidth();
   const isMobile = winW > 0 && winW < 1071;
   const stepsRef = useRef<HTMLDivElement>(null);
@@ -32,20 +35,20 @@ export default function VorgespraechPage() {
       <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
         <a href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
           onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>
-          Startseite
+          {isEN ? "Home" : "Startseite"}
         </a>
         <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
         {extra ? (
           <>
             <a href="/vorgespraech" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
               onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>
-              Kostenloses Erstgespräch
+              {isEN ? "Free initial consultation" : "Kostenloses Erstgespräch"}
             </a>
             <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
             <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>{extra}</span>
           </>
         ) : (
-          <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>Kostenloses Erstgespräch</span>
+          <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>{isEN ? "Free initial consultation" : "Kostenloses Erstgespräch"}</span>
         )}
       </nav>
     </div>
@@ -81,29 +84,34 @@ export default function VorgespraechPage() {
                   style={{ display: "inline-block", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "5px 16px", alignSelf: "flex-start", textAlign: "center", cursor: "default", transition: "background 0.2s, box-shadow 0.2s" }}
                   onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--blue-ultra-light)"; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.18)"; }}
                   onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "transparent"; el.style.boxShadow = "none"; }}>
-                  <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>Kostenlos &amp; vertraulich</span>
+                  <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>{isEN ? "Free & confidential" : "Kostenlos & vertraulich"}</span>
                 </div>
                 <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "var(--blue-ultra-light)", border: `1px solid ${CTA}30`, borderRadius: 9999, padding: "5px 12px" }}>
                   <span style={{ fontSize: 13 }}>⭐</span>
-                  <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA }}>Über 500 Gespräche</span>
+                  <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA }}>{isEN ? "Over 500 conversations" : "Über 500 Gespräche"}</span>
                 </div>
               </div>
 
               <h1 style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 28 : 40, lineHeight: 1.2, color: "var(--black)", margin: "0 0 14px" }}>
-                Kostenloses<br />Erstgespräch
+                {isEN ? <>Free<br />initial consultation</> : <>Kostenloses<br />Erstgespräch</>}
               </h1>
               <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 17, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 28px" }}>
-                Unsicher, wo du anfangen sollst? In einem 30-minütigen Gespräch hören wir dir zu, helfen dir deine Situation einzuordnen und zeigen dir, welche Unterstützung für dich sinnvoll sein könnte.
+                {isEN ? "Not sure where to start? In a 30-minute conversation we listen to you, help you understand your situation, and show you what kind of support might make sense for you." : "Unsicher, wo du anfangen sollst? In einem 30-minütigen Gespräch hören wir dir zu, helfen dir deine Situation einzuordnen und zeigen dir, welche Unterstützung für dich sinnvoll sein könnte."}
               </p>
 
               {/* 4 benefits — blue checkmarks */}
               <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
-                {[
+                {(isEN ? [
+                  "Personal recommendation",
+                  "Confidential & discreet",
+                  "Free & non-binding",
+                  "Online or in person",
+                ] : [
                   "Persönliche Empfehlung",
                   "Vertraulich & diskret",
                   "Kostenlos & unverbindlich",
                   "Online oder Vor Ort",
-                ].map((text, i) => (
+                ]).map((text, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <img src="/icons/icon-check.svg" width={18} height={18} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
                     <span style={{ fontFamily: F, fontSize: 15, color: "var(--black)", fontWeight: 500 }}>{text}</span>
@@ -116,7 +124,7 @@ export default function VorgespraechPage() {
                 style={{ display: "inline-flex", alignItems: "center", gap: 10, height: 52, padding: "0 32px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 16, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.28)", transition: "background 0.2s, box-shadow 0.2s", alignSelf: "flex-start", marginBottom: 20 }}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--cta-hover)"; el.style.boxShadow = "0 8px 28px rgba(45,91,141,0.34)"; }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = CTA; el.style.boxShadow = "0 6px 24px rgba(45,91,141,0.28)"; }}>
-                Kostenloses Gespräch buchen
+                {isEN ? "Book free consultation" : "Kostenloses Gespräch buchen"}
                 <img src="/icons/arrow-right.svg" width={18} height={18} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
               </a>
 
@@ -124,7 +132,7 @@ export default function VorgespraechPage() {
               <button
                 onClick={() => stepsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
                 style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "inline-flex", alignItems: "center", gap: 6, alignSelf: "flex-start" }}>
-                <span style={{ fontFamily: F, fontSize: 14, color: CTA, fontWeight: 500, textDecoration: "underline", textUnderlineOffset: 3 }}>Wie läuft das Gespräch ab?</span>
+                <span style={{ fontFamily: F, fontSize: 14, color: CTA, fontWeight: 500, textDecoration: "underline", textUnderlineOffset: 3 }}>{isEN ? "How does the conversation work?" : "Wie läuft das Gespräch ab?"}</span>
                 <svg width="18" height="18" fill="none" viewBox="0 0 24 24" style={{ animation: "subtleBounce 2s ease-in-out infinite" }}><path d="M12 5v14M5 12l7 7 7-7" stroke="var(--cta)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 <style>{`@keyframes subtleBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }`}</style>
               </button>
@@ -139,15 +147,20 @@ export default function VorgespraechPage() {
         <div style={{ ...wrap }}>
           <div style={{ marginBottom: isMobile ? 36 : 52, textAlign: "center" }}>
             <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, lineHeight: 1.3, color: "var(--black)", margin: "0 0 8px" }}>
-              Wie läuft das Gespräch ab?
+              {isEN ? "How does the conversation work?" : "Wie läuft das Gespräch ab?"}
             </h2>
             <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>
-              Dein Weg zu mehr Klarheit und Orientierung.
+              {isEN ? "Your path to more clarity and orientation." : "Dein Weg zu mehr Klarheit und Orientierung."}
             </p>
           </div>
 
           {(() => {
-            const steps = [
+            const steps = isEN ? [
+              { n: 1, icon: "/icons/icon-vorgespraech.svg", title: "Schedule a conversation", desc: "Book an appointment online – free, no waiting time, no commitment." },
+              { n: 2, icon: "/icons/icon-unterstuetzung.svg", title: "Share openly", desc: "You describe your situation at your own pace – we listen without judgement." },
+              { n: 3, icon: "/icons/icon-orientierung.svg", title: "Get orientation", desc: "We help you understand what kind of support would make the most sense for you." },
+              { n: 4, icon: "/icons/icon-test.svg", title: "Go your own way", desc: "You decide on your next step at your own pace – we'll be there to accompany you." },
+            ] : [
               { n: 1, icon: "/icons/icon-vorgespraech.svg", title: "Gespräch vereinbaren", desc: "Wähle online einen Termin – kostenlos, ohne Wartezeit und ohne Verpflichtung." },
               { n: 2, icon: "/icons/icon-unterstuetzung.svg", title: "Offen erzählen", desc: "Du schilderst deine Situation in deinem eigenen Tempo – wir hören zu, ohne zu urteilen." },
               { n: 3, icon: "/icons/icon-orientierung.svg", title: "Orientierung erhalten", desc: "Wir helfen dir einzuordnen, welche Unterstützung für dich am sinnvollsten wäre." },
@@ -193,14 +206,14 @@ export default function VorgespraechPage() {
           {/* Pre-CTA text + button */}
           <div style={{ marginTop: isMobile ? 40 : 56, textAlign: "center" }}>
             <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 17, color: "var(--grey-text)", margin: "0 0 20px", lineHeight: 1.6 }}>
-              Bereit für den ersten Schritt?<br />
-              <span style={{ color: "var(--black)", fontWeight: 500 }}>Das Gespräch dauert nur 30 Minuten – kostenlos und unverbindlich.</span>
+              {isEN ? "Ready for the first step?" : "Bereit für den ersten Schritt?"}<br />
+              <span style={{ color: "var(--black)", fontWeight: 500 }}>{isEN ? "The conversation only takes 30 minutes – free and non-binding." : "Das Gespräch dauert nur 30 Minuten – kostenlos und unverbindlich."}</span>
             </p>
             <a href="/vorgespraech/buchen"
               style={{ height: 54, padding: "0 36px", borderRadius: 9999, background: CTA, color: "white", border: "none", fontFamily: F, fontWeight: 600, fontSize: 16, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 10, boxShadow: "0 4px 20px rgba(45,91,141,0.28)", transition: "background 0.2s", textDecoration: "none" }}
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-              Kostenloses Erstgespräch buchen
+              {isEN ? "Book free initial consultation" : "Kostenloses Erstgespräch buchen"}
               <img src="/icons/arrow-right.svg" width={18} height={18} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
             </a>
           </div>
@@ -214,19 +227,23 @@ export default function VorgespraechPage() {
             <img src="/orientierungstest-small-banner.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
             <div style={{ position: "absolute", inset: 0, background: isMobile ? "linear-gradient(to top, rgba(236,245,255,0.98) 0%, rgba(236,245,255,0.92) 60%, rgba(236,245,255,0.3) 100%)" : "linear-gradient(to left, rgba(236,245,255,1) 0%, rgba(236,245,255,0.97) 30%, rgba(236,245,255,0.5) 50%, transparent 68%)" }} />
             <div style={{ position: "relative", zIndex: 1, width: isMobile ? "100%" : "58%", padding: isMobile ? "32px 24px" : "40px 48px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 14 }}>
-              <span style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase" }}>Noch unsicher?</span>
+              <span style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase" }}>{isEN ? "Still unsure?" : "Noch unsicher?"}</span>
               <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 24, lineHeight: 1.25, color: "var(--black)", margin: 0 }}>
-                Lieber selbst herausfinden,<br />was zu dir passt?
+                {isEN ? <>Prefer to find out<br />what suits you yourself?</> : <>Lieber selbst herausfinden,<br />was zu dir passt?</>}
               </h2>
               <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>
-                Beantworte einige kurze Fragen und erhalte passende Empfehlungen für deine Situation.
+                {isEN ? "Answer a few short questions and receive tailored recommendations for your situation." : "Beantworte einige kurze Fragen und erhalte passende Empfehlungen für deine Situation."}
               </p>
               <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 2 }}>
-                {[
+                {(isEN ? [
+                  { icon: "/icons/icon-test.svg", label: "Only 3 minutes" },
+                  { icon: "/icons/icon-orientierung.svg", label: "Individual recommendation" },
+                  { icon: "/icons/icon-unterstuetzung.svg", label: "Free & anonymous" },
+                ] : [
                   { icon: "/icons/icon-test.svg", label: "Nur 3 Minuten" },
                   { icon: "/icons/icon-orientierung.svg", label: "Individuelle Empfehlung" },
                   { icon: "/icons/icon-unterstuetzung.svg", label: "Kostenlos & anonym" },
-                ].map((f, idx) => (
+                ]).map((f, idx) => (
                   <div key={idx} style={{ display: "flex", alignItems: "center", gap: 8 }}>
                     <div style={{ width: 38, height: 38, borderRadius: "50%", background: `${CTA}12`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                       <img src={f.icon} width={20} height={20} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
@@ -238,7 +255,7 @@ export default function VorgespraechPage() {
               <a href="/orientierungstest" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 26px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 4 }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                Orientierungstest starten
+                {isEN ? "Start orientation test" : "Orientierungstest starten"}
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
               </a>
             </div>

@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getStoredUser, type AuthUser } from "@/lib/auth";
 import { saveBooking } from "@/lib/bookings";
+import { useLang } from "@/lib/lang";
 
 const F = "'Poppins', sans-serif";
 const CTA = "var(--cta)";
@@ -30,7 +31,9 @@ function useWindowWidth() {
 }
 
 const MONTHS_DE = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+const MONTHS_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const DAYS_DE = ["Mo","Di","Mi","Do","Fr","Sa","So"];
+const DAYS_EN = ["Mo","Tu","We","Th","Fr","Sa","Su"];
 
 function getDaysInMonth(y: number, m: number) { return new Date(y, m + 1, 0).getDate(); }
 function getFirstWeekday(y: number, m: number) { const d = new Date(y, m, 1).getDay(); return d === 0 ? 6 : d - 1; }
@@ -51,9 +54,8 @@ function availableSlots(date: Date) {
   return { morning, afternoon };
 }
 
-// ── Progress bar ──────────────────────────────────────────────────────
-function ProgressBar({ step }: { step: number }) {
-  const steps = ["Termin", "Angaben", "Bestätigung"];
+function ProgressBar({ step, isEN }: { step: number; isEN: boolean }) {
+  const steps = isEN ? ["Appointment", "Details", "Confirmation"] : ["Termin", "Angaben", "Bestätigung"];
   return (
     <div style={{ display: "flex", alignItems: "center", marginBottom: 32 }}>
       {steps.map((label, i) => {
@@ -79,9 +81,8 @@ function ProgressBar({ step }: { step: number }) {
   );
 }
 
-// ── Left panel ────────────────────────────────────────────────────────
-function LeftPanel({ format, locationId, selectedDate, selectedTime, isMobile }: {
-  format: "online" | "vor-ort"; locationId: string; selectedDate: string; selectedTime: string; isMobile: boolean;
+function LeftPanel({ format, locationId, selectedDate, selectedTime, isMobile, isEN }: {
+  format: "online" | "vor-ort"; locationId: string; selectedDate: string; selectedTime: string; isMobile: boolean; isEN: boolean;
 }) {
   return (
     <div style={{ background: "white", border: "1px solid #EBEBEB", borderRadius: 20, padding: "28px 24px", display: "flex", flexDirection: "column", gap: 20, ...(isMobile ? {} : { position: "sticky", top: 88, alignSelf: "flex-start" }) }}>
@@ -90,7 +91,7 @@ function LeftPanel({ format, locationId, selectedDate, selectedTime, isMobile }:
           <img src="/logo.svg" alt="PTBD" style={{ width: 48, height: 48, objectFit: "contain" }} />
         </div>
         <div>
-          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: 0 }}>Kostenloses Erstgespräch</p>
+          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: 0 }}>{isEN ? "Free initial consultation" : "Kostenloses Erstgespräch"}</p>
           <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: "3px 0 0" }}>Psychotherapeutischer Bereitschaftsdienst</p>
         </div>
       </div>
@@ -99,13 +100,13 @@ function LeftPanel({ format, locationId, selectedDate, selectedTime, isMobile }:
 
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         {[
-          { icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 7v5l3 3" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>, label: "30 Minuten" },
-          { icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Kostenlos & vertraulich" },
+          { icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 7v5l3 3" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>, label: isEN ? "30 minutes" : "30 Minuten" },
+          { icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: isEN ? "Free & confidential" : "Kostenlos & vertraulich" },
           ...(format === "online"
-            ? [{ icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" stroke={CTA} strokeWidth="1.6"/><path d="M8 21h8M12 17v4" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>, label: "Online per Video" }]
-            : [{ icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke={CTA} strokeWidth="1.6"/><circle cx="12" cy="10" r="2" stroke={CTA} strokeWidth="1.6"/></svg>, label: `Vor Ort – ${LOCATIONS.find(l => l.id === locationId)?.city ?? ""}` }]),
+            ? [{ icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" stroke={CTA} strokeWidth="1.6"/><path d="M8 21h8M12 17v4" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>, label: isEN ? "Online via video" : "Online per Video" }]
+            : [{ icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke={CTA} strokeWidth="1.6"/><circle cx="12" cy="10" r="2" stroke={CTA} strokeWidth="1.6"/></svg>, label: `${isEN ? "In person" : "Vor Ort"} – ${LOCATIONS.find(l => l.id === locationId)?.city ?? ""}` }]),
           ...(selectedDate ? [{ icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>, label: selectedDate }] : []),
-          ...(selectedTime ? [{ icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 7v5l3 3" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>, label: `${selectedTime} Uhr · 30 Min.` }] : []),
+          ...(selectedTime ? [{ icon: <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 7v5l3 3" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>, label: isEN ? `${selectedTime} · 30 min.` : `${selectedTime} Uhr · 30 Min.` }] : []),
         ].map((r, i) => (
           <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <div style={{ width: 28, height: 28, borderRadius: 8, background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{r.icon}</div>
@@ -120,56 +121,71 @@ function LeftPanel({ format, locationId, selectedDate, selectedTime, isMobile }:
           <path d="M9 12l2 2 4-4" stroke="var(--green)" strokeWidth="1.8" strokeLinecap="round"/>
         </svg>
         <p style={{ fontFamily: F, fontSize: 12, color: "var(--green)", margin: 0, lineHeight: 1.6 }}>
-          <span style={{ fontWeight: 600 }}>Komplett kostenlos.</span>{" "}Keine Kreditkarte, keine Verpflichtung.
+          <span style={{ fontWeight: 600 }}>{isEN ? "Completely free." : "Komplett kostenlos."}</span>{" "}{isEN ? "No credit card, no commitment." : "Keine Kreditkarte, keine Verpflichtung."}
         </p>
       </div>
     </div>
   );
 }
 
-// ── Confirmation ──────────────────────────────────────────────────────
-function Confirmation({ format, location, selectedDate, selectedTime, selectedDayObj, isMobile, user }: {
-  format: "online" | "vor-ort"; location: typeof LOCATIONS[0]; selectedDate: string; selectedTime: string; selectedDayObj: Date | null; isMobile: boolean; user: AuthUser | null;
+function Confirmation({ format, location, selectedDate, selectedTime, selectedDayObj, isMobile, user, isEN }: {
+  format: "online" | "vor-ort"; location: typeof LOCATIONS[0]; selectedDate: string; selectedTime: string; selectedDayObj: Date | null; isMobile: boolean; user: AuthUser | null; isEN: boolean;
 }) {
-  const KONTO_FEATURES = [
+  const KONTO_FEATURES = isEN ? [
+    { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>, title: "Manage appointments", desc: "All bookings at a glance" },
+    { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke={CTA} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Messages", desc: "Write directly with your counsellor" },
+    { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke={CTA} strokeWidth="1.8"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>, title: "Find specialists", desc: "Discover suitable therapists" },
+    { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke={CTA} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Secure & confidential", desc: "GDPR-compliant, deletable at any time" },
+  ] : [
     { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>, title: "Termine verwalten", desc: "Alle Buchungen auf einen Blick" },
     { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke={CTA} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Nachrichten", desc: "Direkt mit deinem Berater schreiben" },
     { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke={CTA} strokeWidth="1.8"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/></svg>, title: "Fachkräfte finden", desc: "Passende Therapeuten entdecken" },
     { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke={CTA} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Sicher & vertraulich", desc: "DSGVO-konform, jederzeit löschbar" },
   ];
+  void KONTO_FEATURES;
 
   return (
     <div style={{ maxWidth: 1440, margin: "0 auto", padding: isMobile ? "32px 16px 64px" : "48px 40px 80px" }}>
-      {/* Success header */}
       <div style={{ textAlign: "center", marginBottom: 32, maxWidth: 680, margin: "0 auto 32px" }}>
         <div style={{ width: 64, height: 64, borderRadius: "50%", background: "#EDFAEB", border: "2px solid #C3EDD0", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
           <svg width="30" height="30" fill="none" viewBox="0 0 24 24"><path stroke="var(--green)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
         </div>
-        <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 28, color: "var(--black)", margin: "0 0 8px" }}>Dein Erstgespräch ist gebucht!</h1>
+        <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 28, color: "var(--black)", margin: "0 0 8px" }}>
+          {isEN ? "Your initial consultation is booked!" : "Dein Erstgespräch ist gebucht!"}
+        </h1>
         <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: "0 0 24px", lineHeight: 1.6 }}>
-          Wir freuen uns auf das Gespräch mit dir. Eine Bestätigung wurde an deine E-Mail-Adresse gesendet.
+          {isEN ? "We look forward to talking with you. A confirmation has been sent to your email address." : "Wir freuen uns auf das Gespräch mit dir. Eine Bestätigung wurde an deine E-Mail-Adresse gesendet."}
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>
-          {[selectedDate, `${selectedTime} Uhr · 30 Min.`, format === "online" ? "Online per Video" : `Vor Ort – ${location.city}`, "Kostenlos"].map((chip, i) => (
+          {[
+            selectedDate,
+            isEN ? `${selectedTime} · 30 min.` : `${selectedTime} Uhr · 30 Min.`,
+            format === "online" ? (isEN ? "Online via video" : "Online per Video") : `${isEN ? "In person" : "Vor Ort"} – ${location.city}`,
+            isEN ? "Free" : "Kostenlos",
+          ].map((chip, i) => (
             <div key={i} style={{ background: "white", border: "1px solid #E8E8E8", borderRadius: 9999, padding: "7px 16px", fontFamily: F, fontSize: 13, color: "var(--black)", fontWeight: 500 }}>{chip}</div>
           ))}
         </div>
       </div>
 
-      {/* Info cards */}
       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16, marginBottom: 28 }}>
-        {/* Was passiert als Nächstes — timeline style */}
         <div style={{ background: "white", border: "1px solid #EBEBEB", borderRadius: 20, padding: "28px 26px" }}>
-          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 24px" }}>Was passiert als Nächstes?</p>
+          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 24px" }}>{isEN ? "What happens next?" : "Was passiert als Nächstes?"}</p>
           {([
-            { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Bestätigung erhalten", desc: "Du erhältst eine Bestätigungs-E-Mail mit allen Details." },
+            { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+              title: isEN ? "Confirmation received" : "Bestätigung erhalten",
+              desc: isEN ? "You'll receive a confirmation email with all the details." : "Du erhältst eine Bestätigungs-E-Mail mit allen Details." },
             { icon: format === "online"
               ? <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" stroke={CTA} strokeWidth="1.6"/><path d="M8 21h8M12 17v4" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>
               : <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke={CTA} strokeWidth="1.6"/><circle cx="12" cy="10" r="2" stroke={CTA} strokeWidth="1.6"/></svg>,
-              title: format === "online" ? "Video-Link erhalten" : "Adresse notieren",
-              desc: format === "online" ? "Den Videoanruf-Link bekommst du kurz vor dem Termin." : `${location.address}, ${location.zip}` },
-            { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Erinnerung erhalten", desc: "Wir senden dir eine Erinnerung kurz vor dem Gespräch." },
-            { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke={CTA} strokeWidth="1.6"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>, title: "Fachkraft finden", desc: "Nach dem Gespräch empfehlen wir dir passende Fachkräfte." },
+              title: format === "online" ? (isEN ? "Receive video link" : "Video-Link erhalten") : (isEN ? "Note the address" : "Adresse notieren"),
+              desc: format === "online" ? (isEN ? "You'll receive the video call link shortly before the appointment." : "Den Videoanruf-Link bekommst du kurz vor dem Termin.") : `${location.address}, ${location.zip}` },
+            { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+              title: isEN ? "Receive reminder" : "Erinnerung erhalten",
+              desc: isEN ? "We'll send you a reminder shortly before the conversation." : "Wir senden dir eine Erinnerung kurz vor dem Gespräch." },
+            { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke={CTA} strokeWidth="1.6"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>,
+              title: isEN ? "Find a specialist" : "Fachkraft finden",
+              desc: isEN ? "After the conversation we'll recommend suitable specialists for you." : "Nach dem Gespräch empfehlen wir dir passende Fachkräfte." },
           ] as { icon: React.ReactNode; title: string; desc: string }[]).map((s, i, arr) => (
             <div key={i} style={{ display: "flex", gap: 14, position: "relative" }}>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, width: 36 }}>
@@ -188,16 +204,20 @@ function Confirmation({ format, location, selectedDate, selectedTime, selectedDa
           ))}
         </div>
 
-        {/* Wichtige Informationen */}
         <div style={{ background: "var(--blue-ultra-light)", border: "1px solid #C8DFFF", borderRadius: 20, padding: "28px 26px", display: "flex", flexDirection: "column" }}>
-          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 20px" }}>Wichtige Informationen</p>
+          <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: "0 0 20px" }}>{isEN ? "Important information" : "Wichtige Informationen"}</p>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-            {[
+            {(isEN ? [
+              { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 7v5l3 3" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>, text: "The conversation lasts approx. 30 minutes." },
+              { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "Find a quiet, undisturbed place." },
+              { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "You can share your concerns openly – we'll listen." },
+              { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "Free cancellation up to 24h beforehand." },
+            ] : [
               { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke={CTA} strokeWidth="1.6"/><path d="M12 7v5l3 3" stroke={CTA} strokeWidth="1.6" strokeLinecap="round"/></svg>, text: "Das Gespräch dauert ca. 30 Minuten." },
               { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "Sorge für einen ruhigen, ungestörten Ort." },
               { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "Du kannst dein Anliegen offen schildern – wir hören zu." },
               { icon: <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke={CTA} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, text: "Kostenfreie Absage bis 24h vorher möglich." },
-            ].map((item, i) => (
+            ]).map((item, i) => (
               <div key={i} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
                 <div style={{ width: 32, height: 32, borderRadius: 9, background: "white", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   {item.icon}
@@ -209,9 +229,7 @@ function Confirmation({ format, location, selectedDate, selectedTime, selectedDa
         </div>
       </div>
 
-      {/* CTA buttons */}
       <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 12, justifyContent: "center", marginBottom: 32 }}>
-        {/* Add to calendar — generates .ics download */}
         <button
           onClick={() => {
             const pad = (n: number) => String(n).padStart(2, "0");
@@ -223,15 +241,15 @@ function Confirmation({ format, location, selectedDate, selectedTime, selectedDa
             const endMin = mm + 30; const endHh = hh + Math.floor(endMin / 60);
             const dtStart = `${y}${mo}${d}T${pad(hh)}${pad(mm)}00`;
             const dtEnd   = `${y}${mo}${d}T${pad(endHh)}${pad(endMin % 60)}00`;
-            const loc = format === "vor-ort" ? `${location.address}\\, ${location.zip}` : "Online per Video";
+            const loc = format === "vor-ort" ? `${location.address}\\, ${location.zip}` : (isEN ? "Online via Video" : "Online per Video");
             const ics = [
               "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//PTBD//DE",
               "BEGIN:VEVENT",
               `DTSTART:${dtStart}`,
               `DTEND:${dtEnd}`,
-              `SUMMARY:Kostenloses Erstgespräch – PTBD`,
+              `SUMMARY:${isEN ? "Free Initial Consultation – PTBD" : "Kostenloses Erstgespräch – PTBD"}`,
               `LOCATION:${loc}`,
-              `DESCRIPTION:Psychotherapeutischer Bereitschaftsdienst – Kostenloses Erstgespräch`,
+              `DESCRIPTION:Psychotherapeutischer Bereitschaftsdienst – ${isEN ? "Free Initial Consultation" : "Kostenloses Erstgespräch"}`,
               "END:VEVENT", "END:VCALENDAR"
             ].join("\r\n");
             const blob = new Blob([ics], { type: "text/calendar" });
@@ -243,23 +261,21 @@ function Confirmation({ format, location, selectedDate, selectedTime, selectedDa
           onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"}
           onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "white"}>
           <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke={CTA} strokeWidth="2" strokeLinecap="round"/></svg>
-          In Kalender eintragen
+          {isEN ? "Add to calendar" : "In Kalender eintragen"}
         </button>
 
-        {/* Profile / Register */}
         <a href={user ? "/profil" : "/registrieren"}
           style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, background: CTA, color: "white", borderRadius: 9999, padding: "13px 28px", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.25)", transition: "background 0.2s" }}
           onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
           onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
           <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="white" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="white" strokeWidth="2"/></svg>
-          {user ? "Zum Profil — Termin ansehen" : "Konto erstellen & Termin speichern"}
+          {user ? (isEN ? "To profile — view appointment" : "Zum Profil — Termin ansehen") : (isEN ? "Create account & save appointment" : "Konto erstellen & Termin speichern")}
         </a>
       </div>
     </div>
   );
 }
 
-// ── Shared helpers ────────────────────────────────────────────────────
 function TimeChip({ time, selected, onClick }: { time: string; selected: boolean; onClick: () => void }) {
   return (
     <button onClick={onClick} style={{ padding: "8px 16px", borderRadius: 9999, border: selected ? `2px solid ${CTA}` : "1.5px solid #E0E0E0", background: selected ? CTA : "white", color: selected ? "white" : "var(--black)", fontFamily: F, fontWeight: 500, fontSize: 14, cursor: "pointer", transition: "all 0.15s" }}
@@ -270,13 +286,13 @@ function TimeChip({ time, selected, onClick }: { time: string; selected: boolean
   );
 }
 
-function FormField({ label, children, required, optional }: { label: string; children: React.ReactNode; required?: boolean; optional?: boolean }) {
+function FormField({ label, children, required, optional, optionalLabel }: { label: string; children: React.ReactNode; required?: boolean; optional?: boolean; optionalLabel?: string }) {
   return (
     <div>
       <label style={{ display: "block", fontFamily: F, fontWeight: 500, fontSize: 13, color: "var(--black)", marginBottom: 6 }}>
         {label}
         {required && <span style={{ color: "var(--cta-brand)", marginLeft: 3 }}>*</span>}
-        {optional && <span style={{ color: "var(--grey-text)", fontWeight: 400, marginLeft: 4 }}>(optional)</span>}
+        {optional && <span style={{ color: "var(--grey-text)", fontWeight: 400, marginLeft: 4 }}>({optionalLabel ?? "optional"})</span>}
       </label>
       {children}
     </div>
@@ -304,8 +320,9 @@ function NextButton({ onClick, disabled, label }: { onClick: () => void; disable
   );
 }
 
-// ── Main page ─────────────────────────────────────────────────────────
 export default function VorgespraechBuchenPage() {
+  const { lang } = useLang();
+  const isEN = lang === 'en';
   const winW = useWindowWidth();
   const isMobile = winW < 1071;
 
@@ -347,8 +364,11 @@ export default function VorgespraechBuchenPage() {
     const date = new Date(calYear, calMonth, day);
     if (!isAvailableDay(date)) return;
     setSelectedDayObj(date);
-    const dayNames = ["So","Mo","Di","Mi","Do","Fr","Sa"];
-    setSelectedDate(`${dayNames[date.getDay()]}, ${day}. ${MONTHS_DE[calMonth]} ${calYear}`);
+    const MONTHS = isEN ? MONTHS_EN : MONTHS_DE;
+    const dayNamesDE = ["So","Mo","Di","Mi","Do","Fr","Sa"];
+    const dayNamesEN = ["Su","Mo","Tu","We","Th","Fr","Sa"];
+    const dayNames = isEN ? dayNamesEN : dayNamesDE;
+    setSelectedDate(`${dayNames[date.getDay()]}, ${day}. ${MONTHS[calMonth]} ${calYear}`);
     setSelectedTime("");
   }
 
@@ -357,7 +377,7 @@ export default function VorgespraechBuchenPage() {
   function handleConfirm() {
     saveBooking({
       therapistId: "vorgespraech",
-      therapistName: "Kostenloses Erstgespräch",
+      therapistName: isEN ? "Free Initial Consultation" : "Kostenloses Erstgespräch",
       therapistRole: "Psychotherapeutischer Bereitschaftsdienst",
       therapistPhoto: "/vorgespraech-banner.jpg",
       date: selectedDate,
@@ -376,12 +396,12 @@ export default function VorgespraechBuchenPage() {
     <div style={{ ...wrap, padding: isMobile ? "14px 16px 6px" : "14px 40px 6px" }}>
       <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
         <a href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
-          onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>Startseite</a>
+          onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>{isEN ? "Home" : "Startseite"}</a>
         <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
         <a href="/vorgespraech" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
-          onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>Kostenloses Erstgespräch</a>
+          onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>{isEN ? "Free initial consultation" : "Kostenloses Erstgespräch"}</a>
         <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
-        <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>Termin buchen</span>
+        <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>{isEN ? "Book appointment" : "Termin buchen"}</span>
       </nav>
     </div>
   );
@@ -392,6 +412,8 @@ export default function VorgespraechBuchenPage() {
   const slots = selectedDayObj ? availableSlots(selectedDayObj) : null;
   const canStep1 = !!selectedDate && !!selectedTime;
   const canStep2 = !!vorname && !!email && !!telefon;
+  const MONTHS = isEN ? MONTHS_EN : MONTHS_DE;
+  const DAYS = isEN ? DAYS_EN : DAYS_DE;
 
   return (
     <main style={{ background: "#F8FAFE", minHeight: "100vh" }}>
@@ -399,7 +421,7 @@ export default function VorgespraechBuchenPage() {
       <Breadcrumbs />
 
       {confirmed ? (
-        <Confirmation format={format} location={selectedLocation} selectedDate={selectedDate} selectedTime={selectedTime} selectedDayObj={selectedDayObj} isMobile={isMobile} user={user} />
+        <Confirmation format={format} location={selectedLocation} selectedDate={selectedDate} selectedTime={selectedTime} selectedDayObj={selectedDayObj} isMobile={isMobile} user={user} isEN={isEN} />
       ) : (
         <div style={{ maxWidth: 1150, margin: "0 auto", padding: isMobile ? "24px 16px 64px" : "40px 24px 64px", boxSizing: "border-box" as const }}>
           <div style={{ marginBottom: 16 }}>
@@ -407,29 +429,27 @@ export default function VorgespraechBuchenPage() {
               style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "none", border: "none", padding: 0, fontFamily: F, fontSize: 14, color: "var(--grey-text)", cursor: "pointer", marginBottom: 16 }}
               onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>
               <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M15 6l-6 6 6 6"/></svg>
-              Zurück
+              {isEN ? "Back" : "Zurück"}
             </button>
-            <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 28, color: "var(--black)", margin: 0 }}>Erstgespräch buchen</h1>
+            <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 28, color: "var(--black)", margin: 0 }}>{isEN ? "Book initial consultation" : "Erstgespräch buchen"}</h1>
           </div>
 
           <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "300px 1fr", gap: isMobile ? 20 : 28, alignItems: "flex-start" }}>
-            <LeftPanel format={format} locationId={locationId} selectedDate={selectedDate} selectedTime={selectedTime} isMobile={isMobile} />
+            <LeftPanel format={format} locationId={locationId} selectedDate={selectedDate} selectedTime={selectedTime} isMobile={isMobile} isEN={isEN} />
 
             <div style={{ background: "white", border: "1px solid #EBEBEB", borderRadius: 20, padding: isMobile ? "24px 18px" : "36px 40px" }}>
-              <ProgressBar step={step} />
+              <ProgressBar step={step} isEN={isEN} />
 
-              {/* ── STEP 1: Termin ── */}
               {step === 1 && (
                 <div>
-                  <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: 22, color: "var(--black)", margin: "0 0 6px" }}>Termin auswählen</h2>
-                  <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 24px" }}>Wähle dein bevorzugtes Format und einen passenden Termin.</p>
+                  <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: 22, color: "var(--black)", margin: "0 0 6px" }}>{isEN ? "Choose appointment" : "Termin auswählen"}</h2>
+                  <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 24px" }}>{isEN ? "Choose your preferred format and a suitable appointment." : "Wähle dein bevorzugtes Format und einen passenden Termin."}</p>
 
-                  {/* Format */}
-                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 10px" }}>Format</p>
+                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 10px" }}>{isEN ? "Format" : "Format"}</p>
                   <div style={{ display: "flex", gap: 12, marginBottom: 28 }}>
                     {([
-                      { value: "online" as const, icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.6"/><path d="M8 21h8M12 17v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>, title: "Online-Gespräch", sub: "Per Video von überall" },
-                      { value: "vor-ort" as const, icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke="currentColor" strokeWidth="1.6"/><circle cx="12" cy="10" r="2" stroke="currentColor" strokeWidth="1.6"/></svg>, title: "Vor-Ort-Gespräch", sub: "Mariahilfer Str. 47/3, Wien" },
+                      { value: "online" as const, icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.6"/><path d="M8 21h8M12 17v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>, title: isEN ? "Online conversation" : "Online-Gespräch", sub: isEN ? "Via video from anywhere" : "Per Video von überall" },
+                      { value: "vor-ort" as const, icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke="currentColor" strokeWidth="1.6"/><circle cx="12" cy="10" r="2" stroke="currentColor" strokeWidth="1.6"/></svg>, title: isEN ? "In-person conversation" : "Vor-Ort-Gespräch", sub: "Mariahilfer Str. 47/3, Wien" },
                     ] as const).map(opt => {
                       const sel = format === opt.value;
                       return (
@@ -445,10 +465,9 @@ export default function VorgespraechBuchenPage() {
                     })}
                   </div>
 
-                  {/* Location picker — only for vor-ort */}
                   {format === "vor-ort" && (
                     <div style={{ marginBottom: 28 }}>
-                      <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 12px" }}>Standort wählen</p>
+                      <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 12px" }}>{isEN ? "Choose location" : "Standort wählen"}</p>
                       <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 10 }}>
                         {LOCATIONS.map(loc => {
                           const sel = locationId === loc.id;
@@ -480,8 +499,7 @@ export default function VorgespraechBuchenPage() {
                     </div>
                   )}
 
-                  {/* Calendar */}
-                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 10px" }}>Datum</p>
+                  <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 10px" }}>{isEN ? "Date" : "Datum"}</p>
                   <div style={{ border: "1px solid #EBEBEB", borderRadius: 12, padding: 10, marginBottom: 24 }}>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
                       <button onClick={() => { if (!isPrevDisabled) { if (calMonth === 0) { setCalYear(y => y-1); setCalMonth(11); } else setCalMonth(m => m-1); } }}
@@ -490,7 +508,7 @@ export default function VorgespraechBuchenPage() {
                         onMouseLeave={e => { if (!isPrevDisabled) (e.currentTarget as HTMLElement).style.background = "#F0F4FA"; }}>
                         <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke={CTA} strokeWidth="2.5" strokeLinecap="round" d="M15 6l-6 6 6 6"/></svg>
                       </button>
-                      <span style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)" }}>{MONTHS_DE[calMonth]} {calYear}</span>
+                      <span style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)" }}>{MONTHS[calMonth]} {calYear}</span>
                       <button onClick={() => { if (calMonth === 11) { setCalYear(y => y+1); setCalMonth(0); } else setCalMonth(m => m+1); }}
                         style={{ background: "#F0F4FA", border: "none", width: 34, height: 34, borderRadius: 9, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s" }}
                         onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"; }}
@@ -499,7 +517,7 @@ export default function VorgespraechBuchenPage() {
                       </button>
                     </div>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", marginBottom: 2 }}>
-                      {DAYS_DE.map(d => <div key={d} style={{ textAlign: "center", fontFamily: F, fontSize: 9, fontWeight: 600, color: "#B0B0B0", padding: "2px 0" }}>{d}</div>)}
+                      {DAYS.map(d => <div key={d} style={{ textAlign: "center", fontFamily: F, fontSize: 9, fontWeight: 600, color: "#B0B0B0", padding: "2px 0" }}>{d}</div>)}
                     </div>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "2px 0" }}>
                       {Array.from({ length: firstWD }).map((_, i) => <div key={`e${i}`} style={{ aspectRatio: "1" }} />)}
@@ -530,13 +548,12 @@ export default function VorgespraechBuchenPage() {
                     </div>
                   </div>
 
-                  {/* Time slots */}
                   {slots && (
                     <div style={{ marginBottom: 32 }}>
-                      <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 12px" }}>Uhrzeit</p>
+                      <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 12px" }}>{isEN ? "Time" : "Uhrzeit"}</p>
                       {slots.morning.length > 0 && (
                         <div style={{ marginBottom: 16 }}>
-                          <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", fontWeight: 500, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.06em" }}>Vormittag</p>
+                          <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", fontWeight: 500, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{isEN ? "Morning" : "Vormittag"}</p>
                           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                             {slots.morning.map(s => <TimeChip key={s} time={s} selected={selectedTime === s} onClick={() => setSelectedTime(s)} />)}
                           </div>
@@ -544,7 +561,7 @@ export default function VorgespraechBuchenPage() {
                       )}
                       {slots.afternoon.length > 0 && (
                         <div>
-                          <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", fontWeight: 500, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.06em" }}>Nachmittag</p>
+                          <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", fontWeight: 500, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{isEN ? "Afternoon" : "Nachmittag"}</p>
                           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                             {slots.afternoon.map(s => <TimeChip key={s} time={s} selected={selectedTime === s} onClick={() => setSelectedTime(s)} />)}
                           </div>
@@ -553,36 +570,35 @@ export default function VorgespraechBuchenPage() {
                     </div>
                   )}
 
-                  <NextButton onClick={() => goToStep(2)} disabled={!canStep1} label="Weiter zu den Angaben" />
+                  <NextButton onClick={() => goToStep(2)} disabled={!canStep1} label={isEN ? "Continue to details" : "Weiter zu den Angaben"} />
                 </div>
               )}
 
-              {/* ── STEP 2: Angaben ── */}
               {step === 2 && (
                 <div>
-                  <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: 22, color: "var(--black)", margin: "0 0 6px" }}>Deine Angaben</h2>
-                  <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px" }}>Alle Angaben werden streng vertraulich behandelt.</p>
+                  <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: 22, color: "var(--black)", margin: "0 0 6px" }}>{isEN ? "Your details" : "Deine Angaben"}</h2>
+                  <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px" }}>{isEN ? "All information will be treated in strict confidence." : "Alle Angaben werden streng vertraulich behandelt."}</p>
 
                   <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
                     <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 14 }}>
-                      <FormField label="Vorname" required><TextInput value={vorname} onChange={setVorname} placeholder="Max" /></FormField>
-                      <FormField label="Nachname" required><TextInput value={nachname} onChange={setNachname} placeholder="Mustermann" /></FormField>
+                      <FormField label={isEN ? "First name" : "Vorname"} required><TextInput value={vorname} onChange={setVorname} placeholder={isEN ? "Jane" : "Max"} /></FormField>
+                      <FormField label={isEN ? "Last name" : "Nachname"} required><TextInput value={nachname} onChange={setNachname} placeholder={isEN ? "Smith" : "Mustermann"} /></FormField>
                     </div>
-                    <FormField label="E-Mail" required><TextInput value={email} onChange={setEmail} placeholder="deine@email.at" type="email" /></FormField>
-                    <FormField label="Telefon" required><TextInput value={telefon} onChange={setTelefon} placeholder="+43 660 123 45 67" type="tel" /></FormField>
-                    <FormField label="Worum geht es?" optional>
-                      <textarea value={thema} onChange={e => setThema(e.target.value)} placeholder="Beschreibe kurz, was dich beschäftigt … (optional)" rows={3}
+                    <FormField label={isEN ? "Email" : "E-Mail"} required><TextInput value={email} onChange={setEmail} placeholder={isEN ? "your@email.com" : "deine@email.at"} type="email" /></FormField>
+                    <FormField label={isEN ? "Phone" : "Telefon"} required><TextInput value={telefon} onChange={setTelefon} placeholder="+43 660 123 45 67" type="tel" /></FormField>
+                    <FormField label={isEN ? "What is it about?" : "Worum geht es?"} optional optionalLabel={isEN ? "optional" : "optional"}>
+                      <textarea value={thema} onChange={e => setThema(e.target.value)} placeholder={isEN ? "Briefly describe what is on your mind … (optional)" : "Beschreibe kurz, was dich beschäftigt … (optional)"} rows={3}
                         style={{ width: "100%", padding: "12px 14px", borderRadius: 10, border: "1.5px solid #E0E0E0", fontFamily: F, fontSize: 14, color: "var(--black)", resize: "vertical", outline: "none", boxSizing: "border-box" as const, lineHeight: 1.5 }}
                         onFocus={e => e.currentTarget.style.borderColor = CTA}
                         onBlur={e => e.currentTarget.style.borderColor = "#E0E0E0"} />
                     </FormField>
                     <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>
-                      Deine Daten werden ausschließlich zur Terminvereinbarung verwendet und nach DSGVO behandelt.
+                      {isEN ? "Your data will be used exclusively for scheduling and processed in accordance with GDPR." : "Deine Daten werden ausschließlich zur Terminvereinbarung verwendet und nach DSGVO behandelt."}
                     </p>
                   </div>
 
                   <div style={{ marginTop: 28 }}>
-                    <NextButton onClick={handleConfirm} disabled={!canStep2} label="Gespräch jetzt buchen" />
+                    <NextButton onClick={handleConfirm} disabled={!canStep2} label={isEN ? "Book consultation now" : "Gespräch jetzt buchen"} />
                   </div>
                 </div>
               )}

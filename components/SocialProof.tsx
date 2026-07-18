@@ -1,14 +1,10 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-
-const stats = [
-  { value: "500+", label: "Gespräche geführt" },
-  { value: "4.9★", label: "Kundenbewertung" },
-  { value: "48h", label: "bis zum ersten Termin" },
-  { value: "100%", label: "Geprüfte Fachkräfte" },
-];
+import { useLang } from "@/lib/lang";
 
 export default function SocialProof() {
+  const { T } = useLang();
+  const stats = T.socialProof.stats;
   const ref = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -21,7 +17,6 @@ export default function SocialProof() {
       el.style.maxHeight = scrolled ? "0" : "56px";
       el.style.opacity = scrolled ? "0" : "1";
     };
-    // Reset на върха при mount
     window.scrollTo(0, 0);
     el.style.maxHeight = "56px";
     el.style.opacity = "1";
@@ -35,7 +30,7 @@ export default function SocialProof() {
       setActiveIndex(i => (i + 1) % stats.length);
     }, 2500);
     return () => clearInterval(timer);
-  }, []);
+  }, [stats.length]);
 
   return (
     <div

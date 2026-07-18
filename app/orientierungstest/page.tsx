@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useLang } from "@/lib/lang";
 
 const F = "'Poppins', sans-serif";
 const CTA = "var(--cta)";
@@ -18,7 +19,7 @@ function useWindowWidth() {
 }
 
 // ── Questions ────────────────────────────────────────────────
-const QUESTIONS = [
+const QUESTIONS_DE = [
   {
     id: "topic",
     question: "Was belastet dich derzeit am meisten?",
@@ -90,6 +91,78 @@ const QUESTIONS = [
     ],
   },
 ];
+const QUESTIONS_EN = [
+  {
+    id: "topic",
+    question: "What is weighing on you most right now?",
+    subtitle: "You can also select multiple.",
+    multi: true,
+    photo: "/orientierungstest/frage1.jpg",
+    options: [
+      { value: "angst",      label: "Anxiety and worries" },
+      { value: "depression", label: "Low mood or depression" },
+      { value: "trauma",     label: "Traumatic experiences" },
+      { value: "stress",     label: "Stress and overwhelm" },
+      { value: "beziehung",  label: "Relationship problems" },
+      { value: "lebens",     label: "Important life decisions" },
+      { value: "anderes",    label: "Other" },
+    ],
+  },
+  {
+    id: "duration",
+    question: "How long has this been affecting you?",
+    subtitle: "This helps us assess the urgency better.",
+    multi: false,
+    photo: "/orientierungstest/frage2.jpg",
+    options: [
+      { value: "kurz",   label: "Less than 2 weeks" },
+      { value: "mittel", label: "2 weeks to 3 months" },
+      { value: "lang",   label: "3 to 6 months" },
+      { value: "immer",  label: "More than 6 months" },
+    ],
+  },
+  {
+    id: "alltag",
+    question: "Is this affecting your daily life?",
+    subtitle: "This helps us gauge the extent.",
+    multi: false,
+    photo: "/orientierungstest/frage3.jpg",
+    options: [
+      { value: "kaum",       label: "Barely, I'm managing well" },
+      { value: "teilweise",  label: "Somewhat, some things feel difficult" },
+      { value: "stark",      label: "Significantly, I have difficulties in daily life" },
+      { value: "sehrstark",  label: "Very severely, I can barely function" },
+    ],
+  },
+  {
+    id: "symptome",
+    question: "Do you have physical symptoms?",
+    subtitle: "Body and mind are often connected.",
+    multi: false,
+    photo: "/orientierungstest/frage4.jpg",
+    options: [
+      { value: "keine",    label: "No physical symptoms" },
+      { value: "leicht",   label: "Mild symptoms (e.g. sleep problems, headaches)" },
+      { value: "deutlich", label: "Noticeable symptoms (e.g. loss of appetite, exhaustion)" },
+      { value: "stark",    label: "Severe physical complaints" },
+    ],
+  },
+  {
+    id: "ziel",
+    question: "What is your main goal for the consultation?",
+    subtitle: "You can also select multiple.",
+    multi: true,
+    photo: "/orientierungstest/frage5.jpg",
+    options: [
+      { value: "verstehen",   label: "Understand myself better" },
+      { value: "bewaeltigen", label: "Learn coping strategies" },
+      { value: "trauma",      label: "Process trauma" },
+      { value: "orientierung",label: "Orientation and life guidance" },
+      { value: "behandlung",  label: "Treatment of an illness" },
+      { value: "anderes",     label: "Other" },
+    ],
+  },
+];
 
 // icon bg colors cycling through design tokens per card position
 const CARD_COLORS = [
@@ -100,7 +173,7 @@ const CARD_COLORS = [
 ];
 
 // ── Why-cards: reasons specific to each specialist type ──────
-const WHY_CARDS: Record<string, { icon: React.ReactNode; title: string; desc: string }[]> = {
+const WHY_CARDS_DE: Record<string, { icon: React.ReactNode; title: string; desc: string }[]> = {
   psychotherapeut: [
     {
       icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
@@ -168,9 +241,78 @@ const WHY_CARDS: Record<string, { icon: React.ReactNode; title: string; desc: st
     },
   ],
 };
+const WHY_CARDS_EN: Record<string, { icon: React.ReactNode; title: string; desc: string }[]> = {
+  psychotherapeut: [
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+      title: "Licensed specialist",
+      desc: "Psychotherapists are state-recognised specialists — you are in professional hands.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+      title: "Effective therapy methods",
+      desc: "CBT, psychodynamic, and other evidence-based approaches are proven to help with exactly your topics.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.7"/><path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>,
+      title: "Regular support",
+      desc: "Not just one session, but a structured process over months — for real, lasting change.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.7"/><path d="M2 10h20" stroke="currentColor" strokeWidth="1.7"/><path d="M6 15h4M14 15h4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>,
+      title: "Health insurance reimbursement possible",
+      desc: "As a licensed specialist, your therapist can bill the treatment through your health insurance.",
+    },
+  ],
+  psychologe: [
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.7"/><path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>,
+      title: "Thorough assessment",
+      desc: "Psychologists can carefully evaluate your situation — without immediately establishing a diagnosis.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+      title: "No diagnosis required",
+      desc: "You don't need to have an illness — psychological counselling also helps with life crises and orientation questions.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.7"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>,
+      title: "Flexible & tailored to you",
+      desc: "You set the pace and focus — no rigid programme, just genuine support at eye level.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+      title: "Early intervention pays off",
+      desc: "Psychological support now prevents difficulties from developing into serious conditions.",
+    },
+  ],
+  psychiater: [
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+      title: "Medical expertise",
+      desc: "Psychiatrists are licensed doctors — they can classify and treat your symptoms medically.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M10.5 20H4a2 2 0 01-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H20a2 2 0 012 2v3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><circle cx="17" cy="17" r="4" stroke="currentColor" strokeWidth="1.7"/><path d="M17 15v2l1 1" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>,
+      title: "Fast relief possible",
+      desc: "If necessary, medication can be used to provide rapid relief — no long waiting.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>,
+      title: "Therapy & medicine combined",
+      desc: "Psychiatrists combine psychotherapeutic and medical treatment — you don't need two separate specialists.",
+    },
+    {
+      icon: <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+      title: "Long-term stabilisation",
+      desc: "Psychiatrists accompany you from the acute moment to sustainable stabilisation — step by step.",
+    },
+  ],
+};
 
 // ── Specialist types ─────────────────────────────────────────
-const SPECIALIST_TYPES: Record<string, { title: string; role: string; icon: string; why: string; desc: string; tags: string[] }> = {
+type SpecialistTypeData = { title: string; role: string; icon: string; why: string; desc: string; tags: string[] };
+const SPECIALIST_TYPES_DE: Record<string, SpecialistTypeData> = {
   psychotherapeut: {
     title: "Psychotherapeut:in",
     role: "Psychotherapie",
@@ -196,8 +338,34 @@ const SPECIALIST_TYPES: Record<string, { title: string; role: string; icon: stri
     tags: ["Schwere Depression", "Akute Krisen", "Medikamentöse Behandlung"],
   },
 };
+const SPECIALIST_TYPES_EN: Record<string, SpecialistTypeData> = {
+  psychotherapeut: {
+    title: "Psychotherapist",
+    role: "Psychotherapy",
+    icon: "/icons/role-psychotherapie.svg",
+    why: "Psychotherapists specialise in the long-term treatment of mental health conditions such as depression, anxiety disorders, and trauma. Their methods help you understand thought patterns and change them sustainably.",
+    desc: "Licensed specialist for psychotherapeutic treatment — most often recommended for persistent difficulties.",
+    tags: ["Anxiety disorders", "Depression", "Trauma", "Burnout"],
+  },
+  psychologe: {
+    title: "Psychologist",
+    role: "Psychology",
+    icon: "/icons/role-brain.svg",
+    why: "Psychologists offer psychological assessment, counselling, and support. They are ideal for personal crises, life decisions, and preventive guidance — without necessarily establishing a clinical diagnosis.",
+    desc: "Expert in assessment and psychological counselling — suitable for orientation needs and life crises.",
+    tags: ["Life crises", "Stress", "Relationship problems", "Orientation"],
+  },
+  psychiater: {
+    title: "Psychiatrist",
+    role: "Psychiatry",
+    icon: "/icons/role-herz.svg",
+    why: "Psychiatrists are doctors specialising in mental illness. They can conduct psychotherapy as well as prescribe medication — especially important in severe or urgent cases.",
+    desc: "Medical specialist for serious mental illness — also responsible for medication-based treatment.",
+    tags: ["Severe depression", "Acute crises", "Medication treatment"],
+  },
+};
 
-type SpecialistKey = keyof typeof SPECIALIST_TYPES;
+type SpecialistKey = "psychotherapeut" | "psychologe" | "psychiater";
 
 function getRecommendation(answers: Record<string, string[]>): SpecialistKey {
   const topics = answers.topic ?? [];
@@ -254,20 +422,33 @@ const CATEGORIES = [
   { label: "Selbstwert",         color: "#F0FFF4", border: "#A0E0B0", text: "#1A6630" },
 ];
 
-const STEPS_HOW = [
+const STEPS_HOW_DE = [
   { n: 1, icon: "/icons/icon-test.svg",          title: "Fragen beantworten",  desc: "5 kurze Fragen zu deiner Situation, deinen Bedürfnissen und Präferenzen." },
   { n: 2, icon: "/icons/icon-orientierung.svg",  title: "Analyse läuft",       desc: "Wir werten deine Antworten aus und suchen nach passenden Fachkräften." },
   { n: 3, icon: "/icons/icon-unterstuetzung.svg",title: "Empfehlung erhalten", desc: "Du erhältst eine persönliche Empfehlung mit Erklärung, welcher Typ am besten passt." },
   { n: 4, icon: "/icons/icon-vorgespraech.svg",  title: "Termin buchen",       desc: "Buche direkt online einen Termin bei deiner Wunsch-Fachkraft." },
+];
+const STEPS_HOW_EN = [
+  { n: 1, icon: "/icons/icon-test.svg",          title: "Answer questions",    desc: "5 short questions about your situation, needs, and preferences." },
+  { n: 2, icon: "/icons/icon-orientierung.svg",  title: "Analysis running",    desc: "We evaluate your answers and search for suitable specialists." },
+  { n: 3, icon: "/icons/icon-unterstuetzung.svg",title: "Receive recommendation", desc: "You receive a personal recommendation explaining which type suits you best." },
+  { n: 4, icon: "/icons/icon-vorgespraech.svg",  title: "Book appointment",    desc: "Book an appointment online directly with your preferred specialist." },
 ];
 
 type Answers = Record<string, string[]>;
 
 // ── Main ─────────────────────────────────────────────────────
 export default function OrientierungstestPage() {
+  const { lang } = useLang();
+  const isEN = lang === 'en';
   const winW = useWindowWidth();
   const isMobile = winW < 1071;
   const stepsRef = useRef<HTMLDivElement>(null);
+
+  const QUESTIONS = isEN ? QUESTIONS_EN : QUESTIONS_DE;
+  const STEPS_HOW = isEN ? STEPS_HOW_EN : STEPS_HOW_DE;
+  const SPECIALIST_TYPES = isEN ? SPECIALIST_TYPES_EN : SPECIALIST_TYPES_DE;
+  const WHY_CARDS = isEN ? WHY_CARDS_EN : WHY_CARDS_DE;
 
   const [phase, setPhase] = useState<"landing" | "test" | "results">("landing");
   const [currentQ, setCurrentQ] = useState(0);
@@ -321,9 +502,9 @@ export default function OrientierungstestPage() {
           <div style={{ ...wrap, padding: isMobile ? "14px 16px 20px" : "14px 40px 20px" }}>
             <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
               <a href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
-                onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>Startseite</a>
+                onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>{isEN ? "Home" : "Startseite"}</a>
               <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
-              <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>Orientierungstest</span>
+              <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>{isEN ? "Orientation test" : "Orientierungstest"}</span>
             </nav>
           </div>
             <div style={{ ...wrap }}>
@@ -337,16 +518,16 @@ export default function OrientierungstestPage() {
                     style={{ display: "inline-block", border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "5px 16px", marginBottom: 18, alignSelf: "flex-start", cursor: "default", transition: "background 0.2s, box-shadow 0.2s" }}
                     onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--blue-ultra-light)"; el.style.boxShadow = "0 4px 20px rgba(45,91,141,0.18)"; }}
                     onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "transparent"; el.style.boxShadow = "none"; }}>
-                    <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>Kostenlos &amp; anonym</span>
+                    <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA, letterSpacing: "0.07em", textTransform: "uppercase" }}>{isEN ? "Free & anonymous" : "Kostenlos & anonym"}</span>
                   </div>
                   <h1 style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 28 : 40, lineHeight: 1.2, color: "var(--black)", margin: "0 0 14px" }}>
-                    Finde die passende<br />Unterstützung
+                    {isEN ? <>Find the right<br />support</> : <>Finde die passende<br />Unterstützung</>}
                   </h1>
                   <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 17, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 28px" }}>
-                    Beantworte 5 kurze Fragen zu deiner Situation und erhalte in weniger als 3 Minuten eine persönliche Empfehlung — kostenlos und ohne Registrierung.
+                    {isEN ? "Answer 5 short questions about your situation and receive a personal recommendation in less than 3 minutes — free and without registration." : "Beantworte 5 kurze Fragen zu deiner Situation und erhalte in weniger als 3 Minuten eine persönliche Empfehlung — kostenlos und ohne Registrierung."}
                   </p>
                   <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
-                    {["Nur 5 Fragen, dauert unter 3 Minuten", "Komplett anonym & ohne Anmeldung", "Empfehlung mit Erklärung, welcher Spezialist passt", "Passende Fachkräfte direkt buchen"].map((text, i) => (
+                    {(isEN ? ["Only 5 questions, takes under 3 minutes", "Completely anonymous & no registration", "Recommendation with explanation of which specialist fits", "Book suitable specialists directly"] : ["Nur 5 Fragen, dauert unter 3 Minuten", "Komplett anonym & ohne Anmeldung", "Empfehlung mit Erklärung, welcher Spezialist passt", "Passende Fachkräfte direkt buchen"]).map((text, i) => (
                       <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
                         <img src="/icons/icon-check.svg" width={18} height={18} alt="" style={{ objectFit: "contain", flexShrink: 0 }} />
                         <span style={{ fontFamily: F, fontSize: 15, color: "var(--black)", fontWeight: 500 }}>{text}</span>
@@ -355,7 +536,7 @@ export default function OrientierungstestPage() {
                   </div>
                   <button onClick={() => stepsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
                     style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "inline-flex", alignItems: "center", gap: 6, alignSelf: "flex-start" }}>
-                    <span style={{ fontFamily: F, fontSize: 14, color: CTA, fontWeight: 500, textDecoration: "underline", textUnderlineOffset: 3 }}>Wie funktioniert der Test?</span>
+                    <span style={{ fontFamily: F, fontSize: 14, color: CTA, fontWeight: 500, textDecoration: "underline", textUnderlineOffset: 3 }}>{isEN ? "How does the test work?" : "Wie funktioniert der Test?"}</span>
                     <svg width="18" height="18" fill="none" viewBox="0 0 24 24" style={{ animation: "subtleBounce 2s ease-in-out infinite" }}><path d="M12 5v14M5 12l7 7 7-7" stroke={CTA} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     <style>{`@keyframes subtleBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }`}</style>
                   </button>
@@ -368,8 +549,8 @@ export default function OrientierungstestPage() {
           <section ref={stepsRef} style={{ background: "white", padding: isMobile ? "48px 0" : "72px 0" }}>
             <div style={{ ...wrap }}>
               <div style={{ marginBottom: isMobile ? 36 : 52, textAlign: "center" }}>
-                <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: "0 0 8px" }}>Wie funktioniert der Test?</h2>
-                <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>In vier einfachen Schritten zu deiner persönlichen Empfehlung.</p>
+                <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 22 : 30, color: "var(--black)", margin: "0 0 8px" }}>{isEN ? "How does the test work?" : "Wie funktioniert der Test?"}</h2>
+                <p style={{ fontFamily: F, fontSize: 15, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>{isEN ? "Four simple steps to your personal recommendation." : "In vier einfachen Schritten zu deiner persönlichen Empfehlung."}</p>
               </div>
               {isMobile ? (
                 <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -406,14 +587,14 @@ export default function OrientierungstestPage() {
 
               <div style={{ marginTop: isMobile ? 40 : 56, textAlign: "center" }}>
                 <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 17, color: "var(--grey-text)", margin: "0 0 20px", lineHeight: 1.6 }}>
-                  Bereit loszulegen?<br />
-                  <span style={{ color: "var(--black)", fontWeight: 500 }}>Der Test dauert nur 3 Minuten – kostenlos und anonym.</span>
+                  {isEN ? "Ready to start?" : "Bereit loszulegen?"}<br />
+                  <span style={{ color: "var(--black)", fontWeight: 500 }}>{isEN ? "The test only takes 3 minutes – free and anonymous." : "Der Test dauert nur 3 Minuten – kostenlos und anonym."}</span>
                 </p>
                 <button onClick={() => { setPhase("test"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                   style={{ height: 54, padding: "0 36px", borderRadius: 9999, background: CTA, color: "white", border: "none", fontFamily: F, fontWeight: 600, fontSize: 16, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 10, boxShadow: "0 4px 20px rgba(45,91,141,0.28)", transition: "background 0.2s" }}
                   onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                   onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                  Test jetzt starten
+                  {isEN ? "Start test now" : "Test jetzt starten"}
                   <img src="/icons/arrow-right.svg" width={18} height={18} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
                 </button>
               </div>
@@ -427,15 +608,19 @@ export default function OrientierungstestPage() {
                 <img src="/vorgespraech-small-banner.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
                 <div style={{ position: "absolute", inset: 0, background: isMobile ? "linear-gradient(to top, rgba(236,245,255,0.98) 0%, rgba(236,245,255,0.92) 60%, rgba(236,245,255,0.3) 100%)" : "linear-gradient(to left, rgba(236,245,255,1) 0%, rgba(236,245,255,0.98) 38%, rgba(236,245,255,0.7) 58%, transparent 80%)" }} />
                 <div style={{ position: "relative", zIndex: 1, width: isMobile ? "100%" : "58%", padding: isMobile ? "32px 24px" : "40px 48px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 14 }}>
-                  <span style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase" }}>Lieber persönlich?</span>
-                  <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 24, lineHeight: 1.25, color: "var(--black)", margin: 0 }}>Sprich direkt mit uns</h2>
-                  <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>In einem kostenlosen 30-minütigen Erstgespräch nehmen wir uns Zeit für dich und finden gemeinsam den besten nächsten Schritt.</p>
+                  <span style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase" }}>{isEN ? "Prefer personal?" : "Lieber persönlich?"}</span>
+                  <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 24, lineHeight: 1.25, color: "var(--black)", margin: 0 }}>{isEN ? "Talk to us directly" : "Sprich direkt mit uns"}</h2>
+                  <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{isEN ? "In a free 30-minute initial consultation we take time for you and find the best next step together." : "In einem kostenlosen 30-minütigen Erstgespräch nehmen wir uns Zeit für dich und finden gemeinsam den besten nächsten Schritt."}</p>
                   <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 2 }}>
-                    {[
+                    {(isEN ? [
+                      { icon: "/icons/icon-clock.svg", label: "30 minutes for you" },
+                      { icon: "/icons/shield-check.svg", label: "Confidential & non-binding" },
+                      { icon: "/icons/icon-orientierung.svg", label: "Individual recommendation" },
+                    ] : [
                       { icon: "/icons/icon-clock.svg", label: "30 Minuten für dich" },
                       { icon: "/icons/shield-check.svg", label: "Vertraulich & unverbindlich" },
                       { icon: "/icons/icon-orientierung.svg", label: "Individuelle Empfehlung" },
-                    ].map((f, idx) => (
+                    ]).map((f, idx) => (
                       <div key={idx} style={{ display: "flex", alignItems: "center", gap: 8 }}>
                         <div style={{ width: 38, height: 38, borderRadius: "50%", background: `${CTA}12`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                           <img src={f.icon} width={20} height={20} alt="" style={{ objectFit: "contain", filter: "brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)" }} />
@@ -447,7 +632,7 @@ export default function OrientierungstestPage() {
                   <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 26px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 4 }}
                     onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                     onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                    Kostenloses Erstgespräch vereinbaren
+                    {isEN ? "Schedule free initial consultation" : "Kostenloses Erstgespräch vereinbaren"}
                     <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
                   </a>
                 </div>
@@ -462,13 +647,13 @@ export default function OrientierungstestPage() {
         <div style={{ ...wrap, paddingTop: isMobile ? 24 : 40, paddingBottom: 80 }}>
           {/* Header */}
           <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 20px", textAlign: "center" }}>
-            Lass uns gemeinsam herausfinden, was du brauchst
+            {isEN ? "Let's find out together what you need" : "Lass uns gemeinsam herausfinden, was du brauchst"}
           </h1>
 
           {/* Progress */}
           <div style={{ marginBottom: 28 }}>
             <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-              <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>Frage {currentQ + 1} von {QUESTIONS.length}</span>
+              <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>{isEN ? `Question ${currentQ + 1} of ${QUESTIONS.length}` : `Frage ${currentQ + 1} von ${QUESTIONS.length}`}</span>
               <span style={{ fontFamily: F, fontSize: 14, fontWeight: 600, color: CTA }}>{Math.round(progress)}%</span>
             </div>
             <div style={{ height: 5, background: "#E0EAF5", borderRadius: 9999, overflow: "hidden" }}>
@@ -487,12 +672,12 @@ export default function OrientierungstestPage() {
                       <button onClick={() => { setCurrentQ(q => q - 1); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                         style={{ background: "none", border: "none", fontFamily: F, fontSize: 14, color: "var(--grey-text)", cursor: "pointer", padding: "4px 0", display: "flex", alignItems: "center", gap: 4 }}>
                         <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M15 6l-6 6 6 6"/></svg>
-                        Zurück
+                        {isEN ? "Back" : "Zurück"}
                       </button>
                     ) : <div />}
                     <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
                       <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke={CTA} strokeWidth="1.8"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" stroke={CTA} strokeWidth="1.8" strokeLinecap="round"/><circle cx="12" cy="17" r=".5" fill={CTA} stroke={CTA} strokeWidth="1"/></svg>
-                      <span style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: CTA }}>Frage {currentQ + 1}</span>
+                      <span style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: CTA }}>{isEN ? `Question ${currentQ + 1}` : `Frage ${currentQ + 1}`}</span>
                     </div>
                   </div>
 
@@ -524,12 +709,12 @@ export default function OrientierungstestPage() {
                     <div style={{ marginTop: 12, borderRadius: 12, border: `1.5px solid ${CTA}`, background: "white", overflow: "hidden" }}>
                       <div style={{ padding: "8px 14px 6px", display: "flex", alignItems: "center", gap: 6, borderBottom: "1px solid #C8DFFF" }}>
                         <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke={CTA} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                        <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA }}>Bitte beschreibe kurz</span>
+                        <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA }}>{isEN ? "Please describe briefly" : "Bitte beschreibe kurz"}</span>
                       </div>
                       <textarea
                         value={sonstigesText[q.id] ?? ""}
                         onChange={e => setSonstigesText(prev => ({ ...prev, [q.id]: e.target.value }))}
-                        placeholder="Was beschäftigt dich? …"
+                        placeholder={isEN ? "What's on your mind? …" : "Was beschäftigt dich? …"}
                         rows={2}
                         style={{ width: "100%", padding: "10px 14px", border: "none", fontFamily: F, fontSize: 14, color: "var(--black)", resize: "none", outline: "none", boxSizing: "border-box" as const, lineHeight: 1.5, background: "transparent" }}
                       />
@@ -541,7 +726,7 @@ export default function OrientierungstestPage() {
                     style={{ marginTop: 28, width: "100%", height: 52, borderRadius: 12, background: canProceed() ? CTA : "#B0C4DE", color: "white", border: "none", fontFamily: F, fontSize: 15, fontWeight: 700, cursor: canProceed() ? "pointer" : "not-allowed", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: "background 0.2s" }}
                     onMouseEnter={e => { if (canProceed()) (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"; }}
                     onMouseLeave={e => { if (canProceed()) (e.currentTarget as HTMLElement).style.background = CTA; }}>
-                    {currentQ < QUESTIONS.length - 1 ? "Weiter zur nächsten Frage" : "Ergebnis anzeigen"}
+                    {currentQ < QUESTIONS.length - 1 ? (isEN ? "Continue to next question" : "Weiter zur nächsten Frage") : (isEN ? "Show result" : "Ergebnis anzeigen")}
                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path fillRule="evenodd" clipRule="evenodd" d="M12.634 6.234a.9.9 0 0 1 1.273 0l4.8 4.8a.9.9 0 0 1 0 1.273l-4.8 4.8a.9.9 0 1 1-1.272-1.272L16.068 12.4H6.8a.9.9 0 1 1 0-1.8h9.268l-3.434-3.435a.9.9 0 0 1 0-1.272Z" fill="white"/></svg>
                   </button>
                 </div>
@@ -562,8 +747,8 @@ export default function OrientierungstestPage() {
                   <path d="M12 2a10 10 0 0 1 10 10" stroke={CTA} strokeWidth="2.5" strokeLinecap="round"/>
                 </svg>
               </div>
-              <p style={{ fontFamily: F, fontWeight: 600, fontSize: 17, color: "var(--black)", margin: "0 0 6px" }}>Deine Antworten werden ausgewertet …</p>
-              <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0 }}>Wir suchen die passenden Fachkräfte für dich.</p>
+              <p style={{ fontFamily: F, fontWeight: 600, fontSize: 17, color: "var(--black)", margin: "0 0 6px" }}>{isEN ? "Your answers are being evaluated …" : "Deine Antworten werden ausgewertet …"}</p>
+              <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0 }}>{isEN ? "We are searching for suitable specialists for you." : "Wir suchen die passenden Fachkräfte für dich."}</p>
             </div>
           )}
           <style>{`
@@ -600,14 +785,16 @@ export default function OrientierungstestPage() {
                 : "linear-gradient(to right, rgba(236,245,255,1) 0%, rgba(236,245,255,0.98) 35%, rgba(236,245,255,0.75) 58%, rgba(236,245,255,0.0) 78%)" }} />
               {/* Text on top */}
               <div style={{ position: "relative", zIndex: 1, padding: isMobile ? "36px 24px" : "52px 56px", maxWidth: isMobile ? "100%" : 620, display: "flex", flexDirection: "column", gap: 14 }}>
-                <p style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>Dein Ergebnis</p>
+                <p style={{ fontFamily: F, fontSize: 13, fontWeight: 700, color: CTA, letterSpacing: "0.12em", textTransform: "uppercase", margin: 0 }}>{isEN ? "Your result" : "Dein Ergebnis"}</p>
                 <div>
                   <h1 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 28 : 40, color: "var(--black)", margin: "0 0 8px", lineHeight: 1.15 }}>
                     {spec.title}
                   </h1>
-                  <p style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 18 : 26, color: CTA, lineHeight: 1.3, margin: "10px 0 0" }}>– die beste Fachrichtung für dich.</p>
+                  <p style={{ fontFamily: F, fontWeight: 500, fontSize: isMobile ? 18 : 26, color: CTA, lineHeight: 1.3, margin: "10px 0 0" }}>{isEN ? "– the best field for you." : "– die beste Fachrichtung für dich."}</p>
                   <p style={{ fontFamily: F, fontSize: isMobile ? 14 : 15, color: "var(--grey-text)", margin: "14px 0 0", lineHeight: 1.7 }}>
-                    Basierend auf deinen Antworten empfehlen wir eine:n {spec.title.toLowerCase()}, {specKey === "psychiater" ? "die auf schwere psychische Erkrankungen spezialisiert ist — auch für medikamentöse Behandlung und akute Krisen." : specKey === "psychologe" ? "die dir bei Lebensfragen, Orientierung und persönlicher Entwicklung hilft." : "die auf langfristige Behandlung von Depressionen, Angststörungen und Traumata spezialisiert ist."}
+                    {isEN
+                      ? `Based on your answers we recommend a ${spec.title.toLowerCase()}, ${specKey === "psychiater" ? "who specialises in serious mental illness — including medication-based treatment and acute crises." : specKey === "psychologe" ? "who helps you with life questions, orientation, and personal development." : "who specialises in the long-term treatment of depression, anxiety disorders, and trauma."}`
+                      : `Basierend auf deinen Antworten empfehlen wir eine:n ${spec.title.toLowerCase()}, ${specKey === "psychiater" ? "die auf schwere psychische Erkrankungen spezialisiert ist — auch für medikamentöse Behandlung und akute Krisen." : specKey === "psychologe" ? "die dir bei Lebensfragen, Orientierung und persönlicher Entwicklung hilft." : "die auf langfristige Behandlung von Depressionen, Angststörungen und Traumata spezialisiert ist."}`}
                   </p>
                 </div>
               </div>
@@ -617,28 +804,46 @@ export default function OrientierungstestPage() {
             <div style={{ marginBottom: 56 }}>
               <div style={{ display: isMobile ? "flex" : "grid", flexDirection: isMobile ? "column" : undefined, gridTemplateColumns: isMobile ? undefined : "1fr 300px", gap: isMobile ? 24 : 40, alignItems: "flex-start" }}>
                 <div>
-                  <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 10px" }}>Deine Empfehlung im Überblick</p>
-                  <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 20px", lineHeight: 1.2 }}>Was bedeutet {spec.title}?</h2>
+                  <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 10px" }}>{isEN ? "Your recommendation at a glance" : "Deine Empfehlung im Überblick"}</p>
+                  <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 20px", lineHeight: 1.2 }}>{isEN ? `What is a ${spec.title}?` : `Was bedeutet ${spec.title}?`}</h2>
                   <p style={{ fontFamily: F, fontSize: isMobile ? 15 : 16, color: "var(--grey-text)", margin: "0 0 20px", lineHeight: 1.8 }}>{spec.why}</p>
                   {/* Feature chips */}
                   <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                     {(specKey === "psychiater"
-                      ? [
-                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Ärztliche Behandlung" },
-                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M10.5 20H4a2 2 0 01-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H20a2 2 0 012 2v3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/><circle cx="17" cy="17" r="4" stroke="currentColor" strokeWidth="1.8"/><path d="M17 15v2l1 1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Medikamente möglich" },
-                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Therapie kombiniert" },
-                        ]
+                      ? isEN
+                        ? [
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Medical treatment" },
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M10.5 20H4a2 2 0 01-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H20a2 2 0 012 2v3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/><circle cx="17" cy="17" r="4" stroke="currentColor" strokeWidth="1.8"/><path d="M17 15v2l1 1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Medication possible" },
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Therapy combined" },
+                          ]
+                        : [
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Ärztliche Behandlung" },
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M10.5 20H4a2 2 0 01-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 011.66.9l.82 1.2a2 2 0 001.66.9H20a2 2 0 012 2v3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/><circle cx="17" cy="17" r="4" stroke="currentColor" strokeWidth="1.8"/><path d="M17 15v2l1 1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Medikamente möglich" },
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Therapie kombiniert" },
+                          ]
                       : specKey === "psychologe"
-                      ? [
-                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Keine Diagnose nötig" },
-                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.8"/></svg>, label: "Flexibel & individuell" },
-                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Lebenskrisen & Beratung" },
-                        ]
-                      : [
-                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Zugelassene Fachkraft" },
-                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.8"/><path d="M2 10h20M6 15h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Kassenerstattung" },
-                          { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8"/><path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Strukturierte Therapie" },
-                        ]
+                      ? isEN
+                        ? [
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "No diagnosis required" },
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.8"/></svg>, label: "Flexible & individual" },
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Life crises & guidance" },
+                          ]
+                        : [
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Keine Diagnose nötig" },
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="1.8"/></svg>, label: "Flexibel & individuell" },
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Lebenskrisen & Beratung" },
+                          ]
+                      : isEN
+                        ? [
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Licensed specialist" },
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.8"/><path d="M2 10h20M6 15h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Insurance reimbursement" },
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8"/><path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Structured therapy" },
+                          ]
+                        : [
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>, label: "Zugelassene Fachkraft" },
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.8"/><path d="M2 10h20M6 15h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Kassenerstattung" },
+                            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8"/><path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Strukturierte Therapie" },
+                          ]
                     ).map((chip, i) => (
                       <div key={i} style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "var(--blue-ultra-light)", borderRadius: 9999, padding: "7px 14px", color: CTA }}>
                         {chip.icon}
@@ -654,16 +859,16 @@ export default function OrientierungstestPage() {
                       <div style={{ width: 34, height: 34, borderRadius: 10, background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                         <svg width="17" height="17" fill="none" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke={CTA} strokeWidth="1.7" strokeLinecap="round"/><circle cx="9" cy="7" r="4" stroke={CTA} strokeWidth="1.7"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke={CTA} strokeWidth="1.7" strokeLinecap="round"/></svg>
                       </div>
-                      <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "var(--black)", margin: 0 }}>Was unterscheidet die Fachrichtungen?</p>
+                      <p style={{ fontFamily: F, fontWeight: 700, fontSize: 14, color: "var(--black)", margin: 0 }}>{isEN ? "What distinguishes the specialisations?" : "Was unterscheidet die Fachrichtungen?"}</p>
                     </div>
                     <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>
-                      Psychotherapeut:in, Psycholog:in oder Psychiater:in — nicht alle helfen bei denselben Themen. Finde heraus, wer wofür zuständig ist.
+                      {isEN ? "Psychotherapist, psychologist, or psychiatrist — not all help with the same topics. Find out who is responsible for what." : "Psychotherapeut:in, Psycholog:in oder Psychiater:in — nicht alle helfen bei denselben Themen. Finde heraus, wer wofür zuständig ist."}
                     </p>
                     <a href="/fachkraefte"
                       style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13, color: CTA, fontWeight: 600, textDecoration: "none" }}
                       onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
                       onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}>
-                      Alle Fachrichtungen vergleichen
+                      {isEN ? "Compare all specialisations" : "Alle Fachrichtungen vergleichen"}
                       <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     </a>
                   </div>
@@ -674,7 +879,7 @@ export default function OrientierungstestPage() {
             {/* Why cards — premium 4-card grid */}
             <div style={{ marginBottom: 64 }}>
               <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 28px" }}>
-                Warum empfehlen wir eine:n {spec.title}?
+                {isEN ? `Why do we recommend a ${spec.title}?` : `Warum empfehlen wir eine:n ${spec.title}?`}
               </h2>
               <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr 1fr" : "repeat(4, 1fr)", gap: isMobile ? 12 : 20 }}>
                 {WHY_CARDS[specKey].map((card, i) => (
@@ -696,22 +901,36 @@ export default function OrientierungstestPage() {
 
             {/* ── Was erwartet dich? ── */}
             {(() => {
-              const erwarten = specKey === "psychiater" ? [
-                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Erstgespräch & Diagnose", desc: "Im ersten Termin hörst du eine genaue Einschätzung deiner Situation von einem:r Facharzt:ärztin." },
-                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Behandlungsplan", desc: "Gemeinsam entscheidet ihr, welche Behandlung — Therapie, Medikamente oder beides — am sinnvollsten ist." },
-                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Langfristige Begleitung", desc: "Psychiater:innen bleiben an deiner Seite — Schritt für Schritt hin zu mehr Stabilität." },
-              ] : specKey === "psychologe" ? [
-                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Offenes Erstgespräch", desc: "Du erzählst, was dich beschäftigt — ohne Vorbereitung, ohne festes Programm. Einfach ehrlich." },
-                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.7"/><path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Orientierung gewinnen", desc: "Gemeinsam findet ihr heraus, was dich wirklich beschäftigt — und welche nächsten Schritte sinnvoll sind." },
-                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Konkrete Unterstützung", desc: "Du gehst nicht mit leeren Händen — sondern mit Klarheit, ersten Impulsen und einem Plan." },
-              ] : [
-                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Das erste Gespräch", desc: "Du erzählst, was dich belastet. Der:die Therapeut:in hört zu — ohne Wertung, ohne Druck." },
-                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Strukturierter Prozess", desc: "Über Wochen und Monate arbeitest du gezielt an deinen Themen — mit erprobten Methoden." },
-                { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Dauerhafte Veränderung", desc: "Psychotherapie verändert nicht nur das Gefühl im Moment — sie verändert, wie du mit dir selbst umgehst." },
-              ];
+              const erwarten = isEN
+                ? (specKey === "psychiater" ? [
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Initial consultation & diagnosis", desc: "In the first appointment you hear a precise assessment of your situation from a specialist doctor." },
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Treatment plan", desc: "Together you decide which treatment — therapy, medication, or both — makes the most sense." },
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Long-term support", desc: "Psychiatrists stay by your side — step by step towards greater stability." },
+                  ] : specKey === "psychologe" ? [
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Open initial consultation", desc: "You share what's on your mind — no preparation, no fixed agenda. Just honest." },
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.7"/><path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Gain orientation", desc: "Together you discover what's really on your mind — and which next steps make sense." },
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Concrete support", desc: "You don't leave empty-handed — but with clarity, first impulses, and a plan." },
+                  ] : [
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "The first session", desc: "You share what's weighing on you. The therapist listens — without judgement, without pressure." },
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Structured process", desc: "Over weeks and months you work purposefully on your topics — with proven methods." },
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Lasting change", desc: "Psychotherapy doesn't just change how you feel in the moment — it changes how you relate to yourself." },
+                  ])
+                : (specKey === "psychiater" ? [
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Erstgespräch & Diagnose", desc: "Im ersten Termin hörst du eine genaue Einschätzung deiner Situation von einem:r Facharzt:ärztin." },
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Behandlungsplan", desc: "Gemeinsam entscheidet ihr, welche Behandlung — Therapie, Medikamente oder beides — am sinnvollsten ist." },
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Langfristige Begleitung", desc: "Psychiater:innen bleiben an deiner Seite — Schritt für Schritt hin zu mehr Stabilität." },
+                  ] : specKey === "psychologe" ? [
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Offenes Erstgespräch", desc: "Du erzählst, was dich beschäftigt — ohne Vorbereitung, ohne festes Programm. Einfach ehrlich." },
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.7"/><path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Orientierung gewinnen", desc: "Gemeinsam findet ihr heraus, was dich wirklich beschäftigt — und welche nächsten Schritte sinnvoll sind." },
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Konkrete Unterstützung", desc: "Du gehst nicht mit leeren Händen — sondern mit Klarheit, ersten Impulsen und einem Plan." },
+                  ] : [
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Das erste Gespräch", desc: "Du erzählst, was dich belastet. Der:die Therapeut:in hört zu — ohne Wertung, ohne Druck." },
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Strukturierter Prozess", desc: "Über Wochen und Monate arbeitest du gezielt an deinen Themen — mit erprobten Methoden." },
+                    { icon: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"/></svg>, title: "Dauerhafte Veränderung", desc: "Psychotherapie verändert nicht nur das Gefühl im Moment — sie verändert, wie du mit dir selbst umgehst." },
+                  ]);
               return (
                 <div style={{ marginBottom: 64 }}>
-                  <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 28px" }}>Was erwartet dich?</h2>
+                  <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: "0 0 28px" }}>{isEN ? "What to expect?" : "Was erwartet dich?"}</h2>
                   <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)", gap: isMobile ? 12 : 20 }}>
                     {erwarten.map((item, i) => {
                       const col = CARD_COLORS[i % CARD_COLORS.length];
@@ -739,19 +958,21 @@ export default function OrientierungstestPage() {
 
             {/* Matching therapists */}
             <div style={{ marginBottom: 24 }}>
-              <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 8px" }}>Basierend auf deinen Antworten</p>
-              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: 0 }}>Für dich empfohlene Fachkräfte</h2>
+              <p style={{ fontFamily: F, fontSize: 11, fontWeight: 700, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase", margin: "0 0 8px" }}>{isEN ? "Based on your answers" : "Basierend auf deinen Antworten"}</p>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 18 : 22, color: "var(--black)", margin: 0 }}>{isEN ? "Recommended specialists for you" : "Für dich empfohlene Fachkräfte"}</h2>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
               {RESULT_THERAPISTS[specKey].map((t, i) => {
                 const availDot = t.availability === "today" ? "#2DB36A" : t.availability === "thisweek" ? "#F59E0B" : "var(--grey-border)";
-                const footnoteText = specKey === "psychiater" ? "Basierend auf deinen Antworten zu Belastungsgrad, Symptomen und Behandlungsbedarf." : specKey === "psychologe" ? "Basierend auf deinen Antworten zu Lebensthemen, Orientierung und persönlichem Wachstum." : "Basierend auf deinen Antworten zu Angst, Depression und gewünschter Behandlungsform.";
+                const footnoteText = isEN
+                  ? (specKey === "psychiater" ? "Based on your answers about stress level, symptoms, and treatment needs." : specKey === "psychologe" ? "Based on your answers about life topics, orientation, and personal growth." : "Based on your answers about anxiety, depression, and preferred form of treatment.")
+                  : (specKey === "psychiater" ? "Basierend auf deinen Antworten zu Belastungsgrad, Symptomen und Behandlungsbedarf." : specKey === "psychologe" ? "Basierend auf deinen Antworten zu Lebensthemen, Orientierung und persönlichem Wachstum." : "Basierend auf deinen Antworten zu Angst, Depression und gewünschter Behandlungsform.");
                 return (
                   <div key={t.id} style={{ display: "flex", flexDirection: "column" }}>
                   {i === 0 && (
                     <div style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "7px 14px", background: CTA, borderRadius: "14px 14px 0 0", alignSelf: "flex-start" }}>
                       <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="white"/></svg>
-                      <span style={{ fontFamily: F, fontSize: 12, fontWeight: 700, color: "white", letterSpacing: "0.03em" }}>Beste Übereinstimmung</span>
+                      <span style={{ fontFamily: F, fontSize: 12, fontWeight: 700, color: "white", letterSpacing: "0.03em" }}>{isEN ? "Best match" : "Beste Übereinstimmung"}</span>
                     </div>
                   )}
                   <div
@@ -766,13 +987,13 @@ export default function OrientierungstestPage() {
                     <div style={{ flex: 1, minWidth: 0, padding: isMobile ? "16px 16px 14px" : "20px 24px", display: "flex", flexDirection: "column", gap: 10 }}>
                       <span style={{ fontFamily: F, fontSize: 12, color: "#1E6B34", fontWeight: 700, background: "#E2F7E9", borderRadius: 8, padding: "3px 10px", display: "inline-flex", alignItems: "center", gap: 5, alignSelf: "flex-start" }}>
                         <svg width="10" height="10" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4" stroke="#1E6B34" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="12" cy="12" r="9" stroke="#1E6B34" strokeWidth="1.5"/></svg>
-                        {t.match >= 90 ? "Sehr hohe Übereinstimmung" : t.match >= 80 ? "Hohe Übereinstimmung" : "Gute Übereinstimmung"} · {t.match}%
+                        {isEN ? (t.match >= 90 ? "Very high match" : t.match >= 80 ? "High match" : "Good match") : (t.match >= 90 ? "Sehr hohe Übereinstimmung" : t.match >= 80 ? "Hohe Übereinstimmung" : "Gute Übereinstimmung")} · {t.match}%
                       </span>
                       <div>
                         {t.verified && (
                           <div style={{ display: "flex", alignItems: "center", gap: 4, marginBottom: 3 }}>
                             <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" stroke="#33700E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                            <span style={{ fontFamily: F, fontSize: 12, color: "#33700E", fontWeight: 500 }}>Verifiziert</span>
+                            <span style={{ fontFamily: F, fontSize: 12, color: "#33700E", fontWeight: 500 }}>{isEN ? "Verified" : "Verifiziert"}</span>
                           </div>
                         )}
                         <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 15 : 18, color: "var(--black)", margin: 0, lineHeight: 1.25 }}>{t.name}</h3>
@@ -780,23 +1001,23 @@ export default function OrientierungstestPage() {
                       </div>
                       <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                         {(t.angebot === "online" || t.angebot === "beides") && <span style={{ padding: "2px 10px", borderRadius: 9999, fontSize: 12, fontFamily: F, fontWeight: 500, color: CTA, border: `1.5px solid ${CTA}` }}>Online</span>}
-                        {(t.angebot === "vor-ort" || t.angebot === "beides") && <span style={{ padding: "2px 10px", borderRadius: 9999, fontSize: 12, fontFamily: F, fontWeight: 500, color: "#B07000", border: "1.5px solid #D4920A" }}>Vor Ort · {t.location}</span>}
+                        {(t.angebot === "vor-ort" || t.angebot === "beides") && <span style={{ padding: "2px 10px", borderRadius: 9999, fontSize: 12, fontFamily: F, fontWeight: 500, color: "#B07000", border: "1.5px solid #D4920A" }}>{isEN ? "In person" : "Vor Ort"} · {t.location}</span>}
                         {t.kassenerstattung && (
                           <span style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "2px 10px", borderRadius: 9999, fontSize: 12, fontFamily: F, fontWeight: 500, color: "#33700E", border: "1.5px solid #C3EDD0", background: "#EDF9F0" }}>
                             <svg width="11" height="11" fill="none" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#33700E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                            Kassenerstattung
+                            {isEN ? "Insurance coverage" : "Kassenerstattung"}
                           </span>
                         )}
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
                         <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke={CTA} strokeWidth="1.7"/><path d="M16 2v4M8 2v4M3 10h18" stroke={CTA} strokeWidth="1.7" strokeLinecap="round"/></svg>
-                        <span style={{ fontFamily: F, fontSize: 13, color: CTA, fontWeight: 500 }}>Nächster Termin: {t.nextAppointment}</span>
+                        <span style={{ fontFamily: F, fontSize: 13, color: CTA, fontWeight: 500 }}>{isEN ? "Next appointment:" : "Nächster Termin:"} {t.nextAppointment}</span>
                       </div>
                       <p style={{ fontFamily: F, fontSize: 11, color: "var(--grey-text)", margin: 0, fontStyle: "italic", lineHeight: 1.5 }}>*{footnoteText}</p>
                       {isMobile && (
                         <a href={`/fachkraefte/${t.id}`}
                           style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, background: "white", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 0", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", marginTop: 4 }}>
-                          Profil ansehen →
+                          {isEN ? "View profile →" : "Profil ansehen →"}
                         </a>
                       )}
                     </div>
@@ -804,7 +1025,7 @@ export default function OrientierungstestPage() {
                       <div style={{ flexShrink: 0, display: "flex", alignItems: "center", padding: "0 24px" }}>
                         <a href={`/fachkraefte/${t.id}`}
                           style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, background: hoveredCard === i ? CTA : "white", color: hoveredCard === i ? "white" : CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap", transition: "background 0.2s, color 0.2s, box-shadow 0.2s", boxShadow: hoveredCard === i ? "0 3px 12px rgba(45,91,141,0.22)" : "none" }}>
-                          Profil ansehen
+                          {isEN ? "View profile" : "Profil ansehen"}
                           <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                         </a>
                       </div>
@@ -821,11 +1042,11 @@ export default function OrientierungstestPage() {
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, background: CTA, color: "white", borderRadius: 9999, padding: "12px 28px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.25)", transition: "background 0.2s" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                Alle passenden {spec.title}en ansehen
+                {isEN ? `View all matching ${spec.title}s` : `Alle passenden ${spec.title}en ansehen`}
               </a>
               <button onClick={() => { setPhase("test"); setCurrentQ(0); setAnswers({}); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, border: `1.5px solid ${CTA}`, background: "white", color: CTA, borderRadius: 9999, padding: "12px 24px", fontFamily: F, fontWeight: 500, fontSize: 14, cursor: "pointer" }}>
-                Test wiederholen
+                {isEN ? "Retake test" : "Test wiederholen"}
               </button>
             </div>
 
@@ -834,15 +1055,19 @@ export default function OrientierungstestPage() {
               <img src="/vorgespraech-small-banner.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
               <div style={{ position: "absolute", inset: 0, background: isMobile ? "linear-gradient(to top, rgba(236,245,255,0.98) 0%, rgba(236,245,255,0.92) 60%, rgba(236,245,255,0.3) 100%)" : "linear-gradient(to left, rgba(236,245,255,1) 0%, rgba(236,245,255,0.98) 38%, rgba(236,245,255,0.7) 58%, transparent 80%)" }} />
               <div style={{ position: "relative", zIndex: 1, width: isMobile ? "100%" : "58%", padding: isMobile ? "32px 24px" : "40px 48px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 14 }}>
-                <span style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase" }}>Lieber persönlich?</span>
-                <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 24, lineHeight: 1.25, color: "var(--black)", margin: 0 }}>Sprich direkt mit uns</h2>
-                <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>In einem kostenlosen 30-minütigen Erstgespräch nehmen wir uns Zeit für dich und finden gemeinsam den besten nächsten Schritt.</p>
+                <span style={{ fontFamily: F, fontWeight: 600, fontSize: 12, color: CTA, letterSpacing: "0.1em", textTransform: "uppercase" }}>{isEN ? "Prefer talking to someone?" : "Lieber persönlich?"}</span>
+                <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 24, lineHeight: 1.25, color: "var(--black)", margin: 0 }}>{isEN ? "Speak directly with us" : "Sprich direkt mit uns"}</h2>
+                <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>{isEN ? "In a free 30-minute initial consultation we take our time for you and find the best next step together." : "In einem kostenlosen 30-minütigen Erstgespräch nehmen wir uns Zeit für dich und finden gemeinsam den besten nächsten Schritt."}</p>
                 <div style={{ display: "flex", gap: 20, flexWrap: "wrap", marginTop: 2 }}>
-                  {[
+                  {(isEN ? [
+                    { icon: "/icons/icon-clock.svg", label: "30 minutes for you" },
+                    { icon: "/icons/shield-check.svg", label: "Confidential & non-binding" },
+                    { icon: "/icons/icon-orientierung.svg", label: "Individual recommendation" },
+                  ] : [
                     { icon: "/icons/icon-clock.svg", label: "30 Minuten für dich" },
                     { icon: "/icons/shield-check.svg", label: "Vertraulich & unverbindlich" },
                     { icon: "/icons/icon-orientierung.svg", label: "Individuelle Empfehlung" },
-                  ].map((f, idx) => (
+                  ]).map((f, idx) => (
                     <div key={idx} style={{ display: "flex", alignItems: "center", gap: 8 }}>
                       <div style={{ width: 38, height: 38, borderRadius: "50%", background: `${CTA}12`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                         <img src={f.icon} width={20} height={20} alt="" style={{ objectFit: "contain", filter: `brightness(0) saturate(100%) invert(25%) sepia(60%) saturate(500%) hue-rotate(190deg)` }} />
@@ -854,7 +1079,7 @@ export default function OrientierungstestPage() {
                 <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 26px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 4 }}
                   onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                   onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
-                  Kostenloses Erstgespräch vereinbaren
+                  {isEN ? "Book a free initial consultation" : "Kostenloses Erstgespräch vereinbaren"}
                   <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
                 </a>
               </div>

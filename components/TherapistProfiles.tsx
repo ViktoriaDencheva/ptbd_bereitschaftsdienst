@@ -8,58 +8,19 @@ const imgBgOverlay: string | null = null;
 const imgQuote = "/icons/icon-quote.svg";
 const imgKrankenkasse = "/icons/icon-kasse-detail.svg";
 
-const therapists = [
-  {
-    id: "1",
-    name: "Dr. Sarah Müller",
-    role: "Klinische Psychologin",
-    roleIcon: "/icons/role-brain.svg",
-    quote: "Ich arbeite lösungsorientiert und unterstütze Sie dabei, Ihre Ressourcen zu aktivieren. Mein Ansatz ist empathisch und evidenzbasiert.",
-    desc: "Spezialisiert auf Angststörungen und Burnout-Prävention. Ich begleite Sie auf Ihrem Weg zu mehr innerer Ruhe, Selbstvertrauen und emotionaler Stärke.",
-    tags: ["Angststörungen", "Burnout", "Achtsamkeit"],
-    kassenerstattung: true,
-    photo: "/fachkraefte/fachkraft-1.jpg",
-  },
-  {
-    id: "2",
-    name: "Thomas Weber",
-    role: "Diplom-Psychologe",
-    roleIcon: "/icons/role-hilfe.svg",
-    quote: "Gemeinsam finden wir neue Perspektiven für Deine Zukunft.",
-    desc: "Schwerpunkt Depressionen und Lebenskrisen. Gemeinsam finden wir neue Perspektiven für Ihre Zukunft.",
-    tags: ["Depressionen", "Lebenskrisen", "Perspektivenfindung"],
-    kassenerstattung: false,
-    photo: "/fachkraefte/fachkraft-2.jpg",
-  },
-  {
-    id: "3",
-    name: "Lisa Hoffmann",
-    role: "Psychologin (M.Sc.)",
-    roleIcon: "/icons/role-herz.svg",
-    quote: "Ich unterstütze Sie dabei, Ihre Stärken zu entdecken.",
-    desc: "Fokus auf Stressbewältigung und Selbstwertthemen. Ich unterstütze Sie dabei, Ihre Stärken zu entdecken und zu nutzen.",
-    tags: ["Stressbewältigung", "Selbstwert", "Persönliche Entwicklung"],
-    kassenerstattung: false,
-    photo: "/fachkraefte/fachkraft-3.jpg",
-  },
-  {
-    id: "4",
-    name: "Dr. Anna Schneider",
-    role: "Fachärztin für Psychiatrie",
-    roleIcon: "/icons/role-psychotherapie.svg",
-    quote: "Veränderung beginnt dort, wo Verständnis und Vertrauen entstehen.",
-    desc: "Spezialisiert auf Angststörungen, emotionale Belastungen und psychosomatische Beschwerden.",
-    tags: ["Angststörungen", "Psychosomatik", "Emotionale Stabilität"],
-    kassenerstattung: true,
-    photo: "/fachkraefte/fachkraft-4.jpg",
-  },
+const STATIC_THERAPISTS = [
+  { id: "1", name: "Dr. Sarah Müller",  roleIcon: "/icons/role-brain.svg",         kassenerstattung: true,  photo: "/fachkraefte/fachkraft-1.jpg" },
+  { id: "2", name: "Thomas Weber",      roleIcon: "/icons/role-hilfe.svg",          kassenerstattung: false, photo: "/fachkraefte/fachkraft-2.jpg" },
+  { id: "3", name: "Lisa Hoffmann",     roleIcon: "/icons/role-herz.svg",           kassenerstattung: false, photo: "/fachkraefte/fachkraft-3.jpg" },
+  { id: "4", name: "Dr. Anna Schneider",roleIcon: "/icons/role-psychotherapie.svg", kassenerstattung: true,  photo: "/fachkraefte/fachkraft-4.jpg" },
 ];
 
 export default function TherapistProfiles() {
   const [current, setCurrent] = useState(0);
-  const t = therapists[current];
   const { T } = useLang();
   const TP = T.therapistProfiles;
+  const therapists = STATIC_THERAPISTS.map((s, i) => ({ ...s, ...TP.therapists[i] }));
+  const t = therapists[current];
 
   const prev = () => setCurrent((current - 1 + therapists.length) % therapists.length);
   const next = () => setCurrent((current + 1) % therapists.length);

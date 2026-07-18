@@ -4,12 +4,23 @@ import { Plus, Minus, MapPin, Phone, Clock, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AustriaMap from "@/components/AustriaMap";
+import { useLang } from "@/lib/lang";
 
 const F = "'Poppins', sans-serif";
 const CTA_HEX = "#2D5B8D";
 const W = { maxWidth: 1440, margin: "0 auto", padding: "0 40px" } as const;
 
 // ─── Data ────────────────────────────────────────────────────────────────────
+
+const BL_EN: Record<string, string> = {
+  "Alle": "All",
+  "Wien": "Vienna",
+  "Niederösterreich": "Lower Austria",
+  "Oberösterreich": "Upper Austria",
+  "Steiermark": "Styria",
+  "Tirol": "Tyrol",
+  "Kärnten": "Carinthia",
+};
 
 const BUNDESLAENDER = [
   "Alle", "Wien", "Niederösterreich", "Oberösterreich",
@@ -170,7 +181,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   );
 }
 
-function StandortCard({ s }: { s: Standort }) {
+function StandortCard({ s, isEN }: { s: Standort; isEN: boolean }) {
   const [imgError, setImgError] = useState(false);
 
   return (
@@ -200,7 +211,7 @@ function StandortCard({ s }: { s: Standort }) {
       <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12 }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-            <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA_HEX, background: "#EBF2FC", borderRadius: 999, padding: "2px 10px" }}>{s.bundesland}</span>
+            <span style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: CTA_HEX, background: "#EBF2FC", borderRadius: 999, padding: "2px 10px" }}>{isEN ? (BL_EN[s.bundesland] ?? s.bundesland) : s.bundesland}</span>
           </div>
           <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: 17, color: "#1A1A1A", lineHeight: 1.3, margin: 0 }}>{s.name}</h3>
         </div>
@@ -234,7 +245,7 @@ function StandortCard({ s }: { s: Standort }) {
           onMouseEnter={e => (e.currentTarget.style.background = "#EBF2FC")}
           onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
         >
-          <ExternalLink size={13} /> Route öffnen
+          <ExternalLink size={13} /> {isEN ? "Open route" : "Route öffnen"}
         </a>
         <a
           href="/vorgespraech"
@@ -242,7 +253,7 @@ function StandortCard({ s }: { s: Standort }) {
           onMouseEnter={e => (e.currentTarget.style.background = "#234a72")}
           onMouseLeave={e => (e.currentTarget.style.background = CTA_HEX)}
         >
-          Termin vereinbaren
+          {isEN ? "Book appointment" : "Termin vereinbaren"}
         </a>
       </div>
       </div>
@@ -253,11 +264,20 @@ function StandortCard({ s }: { s: Standort }) {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function StandortePage() {
+  const { lang } = useLang();
+  const isEN = lang === 'en';
   const [activeBL, setActiveBL] = useState("Alle");
   const filtered = STANDORTE.filter(s => {
     if (activeBL !== "Alle" && s.bundesland !== activeBL) return false;
     return true;
   });
+
+  const FAQS_LOCAL = isEN ? [
+    { q: "Do I need to make an appointment?", a: "Yes, we recommend booking an appointment in advance to avoid waiting times. You can book directly online or contact us by phone." },
+    { q: "Can I also participate online?", a: "Many of our locations also offer online consultations via video chat. The specific offering is shown directly in each location description." },
+    { q: "Are all locations accessible?", a: "Most of our locations are barrier-free. Detailed information can be found at each location. If you have questions, our team will be happy to help." },
+    { q: "How do I find the right location?", a: "Use our filter function by state or city. If you're unsure, we recommend starting with a free initial consultation — which also works online." },
+  ] : FAQS;
 
   return (
     <>
@@ -269,9 +289,9 @@ export default function StandortePage() {
           <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
             onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = CTA_HEX}
             onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}
-          >Startseite</a>
+          >{isEN ? "Home" : "Startseite"}</a>
           <span style={{ color: "#C3C3C3" }}>›</span>
-          <span style={{ color: "var(--black)", fontWeight: 500 }}>Standorte</span>
+          <span style={{ color: "var(--black)", fontWeight: 500 }}>{isEN ? "Locations" : "Standorte"}</span>
         </div>
       </div>
 
@@ -282,36 +302,41 @@ export default function StandortePage() {
             {/* Left */}
             <div className="st-hero-content" style={{ display: "flex", flexDirection: "column", gap: 20, paddingBottom: 64 }}>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 12, fontWeight: 700, color: CTA_HEX, letterSpacing: "0.08em", background: "#EBF2FC", borderRadius: 999, padding: "5px 14px", width: "fit-content" }}>
-                STANDORTE
+                {isEN ? "LOCATIONS" : "STANDORTE"}
               </span>
               <h1 className="st-h1" style={{ fontFamily: F, fontWeight: 800, color: "#1A1A1A", lineHeight: 1.15, margin: 0 }}>
-                Unsere Standorte<br />in Österreich
+                {isEN ? <>Our Locations<br />in Austria</> : <>Unsere Standorte<br />in Österreich</>}
               </h1>
               <p style={{ fontFamily: F, fontSize: 17, color: "#555", lineHeight: 1.7, maxWidth: 480, margin: 0 }}>
-                Der Psychotherapeutischer Bereitschaftsdienst ist in mehreren Städten Österreichs vertreten.
-                Finde den nächsten Standort für ein persönliches Gespräch — oder nutze unsere Online-Angebote.
+                {isEN
+                  ? "The Psychotherapeutic Emergency Service is represented in several Austrian cities. Find the nearest location for a personal consultation — or use our online services."
+                  : "Der Psychotherapeutischer Bereitschaftsdienst ist in mehreren Städten Österreichs vertreten. Finde den nächsten Standort für ein persönliches Gespräch — oder nutze unsere Online-Angebote."}
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", transition: "background 0.2s" }}
                   onMouseEnter={e => (e.currentTarget.style.background = "#234a72")}
                   onMouseLeave={e => (e.currentTarget.style.background = CTA_HEX)}
                 >
-                  Termin vereinbaren
+                  {isEN ? "Book appointment" : "Termin vereinbaren"}
                 </a>
                 <a href="#standortliste" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid #C5D8F0`, color: CTA_HEX, fontFamily: F, fontWeight: 500, fontSize: 15, textDecoration: "none", transition: "all 0.2s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = "#EBF2FC"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}
                 >
-                  Alle Standorte ansehen
+                  {isEN ? "View all locations" : "Alle Standorte ansehen"}
                 </a>
               </div>
               {/* Stats */}
               <div style={{ display: "flex", gap: 32, marginTop: 8 }}>
-                {[
+                {(isEN ? [
+                  { num: "6", label: "Locations" },
+                  { num: "5", label: "States" },
+                  { num: "5/6", label: "with online option" },
+                ] : [
                   { num: "6", label: "Standorte" },
                   { num: "5", label: "Bundesländer" },
                   { num: "5/6", label: "mit Online-Option" },
-                ].map(({ num, label }) => (
+                ]).map(({ num, label }) => (
                   <div key={label} style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                     <span style={{ fontFamily: F, fontWeight: 800, fontSize: 28, color: CTA_HEX }}>{num}</span>
                     <span style={{ fontFamily: F, fontSize: 13, color: "#888" }}>{label}</span>
@@ -334,8 +359,8 @@ export default function StandortePage() {
       {/* ── MAP ── */}
       <section style={{ background: "#F7F9FC", padding: "72px 0" }}>
         <div className="st-w" style={W}>
-          <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 8 }}>Wo findest du uns?</h2>
-          <p style={{ fontFamily: F, fontSize: 14.5, color: "#888", marginBottom: 36 }}>Klicke auf ein Bundesland, um direkt zu den Standorten zu springen.</p>
+          <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 8 }}>{isEN ? "Where can you find us?" : "Wo findest du uns?"}</h2>
+          <p style={{ fontFamily: F, fontSize: 14.5, color: "#888", marginBottom: 36 }}>{isEN ? "Click on a state to jump directly to the locations." : "Klicke auf ein Bundesland, um direkt zu den Standorten zu springen."}</p>
           <div className="st-map-layout">
             {/* Map */}
             <div style={{ flex: "0 0 60%" }}>
@@ -352,7 +377,7 @@ export default function StandortePage() {
             </div>
             {/* Pills + info */}
             <div style={{ flex: 1, minWidth: 0 }}>
-              <p style={{ fontFamily: F, fontSize: 13, color: "#888", marginBottom: 16 }}>Bundesland wählen:</p>
+              <p style={{ fontFamily: F, fontSize: 13, color: "#888", marginBottom: 16 }}>{isEN ? "Select state:" : "Bundesland wählen:"}</p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
                 {BUNDESLAENDER.map(bl => {
                   const count = bl === "Alle" ? STANDORTE.length : STANDORTE.filter(s => s.bundesland === bl).length;
@@ -366,7 +391,7 @@ export default function StandortePage() {
                       }}
                       style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 36, padding: "0 14px", borderRadius: 9999, border: isActive ? `1.5px solid ${CTA_HEX}` : "1.5px solid #DDE8F5", background: isActive ? CTA_HEX : "white", color: isActive ? "white" : "#333", fontFamily: F, fontWeight: 500, fontSize: 13, cursor: count === 0 ? "default" : "pointer", opacity: count === 0 ? 0.4 : 1, transition: "all 0.2s" }}
                     >
-                      {bl}
+                      {isEN ? (BL_EN[bl] ?? bl) : bl}
                       {count > 0 && bl !== "Alle" && (
                         <span style={{ fontFamily: F, fontSize: 11, background: isActive ? "rgba(255,255,255,0.25)" : "#EBF2FC", color: isActive ? "white" : CTA_HEX, borderRadius: 999, padding: "1px 7px", fontWeight: 600 }}>{count}</span>
                       )}
@@ -375,7 +400,7 @@ export default function StandortePage() {
                 })}
               </div>
               <p style={{ fontFamily: F, fontSize: 13, color: "#aaa", marginTop: 20 }}>
-                {filtered.length} Standort{filtered.length !== 1 ? "e" : ""} {activeBL !== "Alle" ? `in ${activeBL}` : "österreichweit"}
+                {filtered.length} {isEN ? `location${filtered.length !== 1 ? "s" : ""}` : `Standort${filtered.length !== 1 ? "e" : ""}`} {activeBL !== "Alle" ? `in ${isEN ? (BL_EN[activeBL] ?? activeBL) : activeBL}` : (isEN ? "across Austria" : "österreichweit")}
               </p>
             </div>
           </div>
@@ -392,22 +417,22 @@ export default function StandortePage() {
                 onClick={() => setActiveBL("Alle")}
                 style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 36, padding: "0 14px", borderRadius: 9999, border: `1.5px solid ${CTA_HEX}`, background: "#EBF2FC", color: CTA_HEX, fontFamily: F, fontWeight: 500, fontSize: 13, cursor: "pointer" }}
               >
-                {activeBL} ×
+                {isEN ? (BL_EN[activeBL] ?? activeBL) : activeBL} ×
               </button>
             )}
             <span style={{ fontFamily: F, fontSize: 13, color: "#aaa", marginLeft: "auto" }}>
-              {filtered.length} von {STANDORTE.length} Standorten
+              {filtered.length} {isEN ? "of" : "von"} {STANDORTE.length} {isEN ? "locations" : "Standorten"}
             </span>
           </div>
 
           {/* Grid */}
           {filtered.length === 0 ? (
             <div style={{ textAlign: "center", padding: "48px 0", fontFamily: F, color: "#888", fontSize: 15 }}>
-              Keine Standorte gefunden. <button onClick={() => { setActiveBL("Alle"); }} style={{ background: "none", border: "none", color: CTA_HEX, cursor: "pointer", fontFamily: F, fontSize: 15 }}>Filter zurücksetzen</button>
+              {isEN ? "No locations found." : "Keine Standorte gefunden."} <button onClick={() => { setActiveBL("Alle"); }} style={{ background: "none", border: "none", color: CTA_HEX, cursor: "pointer", fontFamily: F, fontSize: 15 }}>{isEN ? "Reset filter" : "Filter zurücksetzen"}</button>
             </div>
           ) : (
             <div className="st-grid">
-              {filtered.map(s => <StandortCard key={s.id} s={s} />)}
+              {filtered.map(s => <StandortCard key={s.id} s={s} isEN={isEN} />)}
             </div>
           )}
         </div>
@@ -418,11 +443,11 @@ export default function StandortePage() {
         <div className="st-w" style={W}>
           <div className="st-faq-layout">
             <div>
-              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 8 }}>Häufige Fragen zu Standorten</h2>
-              <p style={{ fontFamily: F, fontSize: 14.5, color: "#888", marginBottom: 0 }}>Alles, was du vor deinem Besuch wissen solltest.</p>
+              <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "#1A1A1A", marginBottom: 8 }}>{isEN ? "Frequently Asked Questions about Locations" : "Häufige Fragen zu Standorten"}</h2>
+              <p style={{ fontFamily: F, fontSize: 14.5, color: "#888", marginBottom: 0 }}>{isEN ? "Everything you need to know before your visit." : "Alles, was du vor deinem Besuch wissen solltest."}</p>
             </div>
             <div>
-              {FAQS.map((faq, i) => <FaqItem key={i} q={faq.q} a={faq.a} />)}
+              {FAQS_LOCAL.map((faq, i) => <FaqItem key={i} q={faq.q} a={faq.a} />)}
             </div>
           </div>
         </div>

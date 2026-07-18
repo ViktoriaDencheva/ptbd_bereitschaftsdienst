@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { therapists } from "@/lib/therapists";
 import { saveBooking } from "@/lib/bookings";
+import { useLang } from "@/lib/lang";
 
 function useWindowWidth() {
   const [w, setW] = useState(0);
@@ -21,7 +22,9 @@ function useWindowWidth() {
 
 // ── helpers ──────────────────────────────────────────────────────────
 const MONTHS_DE = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+const MONTHS_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const DAYS_DE = ["Mo","Di","Mi","Do","Fr","Sa","So"];
+const DAYS_EN = ["Mo","Tu","We","Th","Fr","Sa","Su"];
 
 function getDaysInMonth(year: number, month: number) {
   return new Date(year, month + 1, 0).getDate();
@@ -73,6 +76,8 @@ function LeftPanel({
   step: number;
   isMobile: boolean;
 }) {
+  const { lang } = useLang();
+  const isEN = lang === 'en';
   const addr = t.address as { street: string; city: string } | null;
 
   return (
@@ -97,7 +102,7 @@ function LeftPanel({
           {t.verified && (
             <div style={{ display: "flex", alignItems: "center", gap: 4, marginTop: 5 }}>
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" stroke="var(--green)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--green)", fontWeight: 500 }}>Verifiziert</span>
+              <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--green)", fontWeight: 500 }}>{isEN ? "Verified" : "Verifiziert"}</span>
             </div>
           )}
         </div>
@@ -112,7 +117,7 @@ function LeftPanel({
           icon={format === "online"
             ? <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
             : <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke="var(--cta)" strokeWidth="1.6"/></svg>}
-          label={format === "online" ? "Online-Sitzung" : "Vor-Ort-Termin"}
+          label={format === "online" ? (isEN ? "Online Session" : "Online-Sitzung") : (isEN ? "In-Person Appointment" : "Vor-Ort-Termin")}
         />
         {format === "vor-ort" && addr && (
           <SummaryRow
@@ -135,7 +140,7 @@ function LeftPanel({
         )}
         <SummaryRow
           icon={<svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M17 6.5C15.6 5.3 13.9 4.5 12 4.5C8.13 4.5 5 7.63 5 11.5C5 15.37 8.13 18.5 12 18.5C13.9 18.5 15.6 17.7 17 16.5" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round"/><path d="M3 10h9M3 13h9" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round"/></svg>}
-          label={`€${t.price} / Sitzung`}
+          label={`€${t.price} / ${isEN ? "Session" : "Sitzung"}`}
         />
       </div>
 
@@ -147,8 +152,9 @@ function LeftPanel({
           <path d="M9 12l2 2 4-4" stroke="var(--green)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
         <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--green)", margin: 0, lineHeight: 1.6 }}>
-          <span style={{ fontWeight: 600 }}>Sichere &amp; verschlüsselte Buchung.</span>{" "}
-          <span style={{ fontWeight: 600 }}>Kostenlose Stornierung </span>bis 24h vorher.
+          {isEN
+            ? <><span style={{ fontWeight: 600 }}>Secure &amp; encrypted booking.</span>{" "}<span style={{ fontWeight: 600 }}>Free cancellation </span>up to 24h before.</>
+            : <><span style={{ fontWeight: 600 }}>Sichere &amp; verschlüsselte Buchung.</span>{" "}<span style={{ fontWeight: 600 }}>Kostenlose Stornierung </span>bis 24h vorher.</>}
         </p>
       </div>
     </div>
@@ -169,9 +175,10 @@ function SummaryRow({ icon, label, href }: { icon: React.ReactNode; label: strin
 }
 
 // ── Progress ─────────────────────────────────────────────────────────
-const STEPS = ["Termin", "Angaben", "Zahlung"];
-
 function ProgressBar({ step }: { step: number }) {
+  const { lang } = useLang();
+  const isEN = lang === 'en';
+  const STEPS = isEN ? ["Appointment", "Details", "Payment"] : ["Termin", "Angaben", "Zahlung"];
   return (
     <div style={{ display: "flex", alignItems: "center", marginBottom: 32 }}>
       {STEPS.map((label, i) => {
@@ -220,6 +227,10 @@ function Step1({
   setSelectedTime: (t: string) => void;
   onNext: () => void;
 }) {
+  const { lang } = useLang();
+  const isEN = lang === 'en';
+  const MONTHS = isEN ? MONTHS_EN : MONTHS_DE;
+  const DAYS = isEN ? DAYS_EN : DAYS_DE;
   const today = new Date(); today.setHours(0,0,0,0);
   const [calYear, setCalYear] = useState(today.getFullYear());
   const [calMonth, setCalMonth] = useState(today.getMonth());
@@ -248,8 +259,12 @@ function Step1({
     const date = new Date(calYear, calMonth, day);
     if (!isAvailableDay(date)) return;
     setSelectedDayObj(date);
-    const dayNames = ["So","Mo","Di","Mi","Do","Fr","Sa"];
-    setSelectedDate(`${dayNames[date.getDay()]}, ${day}. ${MONTHS_DE[calMonth]} ${calYear}`);
+    const dayNamesDE = ["So","Mo","Di","Mi","Do","Fr","Sa"];
+    const dayNamesEN = ["Su","Mo","Tu","We","Th","Fr","Sa"];
+    const dayN = isEN ? dayNamesEN[date.getDay()] : dayNamesDE[date.getDay()];
+    setSelectedDate(isEN
+      ? `${dayN}, ${MONTHS_EN[calMonth]} ${day}, ${calYear}`
+      : `${dayN}, ${day}. ${MONTHS_DE[calMonth]} ${calYear}`);
     setSelectedTime("");
   }
 
@@ -258,18 +273,18 @@ function Step1({
   return (
     <div>
       {/* Format toggle */}
-      <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 22, color: "var(--black)", margin: "0 0 6px" }}>Termin auswählen</h2>
-      <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)", margin: "0 0 24px" }}>Wähle Deinen bevorzugten Sitzungsformat und Wunschtermin.</p>
+      <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 22, color: "var(--black)", margin: "0 0 6px" }}>{isEN ? "Select appointment" : "Termin auswählen"}</h2>
+      <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)", margin: "0 0 24px" }}>{isEN ? "Choose your preferred session format and desired appointment." : "Wähle Deinen bevorzugten Sitzungsformat und Wunschtermin."}</p>
 
-      <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 10px" }}>Format</p>
+      <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 10px" }}>{isEN ? "Format" : "Format"}</p>
       <div style={{ display: "flex", gap: 12, marginBottom: 28 }}>
         {canOnline && (
           <FormatCard
             active={format === "online"}
             onClick={() => setFormat("online")}
             icon={<svg width="22" height="22" fill="none" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.6"/><path d="M8 21h8M12 17v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>}
-            title="Online-Sitzung"
-            sub="Per Video von überall"
+            title={isEN ? "Online Session" : "Online-Sitzung"}
+            sub={isEN ? "Via video from anywhere" : "Per Video von überall"}
           />
         )}
         {canVorOrt && (
@@ -277,8 +292,8 @@ function Step1({
             active={format === "vor-ort"}
             onClick={() => setFormat("vor-ort")}
             icon={<svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke="currentColor" strokeWidth="1.6"/><circle cx="12" cy="10" r="2" stroke="currentColor" strokeWidth="1.6"/></svg>}
-            title="Vor-Ort-Termin"
-            sub={addr ? `${addr.street}, ${addr.city}` : "In der Praxis"}
+            title={isEN ? "In-Person Appointment" : "Vor-Ort-Termin"}
+            sub={addr ? `${addr.street}, ${addr.city}` : (isEN ? "At the practice" : "In der Praxis")}
           />
         )}
       </div>
@@ -287,13 +302,13 @@ function Step1({
         <div style={{ background: "var(--blue-ultra-light)", border: "1px solid #BFDDFF", borderRadius: 12, padding: "12px 16px", display: "flex", gap: 10, alignItems: "center", marginBottom: 28 }}>
           <svg width="22" height="22" fill="none" viewBox="0 0 24 24" style={{ flexShrink: 0 }}><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke="var(--cta)" strokeWidth="1.8"/><circle cx="12" cy="10" r="2" stroke="var(--cta)" strokeWidth="1.8"/></svg>
           <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--cta)", fontWeight: 500 }}>
-            Praxisadresse: {addr.street}, {addr.city}
+            {isEN ? "Practice address:" : "Praxisadresse:"} {addr.street}, {addr.city}
           </span>
         </div>
       )}
 
       {/* Calendar */}
-      <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 10px" }}>Datum</p>
+      <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 10px" }}>{isEN ? "Date" : "Datum"}</p>
       <div style={{ border: "1px solid #EBEBEB", borderRadius: 12, padding: "10px", marginBottom: 24 }}>
         {/* Month nav */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
@@ -302,7 +317,7 @@ function Step1({
             onMouseLeave={e => { if (!isPrevDisabled) (e.currentTarget as HTMLElement).style.background = "#F0F4FA"; }}>
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="var(--cta)" strokeWidth="2.5" strokeLinecap="round" d="M15 6l-6 6 6 6"/></svg>
           </button>
-          <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 13, color: "var(--black)" }}>{MONTHS_DE[calMonth]} {calYear}</span>
+          <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 13, color: "var(--black)" }}>{MONTHS[calMonth]} {calYear}</span>
           <button onClick={nextMonth} style={{ background: "#F0F4FA", border: "none", borderRadius: 9, width: 34, height: 34, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s" }}
             onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"; }}
             onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#F0F4FA"; }}>
@@ -311,7 +326,7 @@ function Step1({
         </div>
         {/* Weekday headers */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", marginBottom: 2 }}>
-          {DAYS_DE.map(d => (
+          {DAYS.map(d => (
             <div key={d} style={{ textAlign: "center", fontFamily: "'Poppins',sans-serif", fontSize: 9, fontWeight: 600, color: "#B0B0B0", padding: "2px 0" }}>{d}</div>
           ))}
         </div>
@@ -351,10 +366,10 @@ function Step1({
       {/* Time slots */}
       {slots && (
         <div style={{ marginBottom: 32 }}>
-          <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 12px" }}>Uhrzeit</p>
+          <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 12px" }}>{isEN ? "Time" : "Uhrzeit"}</p>
           {slots.morning.length > 0 && (
             <div style={{ marginBottom: 16 }}>
-              <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", fontWeight: 500, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.06em" }}>Vormittag</p>
+              <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", fontWeight: 500, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{isEN ? "Morning" : "Vormittag"}</p>
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                 {slots.morning.map(s => (
                   <TimeChip key={s} time={s} selected={selectedTime === s} onClick={() => setSelectedTime(s)} />
@@ -364,7 +379,7 @@ function Step1({
           )}
           {slots.afternoon.length > 0 && (
             <div>
-              <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", fontWeight: 500, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.06em" }}>Nachmittag &amp; Abend</p>
+              <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", fontWeight: 500, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{isEN ? "Afternoon & Evening" : "Nachmittag & Abend"}</p>
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                 {slots.afternoon.map(s => (
                   <TimeChip key={s} time={s} selected={selectedTime === s} onClick={() => setSelectedTime(s)} />
@@ -375,7 +390,7 @@ function Step1({
         </div>
       )}
 
-      <CtaRow onNext={onNext} disabled={!canGoNext} nextLabel="Weiter zu Angaben" />
+      <CtaRow onNext={onNext} disabled={!canGoNext} nextLabel={isEN ? "Continue to Details" : "Weiter zu Angaben"} />
     </div>
   );
 }
@@ -435,16 +450,22 @@ function Step2({
   telefon: string; setTelefon: (v: string) => void;
   onBack: () => void; onNext: () => void;
 }) {
+  const { lang } = useLang();
+  const isEN = lang === 'en';
   const canGoNext = !!grund && !!vorname && !!nachname && !!email && !!telefon;
+
+  const GRUND_OPTIONS = isEN
+    ? ["Anxiety & Worries", "Depression", "Stress & Burnout", "Relationship problems", "Trauma", "Self-esteem", "Other"]
+    : ["Angst & Sorgen", "Depression", "Stress & Burnout", "Beziehungsprobleme", "Trauma", "Selbstwert", "Sonstiges"];
 
   return (
     <div>
-      <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 22, color: "var(--black)", margin: "0 0 6px" }}>Deine Angaben</h2>
-      <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px" }}>Alle Angaben werden vertraulich behandelt.</p>
+      <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 22, color: "var(--black)", margin: "0 0 6px" }}>{isEN ? "Your details" : "Deine Angaben"}</h2>
+      <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px" }}>{isEN ? "All information will be treated confidentially." : "Alle Angaben werden vertraulich behandelt."}</p>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
         {/* Grund */}
-        <FormField label="Worum geht es hauptsächlich?" required>
+        <FormField label={isEN ? "What is this mainly about?" : "Worum geht es hauptsächlich?"} required>
           <div style={{ position: "relative" }}>
             <select
               value={grund}
@@ -458,7 +479,7 @@ function Step2({
               onFocus={e => e.currentTarget.style.borderColor = "var(--cta)"}
               onBlur={e => e.currentTarget.style.borderColor = "#E0E0E0"}
             >
-              <option value="" disabled>Bitte wählen…</option>
+              <option value="" disabled>{isEN ? "Please select…" : "Bitte wählen…"}</option>
               {GRUND_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
             </select>
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
@@ -468,11 +489,11 @@ function Step2({
         </FormField>
 
         {/* Zusatz */}
-        <FormField label="Zusätzliche Informationen" optional>
+        <FormField label={isEN ? "Additional information" : "Zusätzliche Informationen"} optional>
           <textarea
             value={zusatz}
             onChange={e => setZusatz(e.target.value)}
-            placeholder="Was möchtest Du noch mitteilen? (optional)"
+            placeholder={isEN ? "Is there anything else you'd like to share? (optional)" : "Was möchtest Du noch mitteilen? (optional)"}
             rows={3}
             style={{
               width: "100%", padding: "12px 14px", borderRadius: 10,
@@ -488,25 +509,25 @@ function Step2({
 
         {/* Name row */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-          <FormField label="Vorname" required>
-            <TextInput value={vorname} onChange={setVorname} placeholder="Max" />
+          <FormField label={isEN ? "First name" : "Vorname"} required>
+            <TextInput value={vorname} onChange={setVorname} placeholder={isEN ? "Jane" : "Max"} />
           </FormField>
-          <FormField label="Nachname" required>
-            <TextInput value={nachname} onChange={setNachname} placeholder="Mustermann" />
+          <FormField label={isEN ? "Last name" : "Nachname"} required>
+            <TextInput value={nachname} onChange={setNachname} placeholder={isEN ? "Smith" : "Mustermann"} />
           </FormField>
         </div>
 
         <FormField label="E-Mail" required>
-          <TextInput value={email} onChange={setEmail} placeholder="deine@email.at" type="email" />
+          <TextInput value={email} onChange={setEmail} placeholder="your@email.com" type="email" />
         </FormField>
 
-        <FormField label="Telefon" required>
+        <FormField label={isEN ? "Phone" : "Telefon"} required>
           <TextInput value={telefon} onChange={setTelefon} placeholder="+43 660 123 45 67" type="tel" />
         </FormField>
       </div>
 
       <div style={{ marginTop: 32 }}>
-        <CtaRow onNext={onNext} disabled={!canGoNext} nextLabel="Weiter zur Zahlung" />
+        <CtaRow onNext={onNext} disabled={!canGoNext} nextLabel={isEN ? "Continue to Payment" : "Weiter zur Zahlung"} />
       </div>
     </div>
   );
@@ -568,6 +589,8 @@ function Step3({
   onBack: () => void;
   onConfirm: () => void;
 }) {
+  const { lang } = useLang();
+  const isEN = lang === 'en';
   const addr = t.address as { street: string; city: string } | null;
   const [payMethod, setPayMethod] = useState<"card" | "paypal" | "apple-pay" | "google-pay">("card");
   const cardValid = payMethod === "card"
@@ -590,37 +613,37 @@ function Step3({
 
   return (
     <div>
-      <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: 22, color: "var(--black)", margin: "0 0 6px" }}>Rückerstattung &amp; Zahlung</h2>
-      <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px" }}>Überprüfe Deine Buchung und schließe sie ab.</p>
+      <h2 style={{ fontFamily: F, fontWeight: 600, fontSize: 22, color: "var(--black)", margin: "0 0 6px" }}>{isEN ? "Reimbursement & Payment" : "Rückerstattung & Zahlung"}</h2>
+      <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 28px" }}>{isEN ? "Review your booking and complete it." : "Überprüfe Deine Buchung und schließe sie ab."}</p>
 
       {/* Booking summary */}
       <div style={{ border: "1px solid #EBEBEB", borderRadius: 16, padding: "20px 24px", marginBottom: 24, background: "#FAFBFD" }}>
-        <p style={{ fontFamily: F, fontWeight: 700, fontSize: 13, color: "var(--black)", margin: "0 0 16px", textTransform: "uppercase", letterSpacing: "0.07em" }}>Terminübersicht</p>
+        <p style={{ fontFamily: F, fontWeight: 700, fontSize: 13, color: "var(--black)", margin: "0 0 16px", textTransform: "uppercase", letterSpacing: "0.07em" }}>{isEN ? "Booking overview" : "Terminübersicht"}</p>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px 20px", marginBottom: 16 }}>
-          <BookingLine label="Fachkraft" value={t.name} />
-          <BookingLine label="Format" value={format === "online" ? "Online-Sitzung" : "Vor-Ort-Termin"} />
-          <BookingLine label="Datum" value={selectedDate} />
-          <BookingLine label="Uhrzeit" value={`${selectedTime} · ${t.sessionDuration} Min.`} />
+          <BookingLine label={isEN ? "Specialist" : "Fachkraft"} value={t.name} />
+          <BookingLine label={isEN ? "Format" : "Format"} value={format === "online" ? (isEN ? "Online Session" : "Online-Sitzung") : (isEN ? "In-Person Appointment" : "Vor-Ort-Termin")} />
+          <BookingLine label={isEN ? "Date" : "Datum"} value={selectedDate} />
+          <BookingLine label={isEN ? "Time" : "Uhrzeit"} value={`${selectedTime} · ${t.sessionDuration} Min.`} />
           {format === "vor-ort" && addr && (
             <div style={{ gridColumn: "1 / -1" }}>
-              <BookingLine label="Adresse" value={`${addr.street}, ${addr.city}`} />
+              <BookingLine label={isEN ? "Address" : "Adresse"} value={`${addr.street}, ${addr.city}`} />
             </div>
           )}
         </div>
         <div style={{ height: 1, background: "#E8E8E8", margin: "0 0 14px" }} />
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>Sitzungspreis</span>
+            <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>{isEN ? "Session price" : "Sitzungspreis"}</span>
             <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 500 }}>€{t.price} / {t.sessionDuration} Min.</span>
           </div>
           {t.kassenerstattung && (
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>Kassenrückerstattung</span>
-              <span style={{ fontFamily: F, fontSize: 14, color: "var(--green)", fontWeight: 500 }}>möglich</span>
+              <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>{isEN ? "Insurance reimbursement" : "Kassenrückerstattung"}</span>
+              <span style={{ fontFamily: F, fontSize: 14, color: "var(--green)", fontWeight: 500 }}>{isEN ? "possible" : "möglich"}</span>
             </div>
           )}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)" }}>Zahlung heute</span>
+            <span style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)" }}>{isEN ? "Payment today" : "Zahlung heute"}</span>
             <span style={{ fontFamily: F, fontWeight: 700, fontSize: 22, color: "var(--cta)" }}>€{t.price}</span>
           </div>
         </div>
@@ -635,9 +658,9 @@ function Step3({
               <path d="M12 8v4M12 16h.01" stroke="var(--green)" strokeWidth="1.8" strokeLinecap="round"/>
             </svg>
             <div>
-              <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)", margin: "0 0 4px" }}>Kassenrückerstattung möglich</p>
+              <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)", margin: "0 0 4px" }}>{isEN ? "Insurance reimbursement possible" : "Kassenrückerstattung möglich"}</p>
               <p style={{ fontFamily: F, fontSize: 13, color: "#2D5530", margin: 0, lineHeight: 1.6 }}>
-                Du bezahlst die Sitzung zunächst selbst. Nach dem Termin erhältst Du eine Honorarnote, die Du bei Deiner Krankenkasse einreichen kannst.
+                {isEN ? "You pay for the session upfront. After the appointment, you'll receive a fee note that you can submit to your health insurance." : "Du bezahlst die Sitzung zunächst selbst. Nach dem Termin erhältst Du eine Honorarnote, die Du bei Deiner Krankenkasse einreichen kannst."}
               </p>
             </div>
           </div>
@@ -647,8 +670,8 @@ function Step3({
       {/* Krankenkasse dropdown — informational, only when kassenerstattung */}
       {t.kassenerstattung && (
         <>
-          <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 8px" }}>Deine Krankenkasse <span style={{ fontWeight: 400, color: "var(--grey-text)", fontSize: 13 }}>(optional)</span></p>
-          <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: "0 0 10px", lineHeight: 1.5 }}>Diese Angabe hilft uns, Dir nach dem Termin die passende Honorarnote bereitzustellen.</p>
+          <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 8px" }}>{isEN ? "Your health insurance" : "Deine Krankenkasse"} <span style={{ fontWeight: 400, color: "var(--grey-text)", fontSize: 13 }}>(optional)</span></p>
+          <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: "0 0 10px", lineHeight: 1.5 }}>{isEN ? "This helps us provide you with the correct fee note after your appointment." : "Diese Angabe hilft uns, Dir nach dem Termin die passende Honorarnote bereitzustellen."}</p>
           <div style={{ marginBottom: 24 }}>
             <div style={{ position: "relative" }}>
               <select
@@ -664,7 +687,7 @@ function Step3({
                 onFocus={e => e.currentTarget.style.borderColor = "var(--cta)"}
                 onBlur={e => e.currentTarget.style.borderColor = "#E0E0E0"}
               >
-                <option value="" style={{ color: "#1A1A1A" }}>Bitte wählen …</option>
+                <option value="" style={{ color: "#1A1A1A" }}>{isEN ? "Please select …" : "Bitte wählen …"}</option>
                 {KRANKENKASSEN.map(k => <option key={k} value={k} style={{ color: "#1A1A1A" }}>{k}</option>)}
               </select>
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24" style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
@@ -674,9 +697,9 @@ function Step3({
 
             {showKasseHint && (
               <div style={{ background: "var(--blue-ultra-light)", border: "1px solid #C8DFFF", borderRadius: 10, padding: "14px 16px", marginTop: 12 }}>
-                <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--cta)", margin: "0 0 4px" }}>Hinweis zur Rückerstattung</p>
+                <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--cta)", margin: "0 0 4px" }}>{isEN ? "Note on reimbursement" : "Hinweis zur Rückerstattung"}</p>
                 <p style={{ fontFamily: F, fontSize: 13, color: "var(--black)", margin: 0, lineHeight: 1.6 }}>
-                  Die genaue Höhe der Rückerstattung hängt von Deiner Krankenkasse und den Voraussetzungen ab. Nach dem Termin stellen wir Dir die benötigte Honorarnote in Deinem Profil bereit.
+                  {isEN ? "The exact reimbursement amount depends on your insurance and eligibility. After your appointment, the fee note will be available in your profile." : "Die genaue Höhe der Rückerstattung hängt von Deiner Krankenkasse und den Voraussetzungen ab. Nach dem Termin stellen wir Dir die benötigte Honorarnote in Deinem Profil bereit."}
                 </p>
               </div>
             )}
@@ -685,11 +708,11 @@ function Step3({
       )}
 
       {/* Zahlungsmethode */}
-      <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 12px" }}>Zahlungsmethode</p>
+      <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 12px" }}>{isEN ? "Payment method" : "Zahlungsmethode"}</p>
       <div style={{ border: "1px solid #EBEBEB", borderRadius: 12, padding: "20px", marginBottom: 24, display: "flex", flexDirection: "column", gap: 14 }}>
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
           {([
-            { key: "card", label: "Kreditkarte" },
+            { key: "card", label: isEN ? "Credit card" : "Kreditkarte" },
             { key: "paypal", src: "/icons/paypal.svg" },
             { key: "apple-pay", src: "/icons/apple-pay.svg" },
             { key: "google-pay", src: "/icons/google-pay.svg" },
@@ -711,15 +734,15 @@ function Step3({
 
         {payMethod === "card" && (
           <>
-            <FormField label="Karteninhaber" required>
-              <TextInput value={cardName} onChange={setCardName} placeholder="Vorname Nachname" />
+            <FormField label={isEN ? "Cardholder name" : "Karteninhaber"} required>
+              <TextInput value={cardName} onChange={setCardName} placeholder={isEN ? "First Last" : "Vorname Nachname"} />
             </FormField>
-            <FormField label="Kartennummer" required>
+            <FormField label={isEN ? "Card number" : "Kartennummer"} required>
               <TextInput value={cardNumber} onChange={v => setCardNumber(formatCardNumber(v))} placeholder="0000 0000 0000 0000" />
             </FormField>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-              <FormField label="Ablaufdatum" required>
-                <TextInput value={cardExpiry} onChange={v => setCardExpiry(formatExpiry(v))} placeholder="MM/JJ" />
+              <FormField label={isEN ? "Expiry date" : "Ablaufdatum"} required>
+                <TextInput value={cardExpiry} onChange={v => setCardExpiry(formatExpiry(v))} placeholder="MM/YY" />
               </FormField>
               <FormField label="CVC" required>
                 <TextInput value={cardCvc} onChange={v => setCardCvc(v.replace(/\D/g,"").slice(0,4))} placeholder="123" />
@@ -729,16 +752,16 @@ function Step3({
         )}
         {payMethod !== "card" && (
           <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>
-            Du wirst nach dem Klick auf „Sicher bezahlen" zur Zahlungsseite weitergeleitet.
+            {isEN ? "After clicking \"Pay securely\", you will be redirected to the payment page." : "Du wirst nach dem Klick auf „Sicher bezahlen" zur Zahlungsseite weitergeleitet."}
           </p>
         )}
       </div>
 
       {/* Stornierung */}
       <div style={{ border: "1px solid #E8E8E8", borderRadius: 12, padding: "16px 18px", marginBottom: 24 }}>
-        <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)", margin: "0 0 6px" }}>Stornierung</p>
+        <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)", margin: "0 0 6px" }}>{isEN ? "Cancellation" : "Stornierung"}</p>
         <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>
-          Du kannst Deinen Termin bis 24&nbsp;Stunden vor Beginn kostenfrei stornieren. Der vollständige Betrag wird automatisch auf dieselbe Zahlungsmethode zurückerstattet.
+          {isEN ? "You can cancel your appointment free of charge up to 24 hours before it starts. The full amount will be refunded automatically to the same payment method." : "Du kannst Deinen Termin bis 24 Stunden vor Beginn kostenfrei stornieren. Der vollständige Betrag wird automatisch auf dieselbe Zahlungsmethode zurückerstattet."}
         </p>
       </div>
 
@@ -755,15 +778,17 @@ function Step3({
           {agbAccepted && <svg width="11" height="11" fill="none" viewBox="0 0 24 24"><path stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>}
         </div>
         <span style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.5 }}>
-          Ich akzeptiere die <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>AGB</a> und die <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Datenschutzerklärung</a>.
+          {isEN
+            ? <>I accept the <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Terms & Conditions</a> and the <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Privacy Policy</a>.</>
+            : <>Ich akzeptiere die <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>AGB</a> und die <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Datenschutzerklärung</a>.</>}
         </span>
       </label>
 
       <CtaRow onNext={onConfirm} disabled={!canConfirm} nextLabel={
-        payMethod === "paypal" ? "Weiter zu PayPal" :
-        payMethod === "apple-pay" ? "Weiter zu Apple Pay" :
-        payMethod === "google-pay" ? "Weiter zu Google Pay" :
-        "Sicher bezahlen &amp; Termin buchen"
+        payMethod === "paypal" ? (isEN ? "Continue to PayPal" : "Weiter zu PayPal") :
+        payMethod === "apple-pay" ? (isEN ? "Continue to Apple Pay" : "Weiter zu Apple Pay") :
+        payMethod === "google-pay" ? (isEN ? "Continue to Google Pay" : "Weiter zu Google Pay") :
+        (isEN ? "Pay securely &amp; book appointment" : "Sicher bezahlen &amp; Termin buchen")
       } />
     </div>
   );
@@ -779,20 +804,6 @@ function BookingLine({ label, value }: { label: string; value: string }) {
 }
 
 // ── Step 4: Confirmation ──────────────────────────────────────────────
-const NEXT_STEPS = [
-  { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Bestätigung erhalten", desc: "Du erhältst eine E-Mail mit allen Details." },
-  { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Termin reserviert", desc: "Dein Termin ist verbindlich für Dich reserviert." },
-  { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Erinnerung", desc: "Du erhältst 24h vor dem Termin eine Erinnerung." },
-  { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Erstgespräch", desc: "Wir begleiten Dich auf Deinem Weg." },
-];
-
-const KONTO_FEATURES = [
-  { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Online-Sitzungen", desc: "Nimm sicher und bequem an Deinen Sitzungen teil." },
-  { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Terminverwaltung", desc: "Sieh alle Deine Termine ein und verwalte sie einfach." },
-  { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Umbuchung & Stornierung", desc: "Ändere oder storniere Termine mit wenigen Klicks." },
-  { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: "Nachrichten & Erinnerungen", desc: "Erhalte wichtige Infos und Erinnerungen rechtzeitig." },
-];
-
 function Confirmation({
   t, format, selectedDate, selectedTime, isMobile, isPhone,
 }: {
@@ -803,8 +814,24 @@ function Confirmation({
   isMobile: boolean;
   isPhone: boolean; // same as isMobile — kept for internal use
 }) {
+  const { lang } = useLang();
+  const isEN = lang === 'en';
   const addr = t.address as { street: string; city: string } | null;
   const F = "'Poppins',sans-serif";
+
+  const NEXT_STEPS = [
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: isEN ? "Confirmation received" : "Bestätigung erhalten", desc: isEN ? "You'll receive an email with all the details." : "Du erhältst eine E-Mail mit allen Details." },
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: isEN ? "Appointment reserved" : "Termin reserviert", desc: isEN ? "Your appointment is confirmed and reserved for you." : "Dein Termin ist verbindlich für Dich reserviert." },
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: isEN ? "Reminder" : "Erinnerung", desc: isEN ? "You'll receive a reminder 24h before your appointment." : "Du erhältst 24h vor dem Termin eine Erinnerung." },
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: isEN ? "First session" : "Erstgespräch", desc: isEN ? "We'll accompany you on your journey." : "Wir begleiten Dich auf Deinem Weg." },
+  ];
+
+  const KONTO_FEATURES = [
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: isEN ? "Online sessions" : "Online-Sitzungen", desc: isEN ? "Join your sessions securely and conveniently." : "Nimm sicher und bequem an Deinen Sitzungen teil." },
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: isEN ? "Appointment management" : "Terminverwaltung", desc: isEN ? "View and manage all your appointments easily." : "Sieh alle Deine Termine ein und verwalte sie einfach." },
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: isEN ? "Rescheduling & cancellation" : "Umbuchung & Stornierung", desc: isEN ? "Change or cancel appointments with just a few clicks." : "Ändere oder storniere Termine mit wenigen Klicks." },
+    { icon: <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke="var(--cta)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>, title: isEN ? "Messages & reminders" : "Nachrichten & Erinnerungen", desc: isEN ? "Receive important info and timely reminders." : "Erhalte wichtige Infos und Erinnerungen rechtzeitig." },
+  ];
 
   return (
     <div style={{ maxWidth: 1440, margin: "0 auto", padding: isPhone ? "32px 16px 64px" : isMobile ? "40px 28px 64px" : "48px 40px 64px" }}>
@@ -814,14 +841,14 @@ function Confirmation({
         <div style={{ width: 64, height: 64, borderRadius: "50%", background: "var(--green-light)", border: "2px solid var(--green)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
           <svg width="30" height="30" fill="none" viewBox="0 0 24 24"><path stroke="var(--green)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>
         </div>
-        <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isPhone ? 22 : 28, color: "var(--black)", margin: "0 0 8px" }}>Dein Termin ist bestätigt!</h2>
-        <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 24px", lineHeight: 1.6 }}>Vielen Dank für Dein Vertrauen.<br/>Eine Bestätigung wurde an Deine E-Mail-Adresse gesendet.</p>
+        <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: isPhone ? 22 : 28, color: "var(--black)", margin: "0 0 8px" }}>{isEN ? "Your appointment is confirmed!" : "Dein Termin ist bestätigt!"}</h2>
+        <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 24px", lineHeight: 1.6 }}>{isEN ? <>Thank you for your trust.<br/>A confirmation has been sent to your email address.</> : <>Vielen Dank für Dein Vertrauen.<br/>Eine Bestätigung wurde an Deine E-Mail-Adresse gesendet.</>}</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center", marginBottom: 24 }}>
           {[
             { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: selectedDate },
             { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="var(--cta)" strokeWidth="1.8"/><path d="M12 7v5l3 3" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: `${selectedTime} Uhr · ${t.sessionDuration} Min.` },
-            ...(addr ? [{ icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke="var(--cta)" strokeWidth="1.8"/></svg>, label: `${addr.street}, ${addr.city}` }] : [{ icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: "Online-Sitzung" }]),
-            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M17 6.5C15.6 5.3 13.9 4.5 12 4.5C8.13 4.5 5 7.63 5 11.5C5 15.37 8.13 18.5 12 18.5C13.9 18.5 15.6 17.7 17 16.5" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round"/><path d="M3 10h9M3 13h9" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: `€${t.price} bezahlt` },
+            ...(addr ? [{ icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke="var(--cta)" strokeWidth="1.8"/></svg>, label: `${addr.street}, ${addr.city}` }] : [{ icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.723v6.554a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: isEN ? "Online Session" : "Online-Sitzung" }]),
+            { icon: <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M17 6.5C15.6 5.3 13.9 4.5 12 4.5C8.13 4.5 5 7.63 5 11.5C5 15.37 8.13 18.5 12 18.5C13.9 18.5 15.6 17.7 17 16.5" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round"/><path d="M3 10h9M3 13h9" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round"/></svg>, label: `€${t.price} ${isEN ? "paid" : "bezahlt"}` },
           ].map((chip, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, background: "white", border: "1px solid #E8E8E8", borderRadius: 9999, padding: "8px 16px" }}>
               {chip.icon}
@@ -841,7 +868,7 @@ function Confirmation({
           </div>
           <div style={{ padding: "16px 20px", flex: 1 }}>
             <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 12px", fontStyle: "italic" }}>
-              „Ich freue mich darauf, Dich kennenzulernen und gemeinsam den passenden Weg für Dich zu finden."
+              {isEN ? "\"I look forward to meeting you and finding the right path forward together.\"" : "„Ich freue mich darauf, Dich kennenzulernen und gemeinsam den passenden Weg für Dich zu finden.""}
             </p>
             <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: 0 }}>{t.name}</p>
             <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: "3px 0 0" }}>{t.role}</p>
@@ -850,7 +877,7 @@ function Confirmation({
 
         {/* Middle: Was passiert als Nächstes — timeline */}
         <div style={{ backgroundImage: isMobile ? "none" : "url('/Was passiert als Nächstes_Banner.jpg')", backgroundSize: "cover", backgroundPosition: "center", background: isMobile ? "white" : undefined, border: "1px solid #EBEBEB", borderRadius: 20, padding: isMobile ? 20 : 28 }}>
-          <h3 style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 16 : 18, color: "var(--black)", margin: "0 0 28px" }}>Was passiert als Nächstes?</h3>
+          <h3 style={{ fontFamily: F, fontWeight: 600, fontSize: isMobile ? 16 : 18, color: "var(--black)", margin: "0 0 28px" }}>{isEN ? "What happens next?" : "Was passiert als Nächstes?"}</h3>
           <div>
             {NEXT_STEPS.map((s, i) => (
               <div key={i} style={{ display: "flex", gap: 16, position: "relative" }}>
@@ -880,26 +907,31 @@ function Confirmation({
                 <circle cx="12" cy="12" r="9" stroke="var(--cta)" strokeWidth="1.6"/>
                 <path d="M12 8v4M12 16h.01" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round"/>
               </svg>
-              <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)", margin: 0 }}>Rückerstattung vorbereiten</p>
+              <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)", margin: 0 }}>{isEN ? "Prepare reimbursement" : "Rückerstattung vorbereiten"}</p>
             </div>
             <p style={{ fontFamily: F, fontSize: 12, color: "var(--black)", margin: "0 0 8px", lineHeight: 1.6 }}>
-              Nach dem Termin findest Du Deine Honorarnote in Deinem Konto. Du kannst sie anschließend bei Deiner Krankenkasse einreichen.
+              {isEN ? "After your appointment, you'll find your fee note in your account. You can then submit it to your health insurance." : "Nach dem Termin findest Du Deine Honorarnote in Deinem Konto. Du kannst sie anschließend bei Deiner Krankenkasse einreichen."}
             </p>
             <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
               <svg width="14" height="14" fill="none" viewBox="0 0 24 24" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="12" cy="12" r="9" fill="var(--cta)" fillOpacity="0.12" stroke="var(--cta)" strokeWidth="1.5"/><path d="M8 12l3 3 5-5" stroke="var(--cta)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              <span style={{ fontFamily: F, fontSize: 12, color: "var(--black)", lineHeight: 1.5 }}>Vollständige Rückerstattung auf dieselbe Zahlungsmethode</span>
+              <span style={{ fontFamily: F, fontSize: 12, color: "var(--black)", lineHeight: 1.5 }}>{isEN ? "Full refund to the same payment method" : "Vollständige Rückerstattung auf dieselbe Zahlungsmethode"}</span>
             </div>
           </div>
 
           {/* Wichtige Informationen */}
           <div style={{ background: "var(--green-light)", border: "1px solid #C3EDD0", borderRadius: 20, padding: 20, flex: 1 }}>
-            <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)", margin: "0 0 12px" }}>Wichtige Informationen</p>
-            {[
+            <p style={{ fontFamily: F, fontWeight: 600, fontSize: 13, color: "var(--black)", margin: "0 0 12px" }}>{isEN ? "Important information" : "Wichtige Informationen"}</p>
+            {(isEN ? [
+              "Free cancellation up to 24 hours before the session",
+              "Find a quiet, undisturbed place during the session.",
+              "Appointment can be managed in your profile",
+              "Reminder by email before the appointment",
+            ] : [
               "Kostenfreie Stornierung bis 24 Stunden vor Terminbeginn",
               "Sorge für einen ruhigen, ungestörten Ort während der Sitzung.",
               "Termin kann im Profil verwaltet werden",
               "Erinnerung per E-Mail vor dem Termin",
-            ].map((item, i) => (
+            ]).map((item, i) => (
               <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start", marginBottom: i < 3 ? 8 : 0 }}>
                 <svg width="14" height="14" fill="none" viewBox="0 0 24 24" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="12" cy="12" r="9" fill="var(--green)" fillOpacity="0.2" stroke="var(--green)" strokeWidth="1.5"/><path d="M8 12l3 3 5-5" stroke="var(--green)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 <span style={{ fontFamily: F, fontSize: 12, color: "var(--black)", lineHeight: 1.5 }}>{item}</span>
@@ -932,7 +964,7 @@ function Confirmation({
           onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "white"; e.currentTarget.style.boxShadow = "none"; }}
         >
           <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="var(--cta)" strokeWidth="2" strokeLinecap="round"/></svg>
-          Zum Kalender hinzufügen
+          {isEN ? "Add to calendar" : "Zum Kalender hinzufügen"}
         </a>
         <a href="/profil"
           style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, background: "var(--cta)", border: "1.5px solid var(--cta)", borderRadius: 9999, padding: "11px 22px", fontFamily: F, fontWeight: 600, fontSize: 14, color: "white", textDecoration: "none", transition: "all 0.2s", ...(isPhone ? { width: "100%", boxSizing: "border-box" as const } : {}) }}
@@ -940,7 +972,7 @@ function Confirmation({
           onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "var(--cta)"; e.currentTarget.style.borderColor = "var(--cta)"; e.currentTarget.style.boxShadow = "none"; }}
         >
           <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="white" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="white" strokeWidth="2"/></svg>
-          Zum Profil
+          {isEN ? "Go to profile" : "Zum Profil"}
         </a>
       </div>
 
@@ -950,8 +982,8 @@ function Confirmation({
         <div style={{ display: "flex", flexDirection: "column", gap: 24, position: "relative", zIndex: 1 }}>
           {/* Features */}
           <div>
-            <p style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: "var(--cta)", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 8px" }}>Dein kostenloser Account</p>
-            <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 20px", lineHeight: 1.3 }}>Verwalte Deine Therapie an einem Ort</h3>
+            <p style={{ fontFamily: F, fontSize: 12, fontWeight: 600, color: "var(--cta)", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 8px" }}>{isEN ? "Your free account" : "Dein kostenloser Account"}</p>
+            <h3 style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 20 : 26, color: "var(--black)", margin: "0 0 20px", lineHeight: 1.3 }}>{isEN ? "Manage your therapy in one place" : "Verwalte Deine Therapie an einem Ort"}</h3>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px 20px" }}>
               {KONTO_FEATURES.map((f, i) => (
                 <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
@@ -973,12 +1005,12 @@ function Confirmation({
               style={{ display: "block", textAlign: "center", background: "var(--cta)", color: "white", borderRadius: 9999, padding: "13px 24px", fontFamily: F, fontWeight: 700, fontSize: 14, textDecoration: "none", transition: "all 0.2s", boxShadow: "0 4px 16px rgba(45,91,141,0.3)", boxSizing: "border-box" as const, flex: 1 }}
               onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "var(--cta-hover)"; e.currentTarget.style.boxShadow = "0 6px 20px rgba(45,91,141,0.4)"; }}
               onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "var(--cta)"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(45,91,141,0.3)"; }}
-            >Anmelden</a>
+            >{isEN ? "Sign in" : "Anmelden"}</a>
             <a href="/registrieren"
               style={{ display: "block", textAlign: "center", background: "rgba(255,255,255,0.75)", color: "var(--cta)", borderRadius: 9999, padding: "13px 24px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", border: "1.5px solid var(--cta)", transition: "all 0.2s", boxSizing: "border-box" as const, flex: 1 }}
               onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "white"; }}
               onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "rgba(255,255,255,0.75)"; }}
-            >Konto erstellen</a>
+            >{isEN ? "Create account" : "Konto erstellen"}</a>
           </div>
         </div>
       </div>
@@ -1040,13 +1072,16 @@ export default function BuchenPage() {
   const [cardCvc, setCardCvc] = useState("");
   const [agbAccepted, setAgbAccepted] = useState(false);
 
+  const { lang } = useLang();
+  const isEN = lang === 'en';
+
   if (!t) {
     return (
       <main style={{ minHeight: "100vh", background: "white" }}>
         <Navbar />
         <div style={{ maxWidth: 600, margin: "80px auto", textAlign: "center", fontFamily: "'Poppins',sans-serif" }}>
-          <h1 style={{ fontSize: 24, color: "var(--black)" }}>Fachkraft nicht gefunden</h1>
-          <a href="/fachkraefte" style={{ color: "var(--cta)", textDecoration: "none", fontSize: 15, marginTop: 16, display: "inline-block" }}>← Zurück zur Suche</a>
+          <h1 style={{ fontSize: 24, color: "var(--black)" }}>{isEN ? "Specialist not found" : "Fachkraft nicht gefunden"}</h1>
+          <a href="/fachkraefte" style={{ color: "var(--cta)", textDecoration: "none", fontSize: 15, marginTop: 16, display: "inline-block" }}>{isEN ? "← Back to search" : "← Zurück zur Suche"}</a>
         </div>
         <Footer />
       </main>
@@ -1074,12 +1109,12 @@ export default function BuchenPage() {
               onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
             >
               <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" d="M15 6l-6 6 6 6"/></svg>
-              Zurück
+              {isEN ? "Back" : "Zurück"}
             </button>
           )}
           {!isConfirmed && (
             <h1 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 700, fontSize: isMobile ? 22 : 28, color: "var(--black)", margin: 0, lineHeight: 1.25 }} >
-              Termin buchen
+              {isEN ? "Book appointment" : "Termin buchen"}
             </h1>
           )}
         </div>
