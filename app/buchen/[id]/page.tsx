@@ -868,7 +868,7 @@ function Confirmation({
           </div>
           <div style={{ padding: "16px 20px", flex: 1 }}>
             <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.7, margin: "0 0 12px", fontStyle: "italic" }}>
-              {isEN ? "\"I look forward to meeting you and finding the right path forward together.\"" : "„Ich freue mich darauf, Dich kennenzulernen und gemeinsam den passenden Weg für Dich zu finden.""}
+              {isEN ? <>&ldquo;I look forward to meeting you and finding the right path forward together.&rdquo;</> : <>&bdquo;Ich freue mich darauf, Dich kennenzulernen und gemeinsam den passenden Weg für Dich zu finden.&ldquo;</>}
             </p>
             <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: 0 }}>{t.name}</p>
             <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: "3px 0 0" }}>{t.role}</p>
