@@ -188,7 +188,7 @@ export default function Footer() {
             {/* Brand col */}
             <div className="footer-brand" style={{ display: "flex", flexDirection: "column", gap: 16, maxWidth: 280 }}>
               <div style={{ display: "flex", alignItems: "center", height: 50 }}>
-                <img src="/logo.svg" alt="liva" style={{ width: 227, height: 50, objectFit: "contain", flexShrink: 0 }} />
+                <img src="/logo.svg" alt="liva" style={{ height: 38, width: "auto", objectFit: "contain", flexShrink: 0 }} />
               </div>
               <p style={{
                 fontFamily: "'Poppins', sans-serif",
@@ -301,7 +301,7 @@ export default function Footer() {
         <div style={{ background: "white", borderTop: "0.8px solid #e8e7e6", padding: "32px 16px" }}>
           {/* Logo + desc + social */}
           <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 24 }}>
-            <img src="/logo.svg" alt="Logo" style={{ width: 190, height: 44, objectFit: "contain" }} />
+            <img src="/logo.svg" alt="Logo" style={{ height: 34, width: "auto", objectFit: "contain" }} />
             <p style={{ fontFamily: "'Poppins', sans-serif", fontSize: 15, lineHeight: 1.5, color: "var(--grey-text)", margin: 0 }}>
               {F.brand_desc}
             </p>

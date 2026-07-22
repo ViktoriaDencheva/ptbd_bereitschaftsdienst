@@ -165,7 +165,7 @@ export default function Navbar() {
           padding: "0 40px", gap: 24,
         }}>
           <Link href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none", flexShrink: 0 }}>
-            <img src="/logo.svg" alt="liva" style={{ width: 200, height: 48, objectFit: "contain" }} />
+            <img src="/logo.svg" alt="liva" style={{ height: 36, width: "auto", objectFit: "contain" }} />
           </Link>
 
           <nav style={{ display: "flex", gap: 2, alignItems: "center", flex: 1, justifyContent: "center" }}>
@@ -227,7 +227,7 @@ export default function Navbar() {
           </button>
 
           <Link href="/" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", display: "flex", alignItems: "center", textDecoration: "none", width: 48, height: 48, overflow: "hidden", flexShrink: 0 }}>
-            <img src="/logo.svg" alt="liva" style={{ height: 48, width: "auto", objectFit: "cover", objectPosition: "left center", flexShrink: 0 }} />
+            <img src="/logo.svg" alt="liva" style={{ height: 32, width: "auto", objectFit: "contain", flexShrink: 0 }} />
           </Link>
 
           {MobileUserButton}
