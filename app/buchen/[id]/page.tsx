@@ -332,8 +332,8 @@ function Step1({
           ))}
         </div>
         {/* Days */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "2px 0" }}>
-          {Array.from({ length: firstWD }).map((_, i) => <div key={`e${i}`} style={{ aspectRatio: "1" }} />)}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "4px 0", justifyItems: "center" }}>
+          {Array.from({ length: firstWD }).map((_, i) => <div key={`e${i}`} style={{ width: 56, height: 56 }} />)}
           {Array.from({ length: daysInMonth }).map((_, i) => {
             const day = i + 1;
             const date = new Date(calYear, calMonth, day);
@@ -346,7 +346,7 @@ function Step1({
                 onClick={() => avail && selectDay(day)}
                 disabled={!avail || isPast}
                 style={{
-                  width: "100%", aspectRatio: "1", borderRadius: 8,
+                  width: 56, height: 56, borderRadius: 12,
                   background: isSelected ? "var(--cta)" : avail ? "var(--blue-ultra-light)" : "transparent",
                   color: isSelected ? "white" : avail ? "var(--cta)" : isPast ? "#D8D8D8" : "#C0C0C0",
                   border: "none",
