@@ -75,7 +75,7 @@ export default function TherapistProfiles() {
           ><ChevronRight size={20} /></button>
 
           {/* Main card */}
-          <div onClick={() => router.push(`/fachkraefte/${t.id}`)} style={{ height: 500, borderRadius: 24, overflow: "hidden", display: "flex", cursor: "pointer", background: "white", boxShadow: "0 8px 48px rgba(0,0,0,0.10)" }} className="therapist-card">
+          <div onClick={() => router.push(`/fachkraefte/${t.id}`)} style={{ height: 500, borderRadius: 24, overflow: "hidden", display: "flex", cursor: "pointer", background: "transparent" }} className="therapist-card">
 
             {/* Left — photo full-bleed */}
             <div key={`photo-${current}`} className="th-photo-col" style={{ position: "relative", width: "42%", flexShrink: 0, overflow: "hidden", animation: "fadeIn 0.4s ease" }}>
