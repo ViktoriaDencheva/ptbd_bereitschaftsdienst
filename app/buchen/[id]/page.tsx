@@ -326,14 +326,14 @@ function Step1({
           </button>
         </div>
         {/* Weekday headers */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", marginBottom: 2 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 44px)", justifyContent: "center", marginBottom: 2 }}>
           {DAYS.map(d => (
             <div key={d} style={{ textAlign: "center", fontFamily: "'Poppins',sans-serif", fontSize: 9, fontWeight: 600, color: "#B0B0B0", padding: "2px 0" }}>{d}</div>
           ))}
         </div>
         {/* Days */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "4px 0", justifyItems: "center" }}>
-          {Array.from({ length: firstWD }).map((_, i) => <div key={`e${i}`} style={{ width: 56, height: 56 }} />)}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 44px)", gap: "4px 0", justifyContent: "center" }}>
+          {Array.from({ length: firstWD }).map((_, i) => <div key={`e${i}`} style={{ width: 44, height: 44 }} />)}
           {Array.from({ length: daysInMonth }).map((_, i) => {
             const day = i + 1;
             const date = new Date(calYear, calMonth, day);
@@ -346,7 +346,7 @@ function Step1({
                 onClick={() => avail && selectDay(day)}
                 disabled={!avail || isPast}
                 style={{
-                  width: 56, height: 56, borderRadius: 12,
+                  width: 44, height: 44, borderRadius: 10, padding: 0,
                   background: isSelected ? "var(--cta)" : avail ? "var(--blue-ultra-light)" : "transparent",
                   color: isSelected ? "white" : avail ? "var(--cta)" : isPast ? "#D8D8D8" : "#C0C0C0",
                   border: "none",
