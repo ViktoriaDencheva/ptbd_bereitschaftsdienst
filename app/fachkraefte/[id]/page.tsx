@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
-import { therapists, TAG_EN } from "@/lib/therapists";
+import { therapists, TAG_EN, ROLE_EN, ARBEITSWEISE_EN, QUAL_TITLE_EN } from "@/lib/therapists";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLang } from "@/lib/lang";
@@ -124,7 +124,7 @@ export default function TherapistDetailPage() {
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, marginBottom: 14 }}>
               <div style={{ minWidth: 0 }}>
                 <h1 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 22, color: "var(--black)", margin: "0 0 3px", lineHeight: 1.2 }}>{t.name}</h1>
-                <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)", margin: 0 }}>{t.degree ?? t.role}</p>
+                <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)", margin: 0 }}>{isEN ? (ROLE_EN[t.degree ?? t.role] ?? (t.degree ?? t.role)) : (t.degree ?? t.role)}</p>
               </div>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 5, flexShrink: 0 }}>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
@@ -135,7 +135,7 @@ export default function TherapistDetailPage() {
             </div>
 
             {/* Bio */}
-            <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)", margin: "0 0 20px", lineHeight: 1.7 }}>{t.bio}</p>
+            <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)", margin: "0 0 20px", lineHeight: 1.7 }}>{isEN ? ((t as any).bio_en ?? t.bio) : t.bio}</p>
 
             {/* Info row */}
             <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap", marginBottom: 20 }}>
@@ -158,7 +158,7 @@ export default function TherapistDetailPage() {
               {(t.angebot === "online" || t.angebot === "beides") && <span style={{ padding: "6px 14px", borderRadius: 9999, fontSize: 14, fontFamily: "'Poppins',sans-serif", fontWeight: 500, color: "var(--cta)", border: "1.5px solid var(--cta)" }}>{T.fachkraefteDetail.online}</span>}
               {(t.angebot === "vor-ort" || t.angebot === "beides") && <span style={{ padding: "6px 14px", borderRadius: 9999, fontSize: 14, fontFamily: "'Poppins',sans-serif", fontWeight: 500, color: "#B07000", border: "1.5px solid #D4920A" }}>{T.fachkraefteDetail.vor_ort}</span>}
               {t.kassenerstattung && (
-                <div title="Du bezahlst die Sitzung zunächst selbst. Nach dem Termin erhältst Du eine Honorarnote, die Du bei Deiner Krankenkasse einreichen kannst." style={{ display: "flex", alignItems: "center", gap: 4, background: "var(--green-light)", border: "1px solid var(--grey-border)", borderRadius: 9999, padding: "6px 12px", cursor: "help" }}>
+                <div title={isEN ? "You pay for the session yourself first. After the appointment you receive an invoice that you can submit to your health insurer." : "Du bezahlst die Sitzung zunächst selbst. Nach dem Termin erhältst Du eine Honorarnote, die Du bei Deiner Krankenkasse einreichen kannst."} style={{ display: "flex", alignItems: "center", gap: 4, background: "var(--green-light)", border: "1px solid var(--grey-border)", borderRadius: 9999, padding: "6px 12px", cursor: "help" }}>
                   <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--green)", fontWeight: 500 }}>{T.fachkraefteDetail.insurance}</span>
                   <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="var(--green)" strokeWidth="1.5"/><path d="M12 8v4M12 16h.01" stroke="var(--green)" strokeWidth="1.8" strokeLinecap="round"/></svg>
                 </div>
@@ -220,8 +220,8 @@ export default function TherapistDetailPage() {
                   </div>
                 )}
                 <h1 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 34, color: "var(--black)", margin: "0 0 8px", lineHeight: 1.2 }}>{t.name}</h1>
-                <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 15, color: "var(--grey-text)", margin: "0 0 16px" }}>{t.degree ?? t.role}</p>
-                <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 16, color: "var(--grey-text)", margin: "0 0 28px", lineHeight: 1.7 }}>{t.bio}</p>
+                <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 15, color: "var(--grey-text)", margin: "0 0 16px" }}>{isEN ? (ROLE_EN[t.degree ?? t.role] ?? (t.degree ?? t.role)) : (t.degree ?? t.role)}</p>
+                <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 16, color: "var(--grey-text)", margin: "0 0 28px", lineHeight: 1.7 }}>{isEN ? ((t as any).bio_en ?? t.bio) : t.bio}</p>
                 {/* Info row — listing style */}
                 <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap", marginBottom: 28 }}>
                   <span style={{ display: "flex", alignItems: "center", gap: 4, fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)" }}>
@@ -257,7 +257,7 @@ export default function TherapistDetailPage() {
                   {(t.angebot === "online" || t.angebot === "beides") && <span style={{ padding: "6px 14px", borderRadius: 9999, fontSize: 13, fontFamily: "'Poppins',sans-serif", fontWeight: 500, color: "var(--cta)", border: "1.5px solid var(--cta)" }}>{T.fachkraefteDetail.online}</span>}
                   {(t.angebot === "vor-ort" || t.angebot === "beides") && <span style={{ padding: "6px 14px", borderRadius: 9999, fontSize: 13, fontFamily: "'Poppins',sans-serif", fontWeight: 500, color: "#B07000", border: "1.5px solid #D4920A" }}>{T.fachkraefteDetail.vor_ort}</span>}
                   {t.kassenerstattung && (
-                    <div title="Du bezahlst die Sitzung zunächst selbst. Nach dem Termin erhältst Du eine Honorarnote, die Du bei Deiner Krankenkasse einreichen kannst." style={{ display: "flex", alignItems: "center", gap: 5, background: "var(--green-light)", border: "1px solid var(--grey-border)", borderRadius: 9999, padding: "6px 12px", cursor: "help" }}>
+                    <div title={isEN ? "You pay for the session yourself first. After the appointment you receive an invoice that you can submit to your health insurer." : "Du bezahlst die Sitzung zunächst selbst. Nach dem Termin erhältst Du eine Honorarnote, die Du bei Deiner Krankenkasse einreichen kannst."} style={{ display: "flex", alignItems: "center", gap: 5, background: "var(--green-light)", border: "1px solid var(--grey-border)", borderRadius: 9999, padding: "6px 12px", cursor: "help" }}>
                       <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--green)", fontWeight: 500, whiteSpace: "nowrap" }}>{T.fachkraefteDetail.insurance}</span>
                       <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="var(--green)" strokeWidth="1.5"/><path d="M12 8v4M12 16h.01" stroke="var(--green)" strokeWidth="1.8" strokeLinecap="round"/></svg>
                     </div>
@@ -294,7 +294,7 @@ export default function TherapistDetailPage() {
                   iconEl={<svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="#B07000" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" d="M12 2a7 7 0 0 0-7 7c0 2.49 1.3 4.68 3.25 5.93V17a1 1 0 0 0 1 1h5.5a1 1 0 0 0 1-1v-2.07A7 7 0 0 0 12 2z"/><path stroke="#B07000" strokeWidth="1.6" strokeLinecap="round" d="M9 21h6"/><path stroke="#B07000" strokeWidth="1.4" strokeLinecap="round" d="M9.5 18.5v2.5M14.5 18.5v2.5"/></svg>}
                   iconBg="var(--yellow-light)"
                   title={T.fachkraefteDetail.info_arbeitsweise}
-                  items={(t.arbeitsweise ?? (isEN ? ["Empathetic", "Structured", "Solution-focused"] : ["Empathisch", "Strukturiert", "Lösungsorientiert"])).map(w => ({ bold: w, detail: (T.fachkraefteDetail.arb_details as Record<string,string>)[w] ?? T.fachkraefteDetail.arb_detail_default }))}
+                  items={(t.arbeitsweise ?? (isEN ? ["Empathetic", "Structured", "Solution-focused"] : ["Empathisch", "Strukturiert", "Lösungsorientiert"])).map(w => ({ bold: isEN ? (ARBEITSWEISE_EN[w] ?? w) : w, detail: (T.fachkraefteDetail.arb_details as Record<string,string>)[w] ?? T.fachkraefteDetail.arb_detail_default }))}
                   maxVisible={999}
                 />
                 <InfoCard
@@ -325,7 +325,7 @@ export default function TherapistDetailPage() {
                 <div>
                   <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--cta-brand)", fontWeight: 400, letterSpacing: "0.08em", textTransform: "uppercase", margin: "0 0 8px" }}>{T.fachkraefteDetail.approach_label}</p>
                   <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 28, color: "var(--black)", margin: "0 0 20px", lineHeight: 1.3 }}>{T.fachkraefteDetail.approach_h2}</h2>
-                  {(t.approach ?? "").split("\n\n").map((para, i) => (<p key={i} style={{ fontFamily: "'Poppins',sans-serif", fontSize: 15, color: "var(--grey-text)", margin: "0 0 16px", lineHeight: 1.75 }}>{para}</p>))}
+                  {((isEN ? (t as any).approach_en : null) ?? t.approach ?? "").split("\n\n").map((para, i) => (<p key={i} style={{ fontFamily: "'Poppins',sans-serif", fontSize: 15, color: "var(--grey-text)", margin: "0 0 16px", lineHeight: 1.75 }}>{para}</p>))}
                 </div>
                 {!isMedium && (
                   <div style={{ borderRadius: "0 16px 16px 0", overflow: "hidden", margin: "-48px -40px -48px 0", alignSelf: "stretch" }}>
@@ -397,7 +397,7 @@ export default function TherapistDetailPage() {
                         {/* content card */}
                         <div style={{ background: i % 2 === 0 ? "var(--blue-ultra-light)" : "white", borderRadius: 12, padding: "8px 14px", marginBottom: 10, flex: 1 }}>
                           <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 11, color: "var(--cta)", fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase" }}>{q.year}</span>
-                          <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, fontWeight: 600, color: "var(--black)", margin: "3px 0 2px", lineHeight: 1.4 }}>{q.title}</p>
+                          <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, fontWeight: 600, color: "var(--black)", margin: "3px 0 2px", lineHeight: 1.4 }}>{isEN ? (QUAL_TITLE_EN[q.title] ?? q.title) : q.title}</p>
                           <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", margin: 0 }}>{q.institution}</p>
                         </div>
                       </div>
@@ -506,7 +506,8 @@ export default function TherapistDetailPage() {
 
 // ── Mobile content sections ──
 function MobileContentSections({ t, similar }: { t: NonNullable<ReturnType<typeof therapists.find>>; similar: typeof therapists }) {
-  const { T } = useLang();
+  const { T, lang } = useLang();
+  const isEN = lang === 'en';
   const availColors = {
     today:    { dot: "#2DB36A", text: "var(--cta)", label: T.fachkraefteDetail.avail_today },
     thisweek: { dot: "#F59E0B", text: "var(--cta)", label: T.fachkraefteDetail.avail_thisweek },
@@ -522,7 +523,7 @@ function MobileContentSections({ t, similar }: { t: NonNullable<ReturnType<typeo
         <div style={{ padding: "28px 20px 20px" }}>
           <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 11, color: "var(--cta-brand)", fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", margin: "0 0 6px" }}>{T.fachkraefteDetail.approach_label}</p>
           <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 20, color: "var(--black)", margin: "0 0 16px", lineHeight: 1.3 }}>{T.fachkraefteDetail.approach_h2}</h2>
-          {(t.approach ?? "").split("\n\n").map((para, i) => (
+          {((isEN ? (t as any).approach_en : null) ?? t.approach ?? "").split("\n\n").map((para, i) => (
             <p key={i} style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)", margin: "0 0 12px", lineHeight: 1.7 }}>{para}</p>
           ))}
         </div>
@@ -571,7 +572,7 @@ function MobileContentSections({ t, similar }: { t: NonNullable<ReturnType<typeo
               {/* content card */}
               <div style={{ background: i % 2 === 0 ? "var(--blue-ultra-light)" : "white", borderRadius: 12, padding: "8px 14px", marginBottom: 10, flex: 1 }}>
                 <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 11, color: "var(--cta)", fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase" as const }}>{q.year}</span>
-                <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, fontWeight: 600, color: "var(--black)", margin: "3px 0 2px", lineHeight: 1.4 }}>{q.title}</p>
+                <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, fontWeight: 600, color: "var(--black)", margin: "3px 0 2px", lineHeight: 1.4 }}>{isEN ? (QUAL_TITLE_EN[q.title] ?? q.title) : q.title}</p>
                 <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", margin: 0 }}>{q.institution}</p>
               </div>
             </div>
@@ -826,7 +827,7 @@ function MobileAccordionSection({ t }: { t: NonNullable<ReturnType<typeof therap
       iconEl: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path stroke="#B07000" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" d="M12 2a7 7 0 0 0-7 7c0 2.49 1.3 4.68 3.25 5.93V17a1 1 0 0 0 1 1h5.5a1 1 0 0 0 1-1v-2.07A7 7 0 0 0 12 2z"/><path stroke="#B07000" strokeWidth="1.6" strokeLinecap="round" d="M9 21h6"/><path stroke="#B07000" strokeWidth="1.4" strokeLinecap="round" d="M9.5 18.5v2.5M14.5 18.5v2.5"/></svg>,
       iconBg: "var(--yellow-light)",
       title: T.fachkraefteDetail.info_arbeitsweise,
-      items: (t.arbeitsweise ?? (isEN ? ["Empathetic", "Structured", "Solution-focused"] : ["Empathisch", "Strukturiert", "Lösungsorientiert"])).map(w => ({ bold: w, detail: (T.fachkraefteDetail.arb_details as Record<string,string>)[w] ?? T.fachkraefteDetail.arb_detail_default })),
+      items: (t.arbeitsweise ?? (isEN ? ["Empathetic", "Structured", "Solution-focused"] : ["Empathisch", "Strukturiert", "Lösungsorientiert"])).map(w => ({ bold: isEN ? (ARBEITSWEISE_EN[w] ?? w) : w, detail: (T.fachkraefteDetail.arb_details as Record<string,string>)[w] ?? T.fachkraefteDetail.arb_detail_default })),
     },
     {
       iconEl: <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" stroke="var(--green)" strokeWidth="1.6"/><path stroke="var(--green)" strokeWidth="1.6" strokeLinecap="round" d="M8 21h8M12 17v4"/></svg>,
