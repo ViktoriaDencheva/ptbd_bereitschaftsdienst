@@ -752,7 +752,7 @@ function Step3({
         )}
         {payMethod !== "card" && (
           <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.6 }}>
-            {isEN ? "After clicking \"Pay securely\", you will be redirected to the payment page." : "Du wirst nach dem Klick auf „Sicher bezahlen" zur Zahlungsseite weitergeleitet."}
+            {isEN ? <>After clicking &ldquo;Pay securely&rdquo;, you will be redirected to the payment page.</> : <>Du wirst nach dem Klick auf &bdquo;Sicher bezahlen&ldquo; zur Zahlungsseite weitergeleitet.</>}
           </p>
         )}
       </div>
