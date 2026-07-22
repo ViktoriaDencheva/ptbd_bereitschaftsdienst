@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, Suspense } from "react";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useLang } from "@/lib/lang";
 import { TAG_EN } from "@/lib/therapists";
@@ -577,7 +578,7 @@ function FilterSidebar({ suche, setSuche, fachrichtung, setFachrichtung, angebot
                 </button>
               )}
             </div>
-            <a href="/unterschied" style={{
+            <Link href="/unterschied" style={{
               display: "inline-flex", alignItems: "center", gap: 5, marginTop: 10,
               fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--cta)",
               textDecoration: "none", fontWeight: 500,
@@ -587,7 +588,7 @@ function FilterSidebar({ suche, setSuche, fachrichtung, setFachrichtung, angebot
             >
               <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8"/><path stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" d="M12 8v4M12 16h.01"/></svg>
               {T.fachkraeftePage.filter_whats_diff}
-            </a>
+            </Link>
             </>}
           </div>
 
@@ -791,7 +792,7 @@ function TherapistCard({ t, isMobile = false, winW = 1440 }: { t: typeof therapi
   if (isMobile) {
     return (
       <div className="fk-card" style={{ background: "white", borderRadius: 12, border: "1px solid #EBEBEB", display: "flex", flexDirection: "column", cursor: "pointer", boxSizing: "border-box", width: "100%", padding: 14, position: "relative" }}>
-        <a href={`/fachkraefte/${t.id}`} style={{ position: "absolute", inset: 0, zIndex: 1, borderRadius: 12 }} aria-label={t.name} />
+        <Link href={`/fachkraefte/${t.id}`} style={{ position: "absolute", inset: 0, zIndex: 1, borderRadius: 12 }} aria-label={t.name} />
 
         {/* Top: photo with rounded corners + info */}
         <div style={{ display: "flex", gap: 12, alignItems: "flex-start", marginBottom: 18 }}>
@@ -871,10 +872,10 @@ function TherapistCard({ t, isMobile = false, winW = 1440 }: { t: typeof therapi
           </div>
 
           {/* CTA — primary */}
-          <a href={`/fachkraefte/${t.id}`} style={{ width: "100%", background: "var(--cta)", color: "white", border: "none", borderRadius: 9999, height: 46, fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 15, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6, textDecoration: "none", position: "relative", zIndex: 2 }}>
+          <Link href={`/fachkraefte/${t.id}`} style={{ width: "100%", background: "var(--cta)", color: "white", border: "none", borderRadius: 9999, height: 46, fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 15, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6, textDecoration: "none", position: "relative", zIndex: 2 }}>
             {T.fachkraeftePage.card_view_profile}
             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="currentColor"/></svg>
-          </a>
+          </Link>
 
           {/* Nächster Termin — below CTA, left-aligned */}
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -905,7 +906,7 @@ function TherapistCard({ t, isMobile = false, winW = 1440 }: { t: typeof therapi
         position: "relative",
       }}
     >
-      <a href={`/fachkraefte/${t.id}`} style={{ position: "absolute", inset: 0, zIndex: 1, borderRadius: 16 }} aria-label={t.name} />
+      <Link href={`/fachkraefte/${t.id}`} style={{ position: "absolute", inset: 0, zIndex: 1, borderRadius: 16 }} aria-label={t.name} />
       {/* Photo */}
       <div className="fk-card-photo" style={{ flexShrink: 0, width: isMobile ? "100%" : 195, height: isMobile ? 200 : "auto", borderRadius: isMobile ? "12px 12px 0 0" : "16px 0 0 16px", overflow: "hidden", alignSelf: isMobile ? "auto" : "stretch" }}>
         <img
@@ -1007,10 +1008,10 @@ function TherapistCard({ t, isMobile = false, winW = 1440 }: { t: typeof therapi
                 </button>
                 <div style={{ position: "absolute", bottom: "calc(100% + 6px)", left: "50%", transform: "translateX(-50%)", background: "var(--black)", color: "white", borderRadius: 6, padding: "4px 8px", fontSize: 11, fontFamily: "'Poppins',sans-serif", whiteSpace: "nowrap", pointerEvents: "none", opacity: 0, transition: "opacity 0.15s" }}>{T.fachkraeftePage.card_save}</div>
               </div>
-              <a href={`/fachkraefte/${t.id}`} style={{ background: hovered ? "var(--cta)" : "white", color: hovered ? "white" : "var(--cta)", border: "1.5px solid var(--cta)", borderRadius: 9999, padding: "0 18px", height: 38, fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 13, cursor: "pointer", transition: "all 0.2s ease", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 6, textDecoration: "none", position: "relative", zIndex: 2 }}>
+              <Link href={`/fachkraefte/${t.id}`} style={{ background: hovered ? "var(--cta)" : "white", color: hovered ? "white" : "var(--cta)", border: "1.5px solid var(--cta)", borderRadius: 9999, padding: "0 18px", height: 38, fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 13, cursor: "pointer", transition: "all 0.2s ease", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 6, textDecoration: "none", position: "relative", zIndex: 2 }}>
                 {T.fachkraeftePage.card_view_profile}
                 <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="currentColor"/></svg>
-              </a>
+              </Link>
             </div>
             <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--cta)", fontWeight: 600, whiteSpace: "nowrap" }}>
               {T.fachkraeftePage.card_next_appt} {t.nextAppointment}
@@ -1163,10 +1164,10 @@ function FachkraeftePageInner() {
       {/* Page Header */}
       <div className="fk-page-header" style={{ maxWidth: 1440, margin: "0 auto", padding: isMobile ? "20px 16px 16px" : isTablet ? "28px 32px 20px" : "32px 80px 28px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 16, fontFamily: "'Poppins',sans-serif", fontSize: 13 }}>
-            <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
+            <Link href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
               onMouseEnter={e => (e.currentTarget.style.color = "var(--cta)")}
               onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-            >{T.fachkraeftePage.breadcrumb_home}</a>
+            >{T.fachkraeftePage.breadcrumb_home}</Link>
             <span style={{ color: "#C3C3C3" }}>›</span>
             <span style={{ color: "var(--black)", fontWeight: 500 }}>{T.fachkraeftePage.breadcrumb_current}</span>
           </div>
@@ -1336,7 +1337,7 @@ function FachkraeftePageInner() {
                 {T.fachkraeftePage.banner_sub}
               </p>
             </div>
-            <a href="/orientierung" style={{
+            <Link href="/orientierung" style={{
               display: "inline-flex", alignItems: "center", gap: 8,
               fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 15,
               color: "var(--cta)", background: "white",
@@ -1344,12 +1345,12 @@ function FachkraeftePageInner() {
               padding: "12px 28px", textDecoration: "none", whiteSpace: "nowrap",
               flexShrink: 0, transition: "background 0.18s, color 0.18s",
             }}
-              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = "var(--cta)"; (e.currentTarget as HTMLAnchorElement).style.color = "white"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = "white"; (e.currentTarget as HTMLAnchorElement).style.color = "var(--cta)"; }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--cta)"; (e.currentTarget as HTMLElement).style.color = "white"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "white"; (e.currentTarget as HTMLElement).style.color = "var(--cta)"; }}
             >
               {T.fachkraeftePage.banner_cta}
               <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

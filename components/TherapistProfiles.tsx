@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLang } from "@/lib/lang";
@@ -43,14 +44,14 @@ export default function TherapistProfiles() {
             {TP.subtitle}
           </p>
           {/* Бутон — фиксиран, винаги вдясно */}
-          <a href="/fachkraefte"
+          <Link href="/fachkraefte"
             style={{ background: "var(--cta)", color: "white", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", padding: "0 24px", height: 48, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 8, transition: "all var(--duration-base) var(--ease-standard)", flexShrink: 0, marginLeft: "auto", textDecoration: "none" }}
             onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
             onMouseLeave={e => (e.currentTarget.style.background = "var(--cta)")}
           >
             {TP.cta}
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="white"/></svg>
-          </a>
+          </Link>
         </div>
 
         {/* Preload всички снимки за бързо зареждане */}
@@ -154,10 +155,10 @@ export default function TherapistProfiles() {
             {TP.subtitle}
           </p>
           {/* CTA бутон под subtitle */}
-          <a href="/fachkraefte" style={{ width: "100%", background: "var(--cta)", color: "white", border: "none", borderRadius: 9999, height: 48, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none" }}>
+          <Link href="/fachkraefte" style={{ width: "100%", background: "var(--cta)", color: "white", border: "none", borderRadius: 9999, height: 48, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, textDecoration: "none" }}>
             {TP.cta}
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="white"/></svg>
-          </a>
+          </Link>
         </div>
 
         {/* Слайдер */}
@@ -180,7 +181,7 @@ export default function TherapistProfiles() {
           }}>
             {therapists.map((th, i) => (
               <div key={i} style={{ width: `${100 / therapists.length}%`, flexShrink: 0, padding: i > 0 ? "0 0 0 0" : 0 }}>
-                <a href={`/fachkraefte/${th.id}`} style={{ borderRadius: 20, overflow: "hidden", backgroundImage: "url('/TherapistProfile-background-mob.jpg')", backgroundSize: "cover", backgroundPosition: "center", boxShadow: "0 4px 24px rgba(0,0,0,0.10)", minHeight: 620, display: "flex", flexDirection: "column", textDecoration: "none" }}>
+                <Link href={`/fachkraefte/${th.id}`} style={{ borderRadius: 20, overflow: "hidden", backgroundImage: "url('/TherapistProfile-background-mob.jpg')", backgroundSize: "cover", backgroundPosition: "center", boxShadow: "0 4px 24px rgba(0,0,0,0.10)", minHeight: 620, display: "flex", flexDirection: "column", textDecoration: "none" }}>
 
                   {/* Photo */}
                   <div style={{ height: 300, position: "relative", overflow: "hidden", flexShrink: 0 }}>
@@ -226,7 +227,7 @@ export default function TherapistProfiles() {
                       ))}
                     </div>
                   </div>
-                </a>
+                </Link>
               </div>
             ))}
           </div>

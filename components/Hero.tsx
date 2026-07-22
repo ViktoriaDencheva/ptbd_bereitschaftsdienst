@@ -1,4 +1,5 @@
 ﻿"use client";
+import Link from "next/link";
 import { useLang } from "@/lib/lang";
 const imgHeroDesktop = "/heroImage.png";
 const imgHeroMobile = "/heroImage-mob.png";
@@ -64,17 +65,17 @@ export default function Hero() {
             </div>
             <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
               {/* Primary button */}
-              <a href="/vorgespraech"
+              <Link href="/vorgespraech"
                 style={{ background: "var(--cta)", color: "white", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", padding: "0 24px", height: 48, fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", whiteSpace: "nowrap", transition: "all var(--duration-base) var(--ease-standard)", display: "inline-flex", alignItems: "center", textDecoration: "none" }}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--cta-hover)"; el.style.borderColor = "var(--cta-hover)"; }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--cta)"; el.style.borderColor = "var(--cta)"; }}
-              >{T.hero.cta_primary}</a>
+              >{T.hero.cta_primary}</Link>
               {/* Secondary button */}
-              <a href="/fachkraefte"
+              <Link href="/fachkraefte"
                 style={{ background: "transparent", color: "var(--cta)", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", padding: "0 24px", height: 48, fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", whiteSpace: "nowrap", transition: "all var(--duration-base) var(--ease-standard)", display: "inline-flex", alignItems: "center", textDecoration: "none" }}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--blue-ultra-light)"; el.style.borderColor = "var(--cta)"; }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = "transparent"; el.style.borderColor = "var(--cta)"; }}
-              >{T.hero.cta_secondary}</a>
+              >{T.hero.cta_secondary}</Link>
             </div>
           </div>
         </div>
@@ -107,12 +108,12 @@ export default function Hero() {
             </p>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            <a href="/vorgespraech" style={{ background: "var(--cta)", color: "white", border: "none", borderRadius: "var(--radius-circle)", minHeight: 52, padding: "12px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 16, cursor: "pointer", textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Link href="/vorgespraech" style={{ background: "var(--cta)", color: "white", border: "none", borderRadius: "var(--radius-circle)", minHeight: 52, padding: "12px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 16, cursor: "pointer", textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center" }}>
               {T.hero.cta_primary}
-            </a>
-            <a href="/fachkraefte" style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(8px)", color: "var(--cta)", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", minHeight: 52, padding: "12px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            </Link>
+            <Link href="/fachkraefte" style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(8px)", color: "var(--cta)", border: "1.5px solid var(--cta)", borderRadius: "var(--radius-circle)", minHeight: 52, padding: "12px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center" }}>
               {T.hero.cta_secondary}
-            </a>
+            </Link>
           </div>
         </div>
       </div>
