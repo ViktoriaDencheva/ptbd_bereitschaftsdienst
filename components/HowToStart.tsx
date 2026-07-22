@@ -1,4 +1,5 @@
 ﻿"use client";
+import Link from "next/link";
 import React, { useState } from "react";
 import { useLang } from "@/lib/lang";
 
@@ -91,7 +92,7 @@ export default function HowToStart() {
         </ul>
 
         {/* Primary CTA — prominent */}
-        <a
+        <Link
           href={isV ? "/vorgespraech" : "/orientierungstest"}
           style={{ alignSelf: "flex-start", background: "var(--cta)", color: "white", border: "none", borderRadius: "var(--radius-circle)", padding: "0 28px", height: 52, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", display: "flex", alignItems: "center", gap: 8, transition: "background 0.2s", textDecoration: "none" }}
           onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
@@ -99,7 +100,7 @@ export default function HowToStart() {
         >
           {isV ? T.howToStart.cta_conversation : T.howToStart.cta_test}
           <IconArrow />
-        </a>
+        </Link>
       </div>
     </div>
   );
@@ -218,7 +219,7 @@ export default function HowToStart() {
                     </li>
                   ))}
                 </ul>
-                <a href={isV ? "/vorgespraech" : "/orientierungstest"} style={{
+                <Link href={isV ? "/vorgespraech" : "/orientierungstest"} style={{
                   background: "var(--cta)", color: "white", border: "none",
                   borderRadius: 9999, height: 48, width: "100%",
                   fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 14,
@@ -227,7 +228,7 @@ export default function HowToStart() {
                 }}>
                   {isV ? T.howToStart.cta_conversation : T.howToStart.cta_test}
                   <IconArrow />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

@@ -1,4 +1,5 @@
 ﻿"use client";
+import Link from "next/link";
 import { useState, useRef } from "react";
 import { Plus, Minus, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -105,9 +106,9 @@ export default function KontaktPage() {
       <section style={{ background: "white" }}>
         <div style={{ maxWidth: 1440, margin: "0 auto" }} className="k-breadcrumbs-wrap">
           <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13 }}>
-            <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
+            <Link href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = CTA}
-              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>{isEN ? "Home" : "Startseite"}</a>
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>{isEN ? "Home" : "Startseite"}</Link>
             <span style={{ color: "#C3C3C3" }}>›</span>
             <span style={{ color: "var(--black)", fontWeight: 500 }}>{isEN ? "Contact" : "Kontakt"}</span>
           </div>
@@ -139,19 +140,19 @@ export default function KontaktPage() {
                   ))}
                 </div>
                 <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                  <a href="#kontaktformular"
+                  <Link href="#kontaktformular"
                     style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", whiteSpace: "nowrap" }}
                     onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                     onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA_HEX}>
                     {isEN ? "Send a message" : "Nachricht schreiben"}
                     <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ filter: "brightness(0) invert(1)" }} />
-                  </a>
-                  <a href="tel:+4311234567"
+                  </Link>
+                  <Link href="tel:+4311234567"
                     style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 24px", borderRadius: 9999, border: `1.5px solid ${CTA_HEX}`, color: CTA_HEX, fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", background: "white", whiteSpace: "nowrap" }}
                     onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#EEF4FC"}
                     onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "white"}>
                     +43 1 123 45 67
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -171,13 +172,13 @@ export default function KontaktPage() {
               </p>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <a href="#kontaktformular" style={{ background: CTA_HEX, color: "white", borderRadius: 9999, minHeight: 52, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, fontFamily: F, fontWeight: 600, fontSize: 16, textDecoration: "none" }}>
+              <Link href="#kontaktformular" style={{ background: CTA_HEX, color: "white", borderRadius: 9999, minHeight: 52, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, fontFamily: F, fontWeight: 600, fontSize: 16, textDecoration: "none" }}>
                 {isEN ? "Send a message" : "Nachricht schreiben"}
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ filter: "brightness(0) invert(1)" }} />
-              </a>
-              <a href="tel:+4311234567" style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(8px)", color: CTA_HEX, border: `1.5px solid ${CTA_HEX}`, borderRadius: 9999, minHeight: 52, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F, fontWeight: 500, fontSize: 16, textDecoration: "none" }}>
+              </Link>
+              <Link href="tel:+4311234567" style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(8px)", color: CTA_HEX, border: `1.5px solid ${CTA_HEX}`, borderRadius: 9999, minHeight: 52, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: F, fontWeight: 500, fontSize: 16, textDecoration: "none" }}>
                 +43 1 123 45 67
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -196,11 +197,11 @@ export default function KontaktPage() {
               {INFO_CARDS.map((card, i) => {
                 const baseStyle: React.CSSProperties = { background: "white", borderRadius: 20, border: "1.5px solid #D0DFF0", display: "flex", flexDirection: "column", gap: 10, textAlign: "center", alignItems: "center", textDecoration: "none", transition: "all 0.2s" };
                 return card.href ? (
-                  <a key={i} href={card.href} style={baseStyle} className="k-card"
+                  <Link key={i} href={card.href} style={baseStyle} className="k-card"
                     onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = CTA_HEX; el.style.transform = "translateY(-2px)"; }}
                     onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#D0DFF0"; el.style.transform = "translateY(0)"; }}>
                     {cardInner(card, "lg")}
-                  </a>
+                  </Link>
                 ) : (
                   <div key={i} style={baseStyle} className="k-card">{cardInner(card, "lg")}</div>
                 );
@@ -216,7 +217,7 @@ export default function KontaktPage() {
               {INFO_CARDS.map((card, i) => {
                 const baseStyle: React.CSSProperties = { background: "white", borderRadius: 20, border: "1.5px solid #D0DFF0", display: "flex", flexDirection: "column", gap: 8, textAlign: "center", alignItems: "center", textDecoration: "none", flexShrink: 0, width: "75%", scrollSnapAlign: "start", padding: "20px 16px" };
                 return card.href ? (
-                  <a key={i} href={card.href} style={baseStyle}>{cardInner(card, "sm")}</a>
+                  <Link key={i} href={card.href} style={baseStyle}>{cardInner(card, "sm")}</Link>
                 ) : (
                   <div key={i} style={baseStyle}>{cardInner(card, "sm")}</div>
                 );
@@ -248,9 +249,9 @@ export default function KontaktPage() {
                       ? "Thank you for your message. We will get back to you within 24 hours."
                       : "Vielen Dank für deine Nachricht. Wir melden uns innerhalb von 24 Stunden bei dir zurück."}
                   </p>
-                  <a href="/orientierungstest" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 28px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", marginTop: 8 }}>
+                  <Link href="/orientierungstest" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 28px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", marginTop: 8 }}>
                     {isEN ? "Start orientation test →" : "Orientierungstest starten →"}
-                  </a>
+                  </Link>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -303,8 +304,8 @@ export default function KontaktPage() {
                       style={{ width: 16, height: 16, flexShrink: 0, marginTop: 3, accentColor: CTA_HEX }} />
                     <span style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.6 }}>
                       {isEN
-                        ? <><a href="#" style={{ color: CTA_HEX }}>I agree to the privacy policy</a> and consent to my data being used to process my enquiry. *</>
-                        : <>Ich stimme der <a href="#" style={{ color: CTA_HEX }}>Datenschutzerklärung</a> zu und bin damit einverstanden, dass meine Daten zur Bearbeitung meiner Anfrage verwendet werden. *</>}
+                        ? <><Link href="#" style={{ color: CTA_HEX }}>I agree to the privacy policy</Link> and consent to my data being used to process my enquiry. *</>
+                        : <>Ich stimme der <Link href="#" style={{ color: CTA_HEX }}>Datenschutzerklärung</Link> zu und bin damit einverstanden, dass meine Daten zur Bearbeitung meiner Anfrage verwendet werden. *</>}
                     </span>
                   </label>
                   <button type="submit"
@@ -339,14 +340,14 @@ export default function KontaktPage() {
               <div style={{ background: "white", border: "1.5px solid #EAF0FA", borderRadius: 20, padding: "24px" }}>
                 <p style={{ fontFamily: F, fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 12px" }}>{isEN ? "Direct contact" : "Direktkontakt"}</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  <a href="tel:+4311234567" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+                  <Link href="tel:+4311234567" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
                     <img src="/icons/icon-phone-contact.svg" width={18} height={18} alt="" />
                     <span style={{ fontFamily: F, fontSize: 14, color: CTA_HEX, fontWeight: 500, textDecoration: "underline", textUnderlineOffset: 3 }}>+43 1 123 45 67</span>
-                  </a>
-                  <a href="mailto:info@ptbd.at" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
+                  </Link>
+                  <Link href="mailto:info@ptbd.at" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
                     <img src="/icons/icon-mail.svg" width={18} height={18} alt="" />
                     <span style={{ fontFamily: F, fontSize: 14, color: CTA_HEX, fontWeight: 500, textDecoration: "underline", textUnderlineOffset: 3 }}>info@ptbd.at</span>
-                  </a>
+                  </Link>
                   <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <img src="/icons/icon-clock.svg" width={18} height={18} alt="" />
                     <span style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)" }}>{isEN ? "Mon–Fri · 9:00–17:00" : "Mo–Fr · 9:00–17:00 Uhr"}</span>
@@ -421,12 +422,12 @@ export default function KontaktPage() {
                       <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0 }}>{isEN ? "Professionals available" : "Fachkräfte verfügbar"}</p>
                     </div>
                   </div>
-                  <a href={`/fachkraefte?bundesland=${selectedProvince}`}
+                  <Link href={`/fachkraefte?bundesland=${selectedProvince}`}
                     style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 38, padding: "0 18px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0 }}
                     onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                     onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA_HEX}>
                     {isEN ? "View →" : "Anzeigen →"}
-                  </a>
+                  </Link>
                 </div>
               )}
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>

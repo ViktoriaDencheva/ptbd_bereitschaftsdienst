@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -104,7 +105,7 @@ export default function KrisenhilfePage() {
       {/* Breadcrumbs */}
       <div style={{ maxWidth: 1440, margin: "0 auto", padding: "32px 80px 0" }} className="kh-bc">
         <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13 }}>
-          <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}>{isEN ? "Home" : "Startseite"}</a>
+          <Link href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}>{isEN ? "Home" : "Startseite"}</Link>
           <span style={{ color: "#C3C3C3" }}>›</span>
           <span style={{ color: "var(--black)", fontWeight: 500 }}>{isEN ? "Crisis Help" : "Krisenhilfe"}</span>
         </div>
@@ -127,9 +128,9 @@ export default function KrisenhilfePage() {
                   : "Wenn du dich in einer akuten Krise befindest oder an Suizid denkst, wende dich bitte sofort an eine der unten angeführten Stellen. Hilfe ist kostenlos und rund um die Uhr erreichbar."}
               </p>
               {/* Emergency CTA */}
-              <a href="tel:142" style={{ display: "inline-flex", alignItems: "center", gap: 10, height: 56, padding: "0 28px", borderRadius: 9999, background: RED, color: "white", fontFamily: F, fontWeight: 700, fontSize: 16, textDecoration: "none", width: "fit-content" }}>
+              <Link href="tel:142" style={{ display: "inline-flex", alignItems: "center", gap: 10, height: 56, padding: "0 28px", borderRadius: 9999, background: RED, color: "white", fontFamily: F, fontWeight: 700, fontSize: 16, textDecoration: "none", width: "fit-content" }}>
                 <span style={{ fontSize: 20 }}>📞</span> {isEN ? "Call now: 142" : "Jetzt anrufen: 142"}
-              </a>
+              </Link>
               <p style={{ fontFamily: F, fontSize: 13, color: "#888", margin: 0 }}>{isEN ? "Telephone Counselling · free · 24/7 · anonymous" : "Telefonseelsorge · kostenlos · 24/7 · anonym"}</p>
             </div>
             <div className="kh-hero-img" style={{ position: "relative", minHeight: 360, paddingBottom: 40 }}>
@@ -148,7 +149,7 @@ export default function KrisenhilfePage() {
           <p style={{ fontFamily: F, fontSize: 15, color: "#888", marginBottom: 40 }}>{isEN ? "All numbers are free to call." : "Alle Nummern sind kostenlos erreichbar."}</p>
           <div className="kh-hotlines" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
             {HOTLINES.map(h => (
-              <a key={h.name} href={h.href} style={{ display: "flex", alignItems: "center", gap: 16, background: "white", borderRadius: 14, padding: "20px 24px", border: h.urgent ? `2px solid ${RED}` : "1.5px solid #E8EFF8", textDecoration: "none", transition: "box-shadow 0.2s" }}
+              <Link key={h.name} href={h.href} style={{ display: "flex", alignItems: "center", gap: 16, background: "white", borderRadius: 14, padding: "20px 24px", border: h.urgent ? `2px solid ${RED}` : "1.5px solid #E8EFF8", textDecoration: "none", transition: "box-shadow 0.2s" }}
                 onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.08)")}
                 onMouseLeave={e => (e.currentTarget.style.boxShadow = "none")}
               >
@@ -157,7 +158,7 @@ export default function KrisenhilfePage() {
                   <span style={{ fontFamily: F, fontSize: 13, color: "#888" }}>{h.desc}</span>
                 </div>
                 <span style={{ fontFamily: F, fontWeight: 800, fontSize: 22, color: h.urgent ? RED : CTA, flexShrink: 0 }}>{h.number}</span>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -213,14 +214,14 @@ export default function KrisenhilfePage() {
           <p style={{ fontFamily: F, fontSize: 15, color: "#888", marginBottom: 40 }}>{isEN ? "Professional support throughout Austria." : "Professionelle Unterstützung in ganz Österreich."}</p>
           <div className="kh-orgas" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
             {ORGAS.map(org => (
-              <a key={org.name} href={org.url} target="_blank" rel="noopener noreferrer"
+              <Link key={org.name} href={org.url} target="_blank" rel="noopener noreferrer"
                 style={{ display: "flex", flexDirection: "column", gap: 6, background: "#F7F9FC", borderRadius: 14, padding: "20px 24px", border: "1.5px solid #E8EFF8", textDecoration: "none", transition: "box-shadow 0.2s" }}
                 onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.08)")}
                 onMouseLeave={e => (e.currentTarget.style.boxShadow = "none")}
               >
                 <span style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: CTA }}>{org.name}</span>
                 <span style={{ fontFamily: F, fontSize: 13, color: "#666" }}>{org.desc}</span>
-              </a>
+              </Link>
             ))}
           </div>
         </div>

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -79,7 +80,7 @@ export default function AblaufPage() {
       {/* Breadcrumbs */}
       <div style={{ maxWidth: 1440, margin: "0 auto", padding: "32px 80px 0" }} className="adb-bc">
         <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13 }}>
-          <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}>{isEN ? "Home" : "Startseite"}</a>
+          <Link href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}>{isEN ? "Home" : "Startseite"}</Link>
           <span style={{ color: "#C3C3C3" }}>›</span>
           <span style={{ color: "var(--black)", fontWeight: 500 }}>{isEN ? "How a session works" : "Ablauf der Beratung"}</span>
         </div>
@@ -99,9 +100,9 @@ export default function AblaufPage() {
                   : "Viele Menschen wissen nicht genau, wie eine Beratungssitzung abläuft. Hier erfährst du, was dich erwartet — Schritt für Schritt."}
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", height: 50, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
+                <Link href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", height: 50, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
                   {isEN ? "Book an appointment" : "Termin vereinbaren"}
-                </a>
+                </Link>
               </div>
             </div>
             {/* Video */}
@@ -179,15 +180,15 @@ export default function AblaufPage() {
               {FAQS.map((f, i) => <FaqItem key={i} q={f.q} a={f.a} />)}
               <div style={{ paddingTop: 24, display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap", fontFamily: F, fontSize: 14, color: "#888" }}>
                 {isEN ? "Your question not listed?" : "Deine Frage ist nicht dabei?"}{" "}
-                <a href="/faq" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
+                <Link href="/faq" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
                   onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
                   onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
-                >{isEN ? "View all questions" : "Alle Fragen ansehen"}</a>
+                >{isEN ? "View all questions" : "Alle Fragen ansehen"}</Link>
                 {" "}{isEN ? "or" : "oder"}{" "}
-                <a href="/kontakt" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
+                <Link href="/kontakt" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
                   onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
                   onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
-                >{isEN ? "write to us directly" : "schreib uns direkt"}</a>.
+                >{isEN ? "write to us directly" : "schreib uns direkt"}</Link>.
               </div>
             </div>
           </div>

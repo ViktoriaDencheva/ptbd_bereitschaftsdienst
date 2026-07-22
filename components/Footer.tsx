@@ -1,4 +1,5 @@
 ﻿"use client";
+import Link from "next/link";
 import { useState } from "react";
 import { useLang } from "@/lib/lang";
 const imgTelephones = null;
@@ -41,7 +42,7 @@ function AccordionCol({ title, links }: { title: string; links: { label: string;
       {open && (
         <div style={{ display: "flex", flexDirection: "column", gap: 10, paddingBottom: 14 }}>
           {links.map(link => (
-            <a key={link.label} href={link.href} style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 15, color: "var(--grey-text)", textDecoration: "none" }}>{link.label}</a>
+            <Link key={link.label} href={link.href} style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 15, color: "var(--grey-text)", textDecoration: "none" }}>{link.label}</Link>
           ))}
         </div>
       )}
@@ -124,12 +125,12 @@ export default function Footer() {
                   fontWeight: 500, fontSize: 20,
                   lineHeight: 1.4, color: "var(--black)",
                 }}>{F.crisis_phone_label}</span>
-                <a href="tel:142" style={{
+                <Link href="tel:142" style={{
                   fontFamily: "'Poppins', sans-serif",
                   fontWeight: 500, fontSize: 28,
                   lineHeight: 1.3, color: "var(--red-soft)",
                   textDecoration: "underline",
-                }}>142</a>
+                }}>142</Link>
               </div>
             </div>
             <p style={{
@@ -159,11 +160,11 @@ export default function Footer() {
                   whiteSpace: "nowrap",
                 }}>
                   {item.label}{" "}
-                  <a href="#" style={{
+                  <Link href="#" style={{
                     fontFamily: "'Poppins', sans-serif",
                     fontWeight: 500, color: "var(--red-soft)",
                     textDecoration: "underline",
-                  }}>{item.num}</a>
+                  }}>{item.num}</Link>
                 </p>
               ))}
             </div>
@@ -208,10 +209,10 @@ export default function Footer() {
                 <div style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, lineHeight: 1.5, color: "var(--black)" }}>{col.title}</div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                   {col.links.map((link) => (
-                    <a key={link.label} href={link.href} style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 14, lineHeight: 1.5, color: "var(--grey-text)", textDecoration: "none", transition: "color 0.2s" }}
+                    <Link key={link.label} href={link.href} style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 14, lineHeight: 1.5, color: "var(--grey-text)", textDecoration: "none", transition: "color 0.2s" }}
                       onMouseEnter={e => (e.currentTarget.style.color = "var(--cta)")}
                       onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-                    >{link.label}</a>
+                    >{link.label}</Link>
                   ))}
                 </div>
               </div>
@@ -222,13 +223,13 @@ export default function Footer() {
               <div style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, lineHeight: 1.5, color: "var(--black)" }}>{F.col_contact}</div>
               <div className="contact-items" style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {contactItems.map((item) => (
-                  <a key={item.label} href={item.href} style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 14, lineHeight: 1.5, color: "var(--grey-text)", textDecoration: "none", transition: "color 0.2s" }}
+                  <Link key={item.label} href={item.href} style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 14, lineHeight: 1.5, color: "var(--grey-text)", textDecoration: "none", transition: "color 0.2s" }}
                     onMouseEnter={e => (e.currentTarget.style.color = "var(--cta)")}
                     onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
                   >
                     <img src={item.icon} width={20} height={20} alt="" style={{ flexShrink: 0 }} />
                     {item.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -279,7 +280,7 @@ export default function Footer() {
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                   <span style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 20, lineHeight: 1.4, color: "var(--black)" }}>{F.crisis_phone_label}</span>
-                  <a href="tel:142" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 28, color: "var(--red-soft)", textDecoration: "underline" }}>142</a>
+                  <Link href="tel:142" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 28, color: "var(--red-soft)", textDecoration: "underline" }}>142</Link>
                 </div>
               </div>
               <p style={{ fontFamily: "'Poppins', sans-serif", fontSize: 16, lineHeight: 1.5, color: "var(--black)", margin: 0 }}>{F.crisis_phone_info}</p>
@@ -289,7 +290,7 @@ export default function Footer() {
               <h4 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 20, lineHeight: 1.4, color: "var(--black)", margin: 0 }}>{F.crisis_more}</h4>
               {F.crisis_numbers.map((item, i) => (
                 <p key={i} style={{ fontFamily: "'Poppins', sans-serif", fontSize: 16, lineHeight: 1.5, color: "var(--black)", margin: 0 }}>
-                  {item.label} <a href="#" style={{ fontWeight: 500, color: "var(--red-soft)", textDecoration: "underline" }}>{item.num}</a>
+                  {item.label} <Link href="#" style={{ fontWeight: 500, color: "var(--red-soft)", textDecoration: "underline" }}>{item.num}</Link>
                 </p>
               ))}
             </div>
@@ -321,10 +322,10 @@ export default function Footer() {
           <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
             <div style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, color: "var(--black)" }}>{F.col_contact}</div>
             {contactItems.map(item => (
-              <a key={item.label} href={item.href} style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: "'Poppins', sans-serif", fontSize: 15, color: "var(--grey-text)", textDecoration: "none" }}>
+              <Link key={item.label} href={item.href} style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: "'Poppins', sans-serif", fontSize: 15, color: "var(--grey-text)", textDecoration: "none" }}>
                 <img src={item.icon} width={20} height={20} alt="" style={{ flexShrink: 0 }} />
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
 

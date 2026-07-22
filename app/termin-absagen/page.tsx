@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -116,7 +117,7 @@ export default function TerminAbsagenPage() {
       {/* Breadcrumbs */}
       <div style={{ maxWidth: 1440, margin: "0 auto", padding: "32px 80px 0" }} className="ta-bc">
         <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13 }}>
-          <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}>{isEN ? "Home" : "Startseite"}</a>
+          <Link href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}>{isEN ? "Home" : "Startseite"}</Link>
           <span style={{ color: "#C3C3C3" }}>›</span>
           <span style={{ color: "var(--black)", fontWeight: 500 }}>{isEN ? "Cancel & reschedule appointment" : "Termin absagen & verschieben"}</span>
         </div>
@@ -139,12 +140,12 @@ export default function TerminAbsagenPage() {
                   : "Manchmal lässt sich ein Termin nicht halten. Hier erfährst du, wie du einfach und unkompliziert einen Termin absagen oder verschieben kannst."}
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                <a href="/profil" style={{ display: "inline-flex", alignItems: "center", height: 50, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
+                <Link href="/profil" style={{ display: "inline-flex", alignItems: "center", height: 50, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
                   {isEN ? "My appointments" : "Zu meinen Terminen"}
-                </a>
-                <a href="mailto:info@ptbd.at" style={{ display: "inline-flex", alignItems: "center", height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid #C5D8F0`, color: CTA, fontFamily: F, fontWeight: 500, fontSize: 15, textDecoration: "none" }}>
+                </Link>
+                <Link href="mailto:info@ptbd.at" style={{ display: "inline-flex", alignItems: "center", height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid #C5D8F0`, color: CTA, fontFamily: F, fontWeight: 500, fontSize: 15, textDecoration: "none" }}>
                   {isEN ? "Get in touch" : "Kontakt aufnehmen"}
-                </a>
+                </Link>
               </div>
             </div>
             <div className="ta-hero-img" style={{ position: "relative", minHeight: 360, paddingBottom: 40 }}>

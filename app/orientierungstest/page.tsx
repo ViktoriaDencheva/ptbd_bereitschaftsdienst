@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -501,8 +502,8 @@ export default function OrientierungstestPage() {
           {/* Breadcrumbs */}
           <div style={{ ...wrap, padding: isMobile ? "14px 16px 20px" : "14px 40px 20px" }}>
             <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <a href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
-                onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>{isEN ? "Home" : "Startseite"}</a>
+              <Link href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
+                onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>{isEN ? "Home" : "Startseite"}</Link>
               <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
               <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>{isEN ? "Orientation test" : "Orientierungstest"}</span>
             </nav>
@@ -629,12 +630,12 @@ export default function OrientierungstestPage() {
                       </div>
                     ))}
                   </div>
-                  <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 26px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 4 }}
+                  <Link href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 26px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 4 }}
                     onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                     onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
                     {isEN ? "Schedule free initial consultation" : "Kostenloses Erstgespräch vereinbaren"}
                     <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -864,13 +865,13 @@ export default function OrientierungstestPage() {
                     <p style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", margin: 0, lineHeight: 1.65 }}>
                       {isEN ? "Psychotherapist, psychologist, or psychiatrist — not all help with the same topics. Find out who is responsible for what." : "Psychotherapeut:in, Psycholog:in oder Psychiater:in — nicht alle helfen bei denselben Themen. Finde heraus, wer wofür zuständig ist."}
                     </p>
-                    <a href="/fachkraefte"
+                    <Link href="/fachkraefte"
                       style={{ display: "inline-flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13, color: CTA, fontWeight: 600, textDecoration: "none" }}
                       onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
                       onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}>
                       {isEN ? "Compare all specialisations" : "Alle Fachrichtungen vergleichen"}
                       <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </a>
+                    </Link>
                   </div>
                 )}
               </div>
@@ -1015,19 +1016,19 @@ export default function OrientierungstestPage() {
                       </div>
                       <p style={{ fontFamily: F, fontSize: 11, color: "var(--grey-text)", margin: 0, fontStyle: "italic", lineHeight: 1.5 }}>*{footnoteText}</p>
                       {isMobile && (
-                        <a href={`/fachkraefte/${t.id}`}
+                        <Link href={`/fachkraefte/${t.id}`}
                           style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, background: "white", color: CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 0", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", marginTop: 4 }}>
                           {isEN ? "View profile →" : "Profil ansehen →"}
-                        </a>
+                        </Link>
                       )}
                     </div>
                     {!isMobile && (
                       <div style={{ flexShrink: 0, display: "flex", alignItems: "center", padding: "0 24px" }}>
-                        <a href={`/fachkraefte/${t.id}`}
+                        <Link href={`/fachkraefte/${t.id}`}
                           style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, background: hoveredCard === i ? CTA : "white", color: hoveredCard === i ? "white" : CTA, border: `1.5px solid ${CTA}`, borderRadius: 9999, padding: "10px 22px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", whiteSpace: "nowrap", transition: "background 0.2s, color 0.2s, box-shadow 0.2s", boxShadow: hoveredCard === i ? "0 3px 12px rgba(45,91,141,0.22)" : "none" }}>
                           {isEN ? "View profile" : "Profil ansehen"}
                           <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                        </a>
+                        </Link>
                       </div>
                     )}
                   </div>
@@ -1038,12 +1039,12 @@ export default function OrientierungstestPage() {
 
             {/* Actions */}
             <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 12, justifyContent: "center", alignItems: "center", marginBottom: 40 }}>
-              <a href={`/fachkraefte?fach=${specKey}`}
+              <Link href={`/fachkraefte?fach=${specKey}`}
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, background: CTA, color: "white", borderRadius: 9999, padding: "12px 28px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.25)", transition: "background 0.2s" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
                 {isEN ? `View all matching ${spec.title}s` : `Alle passenden ${spec.title}en ansehen`}
-              </a>
+              </Link>
               <button onClick={() => { setPhase("test"); setCurrentQ(0); setAnswers({}); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, border: `1.5px solid ${CTA}`, background: "white", color: CTA, borderRadius: 9999, padding: "12px 24px", fontFamily: F, fontWeight: 500, fontSize: 14, cursor: "pointer" }}>
                 {isEN ? "Retake test" : "Test wiederholen"}
@@ -1076,12 +1077,12 @@ export default function OrientierungstestPage() {
                     </div>
                   ))}
                 </div>
-                <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 26px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 4 }}
+                <Link href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 26px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 4 }}
                   onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                   onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
                   {isEN ? "Book a free initial consultation" : "Kostenloses Erstgespräch vereinbaren"}
                   <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

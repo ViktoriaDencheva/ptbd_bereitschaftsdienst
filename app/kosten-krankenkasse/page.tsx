@@ -1,4 +1,5 @@
 ﻿"use client";
+import Link from "next/link";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -34,7 +35,7 @@ export default function KostenPage() {
       {/* Breadcrumbs */}
       <div style={{ maxWidth: 1440, margin: "0 auto", padding: "32px 80px 0" }} className="kk-bc">
         <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: FONT, fontSize: 13 }}>
-          <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}>{K.breadcrumb_home}</a>
+          <Link href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}>{K.breadcrumb_home}</Link>
           <span style={{ color: "#C3C3C3" }}>›</span>
           <span style={{ color: "var(--black)", fontWeight: 500 }}>{K.breadcrumb_current}</span>
         </div>
@@ -110,15 +111,15 @@ export default function KostenPage() {
               {FAQS.map((f, i) => <FaqItem key={i} q={f.q} a={f.a} />)}
               <div style={{ paddingTop: 24, display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap", fontFamily: FONT, fontSize: 14, color: "#888" }}>
                 {K.faq_not_found}{" "}
-                <a href="/faq" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
+                <Link href="/faq" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
                   onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
                   onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
-                >{K.faq_all}</a>
+                >{K.faq_all}</Link>
                 {" "}{K.faq_or}{" "}
-                <a href="/kontakt" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
+                <Link href="/kontakt" style={{ color: CTA, fontWeight: 600, textDecoration: "none" }}
                   onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
                   onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
-                >{K.faq_contact}</a>.
+                >{K.faq_contact}</Link>.
               </div>
             </div>
           </div>
@@ -137,20 +138,20 @@ export default function KostenPage() {
               {K.cta_subtitle}
             </p>
             <div style={{ display: "flex", flexDirection: "row", gap: 12, marginTop: 8, flexWrap: "wrap", justifyContent: "center" }}>
-              <a href="/vorgespraech"
+              <Link href="/vorgespraech"
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: FONT, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", whiteSpace: "nowrap" }}
                 onMouseEnter={e => (e.currentTarget.style.background = "#1e4270")}
                 onMouseLeave={e => (e.currentTarget.style.background = CTA)}>
                 {K.cta_primary}
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ filter: "brightness(0) invert(1)" }} />
-              </a>
-              <a href="/orientierungstest"
+              </Link>
+              <Link href="/orientierungstest"
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid ${CTA}`, color: CTA, fontFamily: FONT, fontWeight: 600, fontSize: 15, textDecoration: "none", background: "white", whiteSpace: "nowrap" }}
                 onMouseEnter={e => (e.currentTarget.style.background = "#EEF4FC")}
                 onMouseLeave={e => (e.currentTarget.style.background = "white")}>
                 {K.cta_secondary}
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

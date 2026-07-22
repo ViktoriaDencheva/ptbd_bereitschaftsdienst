@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
@@ -166,7 +167,7 @@ function SummaryRow({ icon, label, href }: { icon: React.ReactNode; label: strin
     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
       <div style={{ width: 28, height: 28, borderRadius: 8, background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{icon}</div>
       {href ? (
-        <a href={href} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--black)", fontWeight: 500, lineHeight: 1.4, textDecoration: "underline", textUnderlineOffset: 2 }}>{label}</a>
+        <Link href={href} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--black)", fontWeight: 500, lineHeight: 1.4, textDecoration: "underline", textUnderlineOffset: 2 }}>{label}</Link>
       ) : (
         <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--black)", fontWeight: 500, lineHeight: 1.4 }}>{label}</span>
       )}
@@ -779,8 +780,8 @@ function Step3({
         </div>
         <span style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.5 }}>
           {isEN
-            ? <>I accept the <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Terms & Conditions</a> and the <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Privacy Policy</a>.</>
-            : <>Ich akzeptiere die <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>AGB</a> und die <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Datenschutzerklärung</a>.</>}
+            ? <>I accept the <Link href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Terms & Conditions</Link> and the <Link href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Privacy Policy</Link>.</>
+            : <>Ich akzeptiere die <Link href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>AGB</Link> und die <Link href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Datenschutzerklärung</Link>.</>}
         </span>
       </label>
 
@@ -943,7 +944,7 @@ function Confirmation({
 
       {/* ── Calendar + Profile buttons ── */}
       <div style={{ display: "flex", flexDirection: isPhone ? "column" : "row", flexWrap: "wrap", gap: 12, justifyContent: "center", marginBottom: 32 }}>
-        <a
+        <Link
           href={(() => {
             const raw = selectedDate.replace(/^[A-Za-zÄäÖöÜüß]+,\s*/, "").replace(".", "").trim().split(" ");
             const day = (raw[0] || "01").padStart(2, "0");
@@ -965,15 +966,15 @@ function Confirmation({
         >
           <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke="var(--cta)" strokeWidth="2" strokeLinecap="round"/></svg>
           {isEN ? "Add to calendar" : "Zum Kalender hinzufügen"}
-        </a>
-        <a href="/profil"
+        </Link>
+        <Link href="/profil"
           style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, background: "var(--cta)", border: "1.5px solid var(--cta)", borderRadius: 9999, padding: "11px 22px", fontFamily: F, fontWeight: 600, fontSize: 14, color: "white", textDecoration: "none", transition: "all 0.2s", ...(isPhone ? { width: "100%", boxSizing: "border-box" as const } : {}) }}
           onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "var(--cta-hover)"; e.currentTarget.style.borderColor = "var(--cta-hover)"; e.currentTarget.style.boxShadow = "0 4px 12px rgba(45,91,141,0.3)"; }}
           onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "var(--cta)"; e.currentTarget.style.borderColor = "var(--cta)"; e.currentTarget.style.boxShadow = "none"; }}
         >
           <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="white" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="white" strokeWidth="2"/></svg>
           {isEN ? "Go to profile" : "Zum Profil"}
-        </a>
+        </Link>
       </div>
 
       {/* ── Konto banner (full width) ── */}
@@ -1001,16 +1002,16 @@ function Confirmation({
 
           {/* CTA buttons — full width on mobile, side by side on desktop */}
           <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 10 }}>
-            <a href="/anmelden"
+            <Link href="/anmelden"
               style={{ display: "block", textAlign: "center", background: "var(--cta)", color: "white", borderRadius: 9999, padding: "13px 24px", fontFamily: F, fontWeight: 700, fontSize: 14, textDecoration: "none", transition: "all 0.2s", boxShadow: "0 4px 16px rgba(45,91,141,0.3)", boxSizing: "border-box" as const, flex: 1 }}
               onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "var(--cta-hover)"; e.currentTarget.style.boxShadow = "0 6px 20px rgba(45,91,141,0.4)"; }}
               onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "var(--cta)"; e.currentTarget.style.boxShadow = "0 4px 16px rgba(45,91,141,0.3)"; }}
-            >{isEN ? "Sign in" : "Anmelden"}</a>
-            <a href="/registrieren"
+            >{isEN ? "Sign in" : "Anmelden"}</Link>
+            <Link href="/registrieren"
               style={{ display: "block", textAlign: "center", background: "rgba(255,255,255,0.75)", color: "var(--cta)", borderRadius: 9999, padding: "13px 24px", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", border: "1.5px solid var(--cta)", transition: "all 0.2s", boxSizing: "border-box" as const, flex: 1 }}
               onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "white"; }}
               onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.background = "rgba(255,255,255,0.75)"; }}
-            >{isEN ? "Create account" : "Konto erstellen"}</a>
+            >{isEN ? "Create account" : "Konto erstellen"}</Link>
           </div>
         </div>
       </div>
@@ -1081,7 +1082,7 @@ export default function BuchenPage() {
         <Navbar />
         <div style={{ maxWidth: 600, margin: "80px auto", textAlign: "center", fontFamily: "'Poppins',sans-serif" }}>
           <h1 style={{ fontSize: 24, color: "var(--black)" }}>{isEN ? "Specialist not found" : "Fachkraft nicht gefunden"}</h1>
-          <a href="/fachkraefte" style={{ color: "var(--cta)", textDecoration: "none", fontSize: 15, marginTop: 16, display: "inline-block" }}>{isEN ? "← Back to search" : "← Zurück zur Suche"}</a>
+          <Link href="/fachkraefte" style={{ color: "var(--cta)", textDecoration: "none", fontSize: 15, marginTop: 16, display: "inline-block" }}>{isEN ? "← Back to search" : "← Zurück zur Suche"}</Link>
         </div>
         <Footer />
       </main>

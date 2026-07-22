@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -236,10 +237,10 @@ export default function AnmeldenPage() {
           rightElement={<button type="button" onClick={() => setShowPw(v => !v)} style={{ background: "none", border: "none", cursor: "pointer", color: "#9CA3AF", display: "flex", padding: 0 }}><EyeIcon open={showPw} /></button>}
         />
         <div className="login-checkbox-row" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <a href="/passwort-vergessen" style={{ fontFamily: F, fontSize: 14, color: "var(--cta)", textDecoration: "none", fontWeight: 500 }}
+          <Link href="/passwort-vergessen" style={{ fontFamily: F, fontSize: 14, color: "var(--cta)", textDecoration: "none", fontWeight: 500 }}
             onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
             onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
-          >{isEN ? "Forgot password?" : "Passwort vergessen?"}</a>
+          >{isEN ? "Forgot password?" : "Passwort vergessen?"}</Link>
           <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}>
             <div onClick={() => setRemember(v => !v)} style={{ width: 16, height: 16, borderRadius: 3, border: remember ? "2px solid var(--cta)" : "2px solid #9CA3AF", background: remember ? "var(--cta)" : "white", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.15s", flexShrink: 0 }}>
               {remember && <svg width="9" height="9" fill="none" viewBox="0 0 24 24"><path stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/></svg>}
@@ -292,8 +293,8 @@ export default function AnmeldenPage() {
           </div>
           <span style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", lineHeight: 1.5 }}>
             {isEN
-              ? <>I accept the <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Terms & Conditions</a> and the <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Privacy Policy</a>.</>
-              : <>Ich akzeptiere die <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>AGB</a> und die <a href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Datenschutzerklärung</a>.</>}
+              ? <>I accept the <Link href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Terms & Conditions</Link> and the <Link href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Privacy Policy</Link>.</>
+              : <>Ich akzeptiere die <Link href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>AGB</Link> und die <Link href="#" style={{ color: "var(--cta)", textDecoration: "underline" }}>Datenschutzerklärung</Link>.</>}
           </span>
         </label>
         {regError && <div style={{ background: "#FEF2F2", border: "1px solid #FECACA", borderRadius: 8, padding: "10px 14px", fontFamily: F, fontSize: 13, color: "#991B1B" }}>{regError}</div>}
@@ -360,10 +361,10 @@ export default function AnmeldenPage() {
 
       {/* Breadcrumbs */}
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "14px 24px", display: "flex", alignItems: "center", gap: 6 }}>
-        <a href="/" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}
+        <Link href="/" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}
           onMouseEnter={e => (e.currentTarget.style.color = "var(--cta)")}
           onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-        >{isEN ? "Home" : "Startseite"}</a>
+        >{isEN ? "Home" : "Startseite"}</Link>
         <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="#D1D5DB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
         <span style={{ fontFamily: F, fontSize: 13, color: "var(--cta)", fontWeight: 500 }}>{mode === "login" ? (isEN ? "Sign in" : "Anmelden") : (isEN ? "Register" : "Registrieren")}</span>
       </div>

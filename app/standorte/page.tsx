@@ -1,4 +1,5 @@
 ﻿"use client";
+import Link from "next/link";
 import { useState } from "react";
 import { Plus, Minus, MapPin, Phone, Clock, ExternalLink } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -225,7 +226,7 @@ function StandortCard({ s, isEN }: { s: Standort; isEN: boolean }) {
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <Phone size={15} color={CTA_HEX} style={{ flexShrink: 0 }} />
-          <a href={`tel:${s.telefon.replace(/\s/g, "")}`} style={{ fontFamily: F, fontSize: 14, color: CTA_HEX, textDecoration: "none" }}>{s.telefon}</a>
+          <Link href={`tel:${s.telefon.replace(/\s/g, "")}`} style={{ fontFamily: F, fontSize: 14, color: CTA_HEX, textDecoration: "none" }}>{s.telefon}</Link>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <Clock size={15} color={CTA_HEX} style={{ flexShrink: 0 }} />
@@ -237,7 +238,7 @@ function StandortCard({ s, isEN }: { s: Standort; isEN: boolean }) {
 
       {/* Buttons */}
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-        <a
+        <Link
           href={s.mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
@@ -246,15 +247,15 @@ function StandortCard({ s, isEN }: { s: Standort; isEN: boolean }) {
           onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
         >
           <ExternalLink size={13} /> {isEN ? "Open route" : "Route öffnen"}
-        </a>
-        <a
+        </Link>
+        <Link
           href="/vorgespraech"
           style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 40, padding: "0 18px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 500, fontSize: 13.5, textDecoration: "none", transition: "background 0.2s" }}
           onMouseEnter={e => (e.currentTarget.style.background = "#234a72")}
           onMouseLeave={e => (e.currentTarget.style.background = CTA_HEX)}
         >
           {isEN ? "Book appointment" : "Termin vereinbaren"}
-        </a>
+        </Link>
       </div>
       </div>
     </div>
@@ -286,10 +287,10 @@ export default function StandortePage() {
       {/* ── BREADCRUMBS ── */}
       <div className="st-bc-wrap">
         <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13 }}>
-          <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
+          <Link href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
             onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = CTA_HEX}
             onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}
-          >{isEN ? "Home" : "Startseite"}</a>
+          >{isEN ? "Home" : "Startseite"}</Link>
           <span style={{ color: "#C3C3C3" }}>›</span>
           <span style={{ color: "var(--black)", fontWeight: 500 }}>{isEN ? "Locations" : "Standorte"}</span>
         </div>
@@ -313,18 +314,18 @@ export default function StandortePage() {
                   : "Der Psychotherapeutischer Bereitschaftsdienst ist in mehreren Städten Österreichs vertreten. Finde den nächsten Standort für ein persönliches Gespräch — oder nutze unsere Online-Angebote."}
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", transition: "background 0.2s" }}
+                <Link href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", transition: "background 0.2s" }}
                   onMouseEnter={e => (e.currentTarget.style.background = "#234a72")}
                   onMouseLeave={e => (e.currentTarget.style.background = CTA_HEX)}
                 >
                   {isEN ? "Book appointment" : "Termin vereinbaren"}
-                </a>
-                <a href="#standortliste" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid #C5D8F0`, color: CTA_HEX, fontFamily: F, fontWeight: 500, fontSize: 15, textDecoration: "none", transition: "all 0.2s" }}
+                </Link>
+                <Link href="#standortliste" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid #C5D8F0`, color: CTA_HEX, fontFamily: F, fontWeight: 500, fontSize: 15, textDecoration: "none", transition: "all 0.2s" }}
                   onMouseEnter={e => { e.currentTarget.style.background = "#EBF2FC"; }}
                   onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}
                 >
                   {isEN ? "View all locations" : "Alle Standorte ansehen"}
-                </a>
+                </Link>
               </div>
               {/* Stats */}
               <div style={{ display: "flex", gap: 32, marginTop: 8 }}>

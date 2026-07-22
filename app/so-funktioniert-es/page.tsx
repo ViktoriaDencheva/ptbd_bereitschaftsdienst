@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -81,7 +82,7 @@ export default function SoFunktioniertEsPage() {
       {/* Breadcrumbs */}
       <div style={{ maxWidth: 1440, margin: "0 auto", padding: "32px 80px 0" }} className="sfb-bc">
         <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13 }}>
-          <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}>{isEN ? "Home" : "Startseite"}</a>
+          <Link href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}>{isEN ? "Home" : "Startseite"}</Link>
           <span style={{ color: "#C3C3C3" }}>›</span>
           <span style={{ color: "var(--black)", fontWeight: 500 }}>{isEN ? "How it works" : "So funktioniert es"}</span>
         </div>
@@ -104,12 +105,12 @@ export default function SoFunktioniertEsPage() {
                   : "Von der ersten Überlegung bis zur regelmäßigen Begleitung — wir zeigen dir, wie einfach der Weg zu professioneller psychosozialer Unterstützung ist."}
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                <a href="/orientierungsgespraech" style={{ display: "inline-flex", alignItems: "center", height: 50, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
+                <Link href="/orientierungsgespraech" style={{ display: "inline-flex", alignItems: "center", height: 50, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>
                   {isEN ? "Get started" : "Jetzt starten"}
-                </a>
-                <a href="/fachkraefte" style={{ display: "inline-flex", alignItems: "center", height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid #C5D8F0`, color: CTA, fontFamily: F, fontWeight: 500, fontSize: 15, textDecoration: "none" }}>
+                </Link>
+                <Link href="/fachkraefte" style={{ display: "inline-flex", alignItems: "center", height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid #C5D8F0`, color: CTA, fontFamily: F, fontWeight: 500, fontSize: 15, textDecoration: "none" }}>
                   {isEN ? "Browse specialists" : "Fachkräfte ansehen"}
-                </a>
+                </Link>
               </div>
             </div>
             <div className="sfb-hero-img" style={{ position: "relative", minHeight: 360, paddingBottom: 40 }}>
@@ -182,9 +183,9 @@ export default function SoFunktioniertEsPage() {
         <div style={{ ...W, textAlign: "center" }} className="sfb-w">
           <h2 style={{ fontFamily: F, fontWeight: 800, fontSize: 32, color: "white", margin: "0 0 12px" }}>{isEN ? "Ready for the first step?" : "Bereit für den ersten Schritt?"}</h2>
           <p style={{ fontFamily: F, fontSize: 16, color: "rgba(255,255,255,0.8)", margin: "0 0 32px" }}>{isEN ? "Book your free initial consultation now." : "Buche jetzt dein Kostenloses Erstgespräch."}</p>
-          <a href="/orientierungsgespraech" style={{ display: "inline-flex", alignItems: "center", height: 52, padding: "0 36px", borderRadius: 9999, background: "white", color: CTA, fontFamily: F, fontWeight: 700, fontSize: 16, textDecoration: "none" }}>
+          <Link href="/orientierungsgespraech" style={{ display: "inline-flex", alignItems: "center", height: 52, padding: "0 36px", borderRadius: 9999, background: "white", color: CTA, fontFamily: F, fontWeight: 700, fontSize: 16, textDecoration: "none" }}>
             {isEN ? "Book initial consultation" : "Erstgespräch buchen"}
-          </a>
+          </Link>
         </div>
       </section>
 

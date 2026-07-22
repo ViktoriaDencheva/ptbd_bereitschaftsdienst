@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
 import { therapists, TAG_EN } from "@/lib/therapists";
@@ -72,7 +73,7 @@ export default function TherapistDetailPage() {
         <Navbar />
         <div style={{ maxWidth: 800, margin: "80px auto", textAlign: "center", fontFamily: "'Poppins',sans-serif" }}>
           <h1 style={{ fontSize: 28, color: "var(--black)" }}>{T.fachkraefteDetail.not_found}</h1>
-          <a href="/fachkraefte" style={{ color: "var(--cta)", textDecoration: "none", fontSize: 16, marginTop: 16, display: "inline-block" }}>{T.fachkraefteDetail.back_to_search}</a>
+          <Link href="/fachkraefte" style={{ color: "var(--cta)", textDecoration: "none", fontSize: 16, marginTop: 16, display: "inline-block" }}>{T.fachkraefteDetail.back_to_search}</Link>
         </div>
         <Footer />
       </main>
@@ -88,15 +89,15 @@ export default function TherapistDetailPage() {
       {/* ── Breadcrumbs ── */}
       <div style={{ maxWidth: 1440, margin: "0 auto", padding: "14px 16px" }} className="breadcrumb-wrap">
         <nav style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
-          <a href="/" style={{ fontFamily: "'Poppins',sans-serif", fontSize: isMobile ? 14 : 14, color: "var(--grey-text)", textDecoration: "none", fontWeight: 400 }}
+          <Link href="/" style={{ fontFamily: "'Poppins',sans-serif", fontSize: isMobile ? 14 : 14, color: "var(--grey-text)", textDecoration: "none", fontWeight: 400 }}
             onMouseEnter={e => (e.currentTarget.style.color = "var(--cta)")}
             onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-          >{T.fachkraeftePage.breadcrumb_home}</a>
+          >{T.fachkraeftePage.breadcrumb_home}</Link>
           <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
-          <a href="/fachkraefte" style={{ fontFamily: "'Poppins',sans-serif", fontSize: isMobile ? 14 : 14, color: "var(--grey-text)", textDecoration: "none", fontWeight: 400 }}
+          <Link href="/fachkraefte" style={{ fontFamily: "'Poppins',sans-serif", fontSize: isMobile ? 14 : 14, color: "var(--grey-text)", textDecoration: "none", fontWeight: 400 }}
             onMouseEnter={e => (e.currentTarget.style.color = "var(--cta)")}
             onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-          >{T.fachkraeftePage.breadcrumb_current}</a>
+          >{T.fachkraeftePage.breadcrumb_current}</Link>
           <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
           <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: isMobile ? 14 : 14, color: "var(--black)", fontWeight: 600 }}>{t.name}</span>
         </nav>
@@ -141,10 +142,10 @@ export default function TherapistDetailPage() {
               <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)" }}>{t.experience} {T.fachkraefteDetail.years_exp}</span>
               <span style={{ color: "var(--grey-border)", fontSize: 9 }}>&#x25CF;</span>
               {t.address && t.angebot !== "online" ? (
-                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${(t.address as {street:string;city:string}).street}, ${(t.address as {street:string;city:string}).city}`)}`} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 4, fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--cta)", textDecoration: "underline" }}>
+                <Link href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${(t.address as {street:string;city:string}).street}, ${(t.address as {street:string;city:string}).city}`)}`} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 4, fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--cta)", textDecoration: "underline" }}>
                   {t.location}, {(t.address as {street:string;city:string}).street}
                   <svg width="11" height="11" fill="none" viewBox="0 0 24 24"><path stroke="var(--cta)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-                </a>
+                </Link>
               ) : (
                 <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)" }}>{t.location}</span>
               )}
@@ -197,7 +198,7 @@ export default function TherapistDetailPage() {
               </div>
             </div>
             {/* Right: book button */}
-            <a href={`/buchen/${t.id}`} style={{ background: "var(--cta)", color: "white", borderRadius: 9999, padding: "12px 22px", fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 15, textDecoration: "none", whiteSpace: "nowrap", display: "inline-block", flexShrink: 0 }}>{T.fachkraefteDetail.book_btn}</a>
+            <Link href={`/buchen/${t.id}`} style={{ background: "var(--cta)", color: "white", borderRadius: 9999, padding: "12px 22px", fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 15, textDecoration: "none", whiteSpace: "nowrap", display: "inline-block", flexShrink: 0 }}>{T.fachkraefteDetail.book_btn}</Link>
           </div>}
       </div>
 
@@ -229,7 +230,7 @@ export default function TherapistDetailPage() {
                   </span>
                   <span style={{ color: "var(--grey-border)", fontSize: 10 }}>&#x25CF;</span>
                   {t.address && t.angebot !== "online" ? (
-                    <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${(t.address as {street:string;city:string}).street}, ${(t.address as {street:string;city:string}).city}`)}`} target="_blank" rel="noopener noreferrer"
+                    <Link href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${(t.address as {street:string;city:string}).street}, ${(t.address as {street:string;city:string}).city}`)}`} target="_blank" rel="noopener noreferrer"
                       style={{ display: "inline-flex", alignItems: "center", gap: 4, fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)", textDecoration: "none", transition: "color 0.15s" }}
                       onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = "var(--cta)"; (e.currentTarget.querySelectorAll("path, circle") as NodeListOf<SVGElement>).forEach(el => el.setAttribute("stroke", "var(--cta)")); }}
                       onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"; (e.currentTarget.querySelectorAll("path, circle") as NodeListOf<SVGElement>).forEach(el => el.setAttribute("stroke", "var(--grey-border)")); }}
@@ -237,7 +238,7 @@ export default function TherapistDetailPage() {
                       <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke="var(--grey-border)" strokeWidth="1.6"/><circle cx="12" cy="10" r="2" stroke="var(--grey-border)" strokeWidth="1.6"/></svg>
                       {t.location}, {(t.address as {street:string;city:string}).street}
                       <svg width="11" height="11" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-text)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-                    </a>
+                    </Link>
                   ) : (
                     <span style={{ display: "flex", alignItems: "center", gap: 4, fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)" }}>
                       <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11z" stroke="var(--grey-border)" strokeWidth="1.6"/><circle cx="12" cy="10" r="2" stroke="var(--grey-border)" strokeWidth="1.6"/></svg>
@@ -434,13 +435,13 @@ export default function TherapistDetailPage() {
             <div style={{ borderTop: "1px solid var(--grey-bg)", paddingTop: 24 }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
                 <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 22, color: "var(--black)", margin: 0 }}>{T.fachkraefteDetail.similar_h2}</h2>
-                <a href="/fachkraefte" style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--cta)", textDecoration: "none", fontWeight: 500 }}>{T.fachkraefteDetail.similar_all}</a>
+                <Link href="/fachkraefte" style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--cta)", textDecoration: "none", fontWeight: 500 }}>{T.fachkraefteDetail.similar_all}</Link>
               </div>
               {isMedium ? (
                 /* Horizontal slider at medium widths */
                 <div style={{ display: "flex", gap: 16, overflowX: "auto", paddingBottom: 4, scrollbarWidth: "none" as const }}>
                   {similar.map(s => (
-                    <a key={s.id} href={`/fachkraefte/${s.id}`} style={{ textDecoration: "none", display: "block", background: "white", border: "1px solid var(--grey-bg)", borderRadius: 14, overflow: "hidden", flexShrink: 0, width: 220 }}>
+                    <Link key={s.id} href={`/fachkraefte/${s.id}`} style={{ textDecoration: "none", display: "block", background: "white", border: "1px solid var(--grey-bg)", borderRadius: 14, overflow: "hidden", flexShrink: 0, width: 220 }}>
                       <div style={{ width: "100%", height: 140, overflow: "hidden" }}>
                         <img src={s.photo} alt={s.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
                       </div>
@@ -456,14 +457,14 @@ export default function TherapistDetailPage() {
                         <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 14, color: "var(--black)", whiteSpace: "nowrap" }}>€{s.price} <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 11, color: "var(--grey-text)" }}>{T.fachkraefteDetail.per_session_short}</span></span>
                         <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 11, color: availColors[s.availability as keyof typeof availColors]?.text ?? "var(--grey-border)", fontWeight: 500, textAlign: "right" as const }}>{availColors[s.availability as keyof typeof availColors]?.label ?? ""}</span>
                       </div>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               ) : (
                 /* 3-col grid at large widths */
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
                   {similar.map(s => (
-                    <a key={s.id} href={`/fachkraefte/${s.id}`} style={{ textDecoration: "none", display: "block", background: "white", border: "1px solid var(--grey-bg)", borderRadius: 14, overflow: "hidden", transition: "box-shadow 0.2s" }}
+                    <Link key={s.id} href={`/fachkraefte/${s.id}`} style={{ textDecoration: "none", display: "block", background: "white", border: "1px solid var(--grey-bg)", borderRadius: 14, overflow: "hidden", transition: "box-shadow 0.2s" }}
                       onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.08)")}
                       onMouseLeave={e => (e.currentTarget.style.boxShadow = "none")}
                     >
@@ -484,7 +485,7 @@ export default function TherapistDetailPage() {
                         <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 16, color: "var(--black)" }}>€{s.price} <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 12, color: "var(--grey-text)" }}>{T.fachkraefteDetail.per_session}</span></span>
                         <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: availColors[s.availability as keyof typeof availColors]?.text ?? "var(--grey-border)", fontWeight: 500 }}>{availColors[s.availability as keyof typeof availColors]?.label ?? ""}</span>
                       </div>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -605,13 +606,13 @@ function MobileContentSections({ t, similar }: { t: NonNullable<ReturnType<typeo
       <div style={{ borderTop: "1px solid var(--grey-bg)", paddingTop: 24, marginBottom: 40 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16, padding: "0 16px" }}>
           <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 20, color: "var(--black)", margin: 0 }}>{T.fachkraefteDetail.similar_h2}</h2>
-          <a href="/fachkraefte" style={{ fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--cta)", textDecoration: "none", fontWeight: 500 }}>{T.fachkraefteDetail.similar_all}</a>
+          <Link href="/fachkraefte" style={{ fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--cta)", textDecoration: "none", fontWeight: 500 }}>{T.fachkraefteDetail.similar_all}</Link>
         </div>
         <div style={{ display: "flex", gap: 12, overflowX: "auto", paddingLeft: 16, paddingRight: 16, paddingBottom: 4, scrollbarWidth: "none" as const }}>
           {similar.map(s => {
             const sAvail = availColors[s.availability as keyof typeof availColors] ?? availColors.later;
             return (
-              <a key={s.id} href={`/fachkraefte/${s.id}`} style={{ textDecoration: "none", display: "block", background: "white", border: "1px solid var(--grey-bg)", borderRadius: 14, overflow: "hidden", flexShrink: 0, width: 190 }}>
+              <Link key={s.id} href={`/fachkraefte/${s.id}`} style={{ textDecoration: "none", display: "block", background: "white", border: "1px solid var(--grey-bg)", borderRadius: 14, overflow: "hidden", flexShrink: 0, width: 190 }}>
                 {/* Photo */}
                 <div style={{ width: "100%", height: 130, overflow: "hidden" }}>
                   <img src={s.photo} alt={s.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
@@ -630,7 +631,7 @@ function MobileContentSections({ t, similar }: { t: NonNullable<ReturnType<typeo
                   <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 13, color: "var(--black)", whiteSpace: "nowrap" }}>€{s.price} <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 11, color: "var(--grey-text)" }}>{T.fachkraefteDetail.per_session_short}</span></span>
                   <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 10, color: sAvail.text, fontWeight: 500, textAlign: "right", lineHeight: 1.3 }}>{sAvail.label}</span>
                 </div>
-              </a>
+              </Link>
             );
           })}
         </div>
@@ -701,10 +702,10 @@ function MobileBookingSection({ t }: { t: NonNullable<ReturnType<typeof therapis
       </div>
 
       {/* CTA */}
-      <a href={`/buchen/${t.id}`} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", background: "var(--cta)", color: "white", border: "none", borderRadius: 9999, padding: "15px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 16, textDecoration: "none", boxSizing: "border-box" }}>
+      <Link href={`/buchen/${t.id}`} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, width: "100%", background: "var(--cta)", color: "white", border: "none", borderRadius: 9999, padding: "15px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 16, textDecoration: "none", boxSizing: "border-box" }}>
         {T.fachkraefteDetail.booking_cta}
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
+      </Link>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 5, marginTop: 10 }}>
         <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-text)" strokeWidth="1.6" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)" }}>{T.fachkraefteDetail.booking_reassurance}</span>
@@ -790,13 +791,13 @@ function BookingWidget({ t, avail }: { t: ReturnType<typeof therapists.find>; av
       {/* ── CTA ── */}
       <div style={{ padding: "16px 24px" }}>
         {/* Button-L: Poppins Medium 16px, padding 12/24, radius-circle */}
-        <a href={`/buchen/${t!.id}`} style={{ width: "100%", background: C.cta, color: "white", border: "none", borderRadius: R.circle, padding: "12px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: `background 0.2s`, textDecoration: "none", boxSizing: "border-box" }}
+        <Link href={`/buchen/${t!.id}`} style={{ width: "100%", background: C.cta, color: "white", border: "none", borderRadius: R.circle, padding: "12px 24px", fontFamily: "'Poppins',sans-serif", fontWeight: 500, fontSize: 16, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, transition: `background 0.2s`, textDecoration: "none", boxSizing: "border-box" }}
           onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
           onMouseLeave={e => (e.currentTarget.style.background = C.cta)}
         >
           {T.fachkraefteDetail.booking_cta}
           <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
+        </Link>
         {/* caption token */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 5, marginTop: 10 }}>
           <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path stroke={C.greyText} strokeWidth="1.6" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>

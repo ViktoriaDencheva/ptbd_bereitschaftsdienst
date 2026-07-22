@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Navbar from "@/components/Navbar";
@@ -134,10 +135,10 @@ export default function TerminVerschiebenPage() {
       <Navbar />
       <main style={{ background: "#F4F7FB", minHeight: "calc(100vh - 72px)" }}>
         <div style={{ maxWidth: 1440, margin: "0 auto", padding: "14px 40px", display: "flex", alignItems: "center", gap: 6 }}>
-          <a href="/profil" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}
+          <Link href="/profil" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}
             onMouseEnter={e => (e.currentTarget.style.color = CTA)}
             onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-          >{isEN ? "My account" : "Mein Konto"}</a>
+          >{isEN ? "My account" : "Mein Konto"}</Link>
           <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="#D1D5DB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           <span style={{ fontFamily: F, fontSize: 13, color: CTA, fontWeight: 500 }}>{isEN ? "Reschedule appointment" : "Termin verschieben"}</span>
         </div>
@@ -154,9 +155,9 @@ export default function TerminVerschiebenPage() {
                   ? <>{`Your appointment has been successfully rescheduled to `}<strong>{selectedDate}</strong>{` at `}<strong>{selectedTime}</strong>.<br />You will receive a confirmation by email.</>
                   : <>Ihr Termin wurde erfolgreich auf <strong>{selectedDate}</strong> um <strong>{selectedTime} Uhr</strong> verschoben.<br />Eine Bestätigung erhalten Sie per E-Mail.</>}
               </p>
-              <a href="/profil" style={{ display: "inline-flex", alignItems: "center", height: 44, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 500, fontSize: 14, textDecoration: "none" }}>
+              <Link href="/profil" style={{ display: "inline-flex", alignItems: "center", height: 44, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 500, fontSize: 14, textDecoration: "none" }}>
                 {isEN ? "Back to account" : "Zurück zum Konto"}
-              </a>
+              </Link>
             </div>
           ) : (
             <>
@@ -284,9 +285,9 @@ export default function TerminVerschiebenPage() {
                   {error && <p style={{ fontFamily: F, fontSize: 13, color: "#DC2626", margin: 0 }}>{error}</p>}
 
                   <div style={{ display: "flex", gap: 12, justifyContent: "flex-end" }}>
-                    <a href="/profil" style={{ height: 44, padding: "0 22px", borderRadius: 9999, background: "#F3F4F6", color: "#374151", fontFamily: F, fontSize: 14, display: "flex", alignItems: "center", textDecoration: "none" }}>
+                    <Link href="/profil" style={{ height: 44, padding: "0 22px", borderRadius: 9999, background: "#F3F4F6", color: "#374151", fontFamily: F, fontSize: 14, display: "flex", alignItems: "center", textDecoration: "none" }}>
                       {isEN ? "Cancel" : "Abbrechen"}
-                    </a>
+                    </Link>
                     <button type="submit" style={{ height: 44, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", border: "none", fontFamily: F, fontWeight: 600, fontSize: 14, cursor: "pointer", opacity: selectedDate && selectedTime ? 1 : 0.5 }}>
                       {isEN ? "Reschedule" : "Termin verschieben"}
                     </button>

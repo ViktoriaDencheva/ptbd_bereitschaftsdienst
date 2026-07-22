@@ -1,4 +1,5 @@
 ﻿"use client";
+import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -33,17 +34,17 @@ export default function VorgespraechPage() {
   const Breadcrumbs = ({ extra }: { extra?: string }) => (
     <div style={{ ...wrap, padding: isMobile ? "14px 16px 6px" : "14px 40px 6px" }} className="breadcrumb-wrap">
       <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
-        <a href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
+        <Link href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
           onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>
           {isEN ? "Home" : "Startseite"}
-        </a>
+        </Link>
         <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
         {extra ? (
           <>
-            <a href="/vorgespraech" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
+            <Link href="/vorgespraech" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
               onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>
               {isEN ? "Free initial consultation" : "Kostenloses Erstgespräch"}
-            </a>
+            </Link>
             <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
             <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>{extra}</span>
           </>
@@ -120,13 +121,13 @@ export default function VorgespraechPage() {
               </div>
 
               {/* Primary CTA */}
-              <a href="/vorgespraech/buchen"
+              <Link href="/vorgespraech/buchen"
                 style={{ display: "inline-flex", alignItems: "center", gap: 10, height: 52, padding: "0 32px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 16, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.28)", transition: "background 0.2s, box-shadow 0.2s", alignSelf: "flex-start", marginBottom: 20 }}
                 onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = "var(--cta-hover)"; el.style.boxShadow = "0 8px 28px rgba(45,91,141,0.34)"; }}
                 onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = CTA; el.style.boxShadow = "0 6px 24px rgba(45,91,141,0.28)"; }}>
                 {isEN ? "Book free consultation" : "Kostenloses Gespräch buchen"}
                 <img src="/icons/arrow-right.svg" width={18} height={18} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
-              </a>
+              </Link>
 
               {/* "Mehr erfahren" scroll link */}
               <button
@@ -209,13 +210,13 @@ export default function VorgespraechPage() {
               {isEN ? "Ready for the first step?" : "Bereit für den ersten Schritt?"}<br />
               <span style={{ color: "var(--black)", fontWeight: 500 }}>{isEN ? "The conversation only takes 30 minutes – free and non-binding." : "Das Gespräch dauert nur 30 Minuten – kostenlos und unverbindlich."}</span>
             </p>
-            <a href="/vorgespraech/buchen"
+            <Link href="/vorgespraech/buchen"
               style={{ height: 54, padding: "0 36px", borderRadius: 9999, background: CTA, color: "white", border: "none", fontFamily: F, fontWeight: 600, fontSize: 16, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 10, boxShadow: "0 4px 20px rgba(45,91,141,0.28)", transition: "background 0.2s", textDecoration: "none" }}
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
               {isEN ? "Book free initial consultation" : "Kostenloses Erstgespräch buchen"}
               <img src="/icons/arrow-right.svg" width={18} height={18} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -252,12 +253,12 @@ export default function VorgespraechPage() {
                   </div>
                 ))}
               </div>
-              <a href="/orientierungstest" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 26px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 4 }}
+              <Link href="/orientierungstest" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 26px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.22)", transition: "background 0.2s", whiteSpace: "nowrap", marginTop: 4 }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
                 {isEN ? "Start orientation test" : "Orientierungstest starten"}
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

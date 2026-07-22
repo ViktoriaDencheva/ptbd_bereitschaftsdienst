@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -112,10 +113,10 @@ function Step1({ onNext, isEN }: { onNext: (email: string) => void; isEN: boolea
           onMouseEnter={e => { if (!loading && email) e.currentTarget.style.background = "var(--cta-hover)"; }}
           onMouseLeave={e => { if (!loading && email) e.currentTarget.style.background = "var(--cta)"; }}
         >{loading ? (isEN ? "Sending …" : "Wird gesendet …") : (isEN ? "Send link" : "Link senden")}</button>
-        <a href="/anmelden" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textAlign: "center", textDecoration: "none" }}
+        <Link href="/anmelden" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textAlign: "center", textDecoration: "none" }}
           onMouseEnter={e => (e.currentTarget.style.color = "var(--cta)")}
           onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-        >{isEN ? "Return to sign in" : "Zur Anmeldung zurückkehren"}</a>
+        >{isEN ? "Return to sign in" : "Zur Anmeldung zurückkehren"}</Link>
       </form>
     </div>
   );
@@ -147,10 +148,10 @@ function Step2({ email, onNext, onResend, isEN }: { email: string; onNext: () =>
       <p style={{ fontFamily: F, fontSize: 14, fontWeight: 600, color: "var(--cta)", margin: "0 0 32px" }}>{email}</p>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        <a href="/anmelden" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: 50, borderRadius: 9999, background: "var(--cta)", color: "white", textDecoration: "none", fontFamily: F, fontWeight: 600, fontSize: 15, transition: "background 0.2s" }}
+        <Link href="/anmelden" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: 50, borderRadius: 9999, background: "var(--cta)", color: "white", textDecoration: "none", fontFamily: F, fontWeight: 600, fontSize: 15, transition: "background 0.2s" }}
           onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
           onMouseLeave={e => (e.currentTarget.style.background = "var(--cta)")}
-        >{isEN ? "Go to sign in" : "Zur Anmeldung"}</a>
+        >{isEN ? "Go to sign in" : "Zur Anmeldung"}</Link>
         <button onClick={handleResend} style={{ width: "100%", height: 50, borderRadius: 9999, background: "transparent", color: resent ? "#4A8C6A" : "var(--cta)", border: `1.5px solid ${resent ? "#4A8C6A" : "var(--cta)"}`, fontFamily: F, fontWeight: 600, fontSize: 15, cursor: "pointer", transition: "all 0.2s" }}>
           {resent ? (isEN ? "✓ Email resent" : "✓ E-Mail erneut gesendet") : (isEN ? "Resend email" : "E-Mail erneut senden")}
         </button>
@@ -274,10 +275,10 @@ function Step4({ isEN }: { isEN: boolean }) {
       <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 32px", lineHeight: 1.6 }}>
         {isEN ? "You can now sign in with your new password." : "Du kannst Dich jetzt mit Deinem neuen Passwort anmelden."}
       </p>
-      <a href="/anmelden" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: 50, borderRadius: 9999, background: "var(--cta)", color: "white", textDecoration: "none", fontFamily: F, fontWeight: 600, fontSize: 15, transition: "background 0.2s" }}
+      <Link href="/anmelden" style={{ display: "flex", alignItems: "center", justifyContent: "center", height: 50, borderRadius: 9999, background: "var(--cta)", color: "white", textDecoration: "none", fontFamily: F, fontWeight: 600, fontSize: 15, transition: "background 0.2s" }}
         onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
         onMouseLeave={e => (e.currentTarget.style.background = "var(--cta)")}
-      >{isEN ? "Go to sign in" : "Zur Anmeldung"}</a>
+      >{isEN ? "Go to sign in" : "Zur Anmeldung"}</Link>
     </div>
   );
 }
@@ -294,15 +295,15 @@ export default function PasswortVergessenPage() {
 
       {/* Breadcrumbs */}
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "14px 24px", display: "flex", alignItems: "center", gap: 6 }}>
-        <a href="/" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}
+        <Link href="/" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}
           onMouseEnter={e => (e.currentTarget.style.color = "var(--cta)")}
           onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-        >{isEN ? "Home" : "Startseite"}</a>
+        >{isEN ? "Home" : "Startseite"}</Link>
         <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="#D1D5DB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-        <a href="/anmelden" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}
+        <Link href="/anmelden" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}
           onMouseEnter={e => (e.currentTarget.style.color = "var(--cta)")}
           onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-        >{isEN ? "Sign in" : "Anmelden"}</a>
+        >{isEN ? "Sign in" : "Anmelden"}</Link>
         <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="#D1D5DB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
         <span style={{ fontFamily: F, fontSize: 13, color: "var(--cta)", fontWeight: 500 }}>{isEN ? "Forgot password" : "Passwort vergessen"}</span>
       </div>

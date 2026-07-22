@@ -1,4 +1,5 @@
 ﻿"use client";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -140,13 +141,13 @@ export default function UnterschiedPage() {
                   </div>
                 ))}
               </div>
-              <a href="#vergleich"
+              <Link href="#vergleich"
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", transition: "background 0.2s", alignSelf: "flex-start" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
                 {T.unterschied.hero_cta}
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
-              </a>
+              </Link>
             </div>
             {/* Right: illustration */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: isMobile ? 10 : 16 }}>
@@ -390,15 +391,15 @@ export default function UnterschiedPage() {
                     <span style={{ fontFamily: F, fontWeight: 700, fontSize: isMobile ? 12 : 13, color: ex.color, background: ex.bg, borderRadius: 9999, padding: isMobile ? "2px 8px" : "2px 12px", border: `1px solid ${ex.color}30`, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{ex.resultLabel}</span>
                   </div>
                   {ex.result !== "gespräch" ? (
-                    <a href={`/fachkraefte?fach=${ex.result}`} style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 34, padding: isMobile ? "0 12px" : "0 16px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: isMobile ? 12 : 13, textDecoration: "none", flexShrink: 0, whiteSpace: "nowrap" }}>
+                    <Link href={`/fachkraefte?fach=${ex.result}`} style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 34, padding: isMobile ? "0 12px" : "0 16px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: isMobile ? 12 : 13, textDecoration: "none", flexShrink: 0, whiteSpace: "nowrap" }}>
                       {T.unterschied.examples_search}
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </a>
+                    </Link>
                   ) : (
-                    <a href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 34, padding: isMobile ? "0 12px" : "0 16px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: isMobile ? 12 : 13, textDecoration: "none", flexShrink: 0, whiteSpace: "nowrap" }}>
+                    <Link href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 6, height: 34, padding: isMobile ? "0 12px" : "0 16px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: isMobile ? 12 : 13, textDecoration: "none", flexShrink: 0, whiteSpace: "nowrap" }}>
                       {T.unterschied.examples_book}
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </a>
+                    </Link>
                   )}
                 </div>
               </div>
@@ -418,19 +419,19 @@ export default function UnterschiedPage() {
               {T.unterschied.cta_desc}
             </p>
             <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 12, marginTop: 8 }}>
-              <a href="/vorgespraech"
+              <Link href="/vorgespraech"
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 36px 0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", transition: "background 0.2s", whiteSpace: "nowrap" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
                 {T.unterschied.cta_primary}
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ objectFit: "contain", filter: "brightness(0) invert(1)" }} />
-              </a>
-              <a href="/orientierungstest"
+              </Link>
+              <Link href="/orientierungstest"
                 style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid ${CTA}`, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", background: "white", transition: "background 0.2s, color 0.2s", whiteSpace: "nowrap" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#EEF4FC"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "white"}>
                 {T.unterschied.cta_secondary}
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState, useRef } from "react";
 import { Plus, Minus } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -74,9 +75,9 @@ export default function FaqPage() {
       {/* ── BREADCRUMBS ── */}
       <div className="faq-bc-wrap">
         <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13 }}>
-          <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
+          <Link href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
             onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = CTA_HEX}
-            onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>{T.nav.home}</a>
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>{T.nav.home}</Link>
           <span style={{ color: "#C3C3C3" }}>›</span>
           <span style={{ color: "var(--black)", fontWeight: 500 }}>FAQ</span>
         </div>
@@ -197,13 +198,13 @@ export default function FaqPage() {
               <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 28, color: "#1A1A1A", marginBottom: 14, lineHeight: 1.25 }}>{FAQ.page_title}</h2>
               <p style={{ fontFamily: F, fontSize: 16, color: "#555", lineHeight: 1.7, marginBottom: 32 }}>{FAQ.page_sub}</p>
               <div>
-                <a
+                <Link
                   href="/kontakt"
                   style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 32px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.22)" }}
                 >
                   {FAQ.contact_cta}
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

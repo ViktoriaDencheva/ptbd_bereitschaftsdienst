@@ -1,4 +1,5 @@
 ﻿"use client";
+import Link from "next/link";
 import { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 import { useLang } from "@/lib/lang";
@@ -24,7 +25,7 @@ export default function MiniFAQ() {
             lineHeight: 1.5, color: "var(--grey)",
           }}>
             {T.miniFaq.subtitle_pre}{" "}
-            <a href="/faq" style={{ color: "#0B72B2", textDecoration: "underline" }}>{T.miniFaq.subtitle_link}</a>
+            <Link href="/faq" style={{ color: "#0B72B2", textDecoration: "underline" }}>{T.miniFaq.subtitle_link}</Link>
           </p>
         </div>
 

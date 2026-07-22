@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -264,13 +265,13 @@ function Confirmation({ format, location, selectedDate, selectedTime, selectedDa
           {isEN ? "Add to calendar" : "In Kalender eintragen"}
         </button>
 
-        <a href={user ? "/profil" : "/registrieren"}
+        <Link href={user ? "/profil" : "/registrieren"}
           style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, background: CTA, color: "white", borderRadius: 9999, padding: "13px 28px", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 4px 16px rgba(45,91,141,0.25)", transition: "background 0.2s" }}
           onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
           onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
           <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="white" strokeWidth="2" strokeLinecap="round"/><circle cx="12" cy="7" r="4" stroke="white" strokeWidth="2"/></svg>
           {user ? (isEN ? "To profile — view appointment" : "Zum Profil — Termin ansehen") : (isEN ? "Create account & save appointment" : "Konto erstellen & Termin speichern")}
-        </a>
+        </Link>
       </div>
     </div>
   );
@@ -395,11 +396,11 @@ export default function VorgespraechBuchenPage() {
   const Breadcrumbs = () => (
     <div style={{ ...wrap, padding: isMobile ? "14px 16px 6px" : "14px 40px 6px" }}>
       <nav style={{ display: "flex", alignItems: "center", gap: 6 }}>
-        <a href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
-          onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>{isEN ? "Home" : "Startseite"}</a>
+        <Link href="/" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
+          onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>{isEN ? "Home" : "Startseite"}</Link>
         <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
-        <a href="/vorgespraech" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
-          onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>{isEN ? "Free initial consultation" : "Kostenloses Erstgespräch"}</a>
+        <Link href="/vorgespraech" style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
+          onMouseEnter={e => (e.currentTarget.style.color = CTA)} onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}>{isEN ? "Free initial consultation" : "Kostenloses Erstgespräch"}</Link>
         <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path stroke="var(--grey-border)" strokeWidth="1.8" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
         <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", fontWeight: 600 }}>{isEN ? "Book appointment" : "Termin buchen"}</span>
       </nav>

@@ -1,4 +1,5 @@
 ﻿"use client";
+import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { Plus, Minus } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -82,9 +83,9 @@ export default function UeberUnsPage() {
         {/* Breadcrumbs */}
         <div style={{ ...wrap, paddingTop: isMobile ? 20 : 28, paddingBottom: isMobile ? 12 : 16 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 6, fontFamily: F, fontSize: 13 }}>
-            <a href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
+            <Link href="/" style={{ color: "var(--grey-text)", textDecoration: "none" }}
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = CTA}
-              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>{T.nav.home}</a>
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = "var(--grey-text)"}>{T.nav.home}</Link>
             <span style={{ color: "#C3C3C3" }}>›</span>
             <span style={{ color: "var(--black)", fontWeight: 500 }}>{T.ueberUns.breadcrumb_current}</span>
           </div>
@@ -125,13 +126,13 @@ export default function UeberUnsPage() {
                     </div>
                   ))}
                 </div>
-                <a href="/vorgespraech"
+                <Link href="/vorgespraech"
                   style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 36px 0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", alignSelf: "flex-start", whiteSpace: "nowrap" }}
                   onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = CTA; }}>
                   {T.ueberUns.hero_cta}
                   <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ filter: "brightness(0) invert(1)" }} />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -336,11 +337,11 @@ export default function UeberUnsPage() {
                       ))}
                     </div>
                   </div>
-                  <a href={`/fachkraefte?bundesland=${activeProvince.id}`}
+                  <Link href={`/fachkraefte?bundesland=${activeProvince.id}`}
                     style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 44, padding: "0 22px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 13, textDecoration: "none", alignSelf: "flex-start", whiteSpace: "nowrap" }}>
                     {T.ueberUns.netzwerk_cta_selected.replace("{name}", activeProvince.name)}
                     <img src="/icons/arrow-right.svg" width={13} height={13} alt="" style={{ filter: "brightness(0) invert(1)" }} />
-                  </a>
+                  </Link>
                 </div>
               ) : (
                 <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -355,11 +356,11 @@ export default function UeberUnsPage() {
                       <span key={i} style={{ fontFamily: F, fontSize: 13, fontWeight: 500, color: CTA_HEX, border: `1.5px solid ${CTA_HEX}`, borderRadius: 9999, padding: "6px 14px", display: "inline-block" }}>{t}</span>
                     ))}
                   </div>
-                  <a href="/fachkraefte"
+                  <Link href="/fachkraefte"
                     style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 44, padding: "0 22px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 600, fontSize: 14, textDecoration: "none", alignSelf: "flex-start", whiteSpace: "nowrap" }}>
                     {T.ueberUns.netzwerk_cta_default}
                     <img src="/icons/arrow-right.svg" width={13} height={13} alt="" style={{ filter: "brightness(0) invert(1)" }} />
-                  </a>
+                  </Link>
                 </div>
               )}
             </div>
@@ -455,19 +456,19 @@ export default function UeberUnsPage() {
               {T.ueberUns.cta_desc}
             </p>
             <div style={{ display: "flex", flexDirection: isMobile ? "column" : "row", gap: 12, marginTop: 8, width: isMobile ? "100%" : "auto" }}>
-              <a href="/vorgespraech"
+              <Link href="/vorgespraech"
                 style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, height: 50, padding: "0 36px 0 28px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 700, fontSize: 15, textDecoration: "none", boxShadow: "0 6px 24px rgba(45,91,141,0.26)", whiteSpace: "nowrap" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--cta-hover)"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = CTA}>
                 {T.ueberUns.cta_primary}
                 <img src="/icons/arrow-right.svg" width={16} height={16} alt="" style={{ filter: "brightness(0) invert(1)" }} />
-              </a>
-              <a href="/fachkraefte"
+              </Link>
+              <Link href="/fachkraefte"
                 style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, border: `1.5px solid ${CTA}`, color: CTA, fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", background: "white", whiteSpace: "nowrap" }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "#EEF4FC"}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "white"}>
                 {T.ueberUns.cta_secondary}
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -172,7 +173,7 @@ function AnimatedJoinButton({ msUntil, canJoin, href, bookedAt, height = 40, fon
       ? "join-unlock 0.6s cubic-bezier(0.34,1.56,0.64,1) both"
       : "btn-shimmer 2.8s ease-in-out infinite, btn-float 2.2s ease-in-out infinite";
     return (
-      <a href={href} style={{
+      <Link href={href} style={{
         ...pillStyle,
         background: "linear-gradient(105deg, #2D5B8D 0%, #2D5B8D 30%, rgba(255,255,255,0.07) 50%, #2D5B8D 70%, #2D5B8D 100%)",
         backgroundSize: "300% 100%",
@@ -183,7 +184,7 @@ function AnimatedJoinButton({ msUntil, canJoin, href, bookedAt, height = 40, fon
         onMouseLeave={e => { e.currentTarget.style.background = "linear-gradient(105deg, #2D5B8D 0%, #2D5B8D 30%, rgba(255,255,255,0.07) 50%, #2D5B8D 70%, #2D5B8D 100%)"; e.currentTarget.style.backgroundSize = "300% 100%"; }}
       >
         {iconEl}{textEl}
-      </a>
+      </Link>
     );
   }
 
@@ -285,11 +286,11 @@ function BookingCard({ b, past, onCancel, onOpenChat }: { b: Booking; past?: boo
               <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
                 <span style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)" }}>{vorortAddress}</span>
                 {mapsUrl && (
-                  <a href={mapsUrl} target="_blank" rel="noopener noreferrer"
+                  <Link href={mapsUrl} target="_blank" rel="noopener noreferrer"
                     style={{ color: CTA, textDecoration: "none", display: "inline-flex", alignItems: "center", flexShrink: 0 }}
                     title={isEN ? "Open in Google Maps" : "In Google Maps öffnen"}>
                     <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M15 3h6v6M10 14L21 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  </a>
+                  </Link>
                 )}
               </span>
             )}
@@ -300,10 +301,10 @@ function BookingCard({ b, past, onCancel, onOpenChat }: { b: Booking; past?: boo
       {/* Buttons for past appointments */}
       {past && (
         <div className="bc-body booking-buttons" style={{ paddingLeft: 58, display: "flex", gap: 8, flexWrap: "wrap" }}>
-          <a href={`/buchen/${b.therapistId}`} style={{ height: 36, padding: "0 14px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 500, fontSize: 13, display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none" }}>
+          <Link href={`/buchen/${b.therapistId}`} style={{ height: 36, padding: "0 14px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 500, fontSize: 13, display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none" }}>
             <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.5"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
             {isEN ? "Book again" : "Erneut buchen"}
-          </a>
+          </Link>
           <button onClick={() => onOpenChat?.(b.therapistId)} style={{ height: 36, padding: "0 14px", borderRadius: 9999, background: "var(--blue-ultra-light)", color: CTA, border: "none", fontFamily: F, fontSize: 13, cursor: "pointer", display: "inline-flex", alignItems: "center", gap: 6 }}>
             <svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
             {isEN ? "View session notes" : "Sitzungsnotizen ansehen"}
@@ -336,10 +337,10 @@ function BookingCard({ b, past, onCancel, onOpenChat }: { b: Booking; past?: boo
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="12" cy="12" r="9" stroke="#6B7280" strokeWidth="1.5"/><path d="M12 8v4M12 16h.01" stroke="#6B7280" strokeWidth="1.8" strokeLinecap="round"/></svg>
               <p style={{ fontFamily: F, fontSize: 12, color: "#374151", margin: 0, lineHeight: 1.6 }}>
                 {isEN ? "Would you like a different appointment? Cancel this one and book a new appointment directly with " : "Möchten Sie einen anderen Termin? Sagen Sie diesen ab und buchen Sie direkt bei "}
-                <a href={`/fachkraefte/${b.therapistId}`} style={{ color: CTA, fontWeight: 500, textDecoration: "none" }}
+                <Link href={`/fachkraefte/${b.therapistId}`} style={{ color: CTA, fontWeight: 500, textDecoration: "none" }}
                   onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
                   onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
-                >{b.therapistName}</a>{isEN ? "." : " einen neuen Termin."}
+                >{b.therapistName}</Link>{isEN ? "." : " einen neuen Termin."}
               </p>
             </div>
           )}
@@ -349,9 +350,9 @@ function BookingCard({ b, past, onCancel, onOpenChat }: { b: Booking; past?: boo
             {/* Video / Directions */}
             {isVorOrt ? (
               mapsUrl ? (
-                <a href={mapsUrl} target="_blank" rel="noreferrer" style={{ height: 36, padding: "0 14px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 500, fontSize: 13, display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none" }}>
+                <Link href={mapsUrl} target="_blank" rel="noreferrer" style={{ height: 36, padding: "0 14px", borderRadius: 9999, background: CTA, color: "white", fontFamily: F, fontWeight: 500, fontSize: 13, display: "inline-flex", alignItems: "center", gap: 6, textDecoration: "none" }}>
                   <DirectionsIcon /> {isEN ? "Show directions" : "Route anzeigen"}
-                </a>
+                </Link>
               ) : null
             ) : (
               <AnimatedJoinButton msUntil={msUntil} canJoin={canJoin} href={`/gespraech/${b.id}`} bookedAt={b.bookedAt} height={36} fontSize={13} />
@@ -359,9 +360,9 @@ function BookingCard({ b, past, onCancel, onOpenChat }: { b: Booking; past?: boo
 
             {/* Termin verschieben — nur > 24h */}
             {canCancel && (
-              <a href={`/termin-verschieben/${b.id}`} style={{ height: 36, padding: "0 12px", borderRadius: 9999, background: "var(--blue-ultra-light)", color: CTA, fontFamily: F, fontSize: 13, display: "inline-flex", alignItems: "center", textDecoration: "none" }}>
+              <Link href={`/termin-verschieben/${b.id}`} style={{ height: 36, padding: "0 12px", borderRadius: 9999, background: "var(--blue-ultra-light)", color: CTA, fontFamily: F, fontSize: 13, display: "inline-flex", alignItems: "center", textDecoration: "none" }}>
                 {isEN ? "Reschedule" : "Termin verschieben"}
-              </a>
+              </Link>
             )}
 
             {/* Absagen — immer */}
@@ -576,10 +577,10 @@ function ProfilSettings({ user, onLogout }: { user: { name: string; email: strin
               { label: "Datenschutzbestimmungen", href: "/datenschutz" },
               { label: "Datenexport anfordern", href: "#" },
             ]).map(item => (
-              <a key={item.label} href={item.href} style={{ display: "flex", alignItems: "center", gap: 12, width: "100%", padding: "13px 0", borderBottom: "1px solid #F3F4F6", textDecoration: "none" }}>
+              <Link key={item.label} href={item.href} style={{ display: "flex", alignItems: "center", gap: 12, width: "100%", padding: "13px 0", borderBottom: "1px solid #F3F4F6", textDecoration: "none" }}>
                 <span style={{ fontFamily: F, fontSize: 14, color: "var(--black)", flex: 1 }}>{item.label}</span>
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </a>
+              </Link>
             ))}
             <div style={{ paddingTop: 16 }}>
               {!deleteConfirm ? (
@@ -880,10 +881,10 @@ ${isRechnung ? `
 
         {/* ── Breadcrumbs ─────────────────────────────────────────── */}
         <div className="profil-wrapper" style={{ maxWidth: 1440, margin: "0 auto", padding: "14px 40px", display: "flex", alignItems: "center", gap: 6 }}>
-          <a href="/" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}
+          <Link href="/" style={{ fontFamily: F, fontSize: 13, color: "var(--grey-text)", textDecoration: "none" }}
             onMouseEnter={e => (e.currentTarget.style.color = CTA)}
             onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-          >{isEN ? "Home" : "Startseite"}</a>
+          >{isEN ? "Home" : "Startseite"}</Link>
           <svg width="12" height="12" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="#D1D5DB" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           <span style={{ fontFamily: F, fontSize: 13, color: CTA, fontWeight: 500 }}>{isEN ? "My account" : "Mein Konto"}</span>
         </div>
@@ -1000,7 +1001,7 @@ ${isRechnung ? `
                                       {nextIsVorOrt && nextAddr && (
                                         <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
                                           <span style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)" }}>{nextAddr}</span>
-                                          {nextMapsUrl && <a href={nextMapsUrl} target="_blank" rel="noopener noreferrer" style={{ color: CTA, textDecoration: "none", display: "inline-flex", alignItems: "center", flexShrink: 0 }} title={isEN ? "Open in Google Maps" : "In Google Maps öffnen"}><svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M15 3h6v6M10 14L21 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></a>}
+                                          {nextMapsUrl && <Link href={nextMapsUrl} target="_blank" rel="noopener noreferrer" style={{ color: CTA, textDecoration: "none", display: "inline-flex", alignItems: "center", flexShrink: 0 }} title={isEN ? "Open in Google Maps" : "In Google Maps öffnen"}><svg width="13" height="13" fill="none" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M15 3h6v6M10 14L21 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></Link>}
                                         </span>
                                       )}
                                     </span>
@@ -1047,10 +1048,10 @@ ${isRechnung ? `
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="12" cy="12" r="9" stroke="#6B7280" strokeWidth="1.5"/><path d="M12 8v4M12 16h.01" stroke="#6B7280" strokeWidth="1.8" strokeLinecap="round"/></svg>
                                 <p style={{ fontFamily: F, fontSize: 13, color: "#374151", margin: 0, lineHeight: 1.6 }}>
                                   {isEN ? "Would you like a different appointment? Cancel this one and book directly with " : "Möchten Sie einen anderen Termin? Sagen Sie diesen Termin ab und buchen Sie direkt bei "}
-                                  <a href={`/fachkraefte/${next.therapistId}`} style={{ color: CTA, fontWeight: 500, textDecoration: "none" }}
+                                  <Link href={`/fachkraefte/${next.therapistId}`} style={{ color: CTA, fontWeight: 500, textDecoration: "none" }}
                                     onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
                                     onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
-                                  >{next.therapistName}</a>
+                                  >{next.therapistName}</Link>
                                   {isEN ? "." : " einen neuen Termin."}
                                 </p>
                               </div>
@@ -1062,9 +1063,9 @@ ${isRechnung ? `
 
                               {/* Termin verschieben — nur wenn > 24h */}
                               {canCancel && (
-                                <a href={`/termin-verschieben/${next.id}`} style={{ height: 40, padding: "0 14px", borderRadius: 9999, background: "var(--blue-ultra-light)", color: CTA, border: "none", fontFamily: F, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", textDecoration: "none" }}>
+                                <Link href={`/termin-verschieben/${next.id}`} style={{ height: 40, padding: "0 14px", borderRadius: 9999, background: "var(--blue-ultra-light)", color: CTA, border: "none", fontFamily: F, fontSize: 14, cursor: "pointer", display: "flex", alignItems: "center", textDecoration: "none" }}>
                                   {isEN ? "Reschedule" : "Termin verschieben"}
-                                </a>
+                                </Link>
                               )}
 
                               {/* Absagen — immer aktiv */}
@@ -1089,9 +1090,9 @@ ${isRechnung ? `
                   ) : (
                     <div style={{ textAlign: "center", padding: "32px 0" }}>
                       <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 14px" }}>{isEN ? "No upcoming appointments" : "Keine anstehenden Termine"}</p>
-                      <a href="/fachkraefte" style={{ height: 40, padding: "0 20px", borderRadius: 9999, background: CTA, color: "white", textDecoration: "none", fontFamily: F, fontWeight: 500, fontSize: 13, display: "inline-flex", alignItems: "center" }}>
+                      <Link href="/fachkraefte" style={{ height: 40, padding: "0 20px", borderRadius: 9999, background: CTA, color: "white", textDecoration: "none", fontFamily: F, fontWeight: 500, fontSize: 13, display: "inline-flex", alignItems: "center" }}>
                         {isEN ? "Find a specialist" : "Fachkraft finden"}
-                      </a>
+                      </Link>
                     </div>
                   )}
                 </div>
@@ -1165,7 +1166,7 @@ ${isRechnung ? `
                 <div className="db-schnell" style={{ background: "white", borderRadius: 20, border: "1px solid #EEF2F7", padding: 24 }}>
                   <h2 style={{ fontFamily: F, fontWeight: 700, fontSize: 16, color: "var(--black)", margin: "0 0 14px" }}>{isEN ? "Quick access" : "Schnellzugriff"}</h2>
                   <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                    <a href={lastTherapist ? `/buchen/${lastTherapist.therapistId}` : "/fachkraefte"}
+                    <Link href={lastTherapist ? `/buchen/${lastTherapist.therapistId}` : "/fachkraefte"}
                       style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "13px 16px", borderRadius: 12, background: CTA, color: "white", textDecoration: "none", transition: "background 0.2s" }}
                       onMouseEnter={e => (e.currentTarget.style.background = "var(--cta-hover)")}
                       onMouseLeave={e => (e.currentTarget.style.background = CTA)}
@@ -1177,7 +1178,7 @@ ${isRechnung ? `
                         </span>
                       </span>
                       <svg width="14" height="14" fill="none" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
-                    </a>
+                    </Link>
                     {(isEN ? [
                       { label: "Help choosing", icon: <UserIcon />, href: "/vorgespraech" },
                       { label: "Privacy & Security", icon: <LockIcon />, href: "/datenschutz" },
@@ -1185,14 +1186,14 @@ ${isRechnung ? `
                       { label: "Hilfe bei der Auswahl", icon: <UserIcon />, href: "/vorgespraech" },
                       { label: "Datenschutz & Sicherheit", icon: <LockIcon />, href: "/datenschutz" },
                     ]).map((item, i) => (
-                      <a key={i} href={item.href} style={{ display: "flex", alignItems: "center", gap: 12, padding: "13px 16px", borderRadius: 12, background: "#F9FAFB", color: "var(--black)", textDecoration: "none", border: "1px solid #F3F4F6", transition: "background 0.2s" }}
+                      <Link key={i} href={item.href} style={{ display: "flex", alignItems: "center", gap: 12, padding: "13px 16px", borderRadius: 12, background: "#F9FAFB", color: "var(--black)", textDecoration: "none", border: "1px solid #F3F4F6", transition: "background 0.2s" }}
                         onMouseEnter={e => (e.currentTarget.style.background = "var(--blue-ultra-light)")}
                         onMouseLeave={e => (e.currentTarget.style.background = "#F9FAFB")}
                       >
                         <span style={{ color: CTA }}>{item.icon}</span>
                         <span style={{ fontFamily: F, fontSize: 14, flex: 1 }}>{item.label}</span>
                         <span style={{ color: "#9CA3AF" }}><ChevronRight /></span>
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -1215,10 +1216,10 @@ ${isRechnung ? `
                   {(isEN ? [{ label: "FAQ", href: "/faq" }, { label: "Contact", href: "/kontakt" }, { label: "Privacy", href: "/datenschutz" }] : [{ label: "FAQ", href: "/faq" }, { label: "Kontakt", href: "/kontakt" }, { label: "Datenschutz", href: "/datenschutz" }]).map((l, i) => (
                     <span key={i} style={{ display: "flex", alignItems: "center" }}>
                       {i > 0 && <span style={{ color: "#D1D5DB", margin: "0 12px" }}>·</span>}
-                      <a href={l.href} style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
+                      <Link href={l.href} style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", textDecoration: "none" }}
                         onMouseEnter={e => (e.currentTarget.style.color = CTA)}
                         onMouseLeave={e => (e.currentTarget.style.color = "var(--grey-text)")}
-                      >{l.label}</a>
+                      >{l.label}</Link>
                     </span>
                   ))}
                 </div>
@@ -1243,7 +1244,7 @@ ${isRechnung ? `
                 upcoming.length === 0 ? (
                   <div style={{ background: "white", borderRadius: 20, border: "1px solid #EEF2F7", padding: 48, textAlign: "center" }}>
                     <p style={{ fontFamily: F, fontSize: 14, color: "var(--grey-text)", margin: "0 0 16px" }}>{isEN ? "No appointments yet." : "Noch keine Termine vorhanden."}</p>
-                    <a href="/fachkraefte" style={{ height: 40, padding: "0 20px", borderRadius: 9999, background: CTA, color: "white", textDecoration: "none", fontFamily: F, fontWeight: 500, fontSize: 13, display: "inline-flex", alignItems: "center" }}>{isEN ? "Find a specialist" : "Fachkraft finden"}</a>
+                    <Link href="/fachkraefte" style={{ height: 40, padding: "0 20px", borderRadius: 9999, background: CTA, color: "white", textDecoration: "none", fontFamily: F, fontWeight: 500, fontSize: 13, display: "inline-flex", alignItems: "center" }}>{isEN ? "Find a specialist" : "Fachkraft finden"}</Link>
                   </div>
                 ) : (
                   upcoming.map(b => <BookingCard key={b.id} b={b} onCancel={id => { cancelBooking(id); setBookings(getBookings()); }} />)
