@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { Menu, X, User, Phone } from "lucide-react";
 import { getStoredUser, clearUser, getFirstName, type AuthUser } from "@/lib/auth";
 import { useLang } from "@/lib/lang";
@@ -67,7 +68,7 @@ export default function Navbar() {
   }
 
   const UserButton = user ? (
-    <a href="/profil" style={{
+    <Link href="/profil" style={{
       display: "flex", alignItems: "center", gap: 8,
       background: "transparent",
       border: "1.5px solid var(--grey-bg)",
@@ -84,9 +85,9 @@ export default function Navbar() {
         <span style={{ position: "absolute", bottom: -1, right: -2, width: 8, height: 8, borderRadius: "50%", background: "#5BA882", border: "1.5px solid white" }} />
       </div>
       {getFirstName(user)}
-    </a>
+    </Link>
   ) : (
-    <a href="/anmelden" style={{
+    <Link href="/anmelden" style={{
       display: "flex", alignItems: "center", gap: 6,
       background: "transparent",
       border: "1.5px solid var(--grey-bg)",
@@ -99,7 +100,7 @@ export default function Navbar() {
       onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--grey-bg)"; e.currentTarget.style.color = "var(--black)"; }}
     >
       <User size={15} /> {T.nav.login}
-    </a>
+    </Link>
   );
 
   const LangToggle = (
@@ -127,7 +128,7 @@ export default function Navbar() {
   );
 
   const MobileUserButton = user ? (
-    <a href="/profil" style={{
+    <Link href="/profil" style={{
       background: "none", border: "1.5px solid var(--grey-bg)",
       borderRadius: 9999, width: 44, height: 44,
       display: "flex", alignItems: "center", justifyContent: "center",
@@ -136,16 +137,16 @@ export default function Navbar() {
     }}>
       <User size={20} />
       <span style={{ position: "absolute", top: 6, right: 6, width: 9, height: 9, borderRadius: "50%", background: "#5BA882", border: "1.5px solid white" }} />
-    </a>
+    </Link>
   ) : (
-    <a href="/anmelden" style={{
+    <Link href="/anmelden" style={{
       background: "none", border: "1.5px solid var(--grey-bg)",
       borderRadius: 9999, width: 44, height: 44,
       display: "flex", alignItems: "center", justifyContent: "center",
       cursor: "pointer", color: "var(--black)", textDecoration: "none",
     }}>
       <User size={22} />
-    </a>
+    </Link>
   );
 
   return (
@@ -163,15 +164,15 @@ export default function Navbar() {
           display: "flex", alignItems: "center", justifyContent: "space-between",
           padding: "0 40px", gap: 24,
         }}>
-          <a href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none", flexShrink: 0 }}>
+          <Link href="/" style={{ display: "flex", alignItems: "center", textDecoration: "none", flexShrink: 0 }}>
             <img src="/logo.svg" alt="Psychotherapeutischer Bereitschaftsdienst" style={{ width: 200, height: 48, objectFit: "contain" }} />
-          </a>
+          </Link>
 
           <nav style={{ display: "flex", gap: 2, alignItems: "center", flex: 1, justifyContent: "center" }}>
             {navLinks.map(l => {
               const isActive = active === l.label;
               return (
-                <a key={l.label} href={l.href}
+                <Link key={l.label} href={l.href}
                   onClick={e => { if (l.href === "#") e.preventDefault(); }}
                   style={{
                     padding: "6px 14px",
@@ -186,7 +187,7 @@ export default function Navbar() {
                   }}
                   onMouseEnter={e => { if (!isActive) (e.currentTarget as HTMLElement).style.color = "var(--cta-brand)"; }}
                   onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLElement).style.color = "var(--black)"; }}
-                >{l.label}</a>
+                >{l.label}</Link>
               );
             })}
           </nav>
@@ -194,7 +195,7 @@ export default function Navbar() {
           <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
             {LangToggle}
             {UserButton}
-            <a href="/vorgespraech" style={{
+            <Link href="/vorgespraech" style={{
               display: "flex", alignItems: "center", gap: 6,
               background: "var(--cta)", color: "white",
               border: "none", borderRadius: 9999,
@@ -207,7 +208,7 @@ export default function Navbar() {
               onMouseLeave={e => (e.currentTarget.style.background = "var(--cta)")}
             >
               {T.nav.cta} <ArrowIcon />
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -225,9 +226,9 @@ export default function Navbar() {
             {open ? <X size={28} /> : <Menu size={28} />}
           </button>
 
-          <a href="/" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", display: "flex", alignItems: "center", textDecoration: "none", width: 48, height: 48, overflow: "hidden", flexShrink: 0 }}>
+          <Link href="/" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", display: "flex", alignItems: "center", textDecoration: "none", width: 48, height: 48, overflow: "hidden", flexShrink: 0 }}>
             <img src="/logo.svg" alt="PB" style={{ height: 48, width: "auto", objectFit: "cover", objectPosition: "left center", flexShrink: 0 }} />
-          </a>
+          </Link>
 
           {MobileUserButton}
         </div>
@@ -243,7 +244,7 @@ export default function Navbar() {
             boxShadow: "0 16px 40px rgba(0,0,0,0.12)",
             borderRadius: "0 0 24px 24px",
           }}>
-            <a href="/vorgespraech" style={{
+            <Link href="/vorgespraech" style={{
               width: "100%", background: "var(--cta)", color: "white",
               border: "none", borderRadius: 9999, height: 52,
               fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16,
@@ -251,7 +252,7 @@ export default function Navbar() {
               textDecoration: "none",
             }}>
               {T.nav.cta} <ArrowIcon />
-            </a>
+            </Link>
             <div style={{ height: 1, background: "#f0f0f0", margin: "16px 0 8px" }} />
             {/* Language toggle in mobile menu */}
             <div style={{ display: "flex", alignItems: "center", gap: 4, padding: "8px 0" }}>
@@ -275,7 +276,7 @@ export default function Navbar() {
             </div>
             <div style={{ height: 1, background: "#f0f0f0", margin: "4px 0 8px" }} />
             {menuLinks.map(l => (
-              <a key={l.label} href={l.href}
+              <Link key={l.label} href={l.href}
                 onClick={e => { if (l.href === "#") e.preventDefault(); setOpen(false); }}
                 style={{
                   display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -289,22 +290,22 @@ export default function Navbar() {
               >
                 {l.label}
                 {l.href !== "#" && pathname === l.href && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--cta-brand)" }} />}
-              </a>
+              </Link>
             ))}
             {user ? (
               <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 4 }}>
-                <a href="/profil" style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, color: "var(--cta)", textDecoration: "none" }}>
+                <Link href="/profil" style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, color: "var(--cta)", textDecoration: "none" }}>
                   <div style={{ position: "relative" }}><User size={20} /><span style={{ position: "absolute", bottom: -1, right: -2, width: 8, height: 8, borderRadius: "50%", background: "#5BA882", border: "1.5px solid white" }} /></div>
                   {T.nav.myAccount} ({getFirstName(user)})
-                </a>
+                </Link>
                 <button onClick={handleLogout} style={{ background: "none", border: "none", padding: "8px 0", fontFamily: "'Poppins', sans-serif", fontSize: 14, color: "#9CA3AF", cursor: "pointer", textAlign: "left" }}>
                   {T.nav.logout}
                 </button>
               </div>
             ) : (
-              <a href="/anmelden" style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 16, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, color: "var(--cta)", textDecoration: "none" }}>
+              <Link href="/anmelden" style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 16, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, color: "var(--cta)", textDecoration: "none" }}>
                 <User size={20} /> {T.nav.login}
-              </a>
+              </Link>
             )}
           </div>
         </>
