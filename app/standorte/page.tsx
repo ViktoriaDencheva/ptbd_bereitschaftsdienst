@@ -311,7 +311,7 @@ export default function StandortePage() {
               <p style={{ fontFamily: F, fontSize: 17, color: "#555", lineHeight: 1.7, maxWidth: 480, margin: 0 }}>
                 {isEN
                   ? "The Psychotherapeutic Emergency Service is represented in several Austrian cities. Find the nearest location for a personal consultation — or use our online services."
-                  : "Der Psychotherapeutischer Bereitschaftsdienst ist in mehreren Städten Österreichs vertreten. Finde den nächsten Standort für ein persönliches Gespräch — oder nutze unsere Online-Angebote."}
+                  : "Der liva ist in mehreren Städten Österreichs vertreten. Finde den nächsten Standort für ein persönliches Gespräch — oder nutze unsere Online-Angebote."}
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 <Link href="/vorgespraech" style={{ display: "inline-flex", alignItems: "center", gap: 8, height: 50, padding: "0 28px", borderRadius: 9999, background: CTA_HEX, color: "white", fontFamily: F, fontWeight: 600, fontSize: 15, textDecoration: "none", transition: "background 0.2s" }}
@@ -348,8 +348,8 @@ export default function StandortePage() {
             {/* Right — image */}
             <div className="st-hero-img-wrap" style={{ position: "relative", alignSelf: "stretch", minHeight: 360, paddingBottom: 40 }}>
               <img
-                src="/PTBD-Standort.png"
-                alt="PTBD Standort"
+                src="/liva-Standort.png"
+                alt="liva Standort"
                 style={{ position: "absolute", inset: "0 0 40px 0", width: "100%", height: "calc(100% - 40px)", objectFit: "cover", borderRadius: 20 }}
               />
             </div>

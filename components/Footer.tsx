@@ -188,7 +188,7 @@ export default function Footer() {
             {/* Brand col */}
             <div className="footer-brand" style={{ display: "flex", flexDirection: "column", gap: 16, maxWidth: 280 }}>
               <div style={{ display: "flex", alignItems: "center", height: 50 }}>
-                <img src="/logo.svg" alt="Psychotherapeutischer Bereitschaftsdienst" style={{ width: 227, height: 50, objectFit: "contain", flexShrink: 0 }} />
+                <img src="/logo.svg" alt="liva" style={{ width: 227, height: 50, objectFit: "contain", flexShrink: 0 }} />
               </div>
               <p style={{
                 fontFamily: "'Poppins', sans-serif",

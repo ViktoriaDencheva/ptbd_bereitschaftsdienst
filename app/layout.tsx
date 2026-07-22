@@ -5,7 +5,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import { LangProvider } from "@/lib/lang";
 
 export const metadata: Metadata = {
-  title: "Psychotherapeutischer Bereitschaftsdienst",
+  title: "liva",
   description: "Professionelle psychosoziale Unterstützung – sicher, vertraulich, österreichweit.",
 };
 

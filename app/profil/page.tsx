@@ -775,7 +775,7 @@ export default function ProfilPage() {
   .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;background:#DCFCE7;color:#15803D}
   @media print{body{padding:32px}}
 </style></head><body>
-<div class="logo">Psychotherapeutischer Bereitschaftsdienst</div>
+<div class="logo">liva</div>
 <h1>${doc.type}</h1>
 <div class="sub">Dokument-Nr. PBD-${2025000 + doc.id * 137} &nbsp;·&nbsp; Ausgestellt am ${doc.fileDate}</div>
 <div class="row">
@@ -815,7 +815,7 @@ ${isRechnung ? `
 </table>
 `}
 <div class="footer">
-  Psychotherapeutischer Bereitschaftsdienst &nbsp;·&nbsp; bereitschaftsdienst.at &nbsp;·&nbsp; Dieses Dokument wurde elektronisch erstellt und ist ohne Unterschrift gültig.
+  liva &nbsp;·&nbsp; liva.at &nbsp;·&nbsp; Dieses Dokument wurde elektronisch erstellt und ist ohne Unterschrift gültig.
 </div>
 </body></html>`;
     const win = window.open("", "_blank");

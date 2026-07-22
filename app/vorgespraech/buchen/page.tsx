@@ -89,11 +89,11 @@ function LeftPanel({ format, locationId, selectedDate, selectedTime, isMobile, i
     <div style={{ background: "white", border: "1px solid #EBEBEB", borderRadius: 20, padding: "28px 24px", display: "flex", flexDirection: "column", gap: 20, ...(isMobile ? {} : { position: "sticky", top: 88, alignSelf: "flex-start" }) }}>
       <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
         <div style={{ width: 64, height: 64, borderRadius: 14, flexShrink: 0, background: "var(--blue-ultra-light)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <img src="/logo.svg" alt="PTBD" style={{ width: 48, height: 48, objectFit: "contain" }} />
+          <img src="/logo.svg" alt="liva" style={{ width: 48, height: 48, objectFit: "contain" }} />
         </div>
         <div>
           <p style={{ fontFamily: F, fontWeight: 700, fontSize: 15, color: "var(--black)", margin: 0 }}>{isEN ? "Free initial consultation" : "Kostenloses Erstgespräch"}</p>
-          <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: "3px 0 0" }}>Psychotherapeutischer Bereitschaftsdienst</p>
+          <p style={{ fontFamily: F, fontSize: 12, color: "var(--grey-text)", margin: "3px 0 0" }}>liva</p>
         </div>
       </div>
 
@@ -244,13 +244,13 @@ function Confirmation({ format, location, selectedDate, selectedTime, selectedDa
             const dtEnd   = `${y}${mo}${d}T${pad(endHh)}${pad(endMin % 60)}00`;
             const loc = format === "vor-ort" ? `${location.address}\\, ${location.zip}` : (isEN ? "Online via Video" : "Online per Video");
             const ics = [
-              "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//PTBD//DE",
+              "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//liva//DE",
               "BEGIN:VEVENT",
               `DTSTART:${dtStart}`,
               `DTEND:${dtEnd}`,
-              `SUMMARY:${isEN ? "Free Initial Consultation – PTBD" : "Kostenloses Erstgespräch – PTBD"}`,
+              `SUMMARY:${isEN ? "Free Initial Consultation – liva" : "Kostenloses Erstgespräch – liva"}`,
               `LOCATION:${loc}`,
-              `DESCRIPTION:Psychotherapeutischer Bereitschaftsdienst – ${isEN ? "Free Initial Consultation" : "Kostenloses Erstgespräch"}`,
+              `DESCRIPTION:liva – ${isEN ? "Free Initial Consultation" : "Kostenloses Erstgespräch"}`,
               "END:VEVENT", "END:VCALENDAR"
             ].join("\r\n");
             const blob = new Blob([ics], { type: "text/calendar" });
@@ -379,7 +379,7 @@ export default function VorgespraechBuchenPage() {
     saveBooking({
       therapistId: "vorgespraech",
       therapistName: isEN ? "Free Initial Consultation" : "Kostenloses Erstgespräch",
-      therapistRole: "Psychotherapeutischer Bereitschaftsdienst",
+      therapistRole: "liva",
       therapistPhoto: "/vorgespraech-banner.jpg",
       date: selectedDate,
       time: selectedTime,
