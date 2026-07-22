@@ -62,14 +62,14 @@ export default function TherapistProfiles() {
         {/* ── Card wrapper ── */}
         <div style={{ position: "relative", padding: "0 48px" }}>
 
-          {/* Arrow left — outside card */}
-          <button onClick={prev} style={{ position: "absolute", left: 0, top: "50%", transform: "translateY(-50%)", zIndex: 10, background: "white", border: "1.5px solid #E2E8F0", borderRadius: "50%", width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#64748b", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.2s" }}
+          {/* Arrow left — overlaps card */}
+          <button onClick={prev} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", zIndex: 10, background: "white", border: "1.5px solid #E2E8F0", borderRadius: "50%", width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#64748b", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.2s" }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--cta)"; e.currentTarget.style.color = "var(--cta)"; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = "#E2E8F0"; e.currentTarget.style.color = "#64748b"; }}
           ><ChevronLeft size={20} /></button>
 
-          {/* Arrow right — outside card */}
-          <button onClick={next} style={{ position: "absolute", right: 0, top: "50%", transform: "translateY(-50%)", zIndex: 10, background: "white", border: "1.5px solid #E2E8F0", borderRadius: "50%", width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#64748b", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.2s" }}
+          {/* Arrow right — overlaps card */}
+          <button onClick={next} style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", zIndex: 10, background: "white", border: "1.5px solid #E2E8F0", borderRadius: "50%", width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#64748b", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.2s" }}
             onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--cta)"; e.currentTarget.style.color = "var(--cta)"; }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = "#E2E8F0"; e.currentTarget.style.color = "#64748b"; }}
           ><ChevronRight size={20} /></button>
@@ -123,7 +123,7 @@ export default function TherapistProfiles() {
               </div>
 
               {/* Mehr über mich */}
-              <span className="mehr-link" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 15, color: "var(--black)", textDecoration: "underline", textUnderlineOffset: 3, transition: "color 0.25s", width: "fit-content" }}>
+              <span className="mehr-link" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 15, color: "var(--black)", textDecoration: "underline", textDecorationColor: "transparent", textUnderlineOffset: 3, transition: "color 0.3s ease, text-decoration-color 0.3s ease", width: "fit-content" }}>
                 {TP.mehr}
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="currentColor"/></svg>
               </span>
@@ -246,7 +246,7 @@ export default function TherapistProfiles() {
       </div>
 
       <style>{`
-        .mehr-link:hover { color: var(--cta) !important; }
+        .mehr-link:hover { color: var(--cta) !important; text-decoration-color: var(--cta) !important; }
         @keyframes fadeIn {
           from { opacity: 0; transform: translateX(12px); }
           to   { opacity: 1; transform: translateX(0); }
