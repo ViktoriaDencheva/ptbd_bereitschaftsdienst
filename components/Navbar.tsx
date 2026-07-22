@@ -103,18 +103,26 @@ export default function Navbar() {
   );
 
   const LangToggle = (
-    <div style={{ display: "flex", alignItems: "center", gap: 2, border: "1.5px solid var(--grey-bg)", borderRadius: 9999, padding: "2px 3px", height: 40, flexShrink: 0 }}>
-      {(["de", "en"] as const).map(l => (
-        <button key={l} onClick={() => setLang(l)} style={{
-          background: lang === l ? "var(--cta)" : "transparent",
-          color: lang === l ? "white" : "var(--grey-text)",
-          border: "none", borderRadius: 9999, width: 34, height: 34,
-          fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 13,
-          cursor: "pointer", transition: "background 0.2s, color 0.2s", textTransform: "uppercase",
-        }}>
-          {l}
-        </button>
-      ))}
+    <div style={{ display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}>
+      <button onClick={() => setLang("de")} style={{
+        background: "none", border: "none", padding: "2px 4px",
+        fontFamily: "'Poppins', sans-serif",
+        fontWeight: lang === "de" ? 700 : 400,
+        fontSize: 13,
+        color: lang === "de" ? "var(--cta)" : "var(--grey-text)",
+        cursor: lang === "de" ? "default" : "pointer",
+        textTransform: "uppercase", letterSpacing: "0.04em", transition: "color 0.15s",
+      }}>DE</button>
+      <span style={{ color: "#d1d5db", fontSize: 12, userSelect: "none" }}>|</span>
+      <button onClick={() => setLang("en")} style={{
+        background: "none", border: "none", padding: "2px 4px",
+        fontFamily: "'Poppins', sans-serif",
+        fontWeight: lang === "en" ? 700 : 400,
+        fontSize: 13,
+        color: lang === "en" ? "var(--cta)" : "var(--grey-text)",
+        cursor: lang === "en" ? "default" : "pointer",
+        textTransform: "uppercase", letterSpacing: "0.04em", transition: "color 0.15s",
+      }}>EN</button>
     </div>
   );
 
@@ -246,18 +254,24 @@ export default function Navbar() {
             </a>
             <div style={{ height: 1, background: "#f0f0f0", margin: "16px 0 8px" }} />
             {/* Language toggle in mobile menu */}
-            <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "8px 0" }}>
-              {(["de", "en"] as const).map(l => (
-                <button key={l} onClick={() => { setLang(l); setOpen(false); }} style={{
-                  background: lang === l ? "var(--cta)" : "var(--grey-bg)",
-                  color: lang === l ? "white" : "var(--grey-text)",
-                  border: "none", borderRadius: 9999, padding: "6px 18px",
-                  fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 14,
-                  cursor: "pointer", textTransform: "uppercase",
-                }}>
-                  {l}
-                </button>
-              ))}
+            <div style={{ display: "flex", alignItems: "center", gap: 4, padding: "8px 0" }}>
+              <button onClick={() => { setLang("de"); setOpen(false); }} style={{
+                background: "none", border: "none", padding: "2px 6px",
+                fontFamily: "'Poppins', sans-serif",
+                fontWeight: lang === "de" ? 700 : 400, fontSize: 14,
+                color: lang === "de" ? "var(--cta)" : "var(--grey-text)",
+                cursor: lang === "de" ? "default" : "pointer",
+                textTransform: "uppercase", letterSpacing: "0.04em",
+              }}>DE</button>
+              <span style={{ color: "#d1d5db", fontSize: 13, userSelect: "none" }}>|</span>
+              <button onClick={() => { setLang("en"); setOpen(false); }} style={{
+                background: "none", border: "none", padding: "2px 6px",
+                fontFamily: "'Poppins', sans-serif",
+                fontWeight: lang === "en" ? 700 : 400, fontSize: 14,
+                color: lang === "en" ? "var(--cta)" : "var(--grey-text)",
+                cursor: lang === "en" ? "default" : "pointer",
+                textTransform: "uppercase", letterSpacing: "0.04em",
+              }}>EN</button>
             </div>
             <div style={{ height: 1, background: "#f0f0f0", margin: "4px 0 8px" }} />
             {menuLinks.map(l => (
