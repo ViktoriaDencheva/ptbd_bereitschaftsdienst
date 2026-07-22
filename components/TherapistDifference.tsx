@@ -50,7 +50,7 @@ export default function TherapistDifference() {
 
         {/* ── Header ── */}
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 24, marginBottom: 40 }}>
-          <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 32, lineHeight: 1.3, color: "var(--black)", flexShrink: 0 }}>
+          <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 40, lineHeight: 1.3, color: "var(--black)", flexShrink: 0 }}>
             {TD.title}
           </h2>
           <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 18, lineHeight: 1.5, color: "var(--grey-text)", flex: 1, minWidth: 220 }}>
@@ -179,7 +179,7 @@ export default function TherapistDifference() {
       <div className="td-mobile" style={{ display: "none", padding: "32px 16px" }}>
         {/* Header */}
         <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
-          <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 26, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>
+          <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 28, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>
             {TD.title}
           </h2>
           <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 15, lineHeight: 1.5, color: "var(--grey-text)", margin: 0 }}>

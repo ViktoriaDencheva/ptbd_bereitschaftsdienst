@@ -35,7 +35,7 @@ export default function TherapistProfiles() {
         {/* ── Header ── */}
         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 24, marginBottom: 32 }}>
           {/* h2 — flex: 1, расте */}
-          <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 32, lineHeight: 1.3, color: "var(--black)", flex: 1, minWidth: 220 }}>
+          <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 40, lineHeight: 1.3, color: "var(--black)", flex: 1, minWidth: 220 }}>
             {TP.title1}{" "}
             <span style={{ color: "var(--cta-brand)" }}>{TP.title_highlight}</span>{TP.title2 ? " " + TP.title2 : ""}
           </h2>
@@ -144,7 +144,7 @@ export default function TherapistProfiles() {
 
         {/* Header + бутон */}
         <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 20 }}>
-          <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 26, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>
+          <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 28, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>
             {TP.title1}{" "}
             <span style={{ color: "var(--cta-brand)" }}>{TP.title_highlight}</span>{TP.title2 ? " " + TP.title2 : ""}
           </h2>
