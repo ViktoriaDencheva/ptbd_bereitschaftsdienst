@@ -325,7 +325,7 @@ export default function TherapistDetailPage() {
                 <div>
                   <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--cta-brand)", fontWeight: 400, letterSpacing: "0.08em", textTransform: "uppercase", margin: "0 0 8px" }}>{T.fachkraefteDetail.approach_label}</p>
                   <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 28, color: "var(--black)", margin: "0 0 20px", lineHeight: 1.3 }}>{T.fachkraefteDetail.approach_h2}</h2>
-                  {((isEN ? (t as any).approach_en : null) ?? t.approach ?? "").split("\n\n").map((para, i) => (<p key={i} style={{ fontFamily: "'Poppins',sans-serif", fontSize: 15, color: "var(--grey-text)", margin: "0 0 16px", lineHeight: 1.75 }}>{para}</p>))}
+                  {((isEN ? (t as any).approach_en : null) ?? t.approach ?? "").split("\n\n").map((para: string, i: number) => (<p key={i} style={{ fontFamily: "'Poppins',sans-serif", fontSize: 15, color: "var(--grey-text)", margin: "0 0 16px", lineHeight: 1.75 }}>{para}</p>))}
                 </div>
                 {!isMedium && (
                   <div style={{ borderRadius: "0 16px 16px 0", overflow: "hidden", margin: "-48px -40px -48px 0", alignSelf: "stretch" }}>
@@ -523,7 +523,7 @@ function MobileContentSections({ t, similar }: { t: NonNullable<ReturnType<typeo
         <div style={{ padding: "28px 20px 20px" }}>
           <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 11, color: "var(--cta-brand)", fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", margin: "0 0 6px" }}>{T.fachkraefteDetail.approach_label}</p>
           <h2 style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 20, color: "var(--black)", margin: "0 0 16px", lineHeight: 1.3 }}>{T.fachkraefteDetail.approach_h2}</h2>
-          {((isEN ? (t as any).approach_en : null) ?? t.approach ?? "").split("\n\n").map((para, i) => (
+          {((isEN ? (t as any).approach_en : null) ?? t.approach ?? "").split("\n\n").map((para: string, i: number) => (
             <p key={i} style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, color: "var(--grey-text)", margin: "0 0 12px", lineHeight: 1.7 }}>{para}</p>
           ))}
         </div>
