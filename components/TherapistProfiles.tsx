@@ -75,10 +75,10 @@ export default function TherapistProfiles() {
           ><ChevronRight size={20} /></button>
 
           {/* Main card */}
-          <div onClick={() => router.push(`/fachkraefte/${t.id}`)} style={{ height: 500, borderRadius: 24, overflow: "hidden", display: "flex", cursor: "pointer", background: "transparent" }} className="therapist-card">
+          <div onClick={() => router.push(`/fachkraefte/${t.id}`)} style={{ height: 500, borderRadius: 24, overflow: "hidden", display: "flex", cursor: "pointer", background: "#F8FAFC" }} className="therapist-card">
 
             {/* Left — photo full-bleed */}
-            <div key={`photo-${current}`} className="th-photo-col" style={{ position: "relative", width: "42%", flexShrink: 0, overflow: "hidden", animation: "fadeIn 0.4s ease" }}>
+            <div key={`photo-${current}`} className="th-photo-col" style={{ position: "relative", width: "42%", flexShrink: 0, overflow: "hidden", animation: "fadeIn 0.4s ease", margin: "16px 0 16px 16px", borderRadius: 16 }}>
               <img src={t.photo} alt={t.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
               {/* Dark gradient for quote readability */}
               <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "55%", background: "linear-gradient(to top, rgba(10,20,40,0.72) 0%, transparent 100%)" }} />
@@ -123,13 +123,10 @@ export default function TherapistProfiles() {
               </div>
 
               {/* Mehr über mich */}
-              <div style={{ display: "inline-flex", flexDirection: "column", gap: 4, width: "fit-content" }}>
-                <span style={{ display: "flex", alignItems: "center", gap: 8, fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 15, color: "var(--black)" }}>
-                  {TP.mehr}
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="currentColor"/></svg>
-                </span>
-                <div style={{ height: 2, background: "linear-gradient(to right, var(--cta), transparent)", borderRadius: 2 }} />
-              </div>
+              <span className="mehr-link" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 15, color: "var(--black)", textDecoration: "underline", textUnderlineOffset: 3, transition: "color 0.25s", width: "fit-content" }}>
+                {TP.mehr}
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="currentColor"/></svg>
+              </span>
             </div>
           </div>
 
@@ -249,6 +246,7 @@ export default function TherapistProfiles() {
       </div>
 
       <style>{`
+        .mehr-link:hover { color: var(--cta) !important; }
         @keyframes fadeIn {
           from { opacity: 0; transform: translateX(12px); }
           to   { opacity: 1; transform: translateX(0); }
