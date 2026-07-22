@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "next/navigation";
-import { therapists, TAG_EN, ROLE_EN, ARBEITSWEISE_EN, QUAL_TITLE_EN } from "@/lib/therapists";
+import { therapists, TAG_EN, ROLE_EN, ARBEITSWEISE_EN, QUAL_TITLE_EN, INSTITUTION_EN } from "@/lib/therapists";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLang } from "@/lib/lang";
@@ -398,7 +398,7 @@ export default function TherapistDetailPage() {
                         <div style={{ background: i % 2 === 0 ? "var(--blue-ultra-light)" : "white", borderRadius: 12, padding: "8px 14px", marginBottom: 10, flex: 1 }}>
                           <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 11, color: "var(--cta)", fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase" }}>{q.year}</span>
                           <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, fontWeight: 600, color: "var(--black)", margin: "3px 0 2px", lineHeight: 1.4 }}>{isEN ? (QUAL_TITLE_EN[q.title] ?? q.title) : q.title}</p>
-                          <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", margin: 0 }}>{q.institution}</p>
+                          <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", margin: 0 }}>{isEN ? (INSTITUTION_EN[q.institution] ?? q.institution) : q.institution}</p>
                         </div>
                       </div>
                     ))}
@@ -447,7 +447,7 @@ export default function TherapistDetailPage() {
                       </div>
                       <div style={{ padding: "12px 14px 0" }}>
                         <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 2px", lineHeight: 1.3 }}>{s.name}</p>
-                        <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", margin: "0 0 8px" }}>{s.role}</p>
+                        <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", margin: "0 0 8px" }}>{isEN ? (ROLE_EN[s.role] ?? s.role) : s.role}</p>
                         <div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginBottom: 10 }}>
                           {(s.angebot === "online" || s.angebot === "beides") && <span style={{ padding: "2px 7px", borderRadius: 9999, fontSize: 11, fontFamily: "'Poppins',sans-serif", fontWeight: 500, color: "var(--cta)", border: "1.5px solid var(--cta)" }}>{T.fachkraefteDetail.online}</span>}
                           {(s.angebot === "vor-ort" || s.angebot === "beides") && <span style={{ padding: "2px 7px", borderRadius: 9999, fontSize: 11, fontFamily: "'Poppins',sans-serif", fontWeight: 500, color: "#B07000", border: "1.5px solid #D4920A" }}>{T.fachkraefteDetail.vor_ort}</span>}
@@ -474,7 +474,7 @@ export default function TherapistDetailPage() {
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
                           <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 15, color: "var(--black)", margin: "0 0 3px", lineHeight: 1.3 }}>{s.name}</p>
-                          <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--grey-text)", margin: "0 0 8px" }}>{s.role}</p>
+                          <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--grey-text)", margin: "0 0 8px" }}>{isEN ? (ROLE_EN[s.role] ?? s.role) : s.role}</p>
                           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                             {(s.angebot === "online" || s.angebot === "beides") && <span style={{ padding: "2px 8px", borderRadius: 9999, fontSize: 11, fontFamily: "'Poppins',sans-serif", fontWeight: 500, color: "var(--cta)", border: "1.5px solid var(--cta)" }}>{T.fachkraefteDetail.online}</span>}
                             {(s.angebot === "vor-ort" || s.angebot === "beides") && <span style={{ padding: "2px 8px", borderRadius: 9999, fontSize: 11, fontFamily: "'Poppins',sans-serif", fontWeight: 500, color: "#B07000", border: "1.5px solid #D4920A" }}>{T.fachkraefteDetail.vor_ort}</span>}
@@ -573,7 +573,7 @@ function MobileContentSections({ t, similar }: { t: NonNullable<ReturnType<typeo
               <div style={{ background: i % 2 === 0 ? "var(--blue-ultra-light)" : "white", borderRadius: 12, padding: "8px 14px", marginBottom: 10, flex: 1 }}>
                 <span style={{ fontFamily: "'Poppins',sans-serif", fontSize: 11, color: "var(--cta)", fontWeight: 600, letterSpacing: "0.05em", textTransform: "uppercase" as const }}>{q.year}</span>
                 <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 14, fontWeight: 600, color: "var(--black)", margin: "3px 0 2px", lineHeight: 1.4 }}>{isEN ? (QUAL_TITLE_EN[q.title] ?? q.title) : q.title}</p>
-                <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", margin: 0 }}>{q.institution}</p>
+                <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", margin: 0 }}>{isEN ? (INSTITUTION_EN[q.institution] ?? q.institution) : q.institution}</p>
               </div>
             </div>
           ))}
@@ -621,7 +621,7 @@ function MobileContentSections({ t, similar }: { t: NonNullable<ReturnType<typeo
                 {/* Info */}
                 <div style={{ padding: "10px 12px 0" }}>
                   <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 13, color: "var(--black)", margin: "0 0 2px", lineHeight: 1.3 }}>{s.name}</p>
-                  <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", margin: "0 0 8px", lineHeight: 1.4 }}>{s.role}</p>
+                  <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", margin: "0 0 8px", lineHeight: 1.4 }}>{isEN ? (ROLE_EN[s.role] ?? s.role) : s.role}</p>
                   <div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginBottom: 10 }}>
                     {(s.angebot === "online" || s.angebot === "beides") && <span style={{ padding: "2px 7px", borderRadius: 9999, fontSize: 11, fontFamily: "'Poppins',sans-serif", fontWeight: 500, color: "var(--cta)", border: "1.5px solid var(--cta)" }}>{T.fachkraefteDetail.online}</span>}
                     {(s.angebot === "vor-ort" || s.angebot === "beides") && <span style={{ padding: "2px 7px", borderRadius: 9999, fontSize: 11, fontFamily: "'Poppins',sans-serif", fontWeight: 500, color: "#B07000", border: "1.5px solid #D4920A" }}>{T.fachkraefteDetail.vor_ort}</span>}
