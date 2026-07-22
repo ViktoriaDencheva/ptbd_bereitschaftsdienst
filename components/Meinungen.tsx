@@ -35,7 +35,7 @@ function ReviewCard({ r, width = 366 }: { r: ReviewItem; width?: number }) {
       </div>
 
       {/* Текст */}
-      <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 14, lineHeight: 1.6, color: "var(--black)", margin: 0, flex: 1 }}>
+      <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 400, fontSize: 14, lineHeight: 1.6, color: "var(--black)", margin: "12px 0 0", flex: 1 }}>
         {r.text}
       </p>
 
