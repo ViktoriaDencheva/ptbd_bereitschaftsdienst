@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLang } from "@/lib/lang";
 
@@ -18,6 +19,7 @@ const STATIC_THERAPISTS = [
 export default function TherapistProfiles() {
   const [current, setCurrent] = useState(0);
   const { T } = useLang();
+  const router = useRouter();
   const TP = T.therapistProfiles;
   const therapists = STATIC_THERAPISTS.map((s, i) => ({ ...s, ...TP.therapists[i] }));
   const t = therapists[current];
@@ -57,103 +59,85 @@ export default function TherapistProfiles() {
         </div>
 
         {/* ── Card wrapper ── */}
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative", padding: "0 48px" }}>
 
-          {/* Main card — clickable */}
-          <a href={`/fachkraefte/${t.id}`} style={{ height: 520, borderRadius: 24, overflow: "hidden", display: "flex", position: "relative", textDecoration: "none", cursor: "pointer" }} className="therapist-card">
+          {/* Arrow left — outside card */}
+          <button onClick={prev} style={{ position: "absolute", left: 0, top: "50%", transform: "translateY(-50%)", zIndex: 10, background: "white", border: "1.5px solid #E2E8F0", borderRadius: "50%", width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#64748b", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.2s" }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--cta)"; e.currentTarget.style.color = "var(--cta)"; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = "#E2E8F0"; e.currentTarget.style.color = "#64748b"; }}
+          ><ChevronLeft size={20} /></button>
 
-            {/* Background */}
-            {imgBg && <img src={imgBg} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />}
-            {imgBgOverlay && (
-              <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
-                <img src={imgBgOverlay} alt="" style={{ position: "absolute", top: "-8%", left: 0, width: "100%", height: "116%" }} />
-              </div>
-            )}
+          {/* Arrow right — outside card */}
+          <button onClick={next} style={{ position: "absolute", right: 0, top: "50%", transform: "translateY(-50%)", zIndex: 10, background: "white", border: "1.5px solid #E2E8F0", borderRadius: "50%", width: 44, height: 44, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#64748b", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.2s" }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--cta)"; e.currentTarget.style.color = "var(--cta)"; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = "#E2E8F0"; e.currentTarget.style.color = "#64748b"; }}
+          ><ChevronRight size={20} /></button>
 
-            {/* Left — photo + quote (fade transition) */}
-            <div key={`photo-${current}`} className="th-photo-col" style={{ position: "relative", width: 540, flexShrink: 0, overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "36px 40px", animation: "fadeIn 0.4s ease" }}>
+          {/* Main card */}
+          <div onClick={() => router.push(`/fachkraefte/${t.id}`)} style={{ height: 500, borderRadius: 24, overflow: "hidden", display: "flex", cursor: "pointer", background: "white", boxShadow: "0 8px 48px rgba(0,0,0,0.10)" }} className="therapist-card">
+
+            {/* Left — photo full-bleed */}
+            <div key={`photo-${current}`} className="th-photo-col" style={{ position: "relative", width: "42%", flexShrink: 0, overflow: "hidden", animation: "fadeIn 0.4s ease" }}>
               <img src={t.photo} alt={t.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
-              <div style={{ position: "relative", backdropFilter: "blur(5px)", background: "rgba(214,235,255,0.55)", border: "1.5px solid white", borderRadius: 24, padding: "16px 20px", display: "flex", flexDirection: "column", gap: 4 }}>
-                <img src={imgQuote} alt="" style={{ width: 40, height: 40, marginBottom: -4 }} />
-                <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 18, lineHeight: 1.5, color: "var(--black)" }}>{t.quote}</p>
+              {/* Dark gradient for quote readability */}
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "55%", background: "linear-gradient(to top, rgba(10,20,40,0.72) 0%, transparent 100%)" }} />
+              {/* Quote */}
+              <div style={{ position: "absolute", bottom: 28, left: 24, right: 24 }}>
+                <svg width="28" height="20" viewBox="0 0 28 20" fill="none" style={{ marginBottom: 8, opacity: 0.7 }}><path d="M0 20V12.5C0 5.596 4.09 1.417 12.27 0L13.5 2.25C10.16 3.083 8.083 4.5 7.27 6.5H12V20H0ZM16 20V12.5C16 5.596 20.09 1.417 28.27 0L29.5 2.25C26.16 3.083 24.083 4.5 23.27 6.5H28V20H16Z" fill="white"/></svg>
+                <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 15, lineHeight: 1.6, color: "white", margin: 0 }}>{t.quote}</p>
               </div>
             </div>
 
-            {/* Right — info (fade transition) */}
-            <div key={`info-${current}`} className="th-info-col" style={{ flex: 1, position: "relative", padding: "40px 72px 40px 32px", display: "flex", flexDirection: "column", justifyContent: "center", gap: 24, animation: "fadeIn 0.4s ease" }}>
+            {/* Right — info */}
+            <div key={`info-${current}`} className="th-info-col" style={{ flex: 1, padding: "44px 52px 44px 44px", display: "flex", flexDirection: "column", justifyContent: "center", gap: 20, animation: "fadeIn 0.4s ease" }}>
 
               {/* Role + Kassenerstattung */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "12px 20px", alignItems: "center" }}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "10px 16px", alignItems: "center" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  {/* Иконка — фиксиран размер, без разтягане */}
-                  <img src={t.roleIcon} alt="" style={{ width: 24, height: 24, objectFit: "contain", flexShrink: 0 }} />
-                  {/* H4 — синьо cta */}
-                  <h4 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 20, lineHeight: 1.4, color: "var(--cta)", margin: 0, whiteSpace: "nowrap" }}>
-                    {t.role}
-                  </h4>
+                  <img src={t.roleIcon} alt="" style={{ width: 22, height: 22, objectFit: "contain", flexShrink: 0 }} />
+                  <h4 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 18, color: "var(--cta)", margin: 0, whiteSpace: "nowrap" }}>{t.role}</h4>
                 </div>
                 {t.kassenerstattung && (
                   <div style={{ background: "var(--green-light)", border: "1px solid var(--green)", borderRadius: 9999, padding: "4px 12px", display: "flex", alignItems: "center", gap: 6 }}>
-                    <img src={imgKrankenkasse} alt="" style={{ width: 20, height: 20, objectFit: "contain", flexShrink: 0 }} />
-                    <span style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 14, color: "var(--black)", whiteSpace: "nowrap" }}>{TP.kassenerstattung}</span>
+                    <img src={imgKrankenkasse} alt="" style={{ width: 18, height: 18, objectFit: "contain", flexShrink: 0 }} />
+                    <span style={{ fontFamily: "'Poppins', sans-serif", fontSize: 13, color: "var(--black)", whiteSpace: "nowrap" }}>{TP.kassenerstattung}</span>
                   </div>
                 )}
               </div>
 
-              {/* Name H2 + underline */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 32, lineHeight: 1.3, color: "var(--black)", margin: 0 }}>
-                  {t.name}
-                </h2>
-                <div style={{ height: 3, width: 200, borderRadius: 2, background: "var(--red-soft)" }} />
+              {/* Name + underline */}
+              <div>
+                <h2 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700, fontSize: 34, lineHeight: 1.2, color: "var(--black)", margin: "0 0 10px" }}>{t.name}</h2>
+                <div style={{ height: 3, width: 160, borderRadius: 2, background: "var(--red-soft)" }} />
               </div>
 
-              {/* Description — max 3 lines */}
-              <p style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 16, lineHeight: 1.6, color: "var(--grey-text)", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-                {t.desc}
-              </p>
+              {/* Description */}
+              <p style={{ fontFamily: "'Poppins', sans-serif", fontSize: 15, lineHeight: 1.7, color: "var(--grey-text)", margin: 0, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{t.desc}</p>
 
               {/* Tags */}
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                 {t.tags.map(tag => (
-                  <span key={tag} style={{ background: "white", borderRadius: 9999, padding: "4px 14px", fontFamily: "'Poppins', sans-serif", fontWeight: 400, fontSize: 14, color: "var(--black)", whiteSpace: "nowrap", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
-                    {tag}
-                  </span>
+                  <span key={tag} style={{ background: "#F1F5F9", borderRadius: 9999, padding: "5px 14px", fontFamily: "'Poppins', sans-serif", fontSize: 13, color: "#475569", whiteSpace: "nowrap" }}>{tag}</span>
                 ))}
               </div>
 
-              {/* Mehr über mich — синя линия, малка стрелка */}
-              <div style={{ display: "inline-flex", flexDirection: "column", gap: 4, width: "fit-content" }} onClick={e => e.stopPropagation()}>
-                <a href={`/fachkraefte/${t.id}`} style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: 8, padding: 0, fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: 16, color: "var(--black)", textDecoration: "none" }}>
+              {/* Mehr über mich */}
+              <div style={{ display: "inline-flex", flexDirection: "column", gap: 4, width: "fit-content" }}>
+                <span style={{ display: "flex", alignItems: "center", gap: 8, fontFamily: "'Poppins', sans-serif", fontWeight: 600, fontSize: 15, color: "var(--black)" }}>
                   {TP.mehr}
-                  <img src="/icons/arrow-after.svg" alt="" style={{ width: 24, height: 24, flexShrink: 0 }} />
-                </a>
-                {/* Синя линия */}
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M12.6343 6.23433C12.9467 5.92191 13.4533 5.92191 13.7657 6.23433L18.5657 11.0343C18.8781 11.3467 18.8781 11.8533 18.5657 12.1657L13.7657 16.9657C13.4533 17.2781 12.9467 17.2781 12.6343 16.9657C12.3219 16.6533 12.3219 16.1467 12.6343 15.8343L16.0686 12.4H6.8C6.35817 12.4 6 12.0418 6 11.6C6 11.1582 6.35817 10.8 6.8 10.8H16.0686L12.6343 7.3657C12.3219 7.05328 12.3219 6.54675 12.6343 6.23433Z" fill="currentColor"/></svg>
+                </span>
                 <div style={{ height: 2, background: "linear-gradient(to right, var(--cta), transparent)", borderRadius: 2 }} />
               </div>
             </div>
+          </div>
 
-            {/* Стрелки — вътре в card-а, 40px от ръба, вертикален център */}
-            <button onClick={e => { e.preventDefault(); prev(); }} style={{ position: "absolute", left: 8, top: "50%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(200,200,200,0.55)", backdropFilter: "blur(4px)", border: "none", borderRadius: "50%", width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "white", transition: "background 0.2s" }}
-              onMouseEnter={e => (e.currentTarget.style.background = "rgba(150,150,150,0.75)")}
-              onMouseLeave={e => (e.currentTarget.style.background = "rgba(200,200,200,0.55)")}
-            >
-              <ChevronLeft size={18} />
-            </button>
-            <button onClick={e => { e.preventDefault(); next(); }} style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", zIndex: 10, background: "rgba(200,200,200,0.55)", backdropFilter: "blur(4px)", border: "none", borderRadius: "50%", width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "white", transition: "background 0.2s" }}
-              onMouseEnter={e => (e.currentTarget.style.background = "rgba(150,150,150,0.75)")}
-              onMouseLeave={e => (e.currentTarget.style.background = "rgba(200,200,200,0.55)")}
-            >
-              <ChevronRight size={18} />
-            </button>
-
-            {/* Dots — вътре в card-а, 20px от дъното, pill контейнер с blur */}
-            <div style={{ position: "absolute", bottom: 20, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 5, zIndex: 10, background: "rgba(180,180,180,0.35)", backdropFilter: "blur(4px)", borderRadius: 50, padding: "8px 12px" }}>
-              {therapists.map((_, i) => (
-                <button key={i} onClick={e => { e.preventDefault(); setCurrent(i); }} style={{ width: 10, height: 10, borderRadius: "50%", background: i === current ? "white" : "rgba(255,255,255,0.45)", border: "none", cursor: "pointer", padding: 0, transition: "background 0.3s ease" }} />
-              ))}
-            </div>
-          </a>
+          {/* Dots — below card */}
+          <div style={{ display: "flex", justifyContent: "center", gap: 6, marginTop: 20 }}>
+            {therapists.map((_, i) => (
+              <button key={i} onClick={() => setCurrent(i)} style={{ height: 8, width: i === current ? 28 : 8, borderRadius: 9999, background: i === current ? "var(--cta)" : "#CBD5E1", border: "none", cursor: "pointer", padding: 0, transition: "all 0.3s ease" }} />
+            ))}
+          </div>
         </div>
       </div>
 

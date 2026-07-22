@@ -777,12 +777,13 @@ function FilterSidebar({ suche, setSuche, fachrichtung, setFachrichtung, angebot
 // â"€â"€â"€ Therapist Card â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 function TherapistCard({ t, isMobile = false, winW = 1440 }: { t: typeof therapists[0]; isMobile?: boolean; winW?: number }) {
   const [hovered, setHovered] = useState(false);
+  const [showAllTags, setShowAllTags] = useState(false);
   const { T, lang } = useLang();
   const isEN = lang === 'en';
   const avail = availColors[t.availability] ?? availColors.later;
   const narrowDesktop = !isMobile && winW < 1400;
   const displayTags = isEN ? t.tags.map(tag => TAG_EN[tag] ?? tag) : t.tags;
-  const LIMIT = narrowDesktop ? 2 : displayTags.length;
+  const LIMIT = narrowDesktop && !showAllTags ? 2 : displayTags.length;
   const visibleTags = displayTags.slice(0, LIMIT);
   const extraTags = displayTags.length > LIMIT ? displayTags.length - LIMIT : 0;
 
@@ -848,7 +849,10 @@ function TherapistCard({ t, isMobile = false, winW = 1440 }: { t: typeof therapi
               <span key={tag} style={{ background: "#F5F8FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "5px 14px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--black)" }}>{tag}</span>
             ))}
             {extraTags > 0 && (
-              <a href={`/fachkraefte/${t.id}`} onClick={e => e.stopPropagation()} style={{ background: "#F0F4FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "5px 12px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--cta)", fontWeight: 500, cursor: "pointer", textDecoration: "none", whiteSpace: "nowrap" }}>{T.fachkraeftePage.card_more.replace("{n}", String(extraTags))}</a>
+              <button onClick={e => { e.stopPropagation(); setShowAllTags(true); }} style={{ background: "#F0F4FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "5px 12px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--cta)", fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap", position: "relative", zIndex: 2 }}>{T.fachkraeftePage.card_more.replace("{n}", String(extraTags))}</button>
+            )}
+            {showAllTags && extraTags === 0 && displayTags.length > 2 && (
+              <button onClick={e => { e.stopPropagation(); setShowAllTags(false); }} style={{ background: "none", border: "none", padding: "5px 4px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 13, color: "var(--grey-text)", fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap", position: "relative", zIndex: 2 }}>{T.fachkraeftePage.card_show_less}</button>
             )}
           </div>
 
@@ -985,7 +989,10 @@ function TherapistCard({ t, isMobile = false, winW = 1440 }: { t: typeof therapi
               <span key={tag} style={{ background: "#F5F8FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "5px 14px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--black)" }}>{tag}</span>
             ))}
             {extraTags > 0 && (
-              <a href={`/fachkraefte/${t.id}`} onClick={e => e.stopPropagation()} style={{ background: "#F0F4FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "5px 12px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--cta)", fontWeight: 500, textDecoration: "none", whiteSpace: "nowrap" }}>+{extraTags}</a>
+              <button onClick={e => { e.stopPropagation(); setShowAllTags(true); }} style={{ background: "#F0F4FF", border: "1px solid #DDE8F5", borderRadius: 9999, padding: "5px 12px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--cta)", fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap", position: "relative", zIndex: 2 }}>{T.fachkraeftePage.card_more.replace("{n}", String(extraTags))}</button>
+            )}
+            {showAllTags && extraTags === 0 && displayTags.length > 2 && (
+              <button onClick={e => { e.stopPropagation(); setShowAllTags(false); }} style={{ background: "none", border: "none", padding: "5px 4px", flexShrink: 0, fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap", position: "relative", zIndex: 2 }}>{T.fachkraeftePage.card_show_less}</button>
             )}
           </div>
           {/* Buttons */}
