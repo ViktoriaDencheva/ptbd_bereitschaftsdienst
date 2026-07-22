@@ -308,88 +308,93 @@ function Step1({
         </div>
       )}
 
-      {/* Calendar */}
-      <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 10px" }}>{isEN ? "Date" : "Datum"}</p>
-      <div style={{ border: "1px solid #EBEBEB", borderRadius: 12, padding: "10px", marginBottom: 24 }}>
-        {/* Month nav */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-          <button onClick={prevMonth} disabled={isPrevDisabled} style={{ background: isPrevDisabled ? "transparent" : "#F0F4FA", border: "none", borderRadius: 9, width: 34, height: 34, cursor: isPrevDisabled ? "not-allowed" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", opacity: isPrevDisabled ? 0.3 : 1, transition: "background 0.15s" }}
-            onMouseEnter={e => { if (!isPrevDisabled) (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"; }}
-            onMouseLeave={e => { if (!isPrevDisabled) (e.currentTarget as HTMLElement).style.background = "#F0F4FA"; }}>
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="var(--cta)" strokeWidth="2.5" strokeLinecap="round" d="M15 6l-6 6 6 6"/></svg>
-          </button>
-          <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 13, color: "var(--black)" }}>{MONTHS[calMonth]} {calYear}</span>
-          <button onClick={nextMonth} style={{ background: "#F0F4FA", border: "none", borderRadius: 9, width: 34, height: 34, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s" }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#F0F4FA"; }}>
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="var(--cta)" strokeWidth="2.5" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
-          </button>
-        </div>
-        {/* Weekday headers */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 44px)", justifyContent: "center", marginBottom: 2 }}>
-          {DAYS.map(d => (
-            <div key={d} style={{ textAlign: "center", fontFamily: "'Poppins',sans-serif", fontSize: 9, fontWeight: 600, color: "#B0B0B0", padding: "2px 0" }}>{d}</div>
-          ))}
-        </div>
-        {/* Days */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 44px)", gap: "4px 0", justifyContent: "center" }}>
-          {Array.from({ length: firstWD }).map((_, i) => <div key={`e${i}`} style={{ width: 44, height: 44 }} />)}
-          {Array.from({ length: daysInMonth }).map((_, i) => {
-            const day = i + 1;
-            const date = new Date(calYear, calMonth, day);
-            const avail = isAvailableDay(date);
-            const isSelected = selectedDayObj?.getDate() === day && selectedDayObj?.getMonth() === calMonth && selectedDayObj?.getFullYear() === calYear;
-            const isPast = date < today;
-            return (
-              <button
-                key={day}
-                onClick={() => avail && selectDay(day)}
-                disabled={!avail || isPast}
-                style={{
-                  width: 44, height: 44, borderRadius: 10, padding: 0,
-                  background: isSelected ? "var(--cta)" : avail ? "var(--blue-ultra-light)" : "transparent",
-                  color: isSelected ? "white" : avail ? "var(--cta)" : isPast ? "#D8D8D8" : "#C0C0C0",
-                  border: "none",
-                  fontFamily: "'Poppins',sans-serif", fontWeight: isSelected ? 600 : avail ? 500 : 400,
-                  fontSize: 11, cursor: avail ? "pointer" : "default",
-                  transition: "all 0.15s",
-                }}
-                onMouseEnter={e => { if (avail && !isSelected) e.currentTarget.style.background = "#D6EBFF"; }}
-                onMouseLeave={e => { if (avail && !isSelected) e.currentTarget.style.background = "var(--blue-ultra-light)"; }}
-              >
-                {day}
+      {/* Calendar + Time slots side by side */}
+      <div style={{ display: "flex", gap: 32, alignItems: "flex-start", marginBottom: 32 }}>
+        {/* Calendar */}
+        <div style={{ flexShrink: 0 }}>
+          <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 10px" }}>{isEN ? "Date" : "Datum"}</p>
+          <div style={{ border: "1px solid #EBEBEB", borderRadius: 12, padding: "10px", display: "inline-block" }}>
+            {/* Month nav */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8, minWidth: 340 }}>
+              <button onClick={prevMonth} disabled={isPrevDisabled} style={{ background: isPrevDisabled ? "transparent" : "#F0F4FA", border: "none", borderRadius: 9, width: 34, height: 34, cursor: isPrevDisabled ? "not-allowed" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", opacity: isPrevDisabled ? 0.3 : 1, transition: "background 0.15s" }}
+                onMouseEnter={e => { if (!isPrevDisabled) (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"; }}
+                onMouseLeave={e => { if (!isPrevDisabled) (e.currentTarget as HTMLElement).style.background = "#F0F4FA"; }}>
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="var(--cta)" strokeWidth="2.5" strokeLinecap="round" d="M15 6l-6 6 6 6"/></svg>
               </button>
-            );
-          })}
+              <span style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 13, color: "var(--black)" }}>{MONTHS[calMonth]} {calYear}</span>
+              <button onClick={nextMonth} style={{ background: "#F0F4FA", border: "none", borderRadius: 9, width: 34, height: 34, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.15s" }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "var(--blue-ultra-light)"; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#F0F4FA"; }}>
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="var(--cta)" strokeWidth="2.5" strokeLinecap="round" d="M9 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+            {/* Weekday headers */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 48px)", marginBottom: 2 }}>
+              {DAYS.map(d => (
+                <div key={d} style={{ textAlign: "center", fontFamily: "'Poppins',sans-serif", fontSize: 9, fontWeight: 600, color: "#B0B0B0", padding: "2px 0" }}>{d}</div>
+              ))}
+            </div>
+            {/* Days */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 48px)", gap: "2px" }}>
+              {Array.from({ length: firstWD }).map((_, i) => <div key={`e${i}`} style={{ width: 48, height: 48 }} />)}
+              {Array.from({ length: daysInMonth }).map((_, i) => {
+                const day = i + 1;
+                const date = new Date(calYear, calMonth, day);
+                const avail = isAvailableDay(date);
+                const isSelected = selectedDayObj?.getDate() === day && selectedDayObj?.getMonth() === calMonth && selectedDayObj?.getFullYear() === calYear;
+                const isPast = date < today;
+                return (
+                  <button
+                    key={day}
+                    onClick={() => avail && selectDay(day)}
+                    disabled={!avail || isPast}
+                    style={{
+                      width: 48, height: 48, borderRadius: 10, padding: 0,
+                      background: isSelected ? "var(--cta)" : avail ? "var(--blue-ultra-light)" : "transparent",
+                      color: isSelected ? "white" : avail ? "var(--cta)" : isPast ? "#D8D8D8" : "#C0C0C0",
+                      border: "none",
+                      fontFamily: "'Poppins',sans-serif", fontWeight: isSelected ? 600 : avail ? 500 : 400,
+                      fontSize: 12, cursor: avail ? "pointer" : "default",
+                      transition: "all 0.15s",
+                    }}
+                    onMouseEnter={e => { if (avail && !isSelected) e.currentTarget.style.background = "#D6EBFF"; }}
+                    onMouseLeave={e => { if (avail && !isSelected) e.currentTarget.style.background = "var(--blue-ultra-light)"; }}
+                  >
+                    {day}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Time slots */}
-      {slots && (
-        <div style={{ marginBottom: 32 }}>
-          <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 12px" }}>{isEN ? "Time" : "Uhrzeit"}</p>
-          {slots.morning.length > 0 && (
-            <div style={{ marginBottom: 16 }}>
-              <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", fontWeight: 500, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{isEN ? "Morning" : "Vormittag"}</p>
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                {slots.morning.map(s => (
-                  <TimeChip key={s} time={s} selected={selectedTime === s} onClick={() => setSelectedTime(s)} />
-                ))}
+        {/* Time slots */}
+        {slots && (
+          <div style={{ paddingTop: 30 }}>
+            <p style={{ fontFamily: "'Poppins',sans-serif", fontWeight: 600, fontSize: 14, color: "var(--black)", margin: "0 0 12px" }}>{isEN ? "Time" : "Uhrzeit"}</p>
+            {slots.morning.length > 0 && (
+              <div style={{ marginBottom: 16 }}>
+                <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", fontWeight: 500, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{isEN ? "Morning" : "Vormittag"}</p>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {slots.morning.map(s => (
+                    <TimeChip key={s} time={s} selected={selectedTime === s} onClick={() => setSelectedTime(s)} />
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
-          {slots.afternoon.length > 0 && (
-            <div>
-              <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", fontWeight: 500, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{isEN ? "Afternoon & Evening" : "Nachmittag & Abend"}</p>
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                {slots.afternoon.map(s => (
-                  <TimeChip key={s} time={s} selected={selectedTime === s} onClick={() => setSelectedTime(s)} />
-                ))}
+            )}
+            {slots.afternoon.length > 0 && (
+              <div>
+                <p style={{ fontFamily: "'Poppins',sans-serif", fontSize: 12, color: "var(--grey-text)", fontWeight: 500, margin: "0 0 8px", textTransform: "uppercase", letterSpacing: "0.06em" }}>{isEN ? "Afternoon & Evening" : "Nachmittag & Abend"}</p>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {slots.afternoon.map(s => (
+                    <TimeChip key={s} time={s} selected={selectedTime === s} onClick={() => setSelectedTime(s)} />
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-      )}
+            )}
+          </div>
+        )}
+      </div>
 
       <CtaRow onNext={onNext} disabled={!canGoNext} nextLabel={isEN ? "Continue to Details" : "Weiter zu Angaben"} />
     </div>
