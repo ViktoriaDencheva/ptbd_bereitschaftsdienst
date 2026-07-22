@@ -838,14 +838,29 @@ ${isRechnung ? `
   const unreadCount = getTotalUnread();
 
   function getBookingDate(b: Booking): Date {
-    // b.date e.g. "Do, 18. Juni 2026", b.time e.g. "11:00"
-    const months: Record<string, number> = { Januar:0, Februar:1, März:2, April:3, Mai:4, Juni:5, Juli:6, August:7, September:8, Oktober:9, November:10, Dezember:11 };
-    const parts = b.date.replace(/^[^,]+,\s*/, "").split(" ");
-    const day = parseInt(parts[0]);
-    const month = months[parts[1]] ?? 0;
-    const year = parseInt(parts[2]);
-    const [h, m] = b.time.split(":").map(Number);
-    return new Date(year, month, day, h, m);
+    // DE: "Do, 18. Juni 2026" | EN: "Th, June 18, 2026"
+    // April/August/September/November are identical in both languages
+    const allMonths: Record<string, number> = {
+      Januar:0, January:0, Februar:1, February:1, März:2, March:2,
+      April:3, Mai:4, May:4, Juni:5, June:5, Juli:6, July:6,
+      August:7, September:8, Oktober:9, October:9, November:10, Dezember:11, December:11,
+    };
+    const core = b.date.replace(/^[^,]+,\s*/, "").replace(/\./g, "").trim();
+    const parts = core.split(/[\s,]+/).filter(Boolean);
+    let day: number, month: number, year: number;
+    if (isNaN(Number(parts[0]))) {
+      // EN format: "June 18 2026"
+      month = allMonths[parts[0]] ?? 0;
+      day = parseInt(parts[1]);
+      year = parseInt(parts[2]);
+    } else {
+      // DE format: "18 Juni 2026"
+      day = parseInt(parts[0]);
+      month = allMonths[parts[1]] ?? 0;
+      year = parseInt(parts[2]);
+    }
+    const [h, mn] = b.time.split(":").map(Number);
+    return new Date(year, month, day, h, mn);
   }
 
   function formatCountdown(ms: number): string {
